@@ -4,16 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Storage;
+
+use URL;
 class TestUpController extends Controller {
 
 	public function loadphoto(Request $req) {
 
-		$photo = substr($req->upphoto, strpos($req->upphoto, ",") + 1);
+		$trimfilestring = explode(';', $req->upphoto);
+		$ext = substr($trimfilestring[0], strpos($trimfilestring[0], "/") + 1);
+		$base64string = substr($trimfilestring[1], strpos($trimfilestring[1], ",") + 1);
 
-		$dphoto = base64_decode($photo);
+		$decodephoto = base64_decode($base64string);
 
-		print_r($dphoto);
+		$filename =  "objects/displayphoto/" . str_random() . "." . $ext;
 
+		file_put_contents($filename, $decodephoto);
+
+		return asset($filename);
+		//Storage::disk('public')->put($filename, $decodephoto);
+
+		
+		//return asset(Storage::disk('public')->url($filename));
 	}//loadphoto
     
 }//class

@@ -710,6 +710,7 @@ legend {
 .profpic {
 	border-radius: 0.28571429rem;
 	margin-bottom: 1%;
+	object-fit: cover;
 }
 
 .selectcon {

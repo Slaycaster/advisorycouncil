@@ -5,11 +5,11 @@
 		<div class = "formattp tablepane">
 			<div class = "mtitle">
 				Add Adviser
-								
+				<div id="myToast" class="toast-popup"></div>			
 			</div>
 
 			<div class = "tablecon">
-				<form action = "javascript:controlaction()" class = "ui form" id = "form">
+				<form action = "javascript:loadCModal()" class = "ui form" id = "form">
 
 					<input type="hidden" value="" name="advid"/>
 
@@ -81,6 +81,35 @@
 										</div>			
 									</div>
 
+									<div class = "field">
+ 										<label>Home Address</label>
+ 
+ 										<div class = "four fields">
+ 											<div class = "ui input field">
+ 												<input type="text" name = "street" placeholder="Street Address">
+ 												
+ 											</div>
+ 
+ 											<div class = "ui input field">
+ 												<input type="text" name = "barangay" placeholder="Barangay">
+ 
+ 											</div>
+ 
+ 											<div class = "ui input field">
+ 												<input type="text" name = "city" placeholder="City">
+ 												
+ 											</div>
+ 
+ 											<div class = "ui input field">
+ 												<input type="text" name = "province" placeholder="Province">
+ 												
+ 											</div>
+ 
+ 
+ 											
+ 										</div>
+ 										
+ 									</div>
 								
 
 									<h4 class="ui dividing header">Contact Information</h4>
@@ -151,15 +180,18 @@
 								<div class = "three wide column">
 									<div class = "fborder piccon">
 										<div class = "ui medium image">
-											<img class = "profpic" src="{{URL::asset('objects/Logo/InitProfile.png')}}">
+											<img class = "profpic" id = "profpic"  src="{{URL::asset('objects/Logo/InitProfile.png')}}">
 										</div>
 
 										<div class = "ui input sixteen wide field">
-											<input type = "file" accept="image/*" name = "upphoto"/>
+											<input type = "file" onchange = "previewphoto()" accept="image/*" name = "upphoto"/>
 											
 										</div>
-										
+
 									</div>
+
+									<span class ="message" id="message">{{session('message')}}</span>
+
 
 								</div>
 								
@@ -282,14 +314,9 @@
 						<button type = "submit" name="submit" 
 								class="ui large button submit savebtnstyle">
 
-						<!--<button type = "submit" name="submit" onclick ="if(confirm('Save?')) {addProfile()}"
-								class="ui large button submit savebtnstyle">-->
-
-
 							Save
 						</button>
-						<button type = "reset" 
-								onclick = "if(confirm('Cancel?')) { window.location='{{url('directory')}}'}" 
+						<button type="button" onclick = "$('#cancelmodal').modal('show');" 
 								class="ui large button">
 							Cancel
 
@@ -310,19 +337,23 @@
 	<script type="text/javascript">
 		$('#tab3').attr('class', 'mlink item active');
 		var lecturers = new Array();
+		var link;
 
-		addT1Elements();
-		populateacp();
-		populateacc();
-		populateacs();
+		if('{{$action}}' === '0') {
+			addT1Elements();
+			getInitialACDropdown();
+			link = "{{url('adviser/add')}}";
+
+		} else if('{{$action}}' === '1') {
+			link = "{{url('adviser/edit')}}";
+
+		}//if('{{$action}}' == '0') {
 
 		function changeform(selcat) {
 			if(selcat == 0) {
 				removeElements();
 				addT1Elements();
-				populateacp();
-				populateacc();
-				populateacs();
+				getInitialACDropdown();
 
 				$("#traintable tbody").empty();
 
@@ -332,8 +363,8 @@
 			} else {
 				removeElements();
 				addT2Elements();
-				populatepp();
-				populatepo();
+				getInitialTPDropdown();
+
 
 				rowcount = 0;
 				document.getElementById('trainingcon').style.display = "block";
@@ -422,180 +453,230 @@
 			var etime = new Array();
 			var speaker = new Array();
 			var org = new Array();
-			var photo = new Blob(document.getElementsByName('upphoto')[0].files,  {type : 'image/*'});
+			var photo = "";
+			var upphoto = document.getElementsByName('upphoto')[0].files;
+			var blob = new Blob();
+			var blobreader = new FileReader();
 
-			console.log(photo);
+			if(upphoto.length == 1) {
+				blob = new Blob(document.getElementsByName('upphoto')[0].files, 
+								{type: document.getElementsByName('upphoto')[0].files[0]['type']});
+
+			}//upphoto
+
+			var blobsize = blob.size;
 
 			
-			if (slctdtype == 0) {
-				var data = {
-					'ID' : document.getElementsByName('advid')[0].value,
-					'lname' : document.getElementsByName('lname')[0].value,
-					'fname' : document.getElementsByName('fname')[0].value,
-					'mname' : document.getElementsByName('mname')[0].value,
-					'qname' : document.getElementsByName('qname')[0].value,
-					'bdate' : document.getElementsByName('bdate')[0].value,
-					'gender' : $("input[name='gender']:checked").val(),
-					'mobile' : document.getElementsByName('mobile')[0].value,
-					'landline' : document.getElementsByName('landline')[0].value,
-					'email' : document.getElementsByName('email')[0].value,
-					'facebook' : document.getElementsByName('facebook')[0].value,
-					'twitter' : document.getElementsByName('twitter')[0].value,
-					'instagram' : document.getElementsByName('instagram')[0].value,
-					'advcateg' : slctdtype,
-					'durstart' : document.getElementsByName('durationsdate')[0].value,
-					'acposition' : document.getElementsByName('acposition')[0].value,
-					'officename' : document.getElementsByName('officename')[0].value,
-					'officeadd' : document.getElementsByName('officeadd')[0].value,
-					'acsubcateg' : document.getElementsByName('acsubcateg')[0].value,
-					'acsector' : $("select[name='acsector']").val(),
-					'photo' : photo,
-					'submit' : 'save',
-					'_token' : '{{ Session::token() }}'
-				};
 
-			} else if(slctdtype == 1 || slctdtype == 2) {
-				//TRAINING
-				for(var count = 0 ; count <= rowcount ; count++) {
-					var initspk = new Array();
+			blobreader.onload = function(event){
 
-					if(document.getElementsByName('traintitle')[count].value !== "") {
-						traintitle.push(document.getElementsByName('traintitle')[count].value);
+				if(blobsize == 0) {
+					photo = "";
+				} else {
+					photo = event.target.result;
+				}//if
 
-						if(document.getElementsByName('traincateg')[count].value == 7) {
-							traincateg.push(document.getElementsByName('othercat')[count].value);
+				if (slctdtype == 0) {
+					var data = {
+						'ID' : document.getElementsByName('advid')[0].value,
+						'lname' : document.getElementsByName('lname')[0].value,
+						'fname' : document.getElementsByName('fname')[0].value,
+						'mname' : document.getElementsByName('mname')[0].value,
+						'qname' : document.getElementsByName('qname')[0].value,
+						'bdate' : document.getElementsByName('bdate')[0].value,
+						'street' : document.getElementsByName('street')[0].value,
+						'barangay' : document.getElementsByName('barangay')[0].value,
+						'city' : document.getElementsByName('city')[0].value,
+						'province' : document.getElementsByName('province')[0].value,
+						'gender' : $("input[name='gender']:checked").val(),
+						'mobile' : document.getElementsByName('mobile')[0].value,
+						'landline' : document.getElementsByName('landline')[0].value,
+						'email' : document.getElementsByName('email')[0].value,
+						'facebook' : document.getElementsByName('facebook')[0].value,
+						'twitter' : document.getElementsByName('twitter')[0].value,
+						'instagram' : document.getElementsByName('instagram')[0].value,
+						'advcateg' : slctdtype,
+						'durstart' : document.getElementsByName('durationsdate')[0].value,
+						'acposition' : document.getElementsByName('acposition')[0].value,
+						'officename' : document.getElementsByName('officename')[0].value,
+						'officeadd' : document.getElementsByName('officeadd')[0].value,
+						'acsubcateg' : document.getElementsByName('acsubcateg')[0].value,
+						'acsector' : $("select[name='acsector']").val(),
+						'upphoto' : photo,
+						'submit' : 'save',
+						'_token' : '{{ Session::token() }}'
+					};
+					
+				} else if(slctdtype == 1 || slctdtype == 2) {
+					//TRAINING
+					for(var count = 0 ; count <= rowcount ; count++) {
+						var initspk = new Array();
 
-						} else {
-							traincateg.push(document.getElementsByName('traincateg')[count].value);
+						if(document.getElementsByName('traintitle')[count].value !== "") {
+							traintitle.push(document.getElementsByName('traintitle')[count].value);
+
+							if(document.getElementsByName('traincateg')[count].value == 7) {
+								traincateg.push(document.getElementsByName('othercat')[count].value);
+
+							} else {
+								traincateg.push(document.getElementsByName('traincateg')[count].value);
+
+							}//if
+
+							location.push(document.getElementsByName('location')[count].value);
+							sdate.push(document.getElementsByName('trainsdate')[count].value);
+							edate.push(document.getElementsByName('trainedate')[count].value);
+							stime.push(document.getElementsByName('trainstime')[count].value);
+							etime.push(document.getElementsByName('trainetime')[count].value);
+							
+							for(var ctrspk = 0 ; ctrspk < lecturers.length ; ctrspk++) {
+								if(lecturers[ctrspk][1] == count) {
+									initspk.push(lecturers[ctrspk][0]);
+								}//if
+							}//for
+
+							speaker.push(initspk);
+
+							org.push(document.getElementsByName('trainorg')[count].value);
 
 						}//if
+					}
 
-						location.push(document.getElementsByName('location')[count].value);
-						sdate.push(document.getElementsByName('trainsdate')[count].value);
-						edate.push(document.getElementsByName('trainedate')[count].value);
-						stime.push(document.getElementsByName('trainstime')[count].value);
-						etime.push(document.getElementsByName('trainetime')[count].value);
-						
-						for(var ctrspk = 0 ; ctrspk < lecturers.length ; ctrspk++) {
-							if(lecturers[ctrspk][1] == count) {
-								initspk.push(lecturers[ctrspk][0]);
-							}//if
-						}//for
-
-						speaker.push(initspk);
-
-						org.push(document.getElementsByName('trainorg')[count].value);
-
-					}//if
-				}
-
-				var data = {
-					'ID' : document.getElementsByName('advid')[0].value,
-					'lname' : document.getElementsByName('lname')[0].value,
-					'fname' : document.getElementsByName('fname')[0].value,
-					'mname' : document.getElementsByName('mname')[0].value,
-					'bdate' : document.getElementsByName('bdate')[0].value,
-					'gender' : $("input[name='gender']:checked").val(),
-					'street' : document.getElementsByName('street')[0].value,
-					'barangay' : document.getElementsByName('barangay')[0].value,
-					'city' : document.getElementsByName('city')[0].value,
-					'province' : document.getElementsByName('province')[0].value,
-					'mobile' : document.getElementsByName('mobile')[0].value,
-					'landline' : document.getElementsByName('landline')[0].value,
-					'email' : document.getElementsByName('email')[0].value,
-					'facebook' : document.getElementsByName('facebook')[0].value,
-					'twitter' : document.getElementsByName('twitter')[0].value,
-					'instagram' : document.getElementsByName('instagram')[0].value,
-					'advcateg' : slctdtype,
-					'durstart' : document.getElementsByName('durationsdate')[0].value,
-					'authorder' : document.getElementsByName('authorder')[0].value,
-					'pnppost' : document.getElementsByName('position')[0].value,
-					'suboffice' : document.getElementsByName('secondary')[0].value,
-					'traintitle' : traintitle,
-					'traincateg' : traincateg,
-					'location' : location,
-					'sdate' : sdate,
-					'stime' : stime,
-					'etime' : etime,
-					'edate' : edate,
-					'speaker' : speaker,
-					'org' : org,
-					'submit' : 'save',
-					'_token' : '{{ Session::token() }}'
-				};
+					var data = {
+						'ID' : document.getElementsByName('advid')[0].value,
+						'lname' : document.getElementsByName('lname')[0].value,
+						'fname' : document.getElementsByName('fname')[0].value,
+						'mname' : document.getElementsByName('mname')[0].value,
+						'bdate' : document.getElementsByName('bdate')[0].value,
+						'gender' : $("input[name='gender']:checked").val(),
+						'street' : document.getElementsByName('street')[0].value,
+						'barangay' : document.getElementsByName('barangay')[0].value,
+						'city' : document.getElementsByName('city')[0].value,
+						'province' : document.getElementsByName('province')[0].value,
+						'mobile' : document.getElementsByName('mobile')[0].value,
+						'landline' : document.getElementsByName('landline')[0].value,
+						'email' : document.getElementsByName('email')[0].value,
+						'facebook' : document.getElementsByName('facebook')[0].value,
+						'twitter' : document.getElementsByName('twitter')[0].value,
+						'instagram' : document.getElementsByName('instagram')[0].value,
+						'advcateg' : slctdtype,
+						'durstart' : document.getElementsByName('durationsdate')[0].value,
+						'authorder' : document.getElementsByName('authorder')[0].value,
+						'pnppost' : document.getElementsByName('position')[0].value,
+						'rank' : document.getElementsByName('rank')[0].value,
+						'primary' : document.getElementsByName('primary')[0].value,
+						'secondary' : document.getElementsByName('secondary')[0].value,
+						'tertiary' : document.getElementsByName('tertiary')[0].value,
+						'quaternary' : document.getElementsByName('quaternary')[0].value,
+						'traintitle' : traintitle,
+						'traincateg' : traincateg,
+						'location' : location,
+						'sdate' : sdate,
+						'stime' : stime,
+						'etime' : etime,
+						'edate' : edate,
+						'speaker' : speaker,
+						'org' : org,
+						'submit' : 'save',
+						'_token' : '{{ Session::token() }}'
+					};
 
 
-			}//if (slctdtype == 0) {
+				}//if (slctdtype == 0) {
+				
+				$.ajax({
+					type: "POST",
+					url: link,
+					data: data,
+				   	success : function() {
 
-			/**if(action == 0) {
+				   		loadtoast("Saved");
+				   	
+				   	}//success : function() {
+				});
 
-				var url = {{url('adviser/add')}};
+				setTimeout(function(){
+					//window.location = "{{URL('adviser')}}";
+				}, 2600);
 
-			} else if(edit == 1) {
-				var url = {{url('adviser/edit')}};
-
-
-			}//if(action == 0) {**/
-
-
-			$.ajax({
-				type: "POST",
-				url: "{{url('adviser/add')}}",
-				data: data,
-			   	success : function() {
-			   		//window.location = "{{URL('adviser')}}";
-			   	
-			   	}//success : function() {
-			});
-
+					
+       			
+    		};     
+   
+   			blobreader.readAsDataURL(blob);
+				
 			
 		}//function controlaction() {
+		
+		function loadtoast(msg) {
 
-		//DROPDOWNS
+			$("#myToast").showToast({
+				message: msg,
+				timeout: 2500
+			});
 
-		function populateacp() {
-			@foreach($acposition as $acpitem)
-				populatedropdown('{{$acpitem->ID}}', 'acposition' , '{{$acpitem->acpositionname}}');
-			
-			@endforeach
+		}//function resetflag() {
 
 
-		}//function populateacp() {
+		//DROPDOWN
 
-		function populateacc() {
-			@foreach($accateg as $catitem)
-				populatedropdown('{{$catitem->ID}}', 'accateg' , '{{$catitem->categoryname}}');
+		function getInitialACDropdown() {
+			$.ajax({
+				type: "GET",
+				url: "{{url('dropdown/getinitacd')}}",
+				dataType: 'json',
+			   	success : function(data) {
 
-			@endforeach
+			   		$("select[name='acposition'] option").not("[value='disitem']").remove();
+			   		$("select[name='accateg'] option").not("[value='disitem']").remove();
+			   		$("select[name='acsector'] option").not("[value='disitem']").remove();
 
-		}//function populateacc() {
+			   		for (var ctr = 0 ; ctr < data[0].length ; ctr++) {
+			   			populatedropdown(data[0][ctr]['ID'], 'acposition', data[0][ctr]['ID']['acpositionname']);
+			   			
+			   		};
 
-		function populateacs() {
-			@foreach($acsector as $secitem)
-				populatedropdown('{{$secitem->ID}}', 'acsector' , '{{$secitem->sectorname}}');
+			   		for (var ctr = 0 ; ctr < data[1].length ; ctr++) {
+			   			populatedropdown(data[1][ctr]['ID'], 'accateg', data[1][ctr]['categoryname']);
+			   			
+			   		};
 
-				
-			@endforeach
+			   		for (var ctr = 0 ; ctr < data[2].length ; ctr++) {
+			   			populatedropdown(data[2][ctr]['ID'], 'acsector', data[2][ctr]['sectorname']);
+			   			
+			   		};
+			   	}//success : function() {
+			});
+		}//function getInitialACDropdown() {
 
-		}//function populateacs() {
+		function getInitialTPDropdown() {
+			$.ajax({
+				type: "GET",
+				url: "{{url('dropdown/getinittpd')}}",
+				dataType: 'json',
+			   	success : function(data) {
 
-		function populatepp() {
-			@foreach($pnppost as $ppitem)
-				populatedropdown('{{$ppitem->ID}}', 'position', '{{$ppitem->positionname}}');
+			   		$("select[name='position'] option").not("[value='disitem']").remove();
+			   		$("select[name='rank'] option").not("[value='disitem']").remove();
+			   		$("select[name='primary'] option").not("[value='disitem']").remove();
 
-				
-			@endforeach
+			   		for (var ctr = 0 ; ctr < data[0].length ; ctr++) {
+			   			populatedropdown(data[0][ctr]['ID'], 'position', data[0][ctr]['PositionName']);
+			   			
+			   		};
 
-		}//function populateacs() {
+			   		for (var ctr = 0 ; ctr < data[1].length ; ctr++) {
+			   			populatedropdown(data[1][ctr]['id'], 'rank', data[1][ctr]['RankName']);
+			   			
+			   		};
 
-		function populatepo() {
-			@foreach($primaryoffice as $poitem)
-				populatedropdown('{{$poitem->ID}}', 'primary' , '{{$poitem->officename}}');
-
-				
-			@endforeach
-
-		}//function populateacs() {
+			   		for (var ctr = 0 ; ctr < data[2].length ; ctr++) {
+			   			populatedropdown(data[2][ctr]['id'], 'primary', data[2][ctr]['UnitOfficeName']);
+			   			
+			   		};
+			   	}//success : function() {
+			});
+		}//function getInitialTPDropdown() {
 
 		function getsubcateg() {
 			var data = {
@@ -622,8 +703,6 @@
 			   	}//success : function() {
 			});
 
-			console.log($("select[name='acsector']").val());
-
 
 		}//function getsubcateg() {
 
@@ -634,6 +713,7 @@
 
 			};
 
+			console.log(data);
 			$.ajax({
 				type: "POST",
 				url: "{{url('dropdown/getsecoffice')}}",
@@ -644,9 +724,10 @@
 			   		$("select[name='secondary'] option").not("[value='disitem']").remove();
 
 			   		for (var ctr = 0 ; ctr < secoffice.length ; ctr++) {
-			   			populatedropdown(secoffice[ctr]['ID'], 'secondary', secoffice[ctr]['officename']);
+			   			populatedropdown(secoffice[ctr]['id'], 'secondary', secoffice[ctr]['UnitOfficeSecondaryName']);
 			   			
 			   		};
+
 
 			   		
 			   	}//success : function() {
@@ -654,9 +735,125 @@
 
 		}//function getsecoffice() {
 
+		function getteroffice() {
+			var data = {
+				'soID' : document.getElementsByName('secondary')[0].value,
+				'_token' : '{{ Session::token() }}'
+
+			};
+
+			$.ajax({
+				type: "POST",
+				url: "{{url('dropdown/getteroffice')}}",
+				data: data,
+				dataType: 'json',
+			   	success : function(teroffice) {
+
+			   		$("select[name='tertiary'] option").not("[value='disitem']").remove();
+
+			   		for (var ctr = 0 ; ctr < teroffice.length ; ctr++) {
+			   			populatedropdown(teroffice[ctr]['id'], 'tertiary', teroffice[ctr]['UnitOfficeTertiaryName']);
+			   			
+			   		};
+
+			   		
+			   	}//success : function() {
+			});
+		}//function getteroffice() {
+
+		function getquaroffice() {
+			var data = {
+				'toID' : document.getElementsByName('tertiary')[0].value,
+				'_token' : '{{ Session::token() }}'
+
+			};
+
+			$.ajax({
+				type: "POST",
+				url: "{{url('dropdown/getquaroffice')}}",
+				data: data,
+				dataType: 'json',
+			   	success : function(quaroffice) {
+
+			   		$("select[name='quaternary'] option").not("[value='disitem']").remove();
+
+			   		for (var ctr = 0 ; ctr < quaroffice.length ; ctr++) {
+			   			populatedropdown(quaroffice[ctr]['id'], 'quaternary', quaroffice[ctr]['UnitOfficeQuaternaryName']);
+			   			
+			   		};
+
+			   		
+			   	}//success : function() {
+			});
+		}//function getteroffice() {
+
+
+
+
+
+
+		//PHOTO
+
+		function validatefiletype(photo) {
+			var upext = photo['type'];
+			var upsize = photo['size'];
+			var maxsize = 1048576;
+			var message = "false";
+			var error;
+			var validext = ['image/pjpeg', 'image/jpeg', 'image/jpg', 'image/JPEG', 'image/JPG', 'image/X-PNG', 'image/PNG', 'image/png', 'image/GIF', 'image/gif'];
+				
+				
+			for (var ctr = 0 ; ctr < validext.length ; ctr++) {
+				if(upext == validext[ctr]) {
+					message = "true";
+					break;
+				}//if(data['type'] == validext[ctr]) {
+			};
+
+
+			if(message === "true" && upsize <= maxsize) {
+				return message;
+			} else if(message === "true" && upsize > maxsize) {
+				return "IMAGE TOO LARGE";
+
+			} else {
+				return "INVALID FILE TYPE";
+
+			}//if
+
+		}//function validatefiletype() {
+
+		function previewphoto() {
+
+			var upphoto = document.getElementsByName('upphoto')[0].files;
+			var result;
+
+			if (upphoto.length == 1) {
+				result = validatefiletype(upphoto[0]);
+
+				if( result === "true") {
+					var reader = new FileReader();
+
+			        reader.onload = function (e) {
+		            document.getElementById('profpic').src = e.target.result;
+
+		        }//reader.onload
+	
+	        	reader.readAsDataURL(upphoto[0]);
+	        	document.getElementById('message').innerHTML = "";
+
+			    } else {
+			    	document.getElementById('message').innerHTML = result;
+			    }//if
+			}//if
+
+		}//previewphoto
+
 	</script>
 
 
 
+
+@include('module.adviser_modal')
 
 @stop

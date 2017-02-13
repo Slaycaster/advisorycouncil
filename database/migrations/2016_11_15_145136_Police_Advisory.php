@@ -14,13 +14,17 @@ class PoliceAdvisory extends Migration
             $table->string('fname', 45);
             $table->string('mname', 45)->nullable();
             $table->string('lname', 45);
-            $table->string('qualifier', 45);
+            $table->string('qualifier', 45)->nullable();
             $table->tinyInteger('gender');
             $table->string('contactno', 15);
-            $table->string('email', 65);
+            $table->string('email', 30);
+            $table->string('street', 50)->nullable();
+            $table->string('city', 45)->nullable();
+            $table->string('barangay', 45)->nullable();
+            $table->string('province', 45)->nullable();
             $table->tinyInteger('policetype');
             $table->string('authorityorder', 20)->unique();
-            $table->text('imagepath');
+            $table->text('imagepath')->nullable();
             $table->date('startdate');
             $table->date('enddate')->nullable();
             $table->string('fbuser', 20)->nullable();
@@ -38,6 +42,7 @@ class PoliceAdvisory extends Migration
             $table->foreign('second_id')->references('id')->on('unit_office_secondaries');
             $table->foreign('tertiary_id')->references('id')->on('unit_office_tertiaries');
             $table->foreign('quaternary_id')->references('id')->on('unit_office_quaternaries');
+            $table->timestamps();
 
         });
     }

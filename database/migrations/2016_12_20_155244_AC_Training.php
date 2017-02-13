@@ -15,6 +15,7 @@ class ACTraining extends Migration
             $table->integer('id_training')->unsigned();
             $table->foreign('id_advisory')->references('ID')->on('Advisory_Council');
             $table->foreign('id_training')->references('ID')->on('Training');
+            $table->timestamps();
         });
 
     }

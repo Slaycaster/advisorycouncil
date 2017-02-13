@@ -13,13 +13,15 @@ use Response;
 class RegistrationController extends Controller
 {
     public function index(){
-       $users = users::where('status', '=', '0')->get();
-        $email = "no";
-        if (Auth::check() == true) {
-            $email = Auth::user()->email;
-        }
-        return View('transaction.registration')->with('users',$users)
-                                               ->with('try', Auth::check());
+
+        $reqlist = users::where('status', '<>', '0')
+                            ->where('email', '!=', 'admin')
+                            ->orderBy('created_at','desc')
+                            ->union(users::where('status', '=', '0'))
+                            ->orderBy('created_at','desc')
+                            ->get();
+
+        return View('admin.admin_table')->with('users',$reqlist);
     }
 
     public function reloadCaptcha(){

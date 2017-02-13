@@ -19,6 +19,7 @@ class Training extends Migration
             $table->time('starttime');
             $table->time('endtime');
             $table->string('trainingtype', 45);
+            $table->timestamps();
         });
     }
 

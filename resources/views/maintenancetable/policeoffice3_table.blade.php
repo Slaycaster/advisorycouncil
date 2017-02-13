@@ -245,25 +245,16 @@
 		});
 	}//function exec() {
 
-	function removeOption(selectbox){
-
-			for(i=selectbox.options.length;i>0;i--){
-				selectbox.remove(i);
-			}
-		}
-
-
 	function Select_Office(id){
 			$("#office2 option").not("[value='disitem']").remove();
 
-			//removeOption(document.getElementById('office2'));
 			$('#office2').dropdown('restore defaults');
 
-				var data = {
-					'id' : id,
-					'callid' : 1,
-					'_token' : '{{ Session::token() }}' 
-				};			
+			var data = {
+				'id' : id,
+				'callid' : 1,
+				'_token' : '{{ Session::token() }}' 
+			};			
 
 		
 			$.ajax({

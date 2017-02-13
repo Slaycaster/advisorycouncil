@@ -20,6 +20,7 @@ class PoliceTraining extends Migration
             $table->integer('police_training_id')->unsigned();
             $table->foreign('police_id')->references('ID')->on('Police_Advisory');
             $table->foreign('police_training_id')->references('ID')->on('Training');
+            $table->timestamps();
         });
     }
 

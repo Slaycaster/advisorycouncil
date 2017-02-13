@@ -6,7 +6,9 @@
 
 	</head>
 	<body>
-		<img class = "profpic" id = "profpic" src="{{URL::asset('objects/Logo/InitProfile.png')}}">
+		<img style="width:200px; height:200px; object-fit: cover;" class = "profpic" id = "profpic" src="{{URL::asset('objects/Logo/InitProfile.png')}}">
+
+		<img style="width:200px; height:200px; object-fit: cover;" class = "profpic2" id = "profpic2" src="">
 
 		<span class ="message" id="message">{{session('message')}}</span>
 
@@ -81,33 +83,28 @@
 				var blobreader = new FileReader();
 
 				blobreader.onload = function(event){
-					//var formdata = new FormData();
-
-					//formdata.append('upphoto', event.target.result);
 
 					var data = {
-						'upphoto' : event.target.result
+						'upphoto' : event.target.result,
+						'_token' : '{{ Session::token() }}'
 					};
 
 					$.ajax({
 			            type: 'POST',
-			            headers: {
-					            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-					        },
 			            url: "{{url('testupload')}}",
-			            data: data,
-			            processData: false,
-			            contentType: false
+			            data: data
+
+			            
 			        }).done(function(data) {
-			            // print the output from the upload.php script
+			           document.getElementById('profpic2').src = data;
 			            console.log(data);
 			        });
+
+					
        			
-       			};      
+       			};     
    
 				blobreader.readAsDataURL(blob);
-
-				console.log(blob);
 
 			}//uploadphoto
 		</script>

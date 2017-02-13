@@ -65,7 +65,7 @@ class PoliceOfficeFourController extends Controller
 
     	if($callid == 1){
     		$seconddata = DB::table('unit_office_secondaries')->where('UnitOfficeID','=',$id)
-                                                              ->where('UnitOfficeHasTertiary','=', 'true')->get();
+                                                              ->where('UnitOfficeHasTertiary','=', 'True')->get();
     		return $seconddata;
 		}//populate secondary
 

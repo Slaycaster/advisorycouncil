@@ -16,11 +16,19 @@ use App\Models\unit_offices;
 
 use App\Models\unit_office_secondaries;
 
+use App\Models\unit_office_tertiaries;
+
+use App\Models\unit_office_quaternaries;
+
 use App\Models\Advisory_Position;
 
 use App\Models\AC_Category;
 
+use App\Models\ranks;
+
 use App\Models\AC_Subcategory;
+
+use App\Models\Personnel_Sector;
 
 use App\Models\AC_Sector;
 
@@ -36,140 +44,62 @@ use Auth;
 
 class AdvDirectoryController extends Controller {
 
-	public function index(){
- 		/*$profile = Advisers::all();
- 		return View ('module/adviser_add')->with('profile', $profile);*/
+	public function readyadd(){
 
- 		$acposition = Advisory_Position::all();
- 		$accateg = AC_Category::all();
- 		$acsector = AC_Sector::all();
- 		$pnpposition = Police_Position::all();
- 		$primaryoffice = unit_offices::all();
+ 		return view('module.adviser_add')->with('action', 0);
 
- 		return view('module.adviser_add')->with('acposition', $acposition)
- 										 ->with('accateg', $accateg)
- 										 ->with('acsector', $acsector)
- 										 ->with('pnppost', $pnpposition)
- 										 ->with('primaryoffice', $primaryoffice);
+ 	}//select dropdowns
 
- 	} //select dropdowns
+ 	public function readyedit() {
+ 		return view('module.adviser_add')->with('action', 1);
+ 	}//ready edit
 
 	public function addadviser(Request $req) {
 		$data = $req->all();
 
+		DB::transaction(function($data) use ($data) {
 
+			if (isset($_POST['submit'])) {
 
-		/*$data = array(
-					'ID' => '',
-					'lname' =>'lname',
-					'fname' =>'fname',
-					'mname' => 'mname',
-					'bdate' => '1996-11-21',
-					'gender' => '1',
-					'street' => 'street',
-					'barangay' => 'barangay',
-					'city' => 'city',
-					'province' => 'province',
-					'mobile' => '890209129012',
-					'landline' => '2345234',
-					'email' => 'shie@yahoo.com',
-					'facebook' => 'shieeugenio',
-					'twitter' => 'shieeugenio',
-					'instagram' => 'shieeugenio',
-					'advcateg'  => '0',
-					'durstart' => '2016-12-01',
-					'durend' => '2016-12-01',
-					'acposition' => '1',
-					'officename' => 'CC',
-					'officeadd' => 'QC',
-					'acsubcateg' => '1',
-					'acsector' => array('1'),
-					'submit' => 'save'
-				);
+				if($data['advcateg'] == 0) {
+					$this->addAC($data);
 
-				$data = array(
-					'ID' => '',
-					'lname' =>'lname',
-					'fname' =>'fname',
-					'mname' => 'mname',
-					'bdate' => '1996-11-21',
-					'gender' => '1',
-					'street' => 'street',
-					'barangay' => 'barangay',
-					'city' => 'city',
-					'province' => 'province',
-					'mobile' => '890209129012',
-					'landline' => '2345234',
-					'email' => 'shie@yahoo.com',
-					'facebook' => 'shieeugenio',
-					'twitter' => 'shieeugenio',
-					'instagram' => 'shieeugenio',
-					'advcateg'  => '1',
-					'durstart' => '2016-12-01',
-					'durend' => '2016-12-01',
-					'authorder' => 'saudjiqskkpq9',
-					'pnppost' => '1',
-					'suboffice' => '1',
-					'traintitle' => array('T30sjdas','T7sajdk'),
-					'traincateg' => array('Tjdhks1','Tsajdkl2'),
-					'location' => array('T1','T2'),
-					'sdate' => array('2015-11-21','2015-11-21'),
-					'stime' => array('08:00:00', '08:00:00'),
-					'etime' => array('08:00:00', '08:00:00'),
-					'edate' => array('2015-11-21','2015-11-21'),
-					'speaker' => array(array('Shie', 'Mae'), array('Shie', 'Mae')),
-					'org' => array('ORG', 'ORG3'),
-					'submit' => 'save'
-				);*/
+				} else {
+					$this->addTP($data);
 
-		
+				}//if($data->advcateg == 0) {
+			
 
-		/**if (isset($_POST['submit'])) {
-			$this->addProfile($data);
-
-			$id = $this->getID();
-
-			if($data['advcateg'] == 0) {
-				$this->addAC($data, $id);
-
-			} else {
-				$this->addTP($data, $id);
-				$this->addTraining($data, $id);
-
-			}//if($data->advcateg == 0) {
-		
-
-		}// if**/
-
-		//$data = file_get_contents('php://input');
-
-		print_r($data);
+			}// if
+		});
 
 	}//add - WHOLE
 
 	public function editadviser(Request $req) {
 		$data = $req->all();
 
-		if (isset($_POST['submit'])) {
-			$this->editProfile($data);
+		DB::transaction(function($data) use ($data) {
+
+		
+			if (isset($_POST['submit'])) {
+
+				if($data->advcateg == 0) {
+					$this->editAC($data);
+
+				} else {
+					$this->editTP($data);
+					
+					$trainID = $this->getTrainIDList($data->ID);
+
+					$this->editLecturer($data, $trainID);
 
 
-			if($data->advcateg == 0) {
-				$this->editAC($data);
+				}//if($data->advcateg == 0) {
 
-			} else {
-				$this->editTP($data);
 				
-				$trainID = $this->getTrainIDList($data->ID);
 
-				$this->editLecturer($data, $trainID);
-
-
-			}//if($data->advcateg == 0) {
-
-			
-
-		}// if
+			}// if
+		});
 
 
 	}//edit - WHOLE
@@ -278,8 +208,18 @@ class AdvDirectoryController extends Controller {
 
 	}//public function getRecent() {
 
-	public function getID() {
+	public function getACID() {
 		$getid = Advisory_Council::orderBy('ID', 'desc')->take(1)->get();
+
+		foreach ($getid as $key => $id) {
+            return $id->ID;
+        }//foreach ($getid as $key => $id) {
+
+
+	}//public function getID() {
+
+	public function getTPID() {
+		$getid = Police_Advisory::orderBy('ID', 'desc')->take(1)->get();
 
 		foreach ($getid as $key => $id) {
             return $id->ID;
@@ -302,6 +242,23 @@ class AdvDirectoryController extends Controller {
 
 	//DROPDOWN
 
+	public function getInitACD() {
+		$acposition = Advisory_Position::all();
+ 		$accateg = AC_Category::all();
+ 		$acsector = AC_Sector::all();
+
+ 		return array($acposition, $accateg, $acsector);
+	}//public function getInitACD() {
+
+	public function getInitTPD() {
+		$pnpposition = Police_Position::all();
+		$rank = ranks::all();
+ 		$primaryoffice = unit_offices::all();
+
+ 		return array($pnpposition, $rank, $primaryoffice);
+
+	}//public function getInitTPD() {
+
 	public function getSubCateg(Request $req) {
 		$categID = $req->categID;
 
@@ -314,11 +271,26 @@ class AdvDirectoryController extends Controller {
 	public function getSecOffice(Request $req) {
 		$primary = $req->poID;
 
-		$secoffice = unit_office_secondaries::where('police_office_id', $primary)->get();
+		$secoffice = unit_office_secondaries::where('UnitOfficeID', $primary)->get();
 
 		return $secoffice;
 	}//public function getSecOffice(Request $req) {
 
+	public function getTerOffice(Request $req) {
+		$secondary = $req->soID;
+
+		$teroffice = unit_office_tertiaries::where('UnitOfficeSecondaryID', $secondary)->get();
+
+		return $teroffice;
+	}//public function getSecOffice(Request $req) {
+
+	public function getQuarOffice(Request $req) {
+		$tertiary = $req->toID;
+
+		$quaroffice = unit_office_quaternaries::where('UnitOfficeTertiaryID', $tertiary)->get();
+
+		return $quaroffice;
+	}//public function getSecOffice(Request $req) {
 
  	public function edit(Request $req){
 	 	$id = $req->ID;
@@ -327,103 +299,50 @@ class AdvDirectoryController extends Controller {
 
 	 } // retrieve for edit
 
-
-	//Profile
-	public function addProfile($data){
-		
-	 	$adv = new Advisory_Council;
-	 	$adv->fname = $data['fname'];
-	 	$adv->lname = $data['lname'];
-	 	$adv->mname = $data['mname'];
-	 	$adv->street = $data['street'];
-	 	$adv->barangay = $data['barangay'];
-	 	$adv->city = $data['city'];
-	 	$adv->province = $data['province'];
-	 	$adv->email = $data['email'];
-	 	$adv->fbuser = $data['facebook'];
-	 	$adv->twitteruser = $data['twitter'];
-	 	$adv->iguser = $data['instagram'];
-	 	$adv->contactno = $data['mobile'];
-	 	$adv->landline = $data['landline'];
-	 	$adv->birthdate = $data['bdate'];
-	 	$adv->gender =  $data['gender'];
-	 	$adv->category = $data['advcateg'];
-	 	$adv->startdate = $data['durstart'];
-        $adv->occupationstat = 0;
-	 	//$adv->imagepath = $req->img;
-	 	/*$image = $req->img;
-	 	$filename = time() . '.' . $image->getClientOriginalExtension();
-	 	$local = public_path();
-	 		
-	 	//die();
-	 	$path = public_path('images\advisers\\' . $filename);
-	    //Image::make($image->getRealPath())->resize(200, 200)->save($path);
-	    $image->move($local . '\images\advisers\\', $filename);*/
-	    $adv->imagepath = 'objects/Logo/InitProfile.png';        	
-	 	$adv-> save();
-
-	    	
-	 	//return redirect('directory');
-
-	} // add profile
-
-	public function editProfile($data) {
-	 	
-	    $adv = Advisory_Council::find($data['ID']);
-	    $adv->fname = $data['fname'];
-		$adv->lname = $data['lname'];
-		$adv->mname = $data['mname'];
-		$adv->street = $data['street'];
-		$adv->barangay = $data['barangay'];
-		$adv->city = $data['city'];
-		$adv->province = $data['province'];
-		$adv->email = $data['email'];
-		$adv->fbuser = $data['facebook'];
-		$adv->twitteruser = $data['twitter'];
-		$adv->iguser = $data['instagram'];
-		$adv->contactno = $data['mobile'];
-		$adv->landline = $data['landline'];
-		$adv->birthdate = $data['bdate'];
-		$adv->gender =  $data['gender'];
-		$adv->category = $data['advcateg'];
-		$adv->startdate = $data['durstart'];
-        $adv->enddate = $data['durend'];
-		/*if ($req->hasFile('img')) {
-			if (file_exists($adv->imagepath)) {
-				unlink($adv->imagepath);
-				$image = $req->img;
-		 		$filename = time() . '.' . $image->getClientOriginalExtension();
-		 		$local = public_path();
-		 		$path = public_path('images\advisers\\' . $filename);
-		        $image->move($local . '\images\advisers\\', $filename);
-		        $adv->imagepath = $path;
-
-			}
-		}*/
-		$adv->imagepath = "objects/Logo/InitProfile.png";
-	    $adv->save();
-	    
-	} // update profile
-
-
 	//AC
 
-	public function addAC($data, $id){
+	public function addAC($data){
         $advisory = new Advisory_Council;
-        $advisory->ID = $id;
-       	$advisory->officename = $data['officename'];
+        $advisory->fname = $data['fname'];
+	 	$advisory->lname = $data['lname'];
+	 	$advisory->mname = $data['mname'];
+	 	$advisory->qualifier = $data['qname'];
+	 	$advisory->gender =  $data['gender'];
+	 	$advisory->contactno = $data['mobile'];
+	 	$advisory->landline = $data['landline'];
+	 	$advisory->officename = $data['officename'];
         $advisory->officeaddress = $data['officeadd'];
+	 	$advisory->email = $data['email'];
+	 	$advisory->startdate = $data['durstart'];
+	 	$advisory->fbuser = $data['facebook'];
+	 	$advisory->twitteruser = $data['twitter'];
+	 	$advisory->iguser = $data['instagram'];
+	 	$advisory->birthdate = $data['bdate'];
+	 	$advisory->street = $data['street'];
+	 	$advisory->city = $data['city'];
+	 	$advisory->province = $data['province'];
+	 	$advisory->barangay = $data['barangay'];
+
+
+	 	if($data['upphoto'] != "") {
+	 		$advisory->imagepath = $this->loadphoto($data['upphoto']);
+
+	 	}//if
+	 	print_r($data['acsector']);
+
         $advisory->advisory_position_id = $data['acposition'];
         $advisory->subcategoryId = $data['acsubcateg'];
         $advisory->save();
 
-        $this->addSector($data['sector'], $id);
+        $id = $this->getACID();
+
+        $this->addSector($data['acsector'], $id);
     } // add AC
 
     public function addSector($sector, $acid) {
 
     	for($ctr = 0 ; $ctr < sizeof($sector) ; $ctr++) {
-    		$acsector = new AC_Sector;
+    		$acsector = new Personnel_Sector;
     		$acsector->advisory_council_id = $acid;
     		$acsector->ac_sector_id = $sector[$ctr];
     		$acsector->save();
@@ -442,13 +361,34 @@ class AdvDirectoryController extends Controller {
     public function editAC($data){
 
     	$advisory = Advisory_Council::find($data['ID']);
-        $advisory->officename = $data['officename'];
+        $advisory->fname = $data['fname'];
+	 	$advisory->lname = $data['lname'];
+	 	$advisory->mname = $data['mname'];
+	 	$advisory->qualifier = $data['qname'];
+	 	$advisory->gender =  $data['gender'];
+	 	$advisory->contactno = $data['mobile'];
+	 	$advisory->landline = $data['landline'];
+	 	$advisory->officename = $data['officename'];
         $advisory->officeaddress = $data['officeadd'];
-        $advisory->startdate = $data['durstart'];
-        $advisory->enddate = $data['durend'];
+	 	$advisory->email = $data['email'];
+	 	$advisory->startdate = $data['durstart'];
+	 	$advisory->fbuser = $data['facebook'];
+	 	$advisory->twitteruser = $data['twitter'];
+	 	$advisory->iguser = $data['instagram'];
+	 	$advisory->birthdate = $data['bdate'];
+	 	$advisory->street = $data['street'];
+	 	$advisory->city = $data['city'];
+	 	$advisory->province = $data['province'];
+	 	$advisory->barangay = $data['barangay'];
+
+	 	if($data['upphoto'] != "") {
+	 		$advisory->imagepath = $this->loadphoto($data['upphoto']);
+
+	 	}//if
+
         $advisory->advisory_position_id = $data['acposition'];
-        $advisory->subcategoryId = $data['acsubcat'];
-	    $adv->save();
+        $advisory->subcategoryId = $data['acsubcateg'];
+        $advisory->save();
 
 	    $this->editSector($data);
 
@@ -459,12 +399,41 @@ class AdvDirectoryController extends Controller {
    	public function addTP($data, $id){
     
     	$advisory = new Police_Advisory;
-    	$advisory->ID = $id;
+    	$advisory->fname = $data['fname'];
+	 	$advisory->lname = $data['lname'];
+	 	$advisory->mname = $data['mname'];
+	 	$advisory->qualifier = $data['qname'];
+	 	$advisory->gender =  $data['gender'];
+	 	$advisory->contactno = $data['mobile'];
+	 	$advisory->landline = $data['landline'];
+	 	$advisory->email = $data['email'];
+	 	$advisory->startdate = $data['durstart'];
+	 	$advisory->fbuser = $data['facebook'];
+	 	$advisory->twitteruser = $data['twitter'];
+	 	$advisory->iguser = $data['instagram'];
+	 	$advisory->birthdate = $data['bdate'];
+	 	$advisory->street = $data['street'];
+	 	$advisory->city = $data['city'];
+	 	$advisory->province = $data['province'];
+	 	$advisory->barangay = $data['barangay'];
+
+	 	if($data['upphoto'] != "") {
+	 		$advisory->imagepath = $this->loadphoto($data['upphoto']);
+
+	 	}//if
     	$advisory->police_position_id = $data['pnppost'];
-    	$advisory->policeoffice_id = $data['suboffice'];
+    	$advisory->rank_id = $data['rank'];
+    	$advisory->unit_id = $data['primary'];
+    	$advisory->second_id = $data['secondary'];
+    	$advisory->tertiary_id = $data['tertiary'];
+    	$advisory->quaternary_id = $data['quaternary'];
     	$advisory->authorityorder = $data['authorder'];
 
     	$advisory->save();
+
+    	$id = $this->getTPID();
+
+    	$this->addTraining($data, $id);
 
     	//return redirect('policeadvisory');
 	    
@@ -472,8 +441,34 @@ class AdvDirectoryController extends Controller {
 
 	 public function editTP($data){
     	$advisory = Police_Advisory::find($data['ID']);
+    	$advisory->fname = $data['fname'];
+	 	$advisory->lname = $data['lname'];
+	 	$advisory->mname = $data['mname'];
+	 	$advisory->qualifier = $data['qname'];
+	 	$advisory->gender =  $data['gender'];
+	 	$advisory->contactno = $data['mobile'];
+	 	$advisory->landline = $data['landline'];
+	 	$advisory->email = $data['email'];
+	 	$advisory->startdate = $data['durstart'];
+	 	$advisory->fbuser = $data['facebook'];
+	 	$advisory->twitteruser = $data['twitter'];
+	 	$advisory->iguser = $data['instagram'];
+	 	$advisory->birthdate = $data['bdate'];
+	 	$advisory->street = $data['street'];
+	 	$advisory->city = $data['city'];
+	 	$advisory->province = $data['province'];
+	 	$advisory->barangay = $data['barangay'];
+
+	 	if($data['upphoto'] != "") {
+	 		$advisory->imagepath = $this->loadphoto($data['upphoto']);
+
+	 	}//if
     	$advisory->police_position_id = $data['pnppost'];
-    	$advisory->policeoffice_id = $data['suboffice'];
+    	$advisory->rank_id = $data['rank'];
+    	$advisory->unit_id = $data['primary'];
+    	$advisory->second_id = $data['secondary'];
+    	$advisory->tertiary_id = $data['tertiary'];
+    	$advisory->quaternary_id = $data['quaternary'];
     	$advisory->authorityorder = $data['authorder'];
     	$advisory->save();
         
@@ -547,5 +542,23 @@ class AdvDirectoryController extends Controller {
 
    	}//public function editLecturer($data, $trainID) {
 
+   	public function loadphoto($photo) {
+
+		$trimfilestring = explode(';', $photo);
+		$ext = substr($trimfilestring[0], strpos($trimfilestring[0], "/") + 1);
+		$base64string = substr($trimfilestring[1], strpos($trimfilestring[1], ",") + 1);
+
+		$decodephoto = base64_decode($base64string);
+
+		$filename =  "objects/displayphoto/" . str_random() . "." . $ext;
+
+		file_put_contents($filename, $decodephoto);
+
+		return $filename;
+		//Storage::disk('public')->put($filename, $decodephoto);
+
+		
+		//return asset(Storage::disk('public')->url($filename));
+	}//loadphoto
 
 }//class

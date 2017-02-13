@@ -26,12 +26,13 @@
 
 		  			<div class = "item">
 		    			<div class="menu">
-
 		    				<a class="item" id = "m5" href = "{{url('maintenance/primaryoffice')}}">Primary Unit/Office</a>
 		    				<a class="item" id = "m6" href = "{{url('maintenance/secondaryoffice')}}" >Secondary Unit/Office</a>
 		    				<a class="item" id = "m7" href = "{{url('maintenance/tertiaryoffice')}}" >Tertiary Unit/Office</a>
 		    				<a class="item" id = "m8" href = "{{url('maintenance/quarternaryoffice')}}" >Quaternary Unit/Office</a>
 		    				<a class="item" id = "m9" href = "{{url('maintenance/policeposition')}}">PNP Position</a>
+		    				<!--<a class="item" id = "m10" href = "{{url('maintenance/rank')}}">Rank</a>-->
+
 
 		    			</div>
 		  				

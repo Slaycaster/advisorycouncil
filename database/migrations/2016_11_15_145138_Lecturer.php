@@ -14,6 +14,7 @@ class Lecturer extends Migration
             $table->text('lecturername');
             $table->integer('training_id')->unsigned();
             $table->foreign('training_id')->references('ID')->on('Training');
+            $table->timestamps();
         });
     }
 
