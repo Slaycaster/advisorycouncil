@@ -14,6 +14,7 @@ class DefaultAccountSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'superadmin',
             'status' => 1,
+            'admintype' => 0,
             'email' => 'superadmin',
             'password' => bcrypt('superadmin')
         ]);

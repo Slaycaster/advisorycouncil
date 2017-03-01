@@ -570,8 +570,9 @@ h4 {
 }
 
 h5 {
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
+
 
 h1:first-child,
 h2:first-child,
@@ -7203,7 +7204,7 @@ i.bordered.inverted.icon {
 
 i.inverted.bordered.icon,
 i.inverted.circular.icon {
-  background-color: #1B1C1D !important;
+  background-color: #1B1C1D ;
   color: #FFFFFF !important;
 }
 
@@ -10327,7 +10328,7 @@ img.ui.image {
 .ui.image img {
   display: block;
   max-width: 100%;
-  height: auto;
+  
 }
 
 /*******************************
@@ -10536,7 +10537,7 @@ img.ui.bordered.image {
 .ui.small.images svg,
 .ui.small.image {
   width: 150px;
-  height: auto;
+  height: 150px;
   font-size: 0.92857143rem;
 }
 
@@ -29689,6 +29690,7 @@ select.ui.dropdown {
 @media only screen and (min-width: 1200px) {
   .ui.modal {
     width: 900px;
+    height: 535px;
     margin: 0em 0em 0em -450px;
   }
 }

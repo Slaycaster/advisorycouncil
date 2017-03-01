@@ -39,6 +39,9 @@ class HomeController extends Controller
         }else{
             
             if (Auth::attempt(['email' => $req->username, 'password' => $req->password, 'status' => 1])) {
+                
+                //Start session
+                //save username to session
                 return Redirect::to('home');
                 
                 
@@ -47,7 +50,6 @@ class HomeController extends Controller
                 
                 return Redirect::to('/login')->with('message',$message);
 
-                //return $message;
             }
         }
 

@@ -1,6 +1,6 @@
 //Form
 
-var rowcount = 0;
+var rowcount;
 
 function removeElements() {
 
@@ -8,6 +8,62 @@ function removeElements() {
 
 }//function removeElements() {
 
+function fillul(ulelement, index, item) {
+	var ul = document.getElementsByName(ulelement)[index];
+
+	var li = document.createElement('li');
+	ul.appendChild(li);
+	ul.lastChild.appendChild(document.createTextNode(item));
+
+}//function fillsect() {
+
+function filltable(tableid, mainlist, sublist, minilist) {
+	var table = document.getElementById(tableid).getElementsByTagName('tbody')[0];
+
+	table.appendChild(document.createElement('tr'));
+
+	filltd(table, mainlist['trainingname']);
+	filltd(table, mainlist['trainingtype']);
+	filltd(table, mainlist['location']);
+	filltd(table, minilist[0] + "\n" + minilist[1]);
+	filltd(table, minilist[2] + "\n" + minilist[3]);
+
+	table.lastChild.appendChild(document.createElement('td'));
+	table.lastChild.lastChild.appendChild(document.createElement('center'));
+
+	var ul = document.createElement('ul');
+	ul.setAttribute('class', 'unorderedlist');
+	ul.setAttribute('name', 'lecturelist');
+
+	table.lastChild.lastChild.lastChild.appendChild(ul);
+
+	var ulelems = document.getElementsByName('lecturelist');
+
+	for(var ctr = 0 ; ctr < sublist.length ; ctr++) {
+		fillul("lecturelist", ulelems.length-1, sublist[ctr]['lecturername']);
+		
+	};
+
+	filltd(table, mainlist['organizer']);
+	
+
+
+
+
+	
+
+
+
+}//function filltable(trainlist) {
+
+function filltd(table, item) {
+	table.lastChild.appendChild(document.createElement('td'));
+
+	table.lastChild.lastChild.appendChild(document.createElement('center'));
+
+	table.lastChild.lastChild.lastChild.appendChild(document.createTextNode(item));
+
+}//function filltd(item) {
 
 function addT1Elements() { //AC ELEMENTS
 	var tempcon = document.getElementById('tempfields');
@@ -39,6 +95,8 @@ function addT1Elements() { //AC ELEMENTS
 	var select = document.createElement('select');
 	select.setAttribute('class','ui selection dropdown');
 	select.setAttribute('name', 'acposition');
+	select.setAttribute('id', 'acposition');
+
 	tempcon.lastChild.lastChild.lastChild.appendChild(select);
 
 	var opt = document.createElement('option');
@@ -133,6 +191,7 @@ function addT1Elements() { //AC ELEMENTS
 	var select2 = document.createElement('select');
 	select2.setAttribute('class', 'ui selection dropdown');
 	select2.setAttribute('name', 'accateg');
+	select2.setAttribute('id', 'accateg');
 	select2.setAttribute('onchange', 'getsubcateg()');
 	tempcon.lastChild.lastChild.lastChild.appendChild(select2);
 
@@ -168,6 +227,8 @@ function addT1Elements() { //AC ELEMENTS
 	var select3 = document.createElement('select');
 	select3.setAttribute('class', 'ui selection dropdown');
 	select3.setAttribute('name', 'acsubcateg');
+	select3.setAttribute('id', 'acsubcateg');
+
 	tempcon.lastChild.lastChild.lastChild.appendChild(select3);
 
 	var opt5 = document.createElement('option');
@@ -206,6 +267,7 @@ function addT1Elements() { //AC ELEMENTS
 	select1.setAttribute('class', 'ui selection dropdown multiple');
 	select1.setAttribute('multiple', 'true');
 	select1.setAttribute('name', 'acsector');
+	select1.setAttribute('id', 'acsector');
 	tempcon.lastChild.lastChild.lastChild.appendChild(select1);
 
 	var opt1 = document.createElement('option');
@@ -724,6 +786,7 @@ function addrow() {
 	input7.setAttribute('placeholder','e.g. CPSM');
 	table.lastChild.lastChild.lastChild.lastChild.appendChild(input7);
 
+	rowcount = rowcount + 1;
 }//function addrow() {
 
 

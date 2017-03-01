@@ -45,7 +45,7 @@
 						<div class = "row rightrow">
 							<div class = "ucon">
 								<img class="ui avatar image profile" src="{{URL::asset('objects/Logo/InitProfile.png')}}">
-									<span>Username </span><a class = "outlink" href="{{url('logout')}}">(LOG OUT)</a>
+									<span>{{ Auth::user()->email }} &nbsp</span><a class = "outlink" href="{{url('logout')}}">(LOG OUT)</a>
 							</div>
 						</div>
 							
@@ -54,15 +54,32 @@
 								<div class="mlink item" id = "tab1" data-tab="home" onclick = "window.location='{{url('home')}}'">
 								    Home
 								</div>
-								<div class="mlink item" id = "tab2"  data-tab="maintenance" onclick = "window.location='{{url('maintenance')}}'">
-								    Maintenance
+
+								@if(Auth::user()->admintype == 0)
+
+									<div class="mlink item" id = "tab2"  data-tab="maintenance" onclick = "window.location='{{url('maintenance')}}'">
+								    
+								@else
+									<div class="mlink disabled item" id = "tab2"  data-tab="maintenance">
+									<!--DISABLED-->
+								@endif
+
+									Maintenance
 								</div>
+
 								<div class="mlink item" id = "tab3" data-tab = "directory" onclick = "window.location='{{url('directory')}}'">
 								    Directory
 								</div>
 
-								<div class="mlink item" id = "tab4" data-tab = "admin" onclick = "window.location='{{url('admin')}}'">
-								   <i class = "icon inverted circular user"></i>
+								@if(Auth::user()->admintype == 0)
+									<div class="mlink2 item" id = "tab4" data-tab = "admin" onclick = "window.location='{{url('admin')}}'">
+								   
+								@else
+									<div class="mlink2 disabled item" id = "tab4" data-tab = "admin">
+									<!--DISABLED-->
+								@endif
+
+									<i class = "inverted circular icon user"></i>
 								</div>
 							</div>
 								

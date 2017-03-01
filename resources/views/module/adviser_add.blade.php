@@ -336,7 +336,7 @@
 
 	<script type="text/javascript">
 		$('#tab3').attr('class', 'mlink item active');
-		var lecturers = new Array();
+		var lecturers;
 		var link;
 
 		if('{{$action}}' === '0') {
@@ -345,7 +345,31 @@
 			link = "{{url('adviser/add')}}";
 
 		} else if('{{$action}}' === '1') {
+
+			document.getElementById('enddate').style.display = "block";
 			link = "{{url('adviser/edit')}}";
+
+			@if(isset($type))
+
+				fillProfile()
+				if('{{$type}}' === '0') {
+					addT1Elements();
+					getInitialACDropdown();
+					fillAC();
+
+				} else {
+					addT2Elements();
+					getInitialTPDropdown();
+					controlelements("block");
+					fillTP();
+
+				}//if
+
+			@endif
+
+
+
+
 
 		}//if('{{$action}}' == '0') {
 
@@ -355,24 +379,28 @@
 				addT1Elements();
 				getInitialACDropdown();
 
-				$("#traintable tbody").empty();
+				controlelements("none");
 
-				document.getElementById('trainingcon').style.display = "none";
+				@if($action == 1 && isset($type))
+
+					fillAC();
+
+				@endif
 
 
 			} else {
+				lecturers = new Array();
 				removeElements();
 				addT2Elements();
 				getInitialTPDropdown();
 
 
 				rowcount = 0;
-				document.getElementById('trainingcon').style.display = "block";
-				$("#traintable tbody").empty();
+				controlelements("block");
 				
 
 				for (var ctr = rowcount ; ctr < 3 ; ctr++) {
-					rowcount = ctr;
+					//rowcount = ctr;
 					addrow();
 
 				};
@@ -380,6 +408,71 @@
 			}//if(selcat == 0) {
 
 		}//function changeform() {
+
+		function controlelements(displayvalue) {
+			$("#traintable tbody").empty();
+			document.getElementById('trainingcon').style.display = displayvalue;
+				
+		}//function controlelements() {
+
+		@if(isset($type) && isset($recorddata))
+
+			function fillProfile() {
+				
+				$("input[name='advcateg'][value='{{$type}}']").prop('checked', true);
+				document.getElementsByName('advid')[0].value = "{{$type}}-{{$id}}";
+				document.getElementsByName('lname')[0].value = "{{$recorddata[0][0]->lname}}";
+				document.getElementsByName('fname')[0].value = "{{$recorddata[0][0]->fname}}";
+				document.getElementsByName('mname')[0].value = "{{$recorddata[0][0]->mname}}";
+				document.getElementsByName('qname')[0].value = "{{$recorddata[0][0]->qualifier}}";
+				document.getElementsByName('bdate')[0].value = "{{date('Y-m-d', strtotime($recorddata[0][0]->birthdate))}}";
+				$("input[name='gender'][value='{{$recorddata[0][0]->gender}}']").prop('checked', true);
+				document.getElementsByName('mobile')[0].value = "{{$recorddata[0][0]->contactno}}";
+				document.getElementsByName('landline')[0].value = "{{$recorddata[0][0]->landline}}";
+				document.getElementsByName('email')[0].value = "{{$recorddata[0][0]->email}}";
+				document.getElementsByName('facebook')[0].value = "{{$recorddata[0][0]->fbuser}}";
+				document.getElementsByName('twitter')[0].value = "{{$recorddata[0][0]->twitteruser}}";
+				document.getElementsByName('instagram')[0].value = "{{$recorddata[0][0]->iguser}}";
+				document.getElementsByName('durationsdate')[0].value = "{{date('Y-m-d', strtotime($recorddata[0][0]->startdate))}}";
+
+				if("{{$recorddata[0][0]->enddate}}" !== "") {
+					document.getElementsByName('durationedate')[0].value = "{{date('Y-m-d', strtotime($recorddata[0][0]->enddate))}}";
+				}//if
+
+
+
+			}//function fillProfile() {
+
+			function fillAC() {
+				//NOT WORKING
+				$("select[name='acposition'] option[value='{{$recorddata[0][0]->advisory_position_id}}']").prop('selected', true);
+				$("#accateg").dropdown("set exactly", "{{$recorddata[0][0]->categoryId}}"); 
+				getsubcateg();
+
+				$("#acsubcateg").dropdown("set exactly", "{{$recorddata[0][0]->subcategoryId}}"); 
+
+				@foreach($recorddata[1] as $sect)
+					$("#acsector").val(["{{$sect->ac_sector_id}}"]);
+				@endforeach
+
+				//---------
+
+				document.getElementsByName('officename')[0].value = "{{$recorddata[0][0]->officename}}";
+				document.getElementsByName('officeadd')[0].value = "{{$recorddata[0][0]->officeaddress}}";
+				
+
+				
+
+			}//function fillAC() {
+
+			function fillTP() {
+				document.getElementsByName('authorder')[0].value = '{{$recorddata[0][0]->authorityorder}}';
+				$("select[name='position']").dropdown('set selected', '{{$recorddata[0][0]->authorityorder}}')
+
+				
+			}//function fillTP() {
+
+		@endif
 
 		function showfield() {
 
@@ -419,6 +512,8 @@
 				}//if(flag == 0) {]
 				//alert(lecturers);
 			//}//pattern
+
+			console.log(lecturers);
 
 		}//add item to array
 
@@ -509,7 +604,7 @@
 					
 				} else if(slctdtype == 1 || slctdtype == 2) {
 					//TRAINING
-					for(var count = 0 ; count <= rowcount ; count++) {
+					for(var count = 0 ; count < rowcount ; count++) {
 						var initspk = new Array();
 
 						if(document.getElementsByName('traintitle')[count].value !== "") {
@@ -541,12 +636,13 @@
 
 						}//if
 					}
-
+					
 					var data = {
 						'ID' : document.getElementsByName('advid')[0].value,
 						'lname' : document.getElementsByName('lname')[0].value,
 						'fname' : document.getElementsByName('fname')[0].value,
 						'mname' : document.getElementsByName('mname')[0].value,
+						'qname' : document.getElementsByName('qname')[0].value,
 						'bdate' : document.getElementsByName('bdate')[0].value,
 						'gender' : $("input[name='gender']:checked").val(),
 						'street' : document.getElementsByName('street')[0].value,
@@ -568,6 +664,7 @@
 						'secondary' : document.getElementsByName('secondary')[0].value,
 						'tertiary' : document.getElementsByName('tertiary')[0].value,
 						'quaternary' : document.getElementsByName('quaternary')[0].value,
+						'upphoto' : photo,
 						'traintitle' : traintitle,
 						'traincateg' : traincateg,
 						'location' : location,
@@ -596,7 +693,7 @@
 				});
 
 				setTimeout(function(){
-					//window.location = "{{URL('adviser')}}";
+					window.location = "{{URL('directory')}}";
 				}, 2600);
 
 					
@@ -632,7 +729,7 @@
 			   		$("select[name='acsector'] option").not("[value='disitem']").remove();
 
 			   		for (var ctr = 0 ; ctr < data[0].length ; ctr++) {
-			   			populatedropdown(data[0][ctr]['ID'], 'acposition', data[0][ctr]['ID']['acpositionname']);
+			   			populatedropdown(data[0][ctr]['ID'], 'acposition', data[0][ctr]['acpositionname']);
 			   			
 			   		};
 
@@ -645,6 +742,7 @@
 			   			populatedropdown(data[2][ctr]['ID'], 'acsector', data[2][ctr]['sectorname']);
 			   			
 			   		};
+
 			   	}//success : function() {
 			});
 		}//function getInitialACDropdown() {
@@ -661,7 +759,7 @@
 			   		$("select[name='primary'] option").not("[value='disitem']").remove();
 
 			   		for (var ctr = 0 ; ctr < data[0].length ; ctr++) {
-			   			populatedropdown(data[0][ctr]['ID'], 'position', data[0][ctr]['PositionName']);
+			   			populatedropdown(data[0][ctr]['id'], 'position', data[0][ctr]['PositionName']);
 			   			
 			   		};
 
@@ -713,7 +811,6 @@
 
 			};
 
-			console.log(data);
 			$.ajax({
 				type: "POST",
 				url: "{{url('dropdown/getsecoffice')}}",

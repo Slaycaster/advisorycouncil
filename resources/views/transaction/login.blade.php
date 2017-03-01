@@ -20,13 +20,7 @@
 </form>
 <br>
 <br>
-@foreach($adviser as $key => $val)
-	<img src={{ $val->imagepath }}>
-	{{ $val->fname }} {{ $val->fname }}
 
-	<br>
-
-@endforeach
 
 <br>
 <select id="searchbox" name="q" placeholder="Search Advisers or category" class="form-control"></select>

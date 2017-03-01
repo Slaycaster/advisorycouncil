@@ -17,6 +17,7 @@ class PoliceAdvisory extends Migration
             $table->string('qualifier', 45)->nullable();
             $table->tinyInteger('gender');
             $table->string('contactno', 15);
+            $table->string('landline', 15)->nullable();
             $table->string('email', 30);
             $table->string('street', 50)->nullable();
             $table->string('city', 45)->nullable();
@@ -30,6 +31,7 @@ class PoliceAdvisory extends Migration
             $table->string('fbuser', 20)->nullable();
             $table->string('twitteruser', 20)->nullable();
             $table->string('iguser', 20)->nullable();
+            $table->date('birthdate');
             $table->integer('rank_id')->unsigned();
             $table->foreign('rank_id')->references('id')->on('ranks');
             $table->integer('police_position_id')->unsigned();

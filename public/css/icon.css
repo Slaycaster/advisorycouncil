@@ -202,9 +202,15 @@ i.bordered.inverted.icon {
 /* Inverted Shapes */
 i.inverted.bordered.icon,
 i.inverted.circular.icon {
-  background-color: #00253a !important;
+  background-color: #00253a;
   color: #FFFFFF !important;
 }
+
+i.inverted.circular.icon.user {
+  background-color: #565656;
+  color: #FFFFFF !important;
+}
+
 i.inverted.icon {
   color: #FFFFFF;
 }

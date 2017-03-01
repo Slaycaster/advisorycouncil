@@ -68,6 +68,7 @@
 					</div>
 
 					<div class = "hcontent">
+					
 						@yield('phomesection')
 					</div>
 				</div>

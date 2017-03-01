@@ -1,7 +1,7 @@
 @extends('baseform')
 
-@section('maincontent')
 
+@section('maincontent')
 	<div class = "homecon">
 		<div class = "ui grid">
 			<div class = "row">
@@ -17,8 +17,8 @@
 
 			<div class = "row">
 				<hr>
-				
-				@yield('homesection')
+
+				@yield('searchsection')
 				
 			</div>
 
@@ -27,8 +27,4 @@
 	</div>
 
 
-	<script type="text/javascript">
-		$('#tab1').attr('class', 'mlink item active');
-
-	</script>
 @stop

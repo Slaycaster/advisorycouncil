@@ -4,7 +4,7 @@
 	<div class = "four wide column">
 		<div class = "ui segment summcon" id="summary">
 			<div class = "ui rail">
-				<div class = "ui sticky">
+				<div class = "ui con">
 					<div class="ui container">
 						<div class = "summhead">
 							<i class = "pie chart medium icon"></i>
@@ -13,39 +13,39 @@
 
 						<div class = "summcontent">
 							<div class ="twelve wide column  bspacing8">
-								<label class="formlabel">% of AC: <span class = "labeldesc">%</span></label>
+								<label class="formlabel">% of AC: <span class = "labeldesc">{{ $pac }}%</span></label>
 										
 							</div>
 
 							<div class ="twelve wide column  bspacing8">
-								<label class="formlabel">No. of AC: <span class = "labeldesc"></span></label>
+								<label class="formlabel">No. of AC: <span class = "labeldesc">{{ $ac }}</span></label>
 											
 							</div>
 
 							<div class ="twelve wide column  bspacing8">
-								<label class="formlabel">% of PSMU: <span class = "labeldesc">%</span></label>
+								<label class="formlabel">% of PSMU: <span class = "labeldesc">{{ $ppsmu }}%</span></label>
 											
 							</div>
 
 							<div class ="twelve wide column  bspacing8">
-								<label class="formlabel">No. of PSMU: <span class = "labeldesc"></span></label>
+								<label class="formlabel">No. of PSMU: <span class = "labeldesc">{{ $psmu }}</span></label>
 										
 							</div>
 
 							<div class ="twelve wide column  bspacing8">
-								<label class="formlabel">% of TWG: <span class = "labeldesc">%</span></label>
+								<label class="formlabel">% of TWG: <span class = "labeldesc">{{ $ptwg }}%</span></label>
 											
 							</div>
 
 							<div class ="twelve wide column  bspacing8">
-								<label class="formlabel">No. of TWG: <span class = "labeldesc"></span></label>
+								<label class="formlabel">No. of TWG: <span class = "labeldesc">{{ $twg }}</span></label>
 											
 							</div>
 
 							<br>
 
 							<div class ="twelve wide column bspacing8">
-								<label class="formlabel">Total No. of Adviser: <span class = "labeldesc"></span></label>
+								<label class="formlabel">Total No. of Adviser: <span class = "labeldesc">{{ $all }}</span></label>
 											
 							</div>
 										
@@ -68,25 +68,126 @@
 				<div class = "tablepane">
 					<div class = "mtitle">Recently Added</div>
 
-					<div class = "ui doubling grid cardlist2">
+					<br>
 
-					
-							<div class = "five1 wide column colheight">
-								<div class = "cardstyle" onclick = "loadModal()">
-									<img class = "advphoto" src=""/>
+					@if(sizeof($acmember) != 0)
+						<h6 class="ui horizontal divider divtitle">
+							Advisory Council
+						</h6>
 
-									<div class = "advdata">
-										<h5 class = "name"></h5>
-										<p class = "p1">
+						<div id = "accardlist" class = "ui doubling grid cardlist2">
+
+							@foreach($acmember as $acrec)
+								<div class = "five1 wide column colheight">
+									<div class = "cardstyle" onclick = "loadModal('0-{{$acrec->ID}}')">
+										@if($acrec->imagepath != "")
+											<img class = "advphoto" src="{{URL::asset($acrec->imagepath)}}"/>
+										@else
+											<img class = "advphoto" src="{{URL::asset('objects/Logo/InitProfile.png')}}"/>
+										@endif
+										<div class = "advdata">
+											<h5 class = "name">{{$acrec->lname}}, {{$acrec->fname}} {{$acrec->mname}} (AC)</h5>
+											<p class = "p1">
+												{{$acrec->acpositionname}} <br>
+												{{$acrec->officename}} <br>
+												{{$acrec->email}} <br>
+
+												@if($acrec->contactno != "" && $acrec->landline != "")
+													{{$acrec->contactno/ $acrec->landline}}
+												@else
+													@if($acrec->contactno != "")
+														{{$acrec->contactno}}
+													@elseif($acrec->landline != "")
+														{{$acrec->landline}}
+													@endif
+												@endif
+												
+												
+											</p>
+
+											<p class = "p2"> Member since {{date('M Y',strtotime($acrec->startdate))}}</p>
 											
-										</p>
-										
+										</div>
 									</div>
+
 								</div>
+							@endforeach
 
-							</div>
+						</div>
 
-					</div>
+						<br>
+					@endif
+
+					@if(sizeof($tpmember) != 0)
+						<h4 class="ui horizontal divider divtitle">
+							TWG & PSMU
+						</h4>
+
+						<div id = "tpcardlist" class = "ui doubling grid cardlist2">
+
+							@foreach($tpmember as $tprec)
+								<div class = "five1 wide column colheight">
+									<div class = "cardstyle" onclick = "loadModal('{{$tprec->policetype}}-{{$tprec->ID}}')">
+										@if($tprec->imagepath != "")
+											<img class = "advphoto" src="{{URL::asset($tprec->imagepath)}}"/>
+										@else
+											<img class = "advphoto" src="{{URL::asset('objects/Logo/InitProfile.png')}}"/>
+										@endif
+										<div class = "advdata">
+											<h5 class = "name">{{$tprec->lname}}, {{$tprec->fname}} {{$tprec->mname}}
+
+												@if($tprec->policetype == 1)
+													(TWG)
+												@else
+													(PSMU)
+												@endif
+											</h5>
+											<p class = "p1">
+												{{$tprec->PositionName}} <br>
+
+												@if($tprec->UnitOfficeQuaternaryName != "")
+													{{$tprec->UnitOfficeQuaternaryName}} 
+
+												@elseif($tprec->UnitOfficeTertiaryName != "")
+													{{$tprec->UnitOfficeTertiaryName}} 
+
+												@elseif($tprec->UnitOfficeSecondaryName != "")
+													{{$tprec->UnitOfficeSecondaryName}} 
+
+												@else
+													{{$tprec->UnitOfficeName}} 
+
+												@endif
+
+												<br>
+
+												{{$tprec->email}} <br>
+
+												@if($tprec->contactno != "" && $tprec->landline != "")
+													{{$tprec->contactno/ $tprec->landline}}
+												@else
+													@if($tprec->contactno != "")
+														{{$tprec->contactno}}
+													@elseif($tprec->landline != "")
+														{{$tprec->landline}}
+													@endif
+												@endif
+												
+												
+											</p>
+
+											<p class = "p2"> Member since {{date('M Y',strtotime($tprec->startdate))}}</p>
+											
+										</div>
+									</div>
+
+								</div>
+							@endforeach
+								
+
+						</div>
+
+					@endif
 
 
 			
@@ -99,458 +200,7 @@
 	</div>
 
 
-	<div class = "modal">
-		<div id = "viewadv" class = "ui modal">
-	        <div class = "header mtitle">
 
-	        	<h3 class = "h3name" name = "name"></h3>
-	            <div class = "ui icon editbtn button tiny" name="edit" title = "edit">
-					<i class="edit icon topmargin"></i>
-							
-				</div>
-	        </div>
-
-	        <div class = "modelcontent">
-		        <div class="ui top attached tabular menu rightrow">
-					<div class="item active" id = "tab1" data-tab="basicinfo">
-						Profile
-					</div>
-					<div class="item" id = "tab2"  data-tab="work">
-					    Advisory Council
-					</div>
-					<div class="item" id = "tab3" style="display:none" data-tab = "train">
-					    Training
-					</div>
-				</div>
-
-		        <div class = "tabbody ui bottom attached">
-		        	<div class="ui tab active" data-tab="basicinfo">
-		        		<div class = "ui grid">
-		        			<div class = "thirteen wide column">
-		        				<fieldset>
-		        					<legend>Basic Information</legend>
-
-			        				<div class = "ui grid row">
-			        					<div class ="three wide column fbc labelpane">
-
-											<div class = "twelve wide column bspacing">
-												<label class = "formlabel">Birthdate</label>
-														
-											</div>
-
-											<div class = "twelve wide column bspacing">
-												<label class = "formlabel">Gender</label>
-														
-											</div>
-
-											<div class = "twelve wide column bspacing">
-												<label class = "formlabel">Home Address</label>
-														
-											</div>
-															
-										</div>
-
-										<div class ="eleven wide column fieldpane">
-
-											<div class = "twelve wide column bspacing9">
-												<p name="bdate"></p>
-														
-											</div>
-
-											<div class = "twelve wide column bspacing9">
-												<p name ="gender"></p>
-														
-											</div>
-
-											<div class = "twelve wide column bspacing9">
-												<p name = "address"></p>
-														
-											</div>
-															
-										</div>
-										
-
-			        				</div>
-
-		        				</fieldset>
-
-		        				<br>
-
-		        				<fieldset>
-		        					<legend>Contact Information</legend>
-		        					
-			        				<div class = "ui grid row">
-			        					<div class ="three wide column fbc labelpane">
-
-											<div class = "twelve wide column bspacing">
-												<label class = "formlabel">Mobile No.</label>
-														
-											</div>
-
-											<div class = "twelve wide column bspacing">
-												<label class = "formlabel">Landline</label>
-														
-											</div>
-
-											<div class = "twelve wide column bspacing">
-												<label class = "formlabel">Email Address</label>
-														
-											</div>
-
-											<div class = "twelve wide column bspacing">
-												<label class = "formlabel">Facebook</label>
-														
-											</div>
-
-											<div class = "twelve wide column bspacing">
-												<label class = "formlabel">Twitter</label>
-														
-											</div>
-
-											<div class = "twelve wide column bspacing">
-												<label class = "formlabel">Instagram</label>
-														
-											</div>
-															
-										</div>
-
-										<div class ="eleven wide column fieldpane">
-
-											<div class = "twelve wide column bspacing9">
-												<p name="contactno"></p>
-														
-											</div>
-
-											<div class = "twelve wide column bspacing9">
-												<p name="landline"></p>
-														
-											</div>
-
-											<div class = "twelve wide column bspacing9">
-												<p name="email"></p>
-														
-											</div>
-
-											<div class = "twelve wide column bspacing9">
-												<p name="fb"></p>
-														
-											</div>
-
-											<div class = "twelve wide column bspacing9">
-												<p name="twitter"></p>
-														
-											</div>
-
-											<div class = "twelve wide column bspacing9">
-												<p name = "ig"></p>
-														
-											</div>
-															
-										</div>
-										
-
-			        				</div>
-
-		        				</fieldset>
-			        			
-		        			
-		        			</div>
-		        			<div class  = "three wide column">
-		        				<div class = "ui small image">
-									<img src="{{URL::asset('objects/Logo/InitProfile.png')}}">
-								</div>
-		        				
-		        			</div>
-		        			
-		        		</div>		        		
-
-					</div>
-					<div class="ui tab" data-tab="work">
-						<div name = "acview" style = "display:none" >
-							<div class = "ui grid row">
-				        		<div class ="three wide column fbc labelpane">
-
-				        			<div class = "twelve wide column bspacing">
-										<label class = "formlabel">Adviser Category</label>
-													
-									</div>
-
-									<div class = "twelve wide column bspacing">
-										<label class = "formlabel">Duration</label>
-													
-									</div>
-
-									<div class = "twelve wide column bspacing">
-										<label class = "formlabel">AC Position</label>
-													
-									</div>
-
-									<div class = "twelve wide column bspacing">
-										<label class = "formlabel">Office Name</label>
-													
-									</div>
-
-									<div class = "twelve wide column bspacing">
-										<label class = "formlabel">Office Address</label>
-															
-									</div>
-
-									<div class = "twelve wide column bspacing">
-										<label class = "formlabel">AC Category</label>
-															
-									</div>
-
-									<div class = "twelve wide column bspacing">
-										<label class = "formlabel">AC Sub-category</label>
-															
-									</div>
-
-									<div class = "twelve wide column bspacing">
-										<label class = "formlabel">AC Sector</label>
-															
-									</div>
-
-									
-																
-								</div>
-
-								<div class ="eleven wide column fieldpane">
-
-									<div class = "twelve wide column bspacing11">
-										<p></p>
-														
-									</div>
-
-									<div class = "twelve wide column bspacing11">
-										<p>Date1 to date2</p>
-														
-									</div>
-
-									<div class = "twelve wide column bspacing11">
-										<p>AC Position</p>
-														
-									</div>
-
-									<div class = "twelve wide column bspacing11">
-										<p>OfName</p>
-															
-									</div>
-
-									<div class = "twelve wide column bspacing11">
-										<p>OfAdd</p>
-															
-									</div>
-
-
-									<div class = "twelve wide column bspacing11">
-										<p>AC Categ</p>
-															
-									</div>
-
-
-									<div class = "twelve wide column bspacing11">
-										<p>AC Sub-categ</p>
-															
-									</div>
-
-									<div class = "twelve wide column bspacing11">
-										<p>AC Sector</p>
-															
-									</div>
-
-																
-								</div>
-											
-
-				        	</div>
-			        	</div>
-
-			        	<div name = "tpview" style = "display:block" >
-			        		<div class = "ui grid row">
-				        		<div class ="three wide column fbc labelpane">
-
-				        			<div class = "twelve wide column bspacing">
-										<label class = "formlabel">Adviser Category</label>
-													
-									</div>
-
-									<div class = "twelve wide column bspacing">
-										<label class = "formlabel">Duration</label>
-													
-									</div>
-
-									<div class = "twelve wide column bspacing">
-										<label class = "formlabel">Authority</label>
-													
-									</div>
-
-									<div class = "twelve wide column bspacing">
-										<label class = "formlabel">Position</label>
-													
-									</div>
-
-									<div class = "twelve wide column bspacing">
-										<label class = "formlabel">Unit/Office</label>
-													
-									</div>
-																
-								</div>
-
-								<div class ="eleven wide column fieldpane">
-
-									<div class = "twelve wide column bspacing11">
-										<p>Adviser Categ</p>
-														
-									</div>
-
-									<div class = "twelve wide column bspacing11">
-										<p>Date1 to date2</p>
-														
-									</div>
-
-									<div class = "twelve wide column bspacing11">
-										<a class = "dlink">Insert Letter Order link for downloading purposes</a>
-														
-									</div>
-
-									<div class = "twelve wide column bspacing11">
-										<p>Position</p>
-														
-									</div>
-
-									<div class = "twelve wide column bspacing11">
-										<p>Unit/Of</p>
-															
-									</div>
-																
-								</div>
-											
-
-				        	</div>
-			        	</div>
-
-		        			
-
-					</div>
-					<div class="ui tab" id = "trainingview" style="display:none" data-tab="train">
-						<table class = "viewtable ui celled padding table">
-							<thead>
-								<tr>
-									<th><center>Title</center></th>
-									<th><center>Training Category</center></th>
-									<th><center>Location</center></th>
-									<th><center>Start</center></th>
-									<th><center>End</center></th>
-									<th><center>Speaker(s)</center></th>
-									<th><center>Organizer</center></th>
-								</tr>
-							</thead>
-							<tbody>
-								<td><center>Data</center></td>
-								<td><center>Data</center></td>
-								<td><center>Data</center></td>
-								<td><center>Data</center></td>
-								<td><center>Data</center></td>
-								<td><center>
-									<ul class = "unorderedlist">
-										<li>Speaker 1</li>
-										<li>Speaker 2</li>
-										<li>Speaker 3</li>
-										<li>Speaker 4</li>
-
-									</ul>
-
-								</center></td>
-								<td><center>Data</center></td>
-
-							</tbody>
-							
-						</table>
-
-					</div>
-		        	
-		        </div>
-	        	
-	        </div>
-	      
-	    </div>
-		
-	</div>
-
-	<script type="text/javascript">
-		function showacview() {
-			document.getElementsByName('acview')[0].style.display = "block";
-			document.getElementsByName('tpview')[0].style.display = "none";
-			document.getElementById('tab3').style.display = "none";
-			document.getElementById('trainingview').style.display ="none";
-
-		}//function showacview() {
-
-		function showtpview() {
-			document.getElementsByName('acview')[0].style.display = "none";
-			document.getElementsByName('tpview')[0].style.display = "block";
-			document.getElementsByName('tab3').style.display = "block";
-			document.getElementById('trainingview').style.display ="none";
-
-
-
-		}//function showacview() {
-
-		function loadModal(id) {
-
-			var data = {
-				'ID' :id,
-				'_token' : '{{ Session::token() }}'
-			};
-
-			$.ajax({
-				type: "POST",
-				url: "{{url('modalView')}}",
-				data: data,
-				dataType: "json",
-			   	success : function(recorddata) {
-			   		console.log(recorddata);
-
-			   		//Profile
-			   		document.getElementsByName('name')[0].innerHTML = recorddata[0][0]['lname'] + ", " + recorddata[0][0]['fname'] + " " + recorddata[0][0]['mname'];
-			   		document.getElementsByName('bdate')[0].innerHTML = recorddata[1];
-
-			   		if(recorddata[0][0]['gender'] == 0) {
-			   			document.getElementsByName('gender')[0].innerHTML = "Male";
-
-			   		} else {
-			   			document.getElementsByName('gender')[0].innerHTML = "Female";
-
-			   		}//if(recorddata[0][0]['gender'] == 0) {
-
-			   		document.getElementsByName('address')[0].innerHTML = recorddata[0][0]['street'] + " " + recorddata[0][0]['barangay']
-			   															  + " " + recorddata[0][0]['city']  + " " + recorddata[0][0]['province'];
-
-			   	}//success : function() {
-			});
-
-			$('#viewadv').modal('show');
-
-		}//function loadModal() {
-
-		/**
-			Iisang modal lang yung sa ac saka twg/psmu
-
-			pag AC yung ivuview na record yung showacview yung 
-			gamitin para mapalitan yung advisory council tab.
-
-			Otherwise showtpview
-
-			Ito rin yung modal na gagamitin para sa adviser na blade.
-
-
-			defaulthome.blade --> Admin Home Page
-			defaultphome.blade --> Public Home Page
-
-
-
-		**/
-
-	</script>
+@include('home.directory_modal')
 
 @stop

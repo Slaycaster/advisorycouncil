@@ -13,9 +13,13 @@ use Response;
 class RegistrationController extends Controller
 {
     public function index(){
+        if(Auth::user()->admintype == 1) {
+            return redirect('home');
+        }//if
+
 
         $reqlist = users::where('status', '<>', '0')
-                            ->where('email', '!=', 'admin')
+                            ->where('email', '!=', 'superadmin')
                             ->orderBy('created_at','desc')
                             ->union(users::where('status', '=', '0'))
                             ->orderBy('created_at','desc')

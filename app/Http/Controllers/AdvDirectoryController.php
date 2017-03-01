@@ -40,6 +40,7 @@ use DB;
 
 use Auth;
 
+use Redirect;
 
 
 class AdvDirectoryController extends Controller {
@@ -50,9 +51,26 @@ class AdvDirectoryController extends Controller {
 
  	}//select dropdowns
 
- 	public function readyedit() {
- 		return view('module.adviser_add')->with('action', 1);
- 	}//ready edit
+ 	public function readyedit(Request $req) {
+
+ 		if(!isset($req->c)) {
+ 			return redirect("directory");
+ 		}//if
+
+		$tid = $req->c;
+
+		$tidelements = explode("-", $tid);
+
+		$result = $this->getData((int) $tidelements[1], (int) $tidelements[0]);
+
+		//return $result;
+
+		return view('module.adviser_add')->with('action', 1)
+										 ->with('recorddata', $result)
+										 ->with('type', (int) $tidelements[0])
+										 ->with('id', (int) $tidelements[1]);
+		
+	}//readyedit
 
 	public function addadviser(Request $req) {
 		$data = $req->all();
@@ -104,7 +122,7 @@ class AdvDirectoryController extends Controller {
 
 	}//edit - WHOLE
 
-	public function getView() {
+	/*public function getView() {
 
 		$recorddata = $this->getRecordData();
 
@@ -140,53 +158,86 @@ class AdvDirectoryController extends Controller {
 
 		return array($recorddata, date('d M Y', strtotime($recorddata[0]->birthdate)), $training);
 		
-	}//get record / modal view
+	}//get record / modal view*/
+
+	public function getAdv($filter, $sorter){
+		$civilian = DB::table('advisory_council')
+					->join('advisory_position', 'advisory_position.ID', '=', 'advisory_council.advisory_position_id')
+					->select('advisory_council.ID','lname', 'fname', 'mname', 'imagepath', 'email', 
+						     'contactno', 'landline','startdate', 'acpositionname', 'officename')
+					->orderBy('advisory_council.'. $filter, $sorter)
+					->get();
+	
+		$police = DB::table('police_advisory')
+					->join('police_position', 'police_position.id', '=', 'police_advisory.police_position_id')
+					->join('unit_offices', 'unit_offices.id', '=', 'police_advisory.unit_id')
+					->join('unit_office_secondaries', 'unit_office_secondaries.id', '=', 'police_advisory.second_id')
+					->join('unit_office_tertiaries', 'unit_office_tertiaries.id', '=', 'police_advisory.tertiary_id')
+					->join('unit_office_quaternaries', 'unit_office_quaternaries.id', '=', 'police_advisory.quaternary_id')
+					->select('police_advisory.ID', 'lname', 'fname', 'mname', 'imagepath', 'email', 
+						     'contactno', 'landline', 'startdate', 'policetype',
+						     'UnitOfficeName', 'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
+						     'UnitOfficeQuaternaryName', 'PositionName')
+					->orderBy('police_advisory.' . $filter, $sorter)
+					->get();
+
+		return array($civilian, $police);
+	}
 
 	public function getList() {
-		/**$directory = DB::table('advisers')
-						->select('ID', 'lname', 'fname', 'mname', 'imagepath', 'category', 'email', 'contactno', 'landline')
-						->orderBy('ID', 'desc')
-						->get();
+		$adv = $this->getAdv('created_at', 'desc');
+		/*INSERT CODE FOR DIRECTORY LIST VIEW*/
 
-		//return $directory;
-
-		return view('module.adviser')->with('directory', $directory);**/
-
-		return view('module.adviser');
+		return view('module.adviser')->with("directory", $adv);
 	}//public function getList() {
+
+	public function filterList(Request $req) {
+		if(!isset($req->f)) {
+			return redirect('directory');
+		}//if
+
+		$filter = $req->f;
+
+		if((int)$filter == 0) {
+			$adv = $this->getAdv('lname', 'asc');
+
+		} else if((int)$filter == 1) {
+			$adv = $this->getAdv('created_at', 'asc');
+
+		} else {
+			$adv = $this->getAdv('created_at', 'desc');
+
+		}//if
+
+		return view('module.adviser')->with("directory", $adv);
+	}//public function filterList(Request $req) {
 
 	public function readyPHome() {
 		if (Auth::check()) {
+			
+
 	    	return redirect('home');
 
 		}//if (Auth::check()) {
 
-		/*$directory = DB::table('advisers')
-						->select('ID', 'lname', 'fname', 'mname', 'imagepath', 'category', 'email', 'contactno', 'landline')
-						->orderBy('ID', 'desc')
-						->get();
+		$adv = $this->getAdv('created_at', 'desc');
 
-		return view('home.defaultphome')->with('directory', $directory);*/
+		/*INSERT CODE FOR PUBLIC HOME LIST VIEW*/
 
 
-		return view('home.defaultphome');
+		return view('home.defaultphome')->with('directory', $adv);
 	}//public function getList() {
 
 	public function getRecent() {
-		/*$recent = DB::table('advisers')
-						->select('ID', 'lname', 'fname', 'mname', 'imagepath', 'category', 'email', 'contactno', 'landline')
-						->orderBy('ID', 'desc')
-						->limit(50)
-						->get();
-
 		//SUMMARY PANE INSERT CODE HERE
-		$all = Advisory_Council::count();
-		$ac = Advisory_Council::where('category', '=', 0)->count();
-	    $twg = Advisory_Council::where('category', '=', 1)->count();
-	    $psmu = Advisory_Council::where('category', '=', 2)->count();
+		$ac = Advisory_Council::count();
+	    $twg = Police_Advisory::where('policetype', '=', 1)->count();
+	    $psmu = Police_Advisory::where('policetype', '=', 2)->count();
 	    $pac = 0;
 	    $ptwg = 0;
 	    $ppsmu = 0;
+	    $all = $ac + $twg + $psmu;
+
 
 	    if ($all > 0) {
 	    	$pac = round(($ac/$all) * 100, 2);
@@ -195,18 +246,41 @@ class AdvDirectoryController extends Controller {
 	    }//if
 	    
 
-		return view('home.defaulthome')->with('recent', $recent)
-									   ->with('all', $all)
+		$civilian = DB::table('advisory_council')
+					->join('advisory_position', 'advisory_position.ID', '=', 'advisory_council.advisory_position_id')
+					->select('advisory_council.ID','lname', 'fname', 'mname', 'imagepath', 'email', 
+						     'contactno', 'landline','startdate', 'acpositionname', 'officename')
+					->whereDate("advisory_council.created_at" , ">=", "DATE_ADD(NOW(),INTERVAL -15 DAY)")
+					->orderBy('advisory_council.created_at', 'desc')
+					->get();
+	
+		$police = DB::table('police_advisory')
+					->join('police_position', 'police_position.id', '=', 'police_advisory.police_position_id')
+					->join('unit_offices', 'unit_offices.id', '=', 'police_advisory.unit_id')
+					->join('unit_office_secondaries', 'unit_office_secondaries.id', '=', 'police_advisory.second_id')
+					->join('unit_office_tertiaries', 'unit_office_tertiaries.id', '=', 'police_advisory.tertiary_id')
+					->join('unit_office_quaternaries', 'unit_office_quaternaries.id', '=', 'police_advisory.quaternary_id')
+					->select('police_advisory.ID', 'lname', 'fname', 'mname', 'imagepath', 'email', 
+						     'contactno', 'landline', 'startdate', 'policetype',
+						     'UnitOfficeName', 'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
+						     'UnitOfficeQuaternaryName', 'PositionName')
+					->whereDate("police_advisory.created_at" , ">=", "DATE_ADD(NOW(),INTERVAL -15 DAY)")
+					->orderBy('police_advisory.created_at', 'desc')
+					->get();
+
+
+		return view('home.defaulthome')->with('all', $all)
 									   ->with('ac', $ac)
 									   ->with('twg', $twg)
 									   ->with('psmu', $psmu)
 									   ->with('pac', $pac)
 									   ->with('ptwg', $ptwg)
-									   ->with('ppsmu', $ppsmu);*/
-
-		return view('home.defaulthome');
+									   ->with('ppsmu', $ppsmu)
+									   ->with('acmember', $civilian)
+									   ->with('tpmember', $police);
 
 	}//public function getRecent() {
+
 
 	public function getACID() {
 		$getid = Advisory_Council::orderBy('ID', 'desc')->take(1)->get();
@@ -396,7 +470,7 @@ class AdvDirectoryController extends Controller {
 
    	//TWG/PSMU
 
-   	public function addTP($data, $id){
+   	public function addTP($data){
     
     	$advisory = new Police_Advisory;
     	$advisory->fname = $data['fname'];
@@ -416,6 +490,7 @@ class AdvDirectoryController extends Controller {
 	 	$advisory->city = $data['city'];
 	 	$advisory->province = $data['province'];
 	 	$advisory->barangay = $data['barangay'];
+	 	$advisory->policetype = $data['advcateg'];
 
 	 	if($data['upphoto'] != "") {
 	 		$advisory->imagepath = $this->loadphoto($data['upphoto']);
@@ -458,6 +533,7 @@ class AdvDirectoryController extends Controller {
 	 	$advisory->city = $data['city'];
 	 	$advisory->province = $data['province'];
 	 	$advisory->barangay = $data['barangay'];
+
 
 	 	if($data['upphoto'] != "") {
 	 		$advisory->imagepath = $this->loadphoto($data['upphoto']);
@@ -560,5 +636,98 @@ class AdvDirectoryController extends Controller {
 		
 		//return asset(Storage::disk('public')->url($filename));
 	}//loadphoto
+	
+	public function readyModal(Request $req) {
+		$type = $req->type;
+		$id = $req->id;
+
+		return $this->getData($id, $type);
+
+	}//readyModal
+
+	public function getData($id, $type){
+
+		if($type == 0) {
+
+				$ac = Advisory_Council::join("ac_subcategory", "ac_subcategory.ID", "=", "advisory_council.subcategoryId")
+										->join("ac_category", "ac_category.ID", "=", "ac_subcategory.categoryId")
+										->join("advisory_position", "advisory_position.ID", "=", "advisory_council.advisory_position_id")
+										->where("advisory_council.ID" , "=", $id)
+										->get();
+				$sector = Personnel_Sector::join("ac_sector", "ac_sector.ID", "=", "personnel_sector.ac_sector_id")
+										->where("advisory_council_id" , "=", $id)
+										->get();
+
+				
+
+				return array($ac, $sector, $this->formatOutput($ac));
+
+		}else if($type == 1 || $type == 2) {
+
+			$pa = Police_Advisory::join("ranks", "ranks.id", "=", "police_advisory.rank_id")
+									->join("police_position", "police_position.ID", "=", "police_advisory.police_position_id")
+									->join("unit_offices", "unit_offices.id", "=", "police_advisory.unit_id")
+									->join("unit_office_secondaries", "unit_office_secondaries.id", "=", "police_advisory.second_id")
+									->join("unit_office_tertiaries", "unit_office_tertiaries.id", "=", "police_advisory.tertiary_id")
+									->join("unit_office_quaternaries", "unit_office_quaternaries.id", "=", "police_advisory.quaternary_id")
+									->where("police_advisory.ID", "=", $id)
+									->get();
+
+			$trainings= Training::where("training.police_id", "=", $id)
+									->get();
+
+			$lecturelist = array();
+
+			$datelist = array();
+
+			foreach ($trainings as $key => $val) {
+				$lecturer = Lecturer::where("training_id", "=", $val->ID)
+									->get();
+				$startdate = date('d M Y', strtotime($val->startdate));
+				$starttime = date('G:i A', strtotime($val->starttime));
+				$enddate = date('d M Y', strtotime($val->enddate));
+				$endtime = date('G:i A', strtotime($val->endtime));
+
+				array_push($lecturelist, $lecturer);
+				array_push($datelist, array($startdate, $starttime, $enddate, $endtime));
+				
+			}//foreach
+
+			return array($pa, array($trainings, $lecturelist, $datelist), $this->formatOutput($pa));
+
+			
+		}//if
+
+
+	 }//public function getModal(Request $req){
+
+	 public function formatOutput($data) {
+	 	foreach ($data as $key => $val) {
+
+	 		if($val->imagepath != "") {
+	 			$img = asset($val->imagepath);
+
+	 		} else {
+	 			$img = asset('objects/Logo/InitProfile.png');
+
+	 		}//if
+			
+			$bdate = date('d M Y', strtotime($val->birthdate));
+			$startdate = date('d M Y', strtotime($val->startdate));
+
+			if($val->enddate != ""){
+				$enddate = date('d M Y', strtotime($val->enddate));
+			} else {
+				$enddate = "Present";
+			}//if
+
+			return array($img, $bdate, $startdate, $enddate);
+		}//foreach
+
+	 }//format output
+
+	
 
 }//class
+
+

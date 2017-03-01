@@ -12,7 +12,7 @@ class Police_Advisory extends Model
 
     public function policetraining()
     {
-        return $this->hasMany('App\Models\Police_Training', 'police_id');
+        return $this->hasMany('App\Models\Training', 'police_id');
     }
 
     public function unitoffice()
