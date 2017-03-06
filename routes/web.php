@@ -191,4 +191,8 @@ Route::get('directory/search', function() {
 ///-------------------------------------------------------------------------------------------------------------------------------
 
 //smart search [ren]
-//Route::get('search', 'SearchController@index');
+Route::get('search', 'SearchController@index');
+Route::get('searchAll', 'SearchController@AdvancedSearch');
+Route::get('ACSearch/{sq}', 'SearchController@findAC');
+Route::get('PoliceSearch/{sq}', 'SearchController@findPA');
+Route::get('searchView', 'SearchController@view');

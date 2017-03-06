@@ -25,30 +25,41 @@
 <br>
 <select id="searchbox" name="q" placeholder="Search Advisers or category" class="form-control"></select>
 <script>
-	var root = '{{url("/")}}';
-	$(document).ready(function(){
+    
+    var root = '{{url("/")}}';
+    $(document).ready(function(){
+   
     $('#searchbox').selectize({
         valueField: 'url',
         labelField: 'fname',
         searchField: ['fname','mname','lname'],
-        maxOptions: 10,
+        maxOptions: 20,
         options: [],
-        create: false,
+        create: function(input){
+            window.location = "searchAll?sq=" + input;
+
+
+        },
+        createOnBlur: false,
         render: {
+            option_create: function(data, escape) {
+              return '<div class="create">SELECT <strong>' + escape(data.input) + '</strong>&hellip;</div>';
+            },
             option: function(item, escape) {
-            	if (item.imagepath == '') {
-            		return '<div><img style="width:30px;height:30px;" src="'+ '{{URL::asset("objects/Logo/InitProfile.png")}}' +'"> ' +escape(item.fname) + " " + escape(item.imagepath)+ " " + escape(item.lname)+'</div>';	
-            	}else{
-            		return '<div><img style="width:30px;height:30px;" src="'+ item.imagepath +'"> ' +escape(item.fname) + " " + escape(item.mname)+ " " + escape(item.lname)+'</div>';
-            	};
+                if (item.imagepath == '') {
+                    return '<div><img style="width:30px;height:30px;" src="'+ '{{URL::asset("objects/Logo/InitProfile.png")}}' +'"> ' +escape(item.fname) + " " + escape(item.imagepath)+ " " + escape(item.lname)+'</div>';    
+                }else{
+                    return '<div><img style="width:30px;height:30px;" src="'+ item.imagepath +'"> ' +escape(item.fname) + " " + escape(item.mname)+ " " + escape(item.lname)+'</div>';
+                };
                 
             }
         },
         optgroups: [
-            {value: 'adviser', label: 'Advisers'}
+            {value: 'AdvisoryCouncil', label: 'Advisory Council'},
+            {value: 'police', label: 'Police Advisory'}
         ],
         optgroupField: 'class',
-        optgroupOrder: ['advisers'],
+        optgroupOrder: ['AdvisoryCouncil','police'],
         load: function(query, callback) {
             if (!query.length) return callback();
             $.ajax({
@@ -67,10 +78,16 @@
             });
         },
         onChange: function(){
+
             window.location = this.items[0];
         }
     });
 });
+
+function reset(){
+    $('#searchbox').first().selectize()[0].selectize.setValue('‌​');
+}
+
 </script>
 </body>
 </html>
