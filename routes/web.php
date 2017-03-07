@@ -176,37 +176,23 @@ Route::get('reloadImageCaptcha', 'RegistrationController@reloadCaptcha');
 //RETRIEVE DATA
 Route::post('getdata', 'AdvDirectoryController@readyModal');
 
+//SEARCH
+Route::get('home/search', function() {
+	return view('search.search_result')->with('active', '#tab1');
+});
 
-
+Route::get('directory/search', function() {
+	return view('search.search_result')->with('active', '#tab3');
+});
 
 
 
 
 ///-------------------------------------------------------------------------------------------------------------------------------
 
-//profile [ren]
-Route::get('transaction/adviser','ProfileController@index');
-Route::post('transaction/addadvisers','ProfileController@store');
-Route::get('transaction/advedt','ProfileController@edit');
-
-
 //smart search [ren]
 Route::get('search', 'SearchController@index');
-
-
-
-/*
-Filters for the directory. returning json values
-[ren william lucas buluran]
-*/
-Route::get('FilterAC', 'FilterController@FilterAC');
-Route::get('FilterAll', 'FilterController@FilterAll');
-Route::get('FilterTWG', 'FilterController@FilterTWG');
-
-Route::get('FilterPSMU', 'FilterController@FilterPSMU');
-
-
-// relaoding captcha
-
-//TESTING
-Route::get('testmy', 'AdvDirectoryController@getModal');
+Route::get('searchAll', 'SearchController@AdvancedSearch');
+Route::get('ACSearch/{sq}', 'SearchController@findAC');
+Route::get('PoliceSearch/{sq}', 'SearchController@findPA');
+Route::get('searchView', 'SearchController@view');

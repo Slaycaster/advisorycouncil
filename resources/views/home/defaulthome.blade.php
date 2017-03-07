@@ -69,119 +69,125 @@
 					<div class = "mtitle">Recently Added</div>
 
 					<br>
-					<h6 class="ui horizontal divider divtitle">
-						Advisory Council
-					</h6>
 
-					<div id = "accardlist" class = "ui doubling grid cardlist2">
+					@if(sizeof($acmember) != 0)
+						<h6 class="ui horizontal divider divtitle">
+							Advisory Council
+						</h6>
 
-						@foreach($acmember as $acrec)
-							<div class = "five1 wide column colheight">
-								<div class = "cardstyle" onclick = "loadModal('0-{{$acrec->ID}}')">
-									@if($acrec->imagepath != "")
-										<img class = "advphoto" src="{{URL::asset($acrec->imagepath)}}"/>
-									@else
-										<img class = "advphoto" src="{{URL::asset('objects/Logo/InitProfile.png')}}"/>
-									@endif
-									<div class = "advdata">
-										<h5 class = "name">{{$acrec->lname}}, {{$acrec->fname}} {{$acrec->mname}} (AC)</h5>
-										<p class = "p1">
-											{{$acrec->acpositionname}} <br>
-											{{$acrec->officename}} <br>
-											{{$acrec->email}} <br>
+						<div id = "accardlist" class = "ui doubling grid cardlist2">
 
-											@if($acrec->contactno != "" && $acrec->landline != "")
-												{{$acrec->contactno/ $acrec->landline}}
-											@else
-												@if($acrec->contactno != "")
-													{{$acrec->contactno}}
-												@elseif($acrec->landline != "")
-													{{$acrec->landline}}
+							@foreach($acmember as $acrec)
+								<div class = "five1 wide column colheight">
+									<div class = "cardstyle" onclick = "loadModal('0-{{$acrec->ID}}')">
+										@if($acrec->imagepath != "")
+											<img class = "advphoto" src="{{URL::asset($acrec->imagepath)}}"/>
+										@else
+											<img class = "advphoto" src="{{URL::asset('objects/Logo/InitProfile.png')}}"/>
+										@endif
+										<div class = "advdata">
+											<h5 class = "name">{{$acrec->lname}}, {{$acrec->fname}} {{$acrec->mname}} (AC)</h5>
+											<p class = "p1">
+												{{$acrec->acpositionname}} <br>
+												{{$acrec->officename}} <br>
+												{{$acrec->email}} <br>
+
+												@if($acrec->contactno != "" && $acrec->landline != "")
+													{{$acrec->contactno/ $acrec->landline}}
+												@else
+													@if($acrec->contactno != "")
+														{{$acrec->contactno}}
+													@elseif($acrec->landline != "")
+														{{$acrec->landline}}
+													@endif
 												@endif
-											@endif
-											
-											
-										</p>
+												
+												
+											</p>
 
-										<p class = "p2"> Member since {{date('M Y',strtotime($acrec->startdate))}}</p>
-										
+											<p class = "p2"> Member since {{date('M Y',strtotime($acrec->startdate))}}</p>
+											
+										</div>
 									</div>
+
 								</div>
+							@endforeach
 
-							</div>
-						@endforeach
+						</div>
 
-					</div>
+						<br>
+					@endif
 
-					<br>
+					@if(sizeof($tpmember) != 0)
+						<h4 class="ui horizontal divider divtitle">
+							TWG & PSMU
+						</h4>
 
-					<h4 class="ui horizontal divider divtitle">
-						TWG & PSMU
-					</h4>
+						<div id = "tpcardlist" class = "ui doubling grid cardlist2">
 
-					<div id = "tpcardlist" class = "ui doubling grid cardlist2">
+							@foreach($tpmember as $tprec)
+								<div class = "five1 wide column colheight">
+									<div class = "cardstyle" onclick = "loadModal('{{$tprec->policetype}}-{{$tprec->ID}}')">
+										@if($tprec->imagepath != "")
+											<img class = "advphoto" src="{{URL::asset($tprec->imagepath)}}"/>
+										@else
+											<img class = "advphoto" src="{{URL::asset('objects/Logo/InitProfile.png')}}"/>
+										@endif
+										<div class = "advdata">
+											<h5 class = "name">{{$tprec->lname}}, {{$tprec->fname}} {{$tprec->mname}}
 
-						@foreach($tpmember as $tprec)
-							<div class = "five1 wide column colheight">
-								<div class = "cardstyle" onclick = "loadModal('{{$tprec->policetype}}-{{$tprec->ID}}')">
-									@if($tprec->imagepath != "")
-										<img class = "advphoto" src="{{URL::asset($tprec->imagepath)}}"/>
-									@else
-										<img class = "advphoto" src="{{URL::asset('objects/Logo/InitProfile.png')}}"/>
-									@endif
-									<div class = "advdata">
-										<h5 class = "name">{{$tprec->lname}}, {{$tprec->fname}} {{$tprec->mname}}
-
-											@if($tprec->policetype == 1)
-												(TWG)
-											@else
-												(PSMU)
-											@endif
-										</h5>
-										<p class = "p1">
-											{{$tprec->PositionName}} <br>
-
-											@if($tprec->UnitOfficeQuaternaryName != "")
-												{{$tprec->UnitOfficeQuaternaryName}} 
-
-											@elseif($tprec->UnitOfficeTertiaryName != "")
-												{{$tprec->UnitOfficeTertiaryName}} 
-
-											@elseif($tprec->UnitOfficeSecondaryName != "")
-												{{$tprec->UnitOfficeSecondaryName}} 
-
-											@else
-												{{$tprec->UnitOfficeName}} 
-
-											@endif
-
-											<br>
-
-											{{$tprec->email}} <br>
-
-											@if($tprec->contactno != "" && $tprec->landline != "")
-												{{$tprec->contactno/ $tprec->landline}}
-											@else
-												@if($tprec->contactno != "")
-													{{$tprec->contactno}}
-												@elseif($tprec->landline != "")
-													{{$tprec->landline}}
+												@if($tprec->policetype == 1)
+													(TWG)
+												@else
+													(PSMU)
 												@endif
-											@endif
-											
-											
-										</p>
+											</h5>
+											<p class = "p1">
+												{{$tprec->PositionName}} <br>
 
-										<p class = "p2"> Member since {{date('M Y',strtotime($tprec->startdate))}}</p>
-										
+												@if($tprec->UnitOfficeQuaternaryName != "")
+													{{$tprec->UnitOfficeQuaternaryName}} 
+
+												@elseif($tprec->UnitOfficeTertiaryName != "")
+													{{$tprec->UnitOfficeTertiaryName}} 
+
+												@elseif($tprec->UnitOfficeSecondaryName != "")
+													{{$tprec->UnitOfficeSecondaryName}} 
+
+												@else
+													{{$tprec->UnitOfficeName}} 
+
+												@endif
+
+												<br>
+
+												{{$tprec->email}} <br>
+
+												@if($tprec->contactno != "" && $tprec->landline != "")
+													{{$tprec->contactno/ $tprec->landline}}
+												@else
+													@if($tprec->contactno != "")
+														{{$tprec->contactno}}
+													@elseif($tprec->landline != "")
+														{{$tprec->landline}}
+													@endif
+												@endif
+												
+												
+											</p>
+
+											<p class = "p2"> Member since {{date('M Y',strtotime($tprec->startdate))}}</p>
+											
+										</div>
 									</div>
+
 								</div>
+							@endforeach
+								
 
-							</div>
-						@endforeach
-							
+						</div>
 
-					</div>
+					@endif
 
 
 			

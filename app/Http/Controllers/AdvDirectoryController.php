@@ -198,7 +198,6 @@ class AdvDirectoryController extends Controller {
 
 		$filter = $req->f;
 
-
 		if((int)$filter == 0) {
 			$adv = $this->getAdv('lname', 'asc');
 

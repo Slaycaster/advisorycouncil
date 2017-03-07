@@ -315,6 +315,13 @@ hr {
 	float:left;
 }
 
+.h4result {
+	margin-left: 2.5%;
+	font-family: "Franklin Gothic Book";
+	color: #565656;
+
+}
+
 .tablecon {
 	height: 98%;
 	width: 95%;

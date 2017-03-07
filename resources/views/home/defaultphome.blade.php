@@ -2,14 +2,17 @@
 
 @section('phomesection')
 
-		<div class =  "dcon">
-					<hr class="hr3">
-					
-					<h6 class="ui horizontal divider divtitle">
-						Advisory Council
-					</h6>
+	<div class =  "dcon">
+		<hr class="hr3">
 
-					<div id = "accardlist" class = "ui doubling grid cardlist2">
+		@if(sizeof($directory[0]) != 0)
+			
+					
+			<h6 class="ui horizontal divider divtitle">
+				Advisory Council
+			</h6>
+
+			<div id = "accardlist" class = "ui doubling grid cardlist2">
 
 						@foreach($directory[0] as $acrec)
 
@@ -38,13 +41,17 @@
 							</div>
 						@endforeach
 
-					</div>
-					<br>
-					<h4 class="ui horizontal divider divtitle">
-						TWG & PSMU
-					</h4>
+			</div>
+		@endif
 
-					<div id = "tpcardlist" class = "ui doubling grid cardlist2">
+			<br>
+		
+		@if(sizeof($directory[1]) != 0)
+			<h4 class="ui horizontal divider divtitle">
+				TWG & PSMU
+			</h4>
+
+			<div id = "tpcardlist" class = "ui doubling grid cardlist2">
 
 						@foreach($directory[1] as $tprec)
 							<div class = "four wide column colheight1">
@@ -92,25 +99,9 @@
 						@endforeach
 							
 
-					</div>
-
-		<!--<div class = "ui doubling grid cardlist2">
-				<div class = "four wide column colheight1">
-					<div class = "cardstyleportrait">
-						<img class = "advphoto1" src=""/>
-
-						<div class = "advdata1">
-							<h5 class = "name"></h5>
-							<p>
-							</p>
-
-								
-						</div>
-					</div>
-
-				</div>
-
-		</div>-->
+			</div>
+		@endif
+		
 			
 	</div>
 
