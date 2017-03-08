@@ -17,7 +17,7 @@ class PoliceOfficeThreeController extends Controller
       $poOne = unit_offices::where('UnitOfficeHasField', '=', 'True')->get();
       $potwo = unit_office_secondaries::where('UnitOfficeHasTertiary', '=', 'True')->get(); 
       $pothree = DB::table('unit_office_tertiaries')->select('unit_office_tertiaries.UnitOfficeHasQuaternary','unit_office_tertiaries.UnitOfficeSecondaryID',
-        'unit_office_tertiaries.UnitOfficeTertiaryName','unit_office_tertiaries.id','unit_office_secondaries.UnitOfficeSecondaryName','unit_offices.UnitOfficeName')
+        'unit_office_tertiaries.UnitOfficeTertiaryName','unit_office_tertiaries.id','unit_office_secondaries.UnitOfficeSecondaryName','unit_offices.UnitOfficeName', 'unit_office_tertiaries.desc')
             ->join('unit_office_secondaries','unit_office_tertiaries.UnitOfficeSecondaryID','=','unit_office_secondaries.id')
             ->join('unit_offices','unit_office_secondaries.UnitOfficeID','=','unit_offices.id')
             ->get();
@@ -41,6 +41,7 @@ class PoliceOfficeThreeController extends Controller
             $potri = new unit_office_tertiaries;
             $potri->UnitOfficeTertiaryName = $request->tername;
             $potri->UnitOfficeHasQuaternary = $request->hasquart;
+            $potri->desc = $request->desc;
             $potri->UnitOfficeSecondaryID = $request->office2;
             $potri->save();
             var_dump($potri);
@@ -54,6 +55,7 @@ class PoliceOfficeThreeController extends Controller
             $potri= unit_office_tertiaries::find($id);
             $potri->UnitOfficeTertiaryName = $request->tername;
             $potri->UnitOfficeHasQuaternary = $request->hasquart;
+            $potri->desc = $request->desc;
             $potri->UnitOfficeSecondaryID = $request->office2;
             $potri->save();
         }

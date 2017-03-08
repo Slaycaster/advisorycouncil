@@ -21,7 +21,7 @@
 
 			<div class = "twelve wide column bspacing2">
 				<div class="ui input field formfield">
-					<input type="text" name="positionname" value = "" placeholder="e.g. Deputy Director"/>
+					<input type="text" name="positionname" value = "" placeholder="Enter PNP Position e.g. Deputy Director"/>
 				</div>
 			</div>
 
@@ -80,7 +80,7 @@
 	</div>
 
 	<script type="text/javascript">
-		$('#m9').attr('class', 'item active');
+		$('#m7').attr('class', 'item active');
 
 		var flag = 0;
 

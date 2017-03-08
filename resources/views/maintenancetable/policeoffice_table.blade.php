@@ -9,7 +9,12 @@
 				<label class = "formlabel">Primary Office
 					<span class = "asterisk">*</span>
 				</label>
-			</div>					
+			</div>
+
+			<div class = "twelve wide column bspacing">
+				<label class = "formlabel">Description
+				</label>
+			</div>			
 								
 		</div>
 
@@ -18,9 +23,15 @@
 
 			<div class = "twelve wide column bspacing2">
 				<div class="ui input field formfield">
-					<input type="text" name="name" placeholder="e.g. D-Staff">
+					<input type="text" name="name" placeholder="Enter Primary Office Name e.g. PRO">
 				</div>
 			</div>
+
+			<div class = "twelve wide column bspacing2">
+				<div class="field">
+					<textarea id="desc" name = "desc" class = "areastyle" rows = "4" placeholder="Type here..."></textarea>
+				</div>
+			</div>	
 							
 			<div class = "twelve wide column bspacing2">
 				<div class="ui checkbox">
@@ -55,7 +66,8 @@
 		<table id="datatable" class="ui celled table" cellspacing="0" width="100%">
 		    <thead>
 		    	<tr>
-		            <th><center>Name</center></th>
+		            <th><center>Primary Office Name</center></th>
+		            <th><center>Description</center></th>
 		            <th><center>Has Secondary</center></th>
 		        </tr>	
 		    </thead>
@@ -64,6 +76,7 @@
 		    	@for($ctr = 0 ; $ctr < sizeof($offices) ; $ctr++)
 		    		<tr class = "trow" onclick = "loaddata({{$offices[$ctr]->id}})" id = "{{$offices[$ctr]->id}}">
 			    		<td><center>{{$offices[$ctr]->UnitOfficeName}}</center></td>
+			    		<td><center>{{$offices[$ctr]->desc}}</center></td>
 			    		<td><center>
 
 			    		@if(strtolower($offices[$ctr]->UnitOfficeHasField) == "true")
@@ -90,7 +103,7 @@
 	</div>
 
 	<script type="text/javascript">
-		$('#m5').attr('class', 'item active');
+		$('#m1').attr('class', 'item active');
 		var flag = 0;
 
 		function controlaction() {
@@ -134,7 +147,7 @@
 
 			   		document.getElementsByName('officeid')[0].value = data['id'];
 			   		document.getElementsByName('name')[0].value = data['UnitOfficeName'];
-			   		// alert($('#hasfield').val());
+			   		document.getElementsByName('desc')[0].value = data['desc'];
 			   		if(data['UnitOfficeHasField'] == 'True'){
 			   			document.getElementById('hasfield').checked = true;
 			   		}
@@ -152,6 +165,7 @@
 			var data = {
 				'name' : document.getElementsByName("name")[0].value,
 				'hassec' : document.getElementsByName("hassec")[0].value,
+				'desc' : document.getElementsByName("desc")[0].value,
 				'submit': document.getElementsByName("submit")[0].value,
 				'_token' : '{{ Session::token() }}'
 			};
@@ -177,6 +191,7 @@
 				'policeID' : document.getElementsByName('officeid')[0].value,
 				'name' : document.getElementsByName("name")[0].value,
 				'hassec' : document.getElementsByName("hassec")[0].value,
+				'desc' : document.getElementsByName("desc")[0].value,
 				'submit': document.getElementsByName("submit")[0].value,
 				'_token' : '{{ Session::token() }}'
 			};

@@ -59,14 +59,14 @@ Route::get('maintenance', function () {
 		return redirect('home');
 	}//if
 
-    return redirect('maintenance/accategory');
+    return redirect('maintenance/primaryoffice');
 })->middleware('auth');
 
 Route::get('directory', 'AdvDirectoryController@getList')->middleware('auth');
 
 //MAINTENANCE @author: Shie Eugenio
-Route::get('maintenance/accategory', 'ACCategoryController@index')->middleware('auth');
-Route::get('maintenance/acsubcategory','ACSubcategoryController@index')->middleware('auth');
+//Route::get('maintenance/accategory', 'ACCategoryController@index')->middleware('auth');
+//Route::get('maintenance/acsubcategory','ACSubcategoryController@index')->middleware('auth');
 Route::get('maintenance/acposition','ACPositionController@index_acposition')->middleware('auth');
 Route::get('maintenance/acsector','acsectorController@index_acsectors')->middleware('auth');
 Route::get('maintenance/primaryoffice', 'PoliceOfficesController@index')->middleware('auth');
@@ -103,7 +103,7 @@ Route::get('admin', 'RegistrationController@index')->middleware('auth');
 
 //MAINTENANCE
 
-//AC CATEGORY @author: Shie Eugenio
+/*//AC CATEGORY @author: Shie Eugenio
 Route::post("accategory/add", 'ACCategoryController@confirm');
 Route::post('accategory/view','ACCategoryController@edit');
 Route::post("accategory/edit", "ACCategoryController@update");
@@ -112,6 +112,7 @@ Route::post("accategory/edit", "ACCategoryController@update");
 Route::post('acsubcategory/add', 'ACSubcategoryController@confirm');
 Route::post('acsubcategory/view','ACSubcategoryController@edit');
 Route::post("acsubcategory/edit", "ACSubcategoryController@update");
+*/
 
 //AC POSITION @author: Lester Acula
 Route::post('maintenance/acpositioncrud','ACPositionController@acpositioncrud');

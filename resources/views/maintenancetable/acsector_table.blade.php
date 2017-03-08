@@ -25,7 +25,7 @@
 
 			<div class = "twelve wide column bspacing2">
 				<div class="ui input field formfield">
-					<input type="text" name="acsectorName"  id="acsectorName" placeholder="e.g. Local Government Unit">
+					<input type="text" name="acsectorName"  id="acsectorName" placeholder="Enter AC Sector Name e.g. LGU">
 				</div>
 			</div>
 
@@ -83,7 +83,7 @@
 	</div>
 
 <script type="text/javascript">
-	$('#m4').attr('class', 'item active');
+	$('#m6').attr('class', 'item active');
 	var flag = 0;
 
 	function resetflag(msg){

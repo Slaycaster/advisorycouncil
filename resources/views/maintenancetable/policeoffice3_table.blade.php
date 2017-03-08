@@ -26,6 +26,11 @@
 				<span class = "asterisk">*</span>
 			</div>
 
+			<div class = "twelve wide column bspacing">
+				<label class = "formlabel">Description
+				</label>
+			</div>
+
 		</div>	
 
 		<input type="hidden" value="" name="ID" id='ID'/>
@@ -63,10 +68,15 @@
 
 				<div class = "twelve wide column bspacing2">
 					<div class="ui input field formfield">
-						<input type="text" name="terName" id='terName' placeholder="e.g. Regional">
+						<input type="text" name="terName" id='terName' placeholder="Enter Tertiary Office Name e.g. La Union">
 					</div>
 				</div>
 
+				<div class = "twelve wide column bspacing2">
+					<div class="field">
+						<textarea id="desc" name = "desc" class = "areastyle" rows = "4" placeholder="Type here..."></textarea>
+					</div>
+				</div>	
 
 				<div class = "twelve wide column bspacing2">
 					<div class="ui checkbox">
@@ -107,6 +117,7 @@
 		            <th><center>Primary Office</center></th>
 		            <th><center>Secondary Office</center></th>
 		            <th><center>Tertiary Office</center></th>
+		            <th><center>Description</center></th>
 		            <th><center>Has Quaternary</center></th>
 		        </tr>	
 		    </thead>
@@ -118,6 +129,7 @@
 			       	<td><center>{{$tri->UnitOfficeName}}</center></td>
 			       	<td><center>{{$tri->UnitOfficeSecondaryName}}</center></td>
 			    	<td><center>{{$tri->UnitOfficeTertiaryName}}</center></td>
+			    	<td><center>{{$tri->desc}}</center></td>
 			    	<td><center>
 			    		@if(strtolower($tri->UnitOfficeHasQuaternary) == "true")
 
@@ -144,7 +156,7 @@
 
 	<script type="text/javascript">
 
-	$('#m7').attr('class', 'item active');
+	$('#m3').attr('class', 'item active');
 	$('.ui.dropdown').dropdown();
 	var flag = 0;
 		
@@ -179,6 +191,7 @@
 				'tername' : document.getElementsByName('terName')[0].value,
 				'hasquart' : $('#hasQuart').is(":checked"),  
 				'office2' : $('#office2').val(),
+				'desc' : document.getElementsByName('desc')[0].value,
 				'submit': document.getElementsByName("submit")[0].value,
 				'callId' : 1,
 				'_token' : '{{ Session::token() }}'
@@ -197,6 +210,7 @@
 				'tername' : document.getElementsByName('terName')[0].value,
 				'hasquart' : $('#hasQuart').is(":checked"), 
 				'office2' : $('#office2').val(),
+				'desc' : document.getElementsByName('desc')[0].value,
 				'submit': document.getElementsByName("submit")[0].value,
 				'callId' : 3,
 				'_token' : '{{ Session::token() }}'
@@ -238,6 +252,8 @@
 					document.getElementById('ID').value = data['id'];
 					document.getElementsByName('terName')[0].value = data['UnitOfficeTertiaryName'];
 					document.getElementsByName('hasQuart')[0].value = data['UnitOfficeHasQuaternary'];
+					document.getElementsByName('desc')[0].value = data['desc'];
+
 					document.getElementById('office2').value = data['UnitOfficeSecondaryID'];
 				}
 			} 

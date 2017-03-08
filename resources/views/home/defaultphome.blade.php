@@ -27,7 +27,17 @@
 										<h5 class = "name">{{$acrec->lname}}, {{$acrec->fname}} {{$acrec->mname}} (AC)</h5>
 										<p class = "p1">
 											{{$acrec->acpositionname}} <br>
-											{{$acrec->officename}} <br>
+
+											@if($acrec->UnitOfficeQuaternaryName != "")
+												{{$acrec->UnitOfficeQuaternaryName}} 
+
+											@elseif($acrec->UnitOfficeTertiaryName != "")
+												{{$acrec->UnitOfficeTertiaryName}} 
+
+											@elseif($acrec->UnitOfficeSecondaryName != "")
+												{{$acrec->UnitOfficeSecondaryName}} 
+
+											@endif
 											
 											
 											
@@ -81,9 +91,6 @@
 
 											@elseif($tprec->UnitOfficeSecondaryName != "")
 												{{$tprec->UnitOfficeSecondaryName}} 
-
-											@else
-												{{$tprec->UnitOfficeName}} 
 
 											@endif
 

@@ -117,7 +117,7 @@
 									<div class = "four fields">
 
 										<div class = "field">
-											<label>Mobile Number <span class="asterisk">*</span></label>
+											<label>Mobile Number</label>
 
 										
 											<div class = "ui input field">
@@ -142,7 +142,7 @@
 
 									<div class = "four fields">
 										<div class = "field">
-											<label>Email Address <span class="asterisk">*</span></label>
+											<label>Email Address </label>
 
 											<div class = "ui input field">
 												<input type="email" name = "email" placeholder="e.g. sample@yahoo.com">
@@ -201,13 +201,13 @@
 						</div>
 
 						<div class = "fbtop minvtitle mtitle">
-							Advisory Council <!-- SUBJECT FOR CHANGE-->	
+							Stakeholder Information <!-- SUBJECT FOR CHANGE-->	
 						</div>
 
 						<div class = "tablecon">
 							<div class = "field">
 								<div class = "field">
-									<label>Adviser Category <span class="asterisk">*</span></label>
+									<label>Stakeholder Category <span class="asterisk">*</span></label>
 									<div class = "inline fields">
 										<div class = "ui radio field">
 											<input type="radio" checked onchange = "changeform(this.value)" name="advcateg" value="0"  tabindex="0" class="hidden">
@@ -445,8 +445,8 @@
 
 			function fillAC() {
 				//NOT WORKING
-				$("select[name='acposition'] option[value='{{$recorddata[0][0]->advisory_position_id}}']").prop('selected', true);
-				$("#accateg").dropdown("set exactly", "{{$recorddata[0][0]->categoryId}}"); 
+				$('#acposition').val({!!$recorddata[0][0]->advisory_position_id!!}).dropdown('refresh');
+				$("#accateg").val({!!$recorddata[0][0]->categoryId!!}).dropdown('refresh');
 				getsubcateg();
 
 				$("#acsubcateg").dropdown("set exactly", "{{$recorddata[0][0]->subcategoryId}}"); 
@@ -595,7 +595,10 @@
 						'acposition' : document.getElementsByName('acposition')[0].value,
 						'officename' : document.getElementsByName('officename')[0].value,
 						'officeadd' : document.getElementsByName('officeadd')[0].value,
-						'acsubcateg' : document.getElementsByName('acsubcateg')[0].value,
+						'primary' : document.getElementsByName('primary')[0].value,
+						'secondary' : document.getElementsByName('secondary')[0].value,
+						'tertiary' : document.getElementsByName('tertiary')[0].value,
+						'quaternary' : document.getElementsByName('quaternary')[0].value,
 						'acsector' : $("select[name='acsector']").val(),
 						'upphoto' : photo,
 						'submit' : 'save',
@@ -725,23 +728,33 @@
 			   	success : function(data) {
 
 			   		$("select[name='acposition'] option").not("[value='disitem']").remove();
-			   		$("select[name='accateg'] option").not("[value='disitem']").remove();
+			   		//$("select[name='accateg'] option").not("[value='disitem']").remove();
 			   		$("select[name='acsector'] option").not("[value='disitem']").remove();
+			   		$("select[name='primary'] option").not("[value='disitem']").remove();
 
 			   		for (var ctr = 0 ; ctr < data[0].length ; ctr++) {
 			   			populatedropdown(data[0][ctr]['ID'], 'acposition', data[0][ctr]['acpositionname']);
 			   			
 			   		};
 
-			   		for (var ctr = 0 ; ctr < data[1].length ; ctr++) {
+			   		/*for (var ctr = 0 ; ctr < data[1].length ; ctr++) {
 			   			populatedropdown(data[1][ctr]['ID'], 'accateg', data[1][ctr]['categoryname']);
+			   			
+			   		};*/
+
+			   		for (var ctr = 0 ; ctr < data[1].length ; ctr++) {
+			   			populatedropdown(data[1][ctr]['ID'], 'acsector', data[1][ctr]['sectorname']);
 			   			
 			   		};
 
 			   		for (var ctr = 0 ; ctr < data[2].length ; ctr++) {
-			   			populatedropdown(data[2][ctr]['ID'], 'acsector', data[2][ctr]['sectorname']);
+			   			populatedropdown(data[2][ctr]['id'], 'primary', data[2][ctr]['UnitOfficeName']);
 			   			
 			   		};
+
+			   		$("select").dropdown('refresh');
+
+
 
 			   	}//success : function() {
 			});
@@ -776,7 +789,7 @@
 			});
 		}//function getInitialTPDropdown() {
 
-		function getsubcateg() {
+		/*function getsubcateg() {
 			var data = {
 				'categID' : document.getElementsByName('accateg')[0].value,
 				'_token' : '{{ Session::token() }}'
@@ -802,7 +815,7 @@
 			});
 
 
-		}//function getsubcateg() {
+		}//function getsubcateg() {*/
 
 		function getsecoffice() {
 			var data = {

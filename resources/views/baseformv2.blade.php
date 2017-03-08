@@ -24,7 +24,7 @@
 		<header class = "banner1">
 			<div class = "ui relaxed grid">
 				<div class = "six wide column" onclick="window.location='{{url('/')}}'">
-					<image class = "acname1" src="{{URL::asset('objects/Logo/ACName4.png')}}"/>
+					<image class = "acname1" src="{{URL::asset('objects/Logo/ACName2.png')}}"/>
 				</div>		
 			</div>
 				
