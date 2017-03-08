@@ -32,50 +32,57 @@
     </head>
 
     <body onload = "init()" class = "phbdy">
-    
-        <div>            
-            <input type="radio" name="acselect" value="0">
-            <label for="advisoryCouncil">Advisory Councill</label><br>
-            <input type="radio" name="acselect" value="1">
-            <label for="twg">TWG</label><br>
-            <input type="radio" name="acselect" value="2">
-            <label for="psmu">PSMU</label><br><br>
-        </div>
+
+    <div>
+        <form method="POST" action="javascript:updateTable()">
+            <div>            
+                <input type="radio" name="acselect" value="0">
+                <label for="advisoryCouncil">Advisory Councill</label><br>
+                <input type="radio" name="acselect" value="1">
+                <label for="twg">TWG</label><br>
+                <input type="radio" name="acselect" value="2">
+                <label for="psmu">PSMU</label><br><br>
+            </div>
+            <div>
+                <!---->
+                <select id="office1">
+                    <option value="0" selected>Select Prime</option>
+                    
+                </select>
+
+                <select id="office2">
+                    <option value="0" selected>Select Second</option> 
+                </select>
+
+                <select id="office3">
+                    <option value="0" selected>Select Tertiary</option>
+                </select><br>
+
+                <select id="sector">
+                    <option value="0" selected>Select Sector</option>
+                </select>
+
+                <select id="gender">
+                    <option value="0" selected>Select Gender</option>
+                </select>
+
+                <select id="location">
+                    <option value="0" selected>Select Location</option>
+                </select>
+
+                <select id="age">
+                    <option value="0" selected>Select Age</option>
+                </select>
+
+                <select id="birthmonth">
+                    <option value="0" selected>Select BirthMonth</option>
+                </select><br><br>
+            </div>
+
+        </form>
+    </div>
+
         <div>
-            <!---->
-            <select id="office1">
-                <option value="0" selected>Select Prime</option>
-                
-            </select>
-
-            <select id="office2">
-                <option value="0" selected>Select Second</option> 
-            </select>
-
-            <select id="office3">
-                <option value="0" selected>Select Tertiary</option>
-            </select><br>
-
-            <select id="sector">
-                <option value="0" selected>Select Sector</option>
-            </select>
-
-            <select id="gender">
-                <option value="0" selected>Select Gender</option>
-            </select>
-
-            <select id="location">
-                <option value="0" selected>Select Location</option>
-            </select>
-
-            <select id="age">
-                <option value="0" selected>Select Age</option>
-            </select>
-
-            <select id="birthmonth">
-                <option value="0" selected>Select BirthMonth</option>
-            </select><br><br>
-            
             <form method="post" action="createPDF">
                 <input type="hidden" name="_token" value="{{csrf_token()}}">
                 
@@ -117,7 +124,11 @@
     </body>
 
     <script type="text/javascript">
+        $(document).ready(function() {
+            $('#example').DataTable();
         
+            
+        } );
 
     </script>
 

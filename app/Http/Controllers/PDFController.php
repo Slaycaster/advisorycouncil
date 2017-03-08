@@ -30,7 +30,7 @@ class PDFController extends Controller
 			for($j=1;$j<=4;$j++){
 				$fpdf->Rect($col,$y0,64,35);
 				$fpdf->Image('images/Philippine-National-Police.png',$imageCol,$imagey0,23);
-				$fpdf->SetFont('Arial','B',0);
+				$fpdf->SetFont('Arial','B',10);
 				$fpdf->Text($textCol,$texty0,'name');
 				$fpdf->Text($textCol,$texty0+5,'Position');
 				$fpdf->Text($textCol,$texty0+10,'Office');
