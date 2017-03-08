@@ -76,7 +76,7 @@
 
 			<div class = "twelve wide column bspacing2">
 				<div class="ui input field formfield">
-					<input type="text" id="name" name="name" placeholder="e.g. Regional">
+					<input type="text" id="name" name="name" placeholder="Enter Quaternary Office Name e.g. Bacnotan">
 				</div>
 			</div>
 
@@ -137,7 +137,7 @@
 	</div>
 
 	<script type="text/javascript">
-		$('#m8').attr('class', 'item active');
+		$('#m4').attr('class', 'item active');
 		$('.ui.dropdown').dropdown();
 
 		var flag = 0;

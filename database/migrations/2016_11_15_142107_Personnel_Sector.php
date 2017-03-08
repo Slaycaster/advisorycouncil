@@ -13,8 +13,7 @@ class PersonnelSector extends Migration
             $table->increments('ID');
             $table->integer('advisory_council_id')->unsigned();
             $table->integer('ac_sector_id')->unsigned();
-            $table->foreign('advisory_council_id')->references('ID')->on('Advisory_Council');
-            $table->foreign('ac_sector_id')->references('ID')->on('AC_Sector');
+           
             $table->timestamps();
         });
     }

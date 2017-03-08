@@ -18,7 +18,7 @@
 
 			<div class = "twelve wide column bspacing2">
 				<div class="ui input field formfield">
-					<input type="text" name="name" placeholder="e.g. D-Staff">
+					<input type="text" name="name" placeholder="Enter Primary Office Name e.g. PRO">
 				</div>
 			</div>
 							
@@ -55,7 +55,7 @@
 		<table id="datatable" class="ui celled table" cellspacing="0" width="100%">
 		    <thead>
 		    	<tr>
-		            <th><center>Name</center></th>
+		            <th><center>Primary Office Name</center></th>
 		            <th><center>Has Secondary</center></th>
 		        </tr>	
 		    </thead>
@@ -90,7 +90,7 @@
 	</div>
 
 	<script type="text/javascript">
-		$('#m5').attr('class', 'item active');
+		$('#m1').attr('class', 'item active');
 		var flag = 0;
 
 		function controlaction() {

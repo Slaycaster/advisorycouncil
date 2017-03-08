@@ -63,7 +63,7 @@
 
 				<div class = "twelve wide column bspacing2">
 					<div class="ui input field formfield">
-						<input type="text" name="terName" id='terName' placeholder="e.g. Regional">
+						<input type="text" name="terName" id='terName' placeholder="Enter Tertiary Office Name e.g. La Union">
 					</div>
 				</div>
 
@@ -144,7 +144,7 @@
 
 	<script type="text/javascript">
 
-	$('#m7').attr('class', 'item active');
+	$('#m3').attr('class', 'item active');
 	$('.ui.dropdown').dropdown();
 	var flag = 0;
 		

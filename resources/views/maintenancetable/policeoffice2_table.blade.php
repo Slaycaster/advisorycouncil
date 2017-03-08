@@ -41,7 +41,7 @@
 
 				<div class = "twelve wide column bspacing2">
 					<div class="ui input field formfield">
-						<input type="text" name="name" placeholder="e.g. Police Regional Office">
+						<input type="text" name="name" placeholder="Enter Secondary Office Name e.g. PRO1">
 					</div>
 				</div>
 						
@@ -114,7 +114,7 @@
 	</div>
 
 	<script type="text/javascript">
-		$('#m6').attr('class', 'item active');
+		$('#m2').attr('class', 'item active');
 		var flag = 0;
 
 		function controlaction() {

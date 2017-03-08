@@ -22,7 +22,7 @@
 						
 			<div class = "twelve wide column bspacing2">
 				<div class="ui input field form formfield">
-					<input type="text" id = "acpositionname" name = "acpositionname" placeholder="e.g. President">
+					<input type="text" id = "acpositionname" name = "acpositionname" placeholder="Enter AC Position Name e.g. President">
 				</div>
 			</div>
 
@@ -82,7 +82,7 @@
 
 <script type="text/javascript">
 		
-$('#m3').attr('class', 'item active');
+$('#m5').attr('class', 'item active');
 var flag = 0;
 
 function resetflag(msg){

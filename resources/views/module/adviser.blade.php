@@ -9,7 +9,7 @@
 					<div class = "five wide column moveright">
 						<div class = "ui icon addbtn button tiny" 
 							onclick = "window.location='{{url('directory/add')}}'" 
-							title = "add">
+							title = "add AC Member">
 							<i class="plus icon topmargin"></i>
 							
 						</div>

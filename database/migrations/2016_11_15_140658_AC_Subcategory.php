@@ -13,9 +13,11 @@ class ACSubcategory extends Migration
             $table->increments('ID');
             $table->string('subcategoryname', 45)->unique();
             $table->string('desc', 60)->nullable();
+             $table->integer('category_id')->unsigned();
+
+
+            $table->foreign('category_id','fk_category_id')->references('ID')->on('AC_Category');
             $table->timestamps();
-            $table->integer('categoryId')->unsigned();
-            $table->foreign('categoryId')->references('ID')->on('AC_Category');
         });
     }
     public function down()

@@ -5,13 +5,15 @@
 							
 		<div class = "labelpane">
 
+			
+
 			<div class = "twelve wide column bspacing">
-				<label class = "formlabel">Name </label>
+				<label class = "formlabel">Category </label>
 				<span class = "asterisk">*</span>		
 			</div>
 
 			<div class = "twelve wide column bspacing">
-				<label class = "formlabel">Sub-category </label>
+				<label class = "formlabel">Name </label>
 				<span class = "asterisk">*</span>		
 			</div>
 
@@ -24,11 +26,7 @@
 		<div class = "fieldpane">
 			<input type="hidden" value="" name="subid"/>
 						
-			<div class = "twelve wide column bspacing2">
-				<div class="ui input field formfield">
-					<input type="text" name="sub_name" placeholder="e.g. Name">
-				</div>
-			</div>
+			
 			
 			<div class = "twelve wide column bspacing2">
 				<div class = "field">
@@ -44,6 +42,12 @@
 									
 				</div>
 								
+			</div>
+
+			<div class = "twelve wide column bspacing2">
+				<div class="ui input field formfield">
+					<input type="text" name="sub_name" placeholder="Enter Sub-Category Name">
+				</div>
 			</div>
 
 			<div class = "twelve wide column bspacing2">

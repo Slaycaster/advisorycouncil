@@ -15,13 +15,14 @@ class UnitOfficeQuaternaries extends Migration
     {
         Schema::create('unit_office_quaternaries', function(Blueprint $table)
         {
-            $table->increments('id');
+            $table->increments('id')->unsigned();
             $table->string('UnitOfficeQuaternaryName', 45)->unique();
             $table->integer('UnitOfficeTertiaryID')->unsigned();
             $table->foreign('UnitOfficeTertiaryID')->references('id')->on('unit_office_tertiaries');
             $table->timestamps();
 
         });
+        
     }
 
     /**

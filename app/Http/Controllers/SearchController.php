@@ -138,6 +138,17 @@ class SearchController extends Controller
 	}
 
 
+	public function getGender(){
+		$pa = DB::table("police_advisory")
+					->select(DB::raw('count(*) as m where gender = 0'),DB::raw('count(*) as f where gender = 1'));
+					->get();
+		$ac = DB::table("advisory_council")
+					->select(DB::raw('count(*) as m where gender = 0'),DB::raw('count(*) as f where gender = 1'));
+					->get();
+
+	}
+
+
 
 	
 

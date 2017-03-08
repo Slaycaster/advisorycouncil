@@ -3,8 +3,8 @@
 	        <div class = "header mtitle">
 
 	        	<h3 class = "h3name" name = "name"></h3>
-	            <button class = "ui icon editbtn button tiny" name="editbtn" title = "edit">
-					<i class="edit icon topmargin"></i>
+	            <!--<button class = "ui icon editbtn button tiny" name="editbtn" title = "edit">
+					<i class="edit icon topmargin"></i>-->
 							
 				</button>
 	        </div>
@@ -15,7 +15,7 @@
 						Profile
 					</div>
 					<div class="item" id = "tab2"  data-tab="work">
-					    Advisory Council
+					    Stakeholder Information
 					</div>
 					<div class="item hidden" id = "tab3" name="traintab3" data-tab = "train">
 					    Training
@@ -169,10 +169,10 @@
 							<div class = "ui grid row">
 				        		<div class ="three wide column fbc labelpane">
 
-				        			<div class = "twelve wide column bspacing">
-										<label class = "formlabel">Adviser Category</label>
+				        			<!--<div class = "twelve wide column bspacing">
+										<label class = "formlabel">Stakeholder Category</label>
 													
-									</div>
+									</div>-->
 
 									<div class = "twelve wide column bspacing">
 										<label class = "formlabel">Duration</label>
@@ -195,12 +195,7 @@
 									</div>
 
 									<div class = "twelve wide column bspacing">
-										<label class = "formlabel">AC Category</label>
-															
-									</div>
-
-									<div class = "twelve wide column bspacing">
-										<label class = "formlabel">AC Sub-category</label>
+										<label class = "formlabel">Unit/Office</label>
 															
 									</div>
 
@@ -215,10 +210,10 @@
 
 								<div class ="eleven wide column fieldpane">
 
-									<div class = "twelve wide column bspacing11">
+									<!--<div class = "twelve wide column bspacing11">
 										<p name="acadvcateg"></p>
 														
-									</div>
+									</div>-->
 
 									<div class = "twelve wide column bspacing11">
 										<p name="acduration"></p>
@@ -242,20 +237,12 @@
 
 
 									<div class = "twelve wide column bspacing11">
-										<p name="accateg"></p>
-															
-									</div>
-
-
-									<div class = "twelve wide column bspacing11">
-										<p name="acsubcateg"></p>
+										<p name="acunitoffice"></p>
 															
 									</div>
 
 									<div class = "twelve wide column bspacing11">
-										<ul name = 'acsector' class="orderedlist">
-
-										</ul>
+										<p name="acsector"></p>
 															
 									</div>
 
@@ -271,7 +258,7 @@
 				        		<div class ="three wide column fbc labelpane">
 
 				        			<div class = "twelve wide column bspacing">
-										<label class = "formlabel">Adviser Category</label>
+										<label class = "formlabel">Stakeholder Category</label>
 													
 									</div>
 
@@ -399,7 +386,7 @@
 															recorddata[0][0]['mname'] + " " + 
 															recorddata[0][0]['lname'] + " " +
 															recorddata[0][0]['qualifier'];
-			document.getElementsByName('bdate')[0].innerHTML = recorddata[2][1];
+			document.getElementsByName('bdate')[0].innerHTML = recorddata[1][1];
 
 			if(recorddata[0][0]["street"] !== "") {
 				document.getElementsByName('homeaddress')[0].innerHTML = recorddata[0][0]['street'] + " " +
@@ -439,7 +426,13 @@
 
 		   	}//if
 
-		   	document.getElementsByName('email')[0].innerHTML = recorddata[0][0]['email'];
+		   	if(recorddata[0][0]['email'] !== "") {
+		   		document.getElementsByName('email')[0].innerHTML = recorddata[0][0]['email'];
+
+		   	} else {
+		   		document.getElementsByName('email')[0].innerHTML = "N/A";	
+
+		   	}//if
 
 		   	if(recorddata[0][0]['fbuser'] !== "") {
 		   		document.getElementsByName('fb')[0].innerHTML = recorddata[0][0]['fbuser'];
@@ -467,10 +460,15 @@
 		}//fillprofile
 
 		function fillacdata(recorddata) {
-			document.getElementsByName('acadvcateg')[0].innerHTML = "Advisory Council (AC)";
-			document.getElementsByName('acduration')[0].innerHTML = recorddata[2][2] + " - " + recorddata[2][3];
+			//document.getElementsByName('acadvcateg')[0].innerHTML = "Advisory Council (AC)";
+			document.getElementsByName('acduration')[0].innerHTML = recorddata[1][2] + " - " + recorddata[1][3];
 			document.getElementsByName('acposition')[0].innerHTML = recorddata[0][0]['acpositionname'];
-			document.getElementsByName('acofficename')[0].innerHTML = recorddata[0][0]['officename'];
+
+			if(recorddata[0]['officename'] !== "") {
+				document.getElementsByName('acofficename')[0].innerHTML = recorddata[0][0]['officename'];
+			} else {
+				document.getElementsByName('acofficename')[0].innerHTML = "N/A";
+			}//if
 
 			if(recorddata[0]['officeaddress'] !== "") {
 				document.getElementsByName('acofficeaddress')[0].innerHTML = recorddata[0][0]['officeaddress'];
@@ -478,19 +476,30 @@
 				document.getElementsByName('acofficeaddress')[0].innerHTML = "N/A";
 			}//if
 
-			document.getElementsByName('accateg')[0].innerHTML = recorddata[0][0]['categoryname'];
+			var unitoffice = recorddata[0][0]['UnitOfficeName'];
 
-			document.getElementsByName('acsubcateg')[0].innerHTML = recorddata[0][0]['subcategoryname'];
+			if(recorddata[0][0]['second_id'] >= 0) {
+				unitoffice = unitoffice + " - " + recorddata[0][0]['UnitOfficeSecondaryName'];
 
-			$("ul[name='acsector']").empty();
+			}//if
 
-			for (var ctr = 0 ; ctr < recorddata[1].length ; ctr++) {
-				fillul('acsector', 0, recorddata[1][ctr]['sectorname']);
-			};
+			if(recorddata[0][0]['tertiary_id'] >= 0) {
+				unitoffice = unitoffice + " - " + recorddata[0][0]['UnitOfficeTertiaryName'];
+
+			}//if
+
+			if(recorddata[0][0]['quaternary_id'] >= 0) {
+				unitoffice = unitoffice + " - " + recorddata[0][0]['UnitOfficeQuaternaryName'];
+
+			}//if
+
+			document.getElementsByName('acunitoffice')[0].innerHTML = unitoffice;
+
+			document.getElementsByName('acsector')[0].innerHTML = recorddata[0][0]['sectorname'];
 		}//fillacdata
 
 		function filltpdata(recorddata) {
-			var type;
+			/*var type;
 
 			if(recorddata[0][0]['policetype'] == 1) {
 				type = "Technical Working Group (TWG)";
@@ -498,7 +507,7 @@
 			} else if(recorddata[0][0]['policetype'] == 2) {
 				type = "Police Strategy Management Unit (PSMU)";
 
-			}//if
+			}//if*/
 
 			document.getElementsByName('tpadvcateg')[0].innerHTML = type;
 
@@ -554,7 +563,7 @@
 					dataType: "JSON",
 				   	success : function(recorddata) {
 
-				   		document.getElementsByName('editbtn')[0].setAttribute("onclick","window.location='{!!url('directory/edit?c=" + tid + "')!!}'");
+				   		//document.getElementsByName('editbtn')[0].setAttribute("onclick","window.location='{!!url('directory/edit?c=" + tid + "')!!}'");
 
 				   		fillprofile(recorddata);
 
