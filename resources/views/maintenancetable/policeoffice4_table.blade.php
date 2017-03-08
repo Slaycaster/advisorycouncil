@@ -29,6 +29,11 @@
 				</label>
 			</div>
 
+			<div class = "twelve wide column bspacing">
+				<label class = "formlabel">Description
+				</label>
+			</div>
+
 		</div>	
 
 		<input type="hidden" value="" name="ID"/>
@@ -80,6 +85,12 @@
 				</div>
 			</div>
 
+			<div class = "twelve wide column bspacing2">
+				<div class="field">
+					<textarea id="desc" name = "desc" class = "areastyle" rows = "4" placeholder="Type here..."></textarea>
+				</div>
+			</div>	
+
 
 			<div class = "twelve wide column bspacing2">
 				<center><button type = "submit" name="submit" 
@@ -114,6 +125,8 @@
 		            <th><center>Secondary Office</center></th>
 		            <th><center>Tertiary Office</center></th>
 		            <th><center>Quaternary Office</center></th>
+		            <th><center>Description</center></th>
+
 						       
 				</tr>	
 		    </thead>
@@ -124,6 +137,8 @@
 		    		<td><center>{{$offices->UnitOfficeSecondaryName}}</center></td>
 		    		<td><center>{{$offices->UnitOfficeTertiaryName}}</center></td>
 		    		<td><center>{{$offices->UnitOfficeQuaternaryName}}</center></td>
+		    		<td><center>{{$offices->desc}}</center></td>
+
 		    		
 		    		
 		    	</tr>
@@ -238,6 +253,7 @@
 
 			   		document.getElementsByName('ID')[0].value = data[0]['id'];
 			   		document.getElementsByName('name')[0].value = data[0]['UnitOfficeQuaternaryName'];
+			   		document.getElementsByName('desc')[0].value = data[0]['desc'];
 
 			   		$('#select1').dropdown("set selected", data[1]['id']); //office 1
 			   		
@@ -262,6 +278,7 @@
 			var data = {
 				'name' : $('#name').val(),
 				'office3' : $('#select3').val(),
+				'desc' : document.getElementsByName('desc')[0].value,
 				'submit': document.getElementsByName("submit")[0].value,
 				'_token' : '{{ Session::token() }}'
 			};
@@ -287,6 +304,7 @@
 			var data = {
 				'subID' : document.getElementsByName('ID')[0].value,
 				'office3' : $('#select3').val(),
+				'desc' : document.getElementsByName('desc')[0].value,
 				'name' : document.getElementsByName("name")[0].value,
 				'submit': document.getElementsByName("submit")[0].value,
 				'_token' : '{{ Session::token() }}'

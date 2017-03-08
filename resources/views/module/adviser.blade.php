@@ -72,8 +72,23 @@
 											<h5 class = "name">{{$acrec->lname}}, {{$acrec->fname}} {{$acrec->mname}} (AC)</h5>
 											<p class = "p1">
 												{{$acrec->acpositionname}} <br>
-												{{$acrec->officename}} <br>
-												{{$acrec->email}} <br>
+												
+												@if($acrec->UnitOfficeQuaternaryName != "")
+													{{$acrec->UnitOfficeQuaternaryName}} <br>
+
+												@elseif($acrec->UnitOfficeTertiaryName != "")
+													{{$acrec->UnitOfficeTertiaryName}} <br>
+
+												@elseif($acrec->UnitOfficeSecondaryName != "")
+													{{$acrec->UnitOfficeSecondaryName}} <br>
+
+												@endif
+
+												@if($acrec->email != "")
+													{{$acrec->email}} <br>
+												@endif
+
+												
 
 												@if($acrec->contactno != "" && $acrec->landline != "")
 													{{$acrec->contactno/ $acrec->landline}}
@@ -128,22 +143,21 @@
 												{{$tprec->PositionName}} <br>
 
 												@if($tprec->UnitOfficeQuaternaryName != "")
-													{{$tprec->UnitOfficeQuaternaryName}} 
+													{{$tprec->UnitOfficeQuaternaryName}} <br>
 
 												@elseif($tprec->UnitOfficeTertiaryName != "")
-													{{$tprec->UnitOfficeTertiaryName}} 
+													{{$tprec->UnitOfficeTertiaryName}} <br>
 
 												@elseif($tprec->UnitOfficeSecondaryName != "")
-													{{$tprec->UnitOfficeSecondaryName}} 
-
-												@else
-													{{$tprec->UnitOfficeName}} 
+													{{$tprec->UnitOfficeSecondaryName}} <br>
 
 												@endif
 
-												<br>
+												
 
-												{{$tprec->email}} <br>
+												@if($tprec->email != "")
+													{{$tprec->email}} <br>
+												@endif
 
 												@if($tprec->contactno != "" && $tprec->landline != "")
 													{{$tprec->contactno/ $tprec->landline}}

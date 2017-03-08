@@ -16,6 +16,11 @@
 					<span class = "asterisk">*</span>
 				</label>
 			</div>
+
+			<div class = "twelve wide column bspacing">
+				<label class = "formlabel">Description
+				</label>
+			</div>
 							
 		</div>	
 
@@ -44,7 +49,13 @@
 						<input type="text" name="name" placeholder="Enter Secondary Office Name e.g. PRO1">
 					</div>
 				</div>
-						
+				
+				<div class = "twelve wide column bspacing2">
+					<div class="field">
+						<textarea id="desc" name = "desc" class = "areastyle" rows = "4" placeholder="Type here..."></textarea>
+					</div>
+				</div>	
+
 				<div class = "twelve wide column bspacing2">
 					<div class="ui checkbox">
 						<input type="checkbox" name="haster" id="has">
@@ -79,6 +90,7 @@
 		    	<tr>
 		            <th><center>Primary Office</center></th>
 		            <th><center>Secondary Office</center></th>
+		            <th><center>Description</center></th>
 		            <th><center>Has Tertiary</center></th>
 		        </tr>	
 		    </thead>
@@ -88,6 +100,7 @@
 		    		<tr class = "trow" onclick = "loaddata({{$key->id}})" id = "{{$key->ID}}">
 		    			<td><center>{{$key->unitoffice->UnitOfficeName}}</center></td>
 			    		<td><center>{{$key->UnitOfficeSecondaryName}}</center></td>
+			    		<td><center>{{$key->desc}}</center></td>
 			    		<td><center>
 			    			@if(strtolower($key->UnitOfficeHasTertiary) == "true")
 
@@ -159,6 +172,8 @@
 			   		document.getElementsByName('subid')[0].value = data['id'];
 			   		$('#select').dropdown('set selected', data['UnitOfficeID']);
 			   		document.getElementsByName('name')[0].value = data['UnitOfficeSecondaryName'];
+			   		document.getElementsByName('desc')[0].value = data['desc'];
+
 			   		// document.getElementsByName('haster')[0].value = data['UnitOfficeHasTertiary'];
 			   		if(data['UnitOfficeHasTertiary'] == "True"){
 			   			document.getElementById('has').checked = true;
@@ -178,6 +193,7 @@
 				'name' : document.getElementsByName("name")[0].value,
 				'office' : document.getElementsByName("office")[0].value,
 				'haster' : document.getElementsByName("haster")[0].value,
+				'desc' : document.getElementsByName('desc')[0].value,
 				'submit': document.getElementsByName("submit")[0].value,
 				'_token' : '{{ Session::token() }}'
 			};
@@ -205,6 +221,7 @@
 				'office' : document.getElementsByName("office")[0].value,
 				'name' : document.getElementsByName("name")[0].value,
 				'haster' : document.getElementsByName("haster")[0].value,
+				'desc' : document.getElementsByName('desc')[0].value,
 				'submit': document.getElementsByName("submit")[0].value,
 				'_token' : '{{ Session::token() }}'
 			};

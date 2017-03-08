@@ -75,7 +75,7 @@
 					'_token' : '{{ Session::token() }}'
 				};
 	 		$.ajax({
-				type: "GET",
+				type: "POST",
 				url: "{{url('checkusername')}}",
 				data: data,
 			   	dataType: "JSON",

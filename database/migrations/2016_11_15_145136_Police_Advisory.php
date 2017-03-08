@@ -37,8 +37,8 @@ class PoliceAdvisory extends Migration
             $table->integer('police_position_id')->unsigned();
             $table->integer('unit_id')->unsigned();
             $table->integer('second_id')->unsigned();
-            $table->integer('tertiary_id')->unsigned();
-            $table->integer('quaternary_id')->unsigned();
+            $table->integer('tertiary_id')->unsigned()->nullable();
+            $table->integer('quaternary_id')->unsigned()->nullable();
             $table->foreign('police_position_id')->references('id')->on('Police_Position');
             $table->foreign('unit_id')->references('id')->on('unit_offices');
             $table->foreign('second_id')->references('id')->on('unit_office_secondaries');

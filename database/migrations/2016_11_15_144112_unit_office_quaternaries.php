@@ -19,6 +19,7 @@ class UnitOfficeQuaternaries extends Migration
             $table->string('UnitOfficeQuaternaryName', 45)->unique();
             $table->integer('UnitOfficeTertiaryID')->unsigned();
             $table->foreign('UnitOfficeTertiaryID')->references('id')->on('unit_office_tertiaries');
+            $table->string('desc', 60)->nullable();
             $table->timestamps();
 
         });

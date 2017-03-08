@@ -22,6 +22,7 @@ class PoliceOfficeTwoController extends Controller
     	    $policeoffice->UnitOfficeSecondaryName = $request->name;
             $policeoffice->UnitOfficeHasTertiary = $request->haster;
             $policeoffice->UnitOfficeID = $request->office;
+            $policeoffice->desc = $request->desc;
  
            	$policeoffice->save();
 
@@ -43,6 +44,7 @@ class PoliceOfficeTwoController extends Controller
     		$id->UnitOfficeID = $request->office;
             $id->UnitOfficeSecondaryName = $request->name;
             $id->UnitOfficeHasTertiary = $request->haster;
+            $id->desc = $request->desc;
 
     		$id->save();
     	}

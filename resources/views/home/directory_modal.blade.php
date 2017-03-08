@@ -11,7 +11,7 @@
 
 	        <div class = "modalcontent">
 		        <div class="ui top attached tabular menu rightrow">
-					<div class="item active" id = "tab1" data-tab="basicinfo">
+					<div class="item" id = "tab1" data-tab="basicinfo">
 						Profile
 					</div>
 					<div class="item" id = "tab2"  data-tab="work">
@@ -257,10 +257,10 @@
 			        		<div class = "ui grid row">
 				        		<div class ="three wide column fbc labelpane">
 
-				        			<div class = "twelve wide column bspacing">
+				        			<!--<div class = "twelve wide column bspacing">
 										<label class = "formlabel">Stakeholder Category</label>
 													
-									</div>
+									</div>-->
 
 									<div class = "twelve wide column bspacing">
 										<label class = "formlabel">Duration</label>
@@ -291,10 +291,10 @@
 
 								<div class ="eleven wide column fieldpane">
 
-									<div class = "twelve wide column bspacing11">
+									<!--<div class = "twelve wide column bspacing11">
 										<p name="tpadvcateg"></p>
 														
-									</div>
+									</div>-->
 
 									<div class = "twelve wide column bspacing11">
 										<p name="tpduration"></p>
@@ -380,7 +380,7 @@
 		}//function showacview() {
 
 		function fillprofile(recorddata) {
-			document.getElementsByName('photo')[0].src = recorddata[2][0];
+			document.getElementsByName('photo')[0].src = recorddata[1][0];
 
 			document.getElementsByName('name')[0].innerHTML = recorddata[0][0]['fname'] + " " + 
 															recorddata[0][0]['mname'] + " " + 
@@ -464,34 +464,44 @@
 			document.getElementsByName('acduration')[0].innerHTML = recorddata[1][2] + " - " + recorddata[1][3];
 			document.getElementsByName('acposition')[0].innerHTML = recorddata[0][0]['acpositionname'];
 
-			if(recorddata[0]['officename'] !== "") {
+			if(recorddata[0][0]['officename'] !== "") {
 				document.getElementsByName('acofficename')[0].innerHTML = recorddata[0][0]['officename'];
 			} else {
 				document.getElementsByName('acofficename')[0].innerHTML = "N/A";
 			}//if
 
-			if(recorddata[0]['officeaddress'] !== "") {
+			if(recorddata[0][0]['officeaddress'] !== "") {
 				document.getElementsByName('acofficeaddress')[0].innerHTML = recorddata[0][0]['officeaddress'];
 			} else {
 				document.getElementsByName('acofficeaddress')[0].innerHTML = "N/A";
 			}//if
 
-			var unitoffice = recorddata[0][0]['UnitOfficeName'];
+			var unitoffice = "";
 
-			if(recorddata[0][0]['second_id'] >= 0) {
-				unitoffice = unitoffice + " - " + recorddata[0][0]['UnitOfficeSecondaryName'];
-
-			}//if
-
-			if(recorddata[0][0]['tertiary_id'] >= 0) {
-				unitoffice = unitoffice + " - " + recorddata[0][0]['UnitOfficeTertiaryName'];
+			if(recorddata[0][0]['UnitOfficeQuaternaryName'] != null) {
+				unitoffice = unitoffice + recorddata[0][0]['UnitOfficeQuaternaryName'];
+				if(recorddata[0][0]['UnitOfficeTertiaryName'] != null) {
+					unitoffice = unitoffice + ", ";
+				}//if
 
 			}//if
 
-			if(recorddata[0][0]['quaternary_id'] >= 0) {
-				unitoffice = unitoffice + " - " + recorddata[0][0]['UnitOfficeQuaternaryName'];
+			if(recorddata[0][0]['UnitOfficeTertiaryName'] != null) {
+				unitoffice = unitoffice + recorddata[0][0]['UnitOfficeTertiaryName'];
+
+				if(recorddata[0][0]['UnitOfficeSecondaryName'] != null) {
+					unitoffice = unitoffice + ", ";
+				}//if
+			}//if
+
+			if(recorddata[0][0]['UnitOfficeSecondaryName'] != null) {
+				unitoffice = unitoffice + recorddata[0][0]['UnitOfficeSecondaryName'];
 
 			}//if
+
+			
+
+			
 
 			document.getElementsByName('acunitoffice')[0].innerHTML = unitoffice;
 
@@ -507,9 +517,9 @@
 			} else if(recorddata[0][0]['policetype'] == 2) {
 				type = "Police Strategy Management Unit (PSMU)";
 
-			}//if*/
+			}//if
 
-			document.getElementsByName('tpadvcateg')[0].innerHTML = type;
+			document.getElementsByName('tpadvcateg')[0].innerHTML = type;*/
 
 			document.getElementsByName('tpduration')[0].innerHTML = recorddata[2][2] + " - " + recorddata[2][3];
 
@@ -519,20 +529,26 @@
 
 			document.getElementsByName('tprank')[0].innerHTML = recorddata[0][0]['RankName'];
 
-			var unitoffice = recorddata[0][0]['UnitOfficeName'];
+			var unitoffice = "";
 
-			if(recorddata[0][0]['second_id'] >= 0) {
-				unitoffice = unitoffice + " - " + recorddata[0][0]['UnitOfficeSecondaryName'];
-
-			}//if
-
-			if(recorddata[0][0]['tertiary_id'] >= 0) {
-				unitoffice = unitoffice + " - " + recorddata[0][0]['UnitOfficeTertiaryName'];
+			if(recorddata[0][0]['UnitOfficeQuaternaryName'] != null) {
+				unitoffice = unitoffice + recorddata[0][0]['UnitOfficeQuaternaryName'];
+				if(recorddata[0][0]['UnitOfficeTertiaryName'] != null) {
+					unitoffice = unitoffice + ", ";
+				}//if
 
 			}//if
 
-			if(recorddata[0][0]['quaternary_id'] >= 0) {
-				unitoffice = unitoffice + " - " + recorddata[0][0]['UnitOfficeQuaternaryName'];
+			if(recorddata[0][0]['UnitOfficeTertiaryName'] != null) {
+				unitoffice = unitoffice + recorddata[0][0]['UnitOfficeTertiaryName'];
+
+				if(recorddata[0][0]['UnitOfficeSecondaryName'] != null) {
+					unitoffice = unitoffice + ", ";
+				}//if
+			}//if
+
+			if(recorddata[0][0]['UnitOfficeSecondaryName'] != null) {
+				unitoffice = unitoffice + recorddata[0][0]['UnitOfficeSecondaryName'];
 
 			}//if
 
@@ -540,8 +556,8 @@
 
 			$("#trainviewtable tbody").empty();
 
-			for (var ctr = 0 ; ctr < recorddata[1][0].length ; ctr++) {
-				filltable("trainviewtable", recorddata[1][0][ctr], recorddata[1][1][ctr], recorddata[1][2][ctr]);
+			for (var ctr = 0 ; ctr < recorddata[2][0].length ; ctr++) {
+				filltable("trainviewtable", recorddata[2][0][ctr], recorddata[2][1][ctr], recorddata[2][2][ctr]);
 			};
 		}//filltpdata
 
@@ -577,9 +593,13 @@
 
 				   		}//if
 
+				   		$('.modalcontent .item').removeClass('active');
+				   		$('.modalcontent .tab').removeClass('active');
+				   		$('.modalcontent #tab1').addClass('active');
+				   		$(".modalcontent .ui.tab[data-tab='basicinfo']").addClass('active');;
 				   		$("#viewadv").modal("show");
 
-				   		console.log(recorddata);
+				   		
 				   	}//success : function() {
 				});
 

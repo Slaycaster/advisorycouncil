@@ -20,6 +20,7 @@ class UnitOfficeTertiaries extends Migration
             $table->string('UnitOfficeHasQuaternary', 45);
             $table->integer('UnitOfficeSecondaryID')->unsigned();
             $table->foreign('UnitOfficeSecondaryID')->references('id')->on('unit_office_secondaries');
+            $table->string('desc', 60)->nullable();
             $table->timestamps();
 
         });

@@ -40,8 +40,8 @@ class AdvisoryCouncil extends Migration
 
             $table->integer('unit_id')->unsigned();
             $table->integer('second_id')->unsigned();
-            $table->integer('tertiary_id')->unsigned();
-            $table->integer('quaternary_id')->unsigned();
+            $table->integer('tertiary_id')->unsigned()->nullable();
+            $table->integer('quaternary_id')->unsigned()->nullable();
 
 
             $table->foreign('ac_sector_id')->references('ID')->on('AC_Sector');
