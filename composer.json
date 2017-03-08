@@ -9,6 +9,7 @@
         "laravel/framework": "5.3.*",
         "captcha-com/laravel-captcha": "4.*",
         "aws/aws-sdk-php-laravel": "~3.0",
+        "codedge/laravel-fpdf": "^1.0"
 },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
