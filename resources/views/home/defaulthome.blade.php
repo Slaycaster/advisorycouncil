@@ -66,9 +66,14 @@
 		<div class = "hcontent">
 			<div class="dcon">
 				<div class = "tablepane">
-					<div class = "mtitle">Recently Added</div>
+					<div class = "mtitle">Dashboard</div>
 
 					<br>
+
+						<div class='row' id="gender-chart"></div>
+						{!! Lava::render('DonutChart', 'Gender', 'gender-chart'); !!}
+						<div class="row" id="sector-chart"></div>
+						{!! Lava::render('DonutChart', 'Sector', 'sector-chart'); !!}
 
 					@if(sizeof($acmember) != 0)
 						<h6 class="ui horizontal divider divtitle">

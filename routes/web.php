@@ -197,3 +197,4 @@ Route::get('searchAll', 'SearchController@AdvancedSearch');
 Route::get('ACSearch/{sq}', 'SearchController@findAC');
 Route::get('PoliceSearch/{sq}', 'SearchController@findPA');
 Route::get('searchView', 'SearchController@view');
+Route::get('dashboard', 'SearchController@dashboard');

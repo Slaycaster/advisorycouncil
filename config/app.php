@@ -180,6 +180,9 @@ return [
         App\Providers\RouteServiceProvider::class,
         LaravelCaptcha\Providers\LaravelCaptchaServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        Khill\Lavacharts\Laravel\LavachartsServiceProvider::class
+
+
 
     ],
 
@@ -230,6 +233,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Lava' => Khill\Lavacharts\Laravel\LavachartsFacade::class,
+        
 
     ],
 

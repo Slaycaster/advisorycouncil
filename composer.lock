@@ -4,6 +4,23 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
+    "hash": "6ff6e495f9acd1045321b38dd9871c72",
+    "content-hash": "08fb781a06ec2383914796646cc2a42d",
+    "packages": [
+        {
+            "name": "aws/aws-sdk-php",
+            "version": "3.23.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aws/aws-sdk-php.git",
+                "reference": "bad172d63c93db41761f40219c72919a2553b8e4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/bad172d63c93db41761f40219c72919a2553b8e4",
+                "reference": "bad172d63c93db41761f40219c72919a2553b8e4",
+=======
     "content-hash": "c708669eb8fd66446d79a7f706821489",
     "packages": [
         {
@@ -18,6 +35,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/e22280859c36396f07000b9bc54fb9ae56f4c744",
                 "reference": "e22280859c36396f07000b9bc54fb9ae56f4c744",
+>>>>>>> dbab6d6ea064082a4ec88d559c44007026c7f7b5
                 "shasum": ""
             },
             "require": {
@@ -84,7 +102,11 @@
                 "s3",
                 "sdk"
             ],
+<<<<<<< HEAD
+            "time": "2017-03-08 01:58:30"
+=======
             "time": "2017-03-06T23:37:57+00:00"
+>>>>>>> dbab6d6ea064082a4ec88d559c44007026c7f7b5
         },
         {
             "name": "aws/aws-sdk-php-laravel",
@@ -444,7 +466,11 @@
                 "rest",
                 "web service"
             ],
+<<<<<<< HEAD
+            "time": "2017-02-28 22:50:30"
+=======
             "time": "2017-02-28T22:50:30+00:00"
+>>>>>>> dbab6d6ea064082a4ec88d559c44007026c7f7b5
         },
         {
             "name": "guzzlehttp/promises",
@@ -560,7 +586,11 @@
                 "uri",
                 "url"
             ],
+<<<<<<< HEAD
+            "time": "2017-02-27 10:51:17"
+=======
             "time": "2017-02-27T10:51:17+00:00"
+>>>>>>> dbab6d6ea064082a4ec88d559c44007026c7f7b5
         },
         {
             "name": "jakub-onderka/php-console-color",
@@ -708,6 +738,147 @@
             "time": "2016-12-07T09:37:55+00:00"
         },
         {
+            "name": "khill/datatableplus",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kevinkhill/datatableplus.git",
+                "reference": "9e47493fb9d521eb164b7b784192baffc88228ea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kevinkhill/datatableplus/zipball/9e47493fb9d521eb164b7b784192baffc88228ea",
+                "reference": "9e47493fb9d521eb164b7b784192baffc88228ea",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "league/csv": "~7.1",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.9",
+                "phpunit/phpunit": "~4.5",
+                "sami/sami": "~3.0",
+                "satooshi/php-coveralls": "~0.6",
+                "squizlabs/php_codesniffer": "~2.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Khill\\Lavacharts\\DataTablePlus\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kevin Hill",
+                    "email": "kevinkhill@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "DataTablePlus is an add-on package for Lavacharts which extends the functionality of DataTables.",
+            "homepage": "http://lavacharts.com",
+            "keywords": [
+                "charts",
+                "google",
+                "graphs"
+            ],
+            "time": "2015-10-13 20:10:21"
+        },
+        {
+            "name": "khill/lavacharts",
+            "version": "3.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kevinkhill/lavacharts.git",
+                "reference": "232dbfca0fb8da188b03aa00310bd52173728faf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kevinkhill/lavacharts/zipball/232dbfca0fb8da188b03aa00310bd52173728faf",
+                "reference": "232dbfca0fb8da188b03aa00310bd52173728faf",
+                "shasum": ""
+            },
+            "require": {
+                "nesbot/carbon": "~1.14",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.9",
+                "mybuilder/phpunit-accelerator": "~1.1",
+                "phpunit/phpunit": "~4.5",
+                "satooshi/php-coveralls": "~1.0",
+                "squizlabs/php_codesniffer": "~2.5"
+            },
+            "suggest": {
+                "khill/datatableplus": "Adds extra features to DataTables such as csv and laravel collection parsing."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Khill\\Lavacharts\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kevin Hill",
+                    "email": "kevinkhill@gmail.com",
+                    "role": "Creator"
+                },
+                {
+                    "name": "deringer",
+                    "homepage": "https://github.com/deringer",
+                    "role": "Contributor"
+                },
+                {
+                    "name": "stevebauman",
+                    "homepage": "https://github.com/stevebauman",
+                    "role": "Contributor"
+                },
+                {
+                    "name": "rajivseelam",
+                    "homepage": "https://github.com/rajivseelam",
+                    "role": "Contributor"
+                },
+                {
+                    "name": "tobias-kuendig",
+                    "homepage": "https://github.com/tobias-kuendig",
+                    "role": "Contributor"
+                },
+                {
+                    "name": "Stonos",
+                    "homepage": "https://github.com/Stonos",
+                    "role": "Contributor"
+                },
+                {
+                    "name": "MicahKV",
+                    "email": "micah138@yahoo.com",
+                    "role": "Contributor"
+                },
+                {
+                    "name": "SendDerek",
+                    "homepage": "https://github.com/SendDerek",
+                    "role": "Contributor"
+                }
+            ],
+            "description": "PHP wrapper library for the Google Chart API",
+            "homepage": "http://lavacharts.com",
+            "keywords": [
+                "charts",
+                "google",
+                "graphs"
+            ],
+            "time": "2017-01-25 14:55:08"
+        },
+        {
             "name": "laravel/framework",
             "version": "v5.3.30",
             "source": {
@@ -834,6 +1005,63 @@
                 "laravel"
             ],
             "time": "2017-01-26T14:29:55+00:00"
+        },
+        {
+            "name": "league/csv",
+            "version": "7.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/csv.git",
+                "reference": "69bafa6ff924fbf9effe4275d6eb16be81a853ef"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/csv/zipball/69bafa6ff924fbf9effe4275d6eb16be81a853ef",
+                "reference": "69bafa6ff924fbf9effe4275d6eb16be81a853ef",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "fabpot/php-cs-fixer": "^1.9",
+                "phpunit/phpunit": "^4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "7.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\Csv\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ignace Nyamagana Butera",
+                    "email": "nyamsprod@gmail.com",
+                    "homepage": "https://github.com/nyamsprod/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Csv data manipulation made easy in PHP",
+            "homepage": "http://csv.thephpleague.com",
+            "keywords": [
+                "csv",
+                "export",
+                "filter",
+                "import",
+                "read",
+                "write"
+            ],
+            "time": "2015-11-02 07:36:25"
         },
         {
             "name": "league/flysystem",
@@ -1264,7 +1492,11 @@
                 "parser",
                 "php"
             ],
+<<<<<<< HEAD
+            "time": "2017-03-05 18:23:57"
+=======
             "time": "2017-03-05T18:23:57+00:00"
+>>>>>>> dbab6d6ea064082a4ec88d559c44007026c7f7b5
         },
         {
             "name": "paragonie/random_compat",
@@ -1312,7 +1544,11 @@
                 "pseudorandom",
                 "random"
             ],
+<<<<<<< HEAD
+            "time": "2017-03-03 20:43:42"
+=======
             "time": "2017-03-03T20:43:42+00:00"
+>>>>>>> dbab6d6ea064082a4ec88d559c44007026c7f7b5
         },
         {
             "name": "phpoffice/phpexcel",
@@ -3070,7 +3306,11 @@
                 "spy",
                 "stub"
             ],
+<<<<<<< HEAD
+            "time": "2017-03-02 20:05:34"
+=======
             "time": "2017-03-02T20:05:34+00:00"
+>>>>>>> dbab6d6ea064082a4ec88d559c44007026c7f7b5
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -3401,7 +3641,11 @@
                 "testing",
                 "xunit"
             ],
+<<<<<<< HEAD
+            "time": "2017-03-02 15:22:43"
+=======
             "time": "2017-03-02T15:22:43+00:00"
+>>>>>>> dbab6d6ea064082a4ec88d559c44007026c7f7b5
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -3505,7 +3749,11 @@
             ],
             "description": "Looks up which function or method a line of code belongs to",
             "homepage": "https://github.com/sebastianbergmann/code-unit-reverse-lookup/",
+<<<<<<< HEAD
+            "time": "2017-03-04 06:30:41"
+=======
             "time": "2017-03-04T06:30:41+00:00"
+>>>>>>> dbab6d6ea064082a4ec88d559c44007026c7f7b5
         },
         {
             "name": "sebastian/comparator",
@@ -4139,7 +4387,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "khill/datatableplus": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
