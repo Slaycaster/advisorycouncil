@@ -34,6 +34,7 @@
 
 	</head>
 	<body onload = "init()">
+	
 		<header class = "banner">
 			<div class = "ui relaxed grid">
 				<div class = "six wide column">

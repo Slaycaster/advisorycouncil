@@ -3,8 +3,8 @@
 	        <div class = "header mtitle">
 
 	        	<h3 class = "h3name" name = "name"></h3>
-	            <!--<button class = "ui icon editbtn button tiny" name="editbtn" title = "edit">
-					<i class="edit icon topmargin"></i>-->
+	            <button class = "ui icon editbtn button tiny" name="editbtn" title = "edit">
+					<i class="edit icon topmargin"></i>
 							
 				</button>
 	        </div>
@@ -487,22 +487,12 @@
 			}//if
 
 			if(recorddata[0][0]['UnitOfficeTertiaryName'] != null) {
-				unitoffice = unitoffice + recorddata[0][0]['UnitOfficeTertiaryName'];
-
-				if(recorddata[0][0]['UnitOfficeSecondaryName'] != null) {
-					unitoffice = unitoffice + ", ";
-				}//if
-			}//if
-
-			if(recorddata[0][0]['UnitOfficeSecondaryName'] != null) {
-				unitoffice = unitoffice + recorddata[0][0]['UnitOfficeSecondaryName'];
+				unitoffice = unitoffice + recorddata[0][0]['UnitOfficeTertiaryName'] + ", ";
 
 			}//if
 
+			unitoffice = unitoffice + recorddata[0][0]['UnitOfficeSecondaryName'];
 			
-
-			
-
 			document.getElementsByName('acunitoffice')[0].innerHTML = unitoffice;
 
 			document.getElementsByName('acsector')[0].innerHTML = recorddata[0][0]['sectorname'];
@@ -540,17 +530,11 @@
 			}//if
 
 			if(recorddata[0][0]['UnitOfficeTertiaryName'] != null) {
-				unitoffice = unitoffice + recorddata[0][0]['UnitOfficeTertiaryName'];
-
-				if(recorddata[0][0]['UnitOfficeSecondaryName'] != null) {
-					unitoffice = unitoffice + ", ";
-				}//if
-			}//if
-
-			if(recorddata[0][0]['UnitOfficeSecondaryName'] != null) {
-				unitoffice = unitoffice + recorddata[0][0]['UnitOfficeSecondaryName'];
+				unitoffice = unitoffice + recorddata[0][0]['UnitOfficeTertiaryName'] + ", ";
 
 			}//if
+
+			unitoffice = unitoffice + recorddata[0][0]['UnitOfficeSecondaryName'];
 
 			document.getElementsByName('tpoffice')[0].innerHTML = unitoffice;
 
@@ -579,7 +563,7 @@
 					dataType: "JSON",
 				   	success : function(recorddata) {
 
-				   		//document.getElementsByName('editbtn')[0].setAttribute("onclick","window.location='{!!url('directory/edit?c=" + tid + "')!!}'");
+				   		document.getElementsByName('editbtn')[0].setAttribute("onclick","window.location='{!!url('directory/edit?c=" + tid + "')!!}'");
 
 				   		fillprofile(recorddata);
 

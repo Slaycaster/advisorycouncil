@@ -29,15 +29,24 @@
 											{{$acrec->acpositionname}} <br>
 
 											@if($acrec->UnitOfficeQuaternaryName != "")
-												{{$acrec->UnitOfficeQuaternaryName}} 
+												{{$acrec->UnitOfficeQuaternaryName}}
 
-											@elseif($acrec->UnitOfficeTertiaryName != "")
-												{{$acrec->UnitOfficeTertiaryName}} 
-
-											@elseif($acrec->UnitOfficeSecondaryName != "")
-												{{$acrec->UnitOfficeSecondaryName}} 
+												@if($acrec->UnitOfficeTertiaryName != "")
+													,&nbsp;
+												@endif
 
 											@endif
+
+											@if($acrec->UnitOfficeTertiaryName != "")
+												{{$acrec->UnitOfficeTertiaryName}},&nbsp;
+
+												@if($acrec->UnitOfficeQuaternaryName != "")
+													<br>
+												@endif
+
+											@endif
+
+											{{$acrec->UnitOfficeSecondaryName}} <br>
 											
 											
 											
@@ -84,15 +93,23 @@
 											{{$tprec->PositionName}} <br>
 
 											@if($tprec->UnitOfficeQuaternaryName != "")
-												{{$tprec->UnitOfficeQuaternaryName}} 
+												{{$tprec->UnitOfficeQuaternaryName}}
 
-											@elseif($tprec->UnitOfficeTertiaryName != "")
-												{{$tprec->UnitOfficeTertiaryName}} 
-
-											@elseif($tprec->UnitOfficeSecondaryName != "")
-												{{$tprec->UnitOfficeSecondaryName}} 
+												@if($tprec->UnitOfficeTertiaryName != "")
+													,&nbsp;
+												@endif
 
 											@endif
+
+											@if($tprec->UnitOfficeTertiaryName != "")
+												{{$tprec->UnitOfficeTertiaryName}},&nbsp;
+
+												@if($tprec->UnitOfficeQuaternaryName != "")
+													<br>
+												@endif
+											@endif
+
+											{{$tprec->UnitOfficeSecondaryName}} <br>
 
 											
 										</p>

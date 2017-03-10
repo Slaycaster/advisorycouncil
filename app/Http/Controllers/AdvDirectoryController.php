@@ -122,54 +122,16 @@ class AdvDirectoryController extends Controller {
 
 	}//edit - WHOLE
 
-	/*public function getView() {
-
-		$recorddata = $this->getRecordData();
-
-		return view('module.adviser_add')->with('recorddata', $recorddata);
-
-	}//view for edit
-
-	public function getRecordData(Request $req) {
-		$id = 1;
-		
-
-		$categ = DB::table('advisers')->select('category')->where('ID', $id)->get();
-
-
-		if($categ[0]->category == 0) {
-			$recorddata = Advisory_Council::with('advisorycouncil')
-									->with('training')
-									->where('ID', $id)
-									->get();
-
-
-		} else {
-			$recorddata =Advisory_Council::with('policeadvisory')
-									->with('training')
-									->where('ID', $id)
-									->get();
-
-		}// if
-
-		$training = Training::with('lecturer')
-					->where('adviser_id', $id)
-					->get();
-
-		return array($recorddata, date('d M Y', strtotime($recorddata[0]->birthdate)), $training);
-		
-	}//get record / modal view*/
-
 	public function getAdv($filter, $sorter){
 		$civilian = DB::table('advisory_council')
 					->join('advisory_position', 'advisory_position.ID', '=', 'advisory_council.advisory_position_id')
 					->join("ac_sector", "ac_sector.ID", "=", "advisory_council.ac_sector_id")
-					->join('unit_offices', 'unit_offices.id', '=', 'advisory_council.unit_id')
-					->leftJoin('unit_office_secondaries', 'unit_office_secondaries.id', '=', 'advisory_council.second_id')
+					->join('unit_office_secondaries', 'unit_office_secondaries.id', '=', 'advisory_council.second_id')
+					->join('unit_offices', 'unit_offices.id', '=', 'unit_office_secondaries.UnitOfficeID')
 					->leftJoin('unit_office_tertiaries', 'unit_office_tertiaries.id', '=', 'advisory_council.tertiary_id')
 					->leftJoin('unit_office_quaternaries', 'unit_office_quaternaries.id', '=', 'advisory_council.quaternary_id')
 					->select('advisory_council.ID','lname', 'fname', 'mname', 'imagepath', 'email', 
-						     'contactno', 'landline','startdate', 'acpositionname', 'officename', 'UnitOfficeName', 
+						     'contactno', 'landline','startdate', 'acpositionname', 'officename',
 						     'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
 						     'UnitOfficeQuaternaryName')
 					->orderBy('advisory_council.'. $filter, $sorter)
@@ -177,13 +139,13 @@ class AdvDirectoryController extends Controller {
 	
 		$police = DB::table('police_advisory')
 					->join('police_position', 'police_position.id', '=', 'police_advisory.police_position_id')
-					->join('unit_offices', 'unit_offices.id', '=', 'police_advisory.unit_id')
-					->leftJoin('unit_office_secondaries', 'unit_office_secondaries.id', '=', 'police_advisory.second_id')
+					->join('unit_office_secondaries', 'unit_office_secondaries.id', '=', 'police_advisory.second_id')
+					->join('unit_offices', 'unit_offices.id', '=', 'unit_office_secondaries.UnitOfficeID')
 					->leftJoin('unit_office_tertiaries', 'unit_office_tertiaries.id', '=', 'police_advisory.tertiary_id')
 					->leftJoin('unit_office_quaternaries', 'unit_office_quaternaries.id', '=', 'police_advisory.quaternary_id')
 					->select('police_advisory.ID', 'lname', 'fname', 'mname', 'imagepath', 'email', 
 						     'contactno', 'landline', 'startdate', 'policetype',
-						     'UnitOfficeName', 'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
+						     'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
 						     'UnitOfficeQuaternaryName', 'PositionName')
 					->orderBy('police_advisory.' . $filter, $sorter)
 					->get();
@@ -257,27 +219,27 @@ class AdvDirectoryController extends Controller {
 		$civilian = DB::table('advisory_council')
 					->join('advisory_position', 'advisory_position.ID', '=', 'advisory_council.advisory_position_id')
 					->join("ac_sector", "ac_sector.ID", "=", "advisory_council.ac_sector_id")
-					->join('unit_offices', 'unit_offices.id', '=', 'advisory_council.unit_id')
-					->leftJoin('unit_office_secondaries', 'unit_office_secondaries.id', '=', 'advisory_council.second_id')
+					->join('unit_office_secondaries', 'unit_office_secondaries.id', '=', 'advisory_council.second_id')
+					->join('unit_offices', 'unit_offices.id', '=', 'unit_office_secondaries.UnitOfficeID')
 					->leftJoin('unit_office_tertiaries', 'unit_office_tertiaries.id', '=', 'advisory_council.tertiary_id')
 					->leftJoin('unit_office_quaternaries', 'unit_office_quaternaries.id', '=', 'advisory_council.quaternary_id')
 					->select('advisory_council.ID','lname', 'fname', 'mname', 'imagepath', 'email', 
-											     'contactno', 'landline','startdate', 'acpositionname', 'officename', 'UnitOfficeName', 
-											     'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
-											     'UnitOfficeQuaternaryName')
+							'contactno', 'landline','startdate', 'acpositionname', 'officename',
+							'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
+							'UnitOfficeQuaternaryName')
 					->whereDate("advisory_council.created_at" , ">=", "DATE_ADD(NOW(),INTERVAL -15 DAY)")
 					->orderBy('advisory_council.created_at', 'desc')
 					->get();
 	
 		$police = DB::table('police_advisory')
 					->join('police_position', 'police_position.id', '=', 'police_advisory.police_position_id')
-					->join('unit_offices', 'unit_offices.id', '=', 'police_advisory.unit_id')
-					->leftJoin('unit_office_secondaries', 'unit_office_secondaries.id', '=', 'police_advisory.second_id')
+					->join('unit_office_secondaries', 'unit_office_secondaries.id', '=', 'police_advisory.second_id')
+					->join('unit_offices', 'unit_offices.id', '=', 'unit_office_secondaries.UnitOfficeID')
 					->leftJoin('unit_office_tertiaries', 'unit_office_tertiaries.id', '=', 'police_advisory.tertiary_id')
 					->leftJoin('unit_office_quaternaries', 'unit_office_quaternaries.id', '=', 'police_advisory.quaternary_id')
 					->select('police_advisory.ID', 'lname', 'fname', 'mname', 'imagepath', 'email', 
 						     'contactno', 'landline', 'startdate', 'policetype',
-						     'UnitOfficeName', 'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
+						     'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
 						     'UnitOfficeQuaternaryName', 'PositionName')
 					->whereDate("police_advisory.created_at" , ">=", "DATE_ADD(NOW(),INTERVAL -15 DAY)")
 					->orderBy('police_advisory.created_at', 'desc')
@@ -423,29 +385,18 @@ class AdvDirectoryController extends Controller {
         $advisory->advisory_position_id = $data['acposition'];
         $advisory->ac_sector_id = $data['acsector'];
 
-        $advisory->unit_id = $data['primary'];
+       	$advisory->second_id = $data['secondary'];
+
+	    if($data['tertiary'] != 'disitem') {
+	    	$advisory->tertiary_id = $data['tertiary'];
+	    }//if
+
+	    if($data['quaternary'] != 'disitem') {
+	    	$advisory->quaternary_id = $data['quaternary'];
+	    }//if
 
         $advisory->save();
     } // add AC
-
-    /*public function addSector($sector, $acid) {
-
-    	for($ctr = 0 ; $ctr < sizeof($sector) ; $ctr++) {
-    		$acsector = new Personnel_Sector;
-    		$acsector->advisory_council_id = $acid;
-    		$acsector->ac_sector_id = $sector[$ctr];
-    		$acsector->save();
-
-
-    	}//for
-
-    }//public function addSector() {
-
-    public function editSector($data) {
-    	AC_Sector::where('advisory_council_id', $data['ID'])->delete();
-    	$this->addSector($data, $data['ID']);
-
-    }//public function editSector($id) {*/
 
     public function editAC($data){
 
@@ -470,17 +421,26 @@ class AdvDirectoryController extends Controller {
 	 	$advisory->province = $data['province'];
 	 	$advisory->barangay = $data['barangay'];
 
+
 	 	if($data['upphoto'] != "") {
 	 		$advisory->imagepath = $this->loadphoto($data['upphoto']);
 
 	 	}//if
+	 	print_r($data['acsector']);
 
         $advisory->advisory_position_id = $data['acposition'];
         $advisory->ac_sector_id = $data['acsector'];
-        $advisory->unit_id = $data['primary'];
-    	$advisory->second_id = $data['secondary'];
-    	$advisory->tertiary_id = $data['tertiary'];
-    	$advisory->quaternary_id = $data['quaternary'];
+
+       	$advisory->second_id = $data['secondary'];
+
+	    if($data['tertiary'] != 'disitem') {
+	    	$advisory->tertiary_id = $data['tertiary'];
+	    }//if
+
+	    if($data['quaternary'] != 'disitem') {
+	    	$advisory->quaternary_id = $data['quaternary'];
+	    }//if
+
         $advisory->save();
 
     } // update AC
@@ -515,11 +475,7 @@ class AdvDirectoryController extends Controller {
 	 	}//if
     	$advisory->police_position_id = $data['pnppost'];
     	$advisory->rank_id = $data['rank'];
-    	$advisory->unit_id = $data['primary'];
-    	
-    	if($data['secondary'] != 'disitem') {
-	    	$advisory->second_id = $data['secondary'];
-	    }//if
+    	$advisory->second_id = $data['secondary'];
 
 	    if($data['tertiary'] != 'disitem') {
 	    	$advisory->tertiary_id = $data['tertiary'];
@@ -560,7 +516,7 @@ class AdvDirectoryController extends Controller {
 	 	$advisory->city = $data['city'];
 	 	$advisory->province = $data['province'];
 	 	$advisory->barangay = $data['barangay'];
-
+	 	$advisory->policetype = $data['advcateg'];
 
 	 	if($data['upphoto'] != "") {
 	 		$advisory->imagepath = $this->loadphoto($data['upphoto']);
@@ -568,11 +524,18 @@ class AdvDirectoryController extends Controller {
 	 	}//if
     	$advisory->police_position_id = $data['pnppost'];
     	$advisory->rank_id = $data['rank'];
-    	$advisory->unit_id = $data['primary'];
     	$advisory->second_id = $data['secondary'];
-    	$advisory->tertiary_id = $data['tertiary'];
-    	$advisory->quaternary_id = $data['quaternary'];
-    	$advisory->authorityorder = $data['authorder'];
+
+	    if($data['tertiary'] != 'disitem') {
+	    	$advisory->tertiary_id = $data['tertiary'];
+	    }//if
+
+	    if($data['quaternary'] != 'disitem') {
+	    	$advisory->quaternary_id = $data['quaternary'];
+	    }//if
+
+	    $advisory->authorityorder =$data['authorder'];
+
     	$advisory->save();
         
     }// update TP
@@ -678,8 +641,8 @@ class AdvDirectoryController extends Controller {
 
 				$ac = Advisory_Council::join('advisory_position', 'advisory_position.ID', '=', 'advisory_council.advisory_position_id')
 										->join("ac_sector", "ac_sector.ID", "=", "advisory_council.ac_sector_id")
-										->join('unit_offices', 'unit_offices.id', '=', 'advisory_council.unit_id')
-										->leftJoin('unit_office_secondaries', 'unit_office_secondaries.id', '=', 'advisory_council.second_id')
+										->join('unit_office_secondaries', 'unit_office_secondaries.id', '=', 'advisory_council.second_id')
+										->join("unit_offices", "unit_offices.id", "=", "unit_office_secondaries.UnitOfficeID")
 										->leftJoin('unit_office_tertiaries', 'unit_office_tertiaries.id', '=', 'advisory_council.tertiary_id')
 										->leftJoin('unit_office_quaternaries', 'unit_office_quaternaries.id', '=', 'advisory_council.quaternary_id')
 										->where("advisory_council.ID" , "=", $id)
@@ -691,8 +654,8 @@ class AdvDirectoryController extends Controller {
 
 			$pa = Police_Advisory::join("ranks", "ranks.id", "=", "police_advisory.rank_id")
 									->join("police_position", "police_position.ID", "=", "police_advisory.police_position_id")
-									->join("unit_offices", "unit_offices.id", "=", "police_advisory.unit_id")
-									->leftJoin("unit_office_secondaries", "unit_office_secondaries.id", "=", "police_advisory.second_id")
+									->join('unit_office_secondaries', 'unit_office_secondaries.id', '=', 'advisory_council.second_id')
+									->join("unit_offices", "unit_offices.id", "=", "unit_office_secondaries.UnitOfficeID")
 									->leftJoin("unit_office_tertiaries", "unit_office_tertiaries.id", "=", "police_advisory.tertiary_id")
 									->leftJoin("unit_office_quaternaries", "unit_office_quaternaries.id", "=", "police_advisory.quaternary_id")
 									->where("police_advisory.ID", "=", $id)
