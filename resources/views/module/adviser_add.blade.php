@@ -514,10 +514,9 @@
 
 
 				}//if(flag == 0) {]
-				//alert(lecturers);
 			//}//pattern
 
-			console.log(lecturers);
+			//console.log(lecturers);
 
 		}//add item to array
 

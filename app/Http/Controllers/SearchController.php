@@ -198,20 +198,35 @@ class SearchController extends Controller
 
 	public function dashboard(){
 
-		
+		$chartoption = array(
+						'title' => '',
+						'fontName' => 'Franklin Gothic Book',
+						'colors' => array(
+										  '#3d9130', //green
+										  '#438db7', //baby blue
+										  '#ffe659', //yellow
+										  '#ffa359', //orange
+										  '#a73f3f', //red
+										  '#66ccc6', //teal 
+										  '#72d9a2', //mint
+										  '#f788e6', //pink
+										  '#6174af', //indigo
+										  '#cd72f3'  //lavender
+										  ),
+						'fontSize' => 14,
+						'height' => 500,
+						'width' => 500
+						);
 
-       $genderTable = $this->getGender();
+        $genderTable = $this->getGender();
 		
-        
-       	$genderChart = \Lava::DonutChart('Gender', $genderTable, [
-									    'title' => 'Male and Female Percentage'
-									]);
+        $chartoption['title'] = 'Male and Female Stakeholders';
+       	$genderChart = \Lava::PieChart('Gender', $genderTable, $chartoption);
 
        	$sectorTable = $this->getSector();
 
-       	$sectorChart = \Lava::DonutChart('Sector', $sectorTable, [
-									    'title' => 'Sector Percentage'
-									]);
+       	$chartoption['title'] = 'AC Sector';
+       	$sectorChart = \Lava::PieChart('Sector', $sectorTable, $chartoption);
 
 
 

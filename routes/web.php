@@ -46,12 +46,8 @@ Route::get('registration', function () {
 
 //--------------------------------------------------------------------------------------------
 
-Route::get('home', function() {
-	return view('home.defaulthome');
-
-})->middleware('auth'); //admin
-
-Route::get('home', 'AdvDirectoryController@getRecent')->middleware('auth'); //admin
+Route::get('home', 'SearchController@dashboard')->middleware('auth');
+//Route::get('home', 'AdvDirectoryController@getRecent')->middleware('auth'); //admin
 
 
 Route::get('maintenance', function () {
@@ -65,8 +61,6 @@ Route::get('maintenance', function () {
 Route::get('directory', 'AdvDirectoryController@getList')->middleware('auth');
 
 //MAINTENANCE @author: Shie Eugenio
-//Route::get('maintenance/accategory', 'ACCategoryController@index')->middleware('auth');
-//Route::get('maintenance/acsubcategory','ACSubcategoryController@index')->middleware('auth');
 Route::get('maintenance/acposition','ACPositionController@index_acposition')->middleware('auth');
 Route::get('maintenance/acsector','acsectorController@index_acsectors')->middleware('auth');
 Route::get('maintenance/primaryoffice', 'PoliceOfficesController@index')->middleware('auth');
@@ -82,7 +76,6 @@ Route::get('maintenance/policeposition','PolicePositionController@index_policepo
 //TRANSACTION @author: Shie Eugenio
 Route::get('directory/add', 'AdvDirectoryController@readyadd')->middleware('auth');
 Route::get('directory/edit', 'AdvDirectoryController@readyedit')->middleware('auth');
-//Route::resource('modalView', 'AdvDirectoryController@getRecordData');
 Route::get('directory/filter', 'AdvDirectoryController@filterList')->middleware('auth');
 
 //DROPDOWN @author: Shie Eugenio
@@ -102,17 +95,6 @@ Route::get('admin', 'RegistrationController@index')->middleware('auth');
 //BACK-END
 
 //MAINTENANCE
-
-/*//AC CATEGORY @author: Shie Eugenio
-Route::post("accategory/add", 'ACCategoryController@confirm');
-Route::post('accategory/view','ACCategoryController@edit');
-Route::post("accategory/edit", "ACCategoryController@update");
-
-//AC SUBCATEGORY @author: Ren Buluran
-Route::post('acsubcategory/add', 'ACSubcategoryController@confirm');
-Route::post('acsubcategory/view','ACSubcategoryController@edit');
-Route::post("acsubcategory/edit", "ACSubcategoryController@update");
-*/
 
 //AC POSITION @author: Lester Acula
 Route::post('maintenance/acpositioncrud','ACPositionController@acpositioncrud');
@@ -197,4 +179,4 @@ Route::get('searchAll', 'SearchController@AdvancedSearch');
 Route::get('ACSearch/{sq}', 'SearchController@findAC');
 Route::get('PoliceSearch/{sq}', 'SearchController@findPA');
 Route::get('searchView', 'SearchController@view');
-Route::get('dashboard', 'SearchController@dashboard');
+

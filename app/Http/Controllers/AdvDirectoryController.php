@@ -198,67 +198,6 @@ class AdvDirectoryController extends Controller {
 		return view('home.defaultphome')->with('directory', $adv);
 	}//public function getList() {
 
-	public function getRecent() {
-		//SUMMARY PANE INSERT CODE HERE
-		$ac = Advisory_Council::count();
-	    $twg = Police_Advisory::where('policetype', '=', 1)->count();
-	    $psmu = Police_Advisory::where('policetype', '=', 2)->count();
-	    $pac = 0;
-	    $ptwg = 0;
-	    $ppsmu = 0;
-	    $all = $ac + $twg + $psmu;
-
-
-	    if ($all > 0) {
-	    	$pac = round(($ac/$all) * 100, 2);
-		    $ptwg = round(($twg/$all) * 100,2);
-		    $ppsmu = round(($psmu/$all) * 100,2);
-	    }//if
-	    
-
-		$civilian = DB::table('advisory_council')
-					->join('advisory_position', 'advisory_position.ID', '=', 'advisory_council.advisory_position_id')
-					->join("ac_sector", "ac_sector.ID", "=", "advisory_council.ac_sector_id")
-					->join('unit_office_secondaries', 'unit_office_secondaries.id', '=', 'advisory_council.second_id')
-					->join('unit_offices', 'unit_offices.id', '=', 'unit_office_secondaries.UnitOfficeID')
-					->leftJoin('unit_office_tertiaries', 'unit_office_tertiaries.id', '=', 'advisory_council.tertiary_id')
-					->leftJoin('unit_office_quaternaries', 'unit_office_quaternaries.id', '=', 'advisory_council.quaternary_id')
-					->select('advisory_council.ID','lname', 'fname', 'mname', 'imagepath', 'email', 
-							'contactno', 'landline','startdate', 'acpositionname', 'officename',
-							'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
-							'UnitOfficeQuaternaryName')
-					->whereDate("advisory_council.created_at" , ">=", "DATE_ADD(NOW(),INTERVAL -15 DAY)")
-					->orderBy('advisory_council.created_at', 'desc')
-					->get();
-	
-		$police = DB::table('police_advisory')
-					->join('police_position', 'police_position.id', '=', 'police_advisory.police_position_id')
-					->join('unit_office_secondaries', 'unit_office_secondaries.id', '=', 'police_advisory.second_id')
-					->join('unit_offices', 'unit_offices.id', '=', 'unit_office_secondaries.UnitOfficeID')
-					->leftJoin('unit_office_tertiaries', 'unit_office_tertiaries.id', '=', 'police_advisory.tertiary_id')
-					->leftJoin('unit_office_quaternaries', 'unit_office_quaternaries.id', '=', 'police_advisory.quaternary_id')
-					->select('police_advisory.ID', 'lname', 'fname', 'mname', 'imagepath', 'email', 
-						     'contactno', 'landline', 'startdate', 'policetype',
-						     'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
-						     'UnitOfficeQuaternaryName', 'PositionName')
-					->whereDate("police_advisory.created_at" , ">=", "DATE_ADD(NOW(),INTERVAL -15 DAY)")
-					->orderBy('police_advisory.created_at', 'desc')
-					->get();
-
-
-		return view('home.defaulthome')->with('all', $all)
-									   ->with('ac', $ac)
-									   ->with('twg', $twg)
-									   ->with('psmu', $psmu)
-									   ->with('pac', $pac)
-									   ->with('ptwg', $ptwg)
-									   ->with('ppsmu', $ppsmu)
-									   ->with('acmember', $civilian)
-									   ->with('tpmember', $police);
-
-	}//public function getRecent() {
-
-
 	public function getACID() {
 		$getid = Advisory_Council::orderBy('ID', 'desc')->take(1)->get();
 
