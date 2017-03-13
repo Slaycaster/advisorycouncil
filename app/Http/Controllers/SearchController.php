@@ -194,7 +194,7 @@ class SearchController extends Controller
 	}
 
 	public function getUnitOffice(){
-		$unit = DB::table('unit_offices')
+		$unit = DB::table('unit_office_secondaries')
 					->select('UnitOfficeSecondaryName', DB::raw('count(*) as total'))
 					->Join('advisory_council', 'advisory_council.second_id', '=', 'unit_office_secondaries.id')
 					->Join('police_advisory', 'police_advisory.second_id', '=', 'unit_office_secondaries.id')
@@ -386,8 +386,8 @@ class SearchController extends Controller
 	
 		$police = DB::table('police_advisory')
 					->join('police_position', 'police_position.id', '=', 'police_advisory.police_position_id')
-					->join('unit_offices', 'unit_offices.id', '=', 'police_advisory.unit_id')
 					->join('unit_office_secondaries', 'unit_office_secondaries.id', '=', 'police_advisory.second_id')
+					->join('unit_offices', 'unit_offices.id', '=', 'unit_office_secondaries.UnitOfficeID')
 					->join('unit_office_tertiaries', 'unit_office_tertiaries.id', '=', 'police_advisory.tertiary_id')
 					->join('unit_office_quaternaries', 'unit_office_quaternaries.id', '=', 'police_advisory.quaternary_id')
 					->select('police_advisory.ID', 'lname', 'fname', 'mname', 'imagepath', 'email', 
