@@ -77,10 +77,39 @@
 
 
 						<div class = "eight wide column">
-							<div class="row" id="sector-chart"></div>
-							{!! Lava::render('PieChart', 'Sector', 'sector-chart'); !!}
+							<div class="row" id="sector-chart">
+								<div id="sectorchart">
+						        </div>
+						        <div id="sectorcontrol">
+						        </div>
+							</div>
+							{!! Lava::render('Dashboard', 'Sector', 'sector-chart'); !!}
 							
 						</div>
+
+						<div class = "eight wide column">
+							<div class="row" id="age-chart">
+								<div id="chart">
+						        </div>
+						        <div id="control">
+						        </div>
+							</div>
+							{!! Lava::render('Dashboard', 'Age', 'age-chart'); !!}
+							
+						</div>
+
+						<div class = "eight wide column">
+							<div class="row" id="unit-chart">
+								<div id="unitchart">
+						        </div>
+						        <div id="unitcontrol">
+						        </div>
+							</div>
+							{!! Lava::render('Dashboard', 'UnitOffices', 'unit-chart'); !!}
+							
+						</div>
+
+						
 						
 					</div>
 						
