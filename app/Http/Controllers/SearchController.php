@@ -178,8 +178,8 @@ class SearchController extends Controller
 					->groupBy('sectorname')->get();
 
 		$dt = \Lava::DataTable();
-		$dt->addStringColumn('Name')
-            ->addNumberColumn('Gender');
+		$dt->addStringColumn('Sector')
+            ->addNumberColumn('Total');
 
 
        foreach ($sector as $value) {
@@ -193,10 +193,74 @@ class SearchController extends Controller
 
 	}
 
+	public function getUnitOffice(){
+		$unit = DB::table('unit_offices')
+					->select('unitofficename', DB::raw('count(*) as total'))
+					->Join('advisory_council', 'advisory_council.unit_id', '=', 'unit_offices.id')
+					->Join('police_advisory', 'police_advisory.unit_id', '=', 'unit_offices.id')
+					->havingRaw('count(*) >= 0')
+					->groupBy('unitofficename')->distinct()->get();
+
+		$dt = \Lava::DataTable();
+		$dt->addStringColumn('Unit Office')
+            ->addNumberColumn('Total');
+
+       foreach ($unit as $value) {
+       		$dt->addRow([$value->unitofficename, $value->total]);
+       }
+        
+       
+       
+       return $dt;
+
+	}
+
+
+	public function getAge(){
+		$agepc = DB::table('police_advisory')
+					->select(DB::raw('TIMESTAMPDIFF(YEAR, birthdate, CURDATE()) AS age, count(*) as num'))
+					->havingRaw('count(*) >= 0')
+					->groupBy('age')
+					->get();
+					
+
+		$ageac = DB::table('advisory_council')
+					->select(DB::raw('TIMESTAMPDIFF(YEAR, birthdate, CURDATE()) AS age, count(*) as num'))
+					->havingRaw('count(*) >= 0')
+					->groupBy('age')
+					->get();
+
+	  foreach ($agepc as $value) {
+
+	  	$myage = $value->age;
+	  
+	  	if (!$ageac->search('$myage')) {
+	  		$ageac->push($value);
+	  	}else{
+	  		$ageac->age->search($value->age)->first() + $value->age;
+	  	}
+
+	  }
+	  $ageac = $ageac->sortBy('age');
+
+	  $dt = \Lava::DataTable();
+	   $dt->addStringColumn('Age')
+       ->addNumberColumn('Total');
+
+       foreach ($ageac as $value) {
+       		$dt->addRow([$value->age, $value->num]);
+       }
+
+       return $dt;
+	
+
+	}
+
 
 
 
 	public function dashboard(){
+		
 
 		$chartoption = array(
 						'title' => '',
@@ -223,10 +287,72 @@ class SearchController extends Controller
         $chartoption['title'] = 'Male and Female Stakeholders';
        	$genderChart = \Lava::PieChart('Gender', $genderTable, $chartoption);
 
-       	$sectorTable = $this->getSector();
+       	
 
+
+
+
+
+
+       	$sectorTable = $this->getSector();
        	$chartoption['title'] = 'AC Sector';
        	$sectorChart = \Lava::PieChart('Sector', $sectorTable, $chartoption);
+
+       	$sectorfilter  = \Lava::CategoryFilter(0, [
+		    'ui' => [
+		        'labelStacking' => 'vertical',
+		        'allowTyping' => false
+		    ]
+		]);
+
+		$control = \Lava::ControlWrapper($sectorfilter, 'sectorcontrol');
+		$chart   = \Lava::ChartWrapper($sectorChart, 'sectorchart');
+
+		\Lava::Dashboard('Sector')->bind($control, $chart);  
+
+
+	
+		$unitTable = $this->getUnitOffice();
+       	$chartoption['title'] = 'Unit Offices';
+       	$unitChart = \Lava::PieChart('UnitOffices', $unitTable, $chartoption);
+
+       	$unitfilter  = \Lava::CategoryFilter(0, [
+		    'ui' => [
+		        'labelStacking' => 'vertical',
+		        'allowTyping' => false
+		    ]
+		]);
+
+		$control = \Lava::ControlWrapper($unitfilter, 'unitcontrol');
+		$chart   = \Lava::ChartWrapper($unitChart, 'unitchart');
+
+		\Lava::Dashboard('UnitOffices')->bind($control, $chart);  
+
+
+
+
+
+
+
+       	$ageTable = $this->getAge();
+       	$agedashboard = \Lava::Dashboard('Age');
+
+	    $ageChart = \Lava::PieChart('Age', $ageTable, [
+			    'pieSliceText' => 'value',
+			    'title' => 'Age Rage of Stakeholders'
+			]);
+
+		
+		$filter  = \Lava::NumberRangeFilter(1, [
+		    'ui' => [
+		        'labelStacking' => 'vertical',
+		        'minValue' => 0
+		    ]
+		]);
+
+		$control = \Lava::ControlWrapper($filter, 'control');
+		$chart   = \Lava::ChartWrapper($ageChart, 'chart');
+		$dashboard = $agedashboard->bind($control, $chart);
 
 
 
@@ -268,6 +394,8 @@ class SearchController extends Controller
 					->whereDate("police_advisory.created_at" , ">=", "DATE_ADD(NOW(),INTERVAL -15 DAY)")
 					->orderBy('police_advisory.created_at', 'desc')
 					->get();
+
+
 
 
 		return view('home.defaulthome')->with('all', $all)
