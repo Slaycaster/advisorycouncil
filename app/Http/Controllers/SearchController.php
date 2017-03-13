@@ -195,11 +195,11 @@ class SearchController extends Controller
 
 	public function getUnitOffice(){
 		$unit = DB::table('unit_offices')
-					->select('unitofficename', DB::raw('count(*) as total'))
-					->Join('advisory_council', 'advisory_council.unit_id', '=', 'unit_offices.id')
-					->Join('police_advisory', 'police_advisory.unit_id', '=', 'unit_offices.id')
+					->select('UnitOfficeSecondaryName', DB::raw('count(*) as total'))
+					->Join('advisory_council', 'advisory_council.second_id', '=', 'unit_office_secondaries.id')
+					->Join('police_advisory', 'police_advisory.second_id', '=', 'unit_office_secondaries.id')
 					->havingRaw('count(*) >= 0')
-					->groupBy('unitofficename')->distinct()->get();
+					->groupBy('UnitOfficeSecondaryName')->distinct()->get();
 
 		$dt = \Lava::DataTable();
 		$dt->addStringColumn('Unit Office')
@@ -229,29 +229,32 @@ class SearchController extends Controller
 					->havingRaw('count(*) >= 0')
 					->groupBy('age')
 					->get();
+		$ageac = $ageac->keyBy('age');
 
-	  foreach ($agepc as $value) {
+			  foreach ($agepc as $value) {
 
-	  	$myage = $value->age;
-	  
-	  	if (!$ageac->search('$myage')) {
-	  		$ageac->push($value);
-	  	}else{
-	  		$ageac->age->search($value->age)->first() + $value->age;
-	  	}
+			  	$myage = $value->age;
+			  
+			  	if (!$ageac->search('$myage')) {
+			  		$ageac->push($value)->keyBy('age');
+			  	}else{
+			  		
+			  		//$x = $ageac->num->whereIn('age', [$myage])->get();
+			  		
+			  	}
 
-	  }
-	  $ageac = $ageac->sortBy('age');
+			  }
+			  $ageac = $ageac->sortBy('age');
 
-	  $dt = \Lava::DataTable();
-	   $dt->addStringColumn('Age')
-       ->addNumberColumn('Total');
+			  $dt = \Lava::DataTable();
+			   $dt->addStringColumn('Age')
+		       ->addNumberColumn('Total');
 
-       foreach ($ageac as $value) {
-       		$dt->addRow([$value->age, $value->num]);
-       }
+		       foreach ($ageac as $value) {
+		       		$dt->addRow([$value->age, $value->num]);
+		       }
 
-       return $dt;
+		       return $dt;
 	
 
 	}

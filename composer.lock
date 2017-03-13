@@ -9,16 +9,16 @@
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.24.1",
+            "version": "3.24.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "81d79a486c7628d5fd282259bd6f9a0570d3eb41"
+                "reference": "2b252f300de442cdb5cde18ddc118c2477972e30"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/81d79a486c7628d5fd282259bd6f9a0570d3eb41",
-                "reference": "81d79a486c7628d5fd282259bd6f9a0570d3eb41",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/2b252f300de442cdb5cde18ddc118c2477972e30",
+                "reference": "2b252f300de442cdb5cde18ddc118c2477972e30",
                 "shasum": ""
             },
             "require": {
@@ -85,7 +85,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2017-03-09 21:48:33"
+            "time": "2017-03-10 21:09:41"
         },
         {
             "name": "aws/aws-sdk-php-laravel",
@@ -1186,16 +1186,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "1.22.0",
+            "version": "1.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "bad29cb8d18ab0315e6c477751418a82c850d558"
+                "reference": "1e044bc4b34e91743943479f1be7a1d5eb93add0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/bad29cb8d18ab0315e6c477751418a82c850d558",
-                "reference": "bad29cb8d18ab0315e6c477751418a82c850d558",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/1e044bc4b34e91743943479f1be7a1d5eb93add0",
+                "reference": "1e044bc4b34e91743943479f1be7a1d5eb93add0",
                 "shasum": ""
             },
             "require": {
@@ -1260,7 +1260,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2016-11-26 00:15:39"
+            "time": "2017-03-13 07:08:03"
         },
         {
             "name": "mtdowling/cron-expression",
@@ -2049,7 +2049,7 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v3.2.5",
+            "version": "v3.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
@@ -4232,7 +4232,7 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.2.5",
+            "version": "v3.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
