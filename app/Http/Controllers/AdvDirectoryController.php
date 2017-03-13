@@ -593,7 +593,7 @@ class AdvDirectoryController extends Controller {
 
 			$pa = Police_Advisory::join("ranks", "ranks.id", "=", "police_advisory.rank_id")
 									->join("police_position", "police_position.ID", "=", "police_advisory.police_position_id")
-									->join('unit_office_secondaries', 'unit_office_secondaries.id', '=', 'advisory_council.second_id')
+									->join('unit_office_secondaries', 'unit_office_secondaries.id', '=', 'police_advisory.second_id')
 									->join("unit_offices", "unit_offices.id", "=", "unit_office_secondaries.UnitOfficeID")
 									->leftJoin("unit_office_tertiaries", "unit_office_tertiaries.id", "=", "police_advisory.tertiary_id")
 									->leftJoin("unit_office_quaternaries", "unit_office_quaternaries.id", "=", "police_advisory.quaternary_id")

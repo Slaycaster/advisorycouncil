@@ -820,6 +820,7 @@ legend {
 
 .unorderedlist {
 	list-style-type: none;
+	margin-left: -65%;
 }
 .dlink:hover {
 	text-decoration: underline;
