@@ -206,7 +206,7 @@ class SearchController extends Controller
             ->addNumberColumn('Total');
 
        foreach ($unit as $value) {
-       		$dt->addRow([$value->unitofficename, $value->total]);
+       		$dt->addRow([$value->UnitOfficeSecondaryName, $value->total]);
        }
         
        
