@@ -181,7 +181,7 @@ return [
         LaravelCaptcha\Providers\LaravelCaptchaServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         //PDF Generator
-        Codedge\Fpdf\FpdfServiceProvider::class
+        Codedge\Fpdf\FpdfServiceProvider::class,
         Khill\Lavacharts\Laravel\LavachartsServiceProvider::class
 
 
