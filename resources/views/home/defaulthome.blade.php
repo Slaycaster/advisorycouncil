@@ -62,6 +62,46 @@
 					
 	</div>
 
+	<script type="text/javascript">
+
+								 $(function() {
+								        $('#select').on('change', function() {
+								         
+								        		var choice = this.value;
+								        		if (choice == 1) {
+								        					$.getJSON('Dashboard/primary', function (dataTableJson) {
+															  lava.loadData('UnitOffices', dataTableJson, function (chart) {
+															    console.log(chart);
+															  });
+															});
+								        		}else if (choice == 2) {
+								        					$.getJSON('Dashboard/secondary', function (dataTableJson) {
+															  lava.loadData('UnitOffices', dataTableJson, function (chart) {
+															    console.log(chart);
+															  });
+															});
+								        		}else if (choice == 3) {
+								        					$.getJSON('Dashboard/tertiary', function (dataTableJson) {
+															  lava.loadData('UnitOffices', dataTableJson, function (chart) {
+															    console.log(chart);
+															  });
+															});
+								        		}else if (choice == 4) {
+								        			$.getJSON('Dashboard/Quarternary', function (dataTableJson) {
+															  lava.loadData('UnitOffices', dataTableJson, function (chart) {
+															    console.log(chart);
+															  });
+															});
+
+								        		}
+								           
+
+								        });
+								      });
+
+						</script>
+						
+
 	<div class = "twelve wide column">
 		<div class = "hcontent">
 			<div class="dcon">
@@ -99,15 +139,24 @@
 						</div>
 
 						<div class = "eight wide column">
+							<select id="select">
+		    						<option value="1">Primary Office</option>
+		    						<option value="2">Secondary Office</option>
+		    						<option value="3">Tertiary Office</option>
+		    						<option value="4">Quarternary Office</option>
+							</select>	
 							<div class="row" id="unit-chart">
 								<div id="unitchart">
 						        </div>
 						        <div id="unitcontrol">
 						        </div>
 							</div>
-							{!! Lava::render('Dashboard', 'UnitOffices', 'unit-chart'); !!}
+							{!! Lava::render('PieChart', 'UnitOffices', 'unit-chart'); !!}
 							
+								
 						</div>
+
+
 
 						
 						

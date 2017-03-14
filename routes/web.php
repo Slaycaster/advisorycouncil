@@ -180,3 +180,8 @@ Route::get('ACSearch/{sq}', 'SearchController@findAC');
 Route::get('PoliceSearch/{sq}', 'SearchController@findPA');
 Route::get('searchView', 'SearchController@view');
 
+//dashboard for offices[ren]
+Route::get('Dashboard/primary', 'SearchController@getUnitOffice');
+Route::get('Dashboard/secondary', 'SearchController@getSecondOffice');
+Route::get('Dashboard/tertiary', 'SearchController@getTertiaryOffice');
+Route::get('Dashboard/Quarternary', 'SearchController@getQuarternaryOffice');

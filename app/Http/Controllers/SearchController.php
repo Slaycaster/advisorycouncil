@@ -198,20 +198,52 @@ class SearchController extends Controller
 
 
 	public function getUnitOffice(){
-		$unit = DB::table('unit_office_secondaries')
-					->select('UnitOfficeSecondaryName', DB::raw('count(*) as total'))
-					->Join('advisory_council', 'advisory_council.second_id', '=', 'unit_office_secondaries.id')
-					->Join('police_advisory', 'police_advisory.second_id', '=', 'unit_office_secondaries.id')
-					->havingRaw('count(*) >= 0')
-					->groupBy('UnitOfficeSecondaryName')->distinct()->get();
 
-		$dt = \Lava::DataTable();
-		$dt->addStringColumn('Unit Office')
-            ->addNumberColumn('Total');
+		$unitac = DB::table('unit_offices')
+													->join('unit_office_secondaries', 'unit_offices.id', '=', 'unit_office_secondaries.UnitOfficeID')
+													->select('UnitOfficeName', DB::raw('count(*) as total'))
+													->Join('advisory_council', 'advisory_council.second_id', '=', 'unit_office_secondaries.id')
+													->havingRaw('count(*) >= 0')
+													->groupBy('UnitOfficeName')
+													->get();
 
-       foreach ($unit as $value) {
-       		$dt->addRow([$value->UnitOfficeSecondaryName, $value->total]);
-       }
+		$unitpa = DB::table('unit_offices')
+													->join('unit_office_secondaries', 'unit_offices.id', '=', 'unit_office_secondaries.UnitOfficeID')
+													->select('UnitOfficeName', DB::raw('count(*) as total'))
+													->Join('police_advisory', 'police_advisory.second_id', '=', 'unit_office_secondaries.id')
+													->havingRaw('count(*) >= 0')
+													->groupBy('UnitOfficeName')
+													->get();
+
+
+		foreach ($unitpa as $value) {
+
+			  	$name = $value->UnitOfficeName;
+			  
+			  	if ($unitac->where('UnitOfficeName',$name)->count() == 0) {
+			  		$unitac->push($value);
+			  	}else{
+			  		
+			  		$ac_col = $unitac->where('UnitOfficeName',$name)->toArray();
+			  		$total_pa = $value->total;
+			  		$ac_col[0]->total = $ac_col[0]->total + $total_pa;
+			  		$unitac->merge($ac_col);
+
+
+			  		
+			  	}
+
+			  }
+
+			  $unitac = $unitac->sortBy('UnitOfficeName');
+			  $unitac = $unitac->toArray();
+			  $dt = \Lava::DataTable();
+			   $dt->addStringColumn('Office Name')
+		       ->addNumberColumn('Total');
+		      
+		       foreach ($unitac as $value) {
+		       		$dt->addRow([$value->UnitOfficeName, $value->total]);
+		       }
         
        
        
@@ -220,6 +252,168 @@ class SearchController extends Controller
 	}
 
 
+	public function getSecondOffice(){
+		$secondac = DB::table('unit_office_secondaries')
+													->join('unit_offices', 'unit_offices.id', '=', 'unit_office_secondaries.UnitOfficeID')
+													->select('UnitOfficeSecondaryName', DB::raw('count(*) as total'))
+													->Join('advisory_council', 'advisory_council.second_id', '=', 'unit_office_secondaries.id')
+													->havingRaw('count(*) >= 0')
+													->groupBy('UnitOfficeSecondaryName')
+													->get();
+
+		$secondpa = DB::table('unit_office_secondaries')
+													->join('unit_offices', 'unit_offices.id', '=', 'unit_office_secondaries.UnitOfficeID')
+													->select('UnitOfficeSecondaryName', DB::raw('count(*) as total'))
+													->Join('police_advisory', 'police_advisory.second_id', '=', 'unit_office_secondaries.id')
+													->havingRaw('count(*) >= 0')
+													->groupBy('UnitOfficeSecondaryName')
+													->get();
+
+
+		foreach ($secondpa as $value) {
+
+			  	$name = $value->UnitOfficeSecondaryName;
+			  
+			  	if ($secondac->where('UnitOfficeSecondaryName',$name)->count() == 0) {
+			  		$secondac->push($value);
+			  	}else{
+			  		
+			  		$ac_col = $secondac->where('UnitOfficeSecondaryName',$name)->toArray();
+			  		$total_pa = $value->total;
+			  		$ac_col[0]->total = $ac_col[0]->total + $total_pa;
+			  		$secondac->merge($ac_col);
+
+
+			  		
+			  	}
+
+			  }
+
+			  $secondac = $secondac->sortBy('UnitOfficeSecondaryName');
+			  $secondac = $secondac->toArray();
+			  $dt = \Lava::DataTable();
+			   $dt->addStringColumn('Office Name')
+		       ->addNumberColumn('Total');
+		       //return $secondac;
+		       
+		       foreach ($secondac as $value) {
+		       		$dt->addRow([$value->UnitOfficeSecondaryName, $value->total]);
+		       }
+
+
+
+
+		      
+
+		       return json_encode($dt);
+
+
+	}
+
+
+
+public function getTertiaryOffice(){
+		$tertiaryac = DB::table('unit_office_tertiaries')
+													->select('UnitOfficeTertiaryName', DB::raw('count(*) as total'))
+													->Join('advisory_council', 'advisory_council.tertiary_id', '=', 'unit_office_tertiaries.id')
+													->havingRaw('count(*) >= 0')
+													->groupBy('UnitOfficeTertiaryName')
+													->get();
+
+		$tertiarypa = DB::table('unit_office_tertiaries')
+													->select('UnitOfficeTertiaryName', DB::raw('count(*) as total'))
+													->Join('police_advisory', 'police_advisory.tertiary_id', '=', 'unit_office_tertiaries.id')
+													->havingRaw('count(*) >= 0')
+													->groupBy('UnitOfficeTertiaryName')
+													->get();
+
+
+		foreach ($tertiarypa as $value) {
+
+			  	$name = $value->UnitOfficeTertiaryName;
+			  
+			  	if ($tertiaryac->where('UnitOfficeTertiaryName',$name)->count() == 0) {
+			  		$tertiaryac->push($value);
+			  	}else{
+			  		
+			  		$ac_col = $tertiaryac->where('UnitOfficeTertiaryName',$name)->toArray();
+			  		$total_pa = $value->total;
+			  		$ac_col[0]->total = $ac_col[0]->total + $total_pa;
+			  		$tertiaryac->merge($ac_col);
+
+
+			  		
+			  	}
+
+			  }
+
+			  $tertiaryac = $tertiaryac->sortBy('UnitOfficeTertiaryName');
+			  $tertiaryac = $tertiaryac->toArray();
+			  $dt = \Lava::DataTable();
+			   $dt->addStringColumn('Office Name')
+		       ->addNumberColumn('Total');
+		      
+		       foreach ($tertiaryac as $value) {
+		       		$dt->addRow([$value->UnitOfficeTertiaryName, $value->total]);
+		       }
+				
+
+		       return json_encode($dt);
+
+
+	}
+
+
+	public function getQuarternaryOffice(){
+		$quarternaryac = DB::table('unit_office_quaternaries')
+													->select('UnitOfficeQuaternaryName', DB::raw('count(*) as total'))
+													->Join('advisory_council', 'advisory_council.quaternary_id', '=', 'unit_office_quaternaries.id')
+													->havingRaw('count(*) >= 0')
+													->groupBy('UnitOfficeQuaternaryName')
+													->get();
+
+		$quarternarypa = DB::table('unit_office_quaternaries')
+													->select('UnitOfficeQuaternaryName', DB::raw('count(*) as total'))
+													->Join('police_advisory', 'police_advisory.quaternary_id', '=', 'unit_office_quaternaries.id')
+													->havingRaw('count(*) >= 0')
+													->groupBy('UnitOfficeQuaternaryName')
+													->get();
+
+
+		foreach ($quarternarypa as $value) {
+
+			  	$name = $value->UnitOfficeQuaternaryName;
+			  
+			  	if ($quarternaryac->where('UnitOfficeQuaternaryName',$name)->count() == 0) {
+			  		$quarternaryac->push($value);
+			  	}else{
+			  		
+			  		$ac_col = $quarternaryac->where('UnitOfficeQuaternaryName',$name)->toArray();
+			  		$total_pa = $value->total;
+			  		$ac_col[0]->total = $ac_col[0]->total + $total_pa;
+			  		$quarternaryac->merge($ac_col);
+
+
+			  		
+			  	}
+
+			  }
+
+			  $quarternaryac = $quarternaryac->sortBy('UnitOfficeQuaternaryName');
+			  $quarternaryac = $quarternaryac->toArray();
+			  $dt = \Lava::DataTable();
+			   $dt->addStringColumn('Office Name')
+		       ->addNumberColumn('Total');
+		      
+		       foreach ($quarternaryac as $value) {
+		       		$dt->addRow([$value->UnitOfficeQuaternaryName, $value->total]);
+		       }
+				
+
+		       return json_encode($dt);
+
+
+	}
 
 
 
@@ -328,6 +522,11 @@ class SearchController extends Controller
 		$chart   = \Lava::ChartWrapper($sectorChart, 'sectorchart');
 
 		\Lava::Dashboard('Sector')->bind($control, $chart);  
+
+
+
+
+
 
 
 	
