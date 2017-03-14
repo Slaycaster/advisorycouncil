@@ -8,13 +8,132 @@ use Response;
 use App\Http\Requests;
 USE Codedge\Fpdf\Fpdf\FPDF;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use App\Models\Advisory_Council;
+use App\Models\Advisory_Position;
+use App\Models\Police_Position;
+use App\Models\AC_Sector;
 use App\Models\Police_Advisory;
+use App\Models\unit_office_quaternaries;
+use App\Models\unit_office_tertiaries;
+use App\Models\unit_office_secondaries;
 
 class PDFController extends Controller
 {
-    public function createPDF( Request $req)
+	public function index(){
+		$advisoryCouncil = Advisory_Council::get();
+		$policeAdvisory = Police_Advisory::get();
+		$policeposition = Police_Position::get();
+		$advisoryposition = Advisory_Position::get();
+		$acsector = AC_Sector::get();
+		$unitsecond = unit_office_secondaries::get();
+		$unittertiary = unit_office_tertiaries::get();
+		$unitquaternary = unit_office_quaternaries::get();
+
+		return view('/welcome')->with('advisoryCouncil',$advisoryCouncil)
+							   ->with('policeAdvisory',$policeAdvisory)
+							   ->with('policeposition', $policeposition)
+							   ->with('advisoryposition', $advisoryposition)
+							   ->with('acsector', $acsector)
+							   ->with('unitsecond', $unitsecond)
+							   ->with('unittertiary', $unittertiary)
+							   ->with('unitquaternary', $unitquaternary);
+
+	}
+
+	public function loaddata(Request $req)
+	{
+		$callid = $req->callid;
+		$city =$req->city;
+		$province=$req->province;
+		//$whereclause = Array();
+		//$policeAdvisoryQuery = DB::table('Police_Position');
+
+		if($callid == 1){
+			$query = Advisory_Council::query();
+
+			if($req->office2 != 0)
+				{ $query = $query->where('second_id','=',$req->office2); }
+				
+			if($req->gender != 0)
+				{if($req->gender == 2) { $query = $query->where('gender','=',1); }
+				 else if($req->gender == 1){ $query = $query->where('gender','=',0);} }
+
+			if($req->sector !=0)
+				{ $query = $query->where('ac_sector_id','=',$req->sector); }
+		
+			if($city != null || $city != "")
+				{ $query = $query->where('city','=',$city); }
+		
+			if($province != null || $province != "")
+				{ $query = $query->where('province','=',$province); }
+
+			if($req->civposition != 0)
+				{ $query = $query->where('advisory_position_id','=',$req->civposition); }
+		
+			$res = $query->get();
+
+			if($req->loader == 1)
+				{ $this->createPDF($res); return $res;}
+			else 
+				{ return $res;}
+			
+		}//civillian advisory
+
+		if($callid == 2){
+			
+			$query = Police_Advisory::query();
+
+			if($req->office2 != 0)
+				{ 
+					//array_add($whereclause, "second_id",$req->office2);
+					$query = $query->where('second_id','=',$req->office2);
+				}
+				
+			if($req->gender != 0)
+				{if($req->gender == 2) { //array_add($whereclause,"gender",0);
+										 $query = $query->where('gender','=',1); }
+				 else if($req->gender == 1){//array_add($whereclause,"gender",0);
+											$query = $query->where('gender','=',0);} }
+		
+			if($city != null || $city != "")
+				{//array_add($whereclause, "city",$city);
+					$query = $query->where('city','=',$city);
+				}
+		
+			if($province != null || $province != "")
+				{//array_add($whereclause, "province",$province);
+					$query = $query->where('province','=',$province);
+				}
+		
+			if($req->office3 != 0)
+				{//array_add($whereclause, "tertiary_id",$req->office3);
+					$query = $query->where('tertiary_id','=',$req->office3);
+				}
+		
+			if($req->office4 != 0)
+				{//array_add($whereclause, "quaternary_id",$req->office4); 
+					$query = $query->where('quaternary_id','=',$req->office4);
+				}
+		
+			if($req->polposition != 0)
+				{//array_add($whereclause, "police_position_id",$req->polposition);
+					$query = $query->where('police_position_id','=',$req->polposition);
+				}
+		
+			$res = $query->get();
+			//var_dump($req->all(),$query->toSql());
+			if($req->loader == 1)
+				{ $this->createPDF($res); return $res; }
+			else 
+				{ return $res;}
+		}//police advisory
+
+	}
+
+    public function createPDF($res)
     {
+    	$data = $res;
     	$col= 10;
     	$y0=40;
     	$imageCol=12;
@@ -26,16 +145,17 @@ class PDFController extends Controller
     	$fpdf->AddPage(90);
     	$fpdf->SetFont('Arial','B',16);
 
-    	for($i=1;$i <= 6;$i++){
+    	for($i=1;$i <= count($data);$i++)
+    	{	
 			for($j=1;$j<=4;$j++){
 				$fpdf->Rect($col,$y0,64,35);
 				$fpdf->Image('images/Philippine-National-Police.png',$imageCol,$imagey0,23);
 				$fpdf->SetFont('Arial','B',10);
-				$fpdf->Text($textCol,$texty0,'name');
-				$fpdf->Text($textCol,$texty0+5,'Position');
-				$fpdf->Text($textCol,$texty0+10,'Office');
-				$fpdf->Text($textCol,$texty0+15,'Email');
-				$fpdf->Text($textCol,$texty0+20,'Contact');
+				$fpdf->Text($textCol,$texty0,$data[$i]->lname.", ".$data[$i]->fname." "$data[$i]->mname);
+				$fpdf->Text($textCol,$texty0+5,$data[$i]->lname);
+				$fpdf->Text($textCol,$texty0+10,$data[$i]->lname);
+				$fpdf->Text($textCol,$texty0+15,$data[$i]->lname);
+				$fpdf->Text($textCol,$texty0+20,$data[$i]->lname);
 				if($j==2){
 					$col+=75;
 					$imageCol+=75;
@@ -48,6 +168,7 @@ class PDFController extends Controller
 				}
 
 			}
+
 			$pagebreaker = $i%4;
 			if($pagebreaker == 0){
 				$fpdf->AddPage(90);
@@ -69,7 +190,8 @@ class PDFController extends Controller
 
     	$headers=['Content-Type' => 'application/pdf'];
 
-    	return Response::make($fpdf->output(),200, $headers);
+    	Response::make($fpdf->output('Advisory_Council.pdf','F'),200, $headers);
+
     }
 
 }//CLASS PDFController

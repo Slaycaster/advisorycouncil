@@ -199,11 +199,10 @@ Route::get('PoliceSearch/{sq}', 'SearchController@findPA');
 Route::get('searchView', 'SearchController@view');
 
 
+Route::get('/welcome', 'PDFController@index');
 Route::post('createPDF', 'PDFController@createPDF');
-Route::get('/welcome', function()
-	{
-		return view('welcome');
-});
+Route::post('load-pdf-data', 'PDFController@loaddata');
+
 
 
 
