@@ -66,128 +66,54 @@
 		<div class = "hcontent">
 			<div class="dcon">
 				<div class = "tablepane">
-					<div class = "mtitle">Recently Added</div>
+					<div class = "mtitle">Dashboard</div>
 
-					<br>
-
-					@if(sizeof($acmember) != 0)
-						<h6 class="ui horizontal divider divtitle">
-							Advisory Council
-						</h6>
-
-						<div id = "accardlist" class = "ui doubling grid cardlist2">
-
-							@foreach($acmember as $acrec)
-								<div class = "five1 wide column colheight">
-									<div class = "cardstyle" onclick = "loadModal('0-{{$acrec->ID}}')">
-										@if($acrec->imagepath != "")
-											<img class = "advphoto" src="{{URL::asset($acrec->imagepath)}}"/>
-										@else
-											<img class = "advphoto" src="{{URL::asset('objects/Logo/InitProfile.png')}}"/>
-										@endif
-										<div class = "advdata">
-											<h5 class = "name">{{$acrec->lname}}, {{$acrec->fname}} {{$acrec->mname}} (AC)</h5>
-											<p class = "p1">
-												{{$acrec->acpositionname}} <br>
-												{{$acrec->officename}} <br>
-												{{$acrec->email}} <br>
-
-												@if($acrec->contactno != "" && $acrec->landline != "")
-													{{$acrec->contactno/ $acrec->landline}}
-												@else
-													@if($acrec->contactno != "")
-														{{$acrec->contactno}}
-													@elseif($acrec->landline != "")
-														{{$acrec->landline}}
-													@endif
-												@endif
-												
-												
-											</p>
-
-											<p class = "p2"> Member since {{date('M Y',strtotime($acrec->startdate))}}</p>
-											
-										</div>
-									</div>
-
-								</div>
-							@endforeach
-
+					<div class= "ui grid">
+						<div class = "eight wide column">
+							<div class='row' id="gender-chart"></div>
+							{!! Lava::render('PieChart', 'Gender', 'gender-chart'); !!}
 						</div>
 
-						<br>
-					@endif
 
-					@if(sizeof($tpmember) != 0)
-						<h4 class="ui horizontal divider divtitle">
-							TWG & PSMU
-						</h4>
 
-						<div id = "tpcardlist" class = "ui doubling grid cardlist2">
-
-							@foreach($tpmember as $tprec)
-								<div class = "five1 wide column colheight">
-									<div class = "cardstyle" onclick = "loadModal('{{$tprec->policetype}}-{{$tprec->ID}}')">
-										@if($tprec->imagepath != "")
-											<img class = "advphoto" src="{{URL::asset($tprec->imagepath)}}"/>
-										@else
-											<img class = "advphoto" src="{{URL::asset('objects/Logo/InitProfile.png')}}"/>
-										@endif
-										<div class = "advdata">
-											<h5 class = "name">{{$tprec->lname}}, {{$tprec->fname}} {{$tprec->mname}}
-
-												@if($tprec->policetype == 1)
-													(TWG)
-												@else
-													(PSMU)
-												@endif
-											</h5>
-											<p class = "p1">
-												{{$tprec->PositionName}} <br>
-
-												@if($tprec->UnitOfficeQuaternaryName != "")
-													{{$tprec->UnitOfficeQuaternaryName}} 
-
-												@elseif($tprec->UnitOfficeTertiaryName != "")
-													{{$tprec->UnitOfficeTertiaryName}} 
-
-												@elseif($tprec->UnitOfficeSecondaryName != "")
-													{{$tprec->UnitOfficeSecondaryName}} 
-
-												@else
-													{{$tprec->UnitOfficeName}} 
-
-												@endif
-
-												<br>
-
-												{{$tprec->email}} <br>
-
-												@if($tprec->contactno != "" && $tprec->landline != "")
-													{{$tprec->contactno/ $tprec->landline}}
-												@else
-													@if($tprec->contactno != "")
-														{{$tprec->contactno}}
-													@elseif($tprec->landline != "")
-														{{$tprec->landline}}
-													@endif
-												@endif
-												
-												
-											</p>
-
-											<p class = "p2"> Member since {{date('M Y',strtotime($tprec->startdate))}}</p>
-											
-										</div>
-									</div>
-
-								</div>
-							@endforeach
-								
-
+						<div class = "eight wide column">
+							<div class="row" id="sector-chart">
+								<div id="sectorchart">
+						        </div>
+						        <div id="sectorcontrol">
+						        </div>
+							</div>
+							{!! Lava::render('Dashboard', 'Sector', 'sector-chart'); !!}
+							
 						</div>
 
-					@endif
+						<div class = "eight wide column">
+							<div class="row" id="age-chart">
+								<div id="chart">
+						        </div>
+						        <div id="control">
+						        </div>
+							</div>
+							{!! Lava::render('Dashboard', 'Age', 'age-chart'); !!}
+							
+						</div>
+
+						<div class = "eight wide column">
+							<div class="row" id="unit-chart">
+								<div id="unitchart">
+						        </div>
+						        <div id="unitcontrol">
+						        </div>
+							</div>
+							{!! Lava::render('Dashboard', 'UnitOffices', 'unit-chart'); !!}
+							
+						</div>
+
+						
+						
+					</div>
+						
+						
 
 
 			
@@ -199,8 +125,5 @@
 					
 	</div>
 
-
-
-@include('home.directory_modal')
 
 @stop

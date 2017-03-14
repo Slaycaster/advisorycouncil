@@ -18,9 +18,16 @@
 			<div class = "row">
 				<hr>
 				
+				
 				@yield('homesection')
+
+				
+
+
+				
 				
 			</div>
+
 
 		</div>
 		

@@ -207,28 +207,36 @@
 						<div class = "tablecon">
 							<div class = "field">
 								<div class = "field">
-									<label>Stakeholder Category <span class="asterisk">*</span></label>
-									<div class = "inline fields">
-										<div class = "ui radio field">
-											<input type="radio" checked onchange = "changeform(this.value)" name="advcateg" value="0"  tabindex="0" class="hidden">
-											<label>AC</label>
-												
-										</div>
-										<div class = "ui radio field">
-											<input type="radio" onchange = "changeform(this.value)" name="advcateg" value="1"  tabindex="0" class="hidden">
-											<label>TWG</label>
-											
-												
-										</div>
+									<label>Stakeholder Category 
+									
+									@if($action == 0)
+										<span class="asterisk">*</span></label>
 
-										<div class = "ui radio field">
-											<input type="radio" onchange = "changeform(this.value)" name="advcateg" value="2"  tabindex="0" class="hidden">
-											<label>PSMU</label>
-											
+										<div class = "inline fields">
+											<div class = "ui radio field">
+												<input type="radio" checked onchange = "changeform(this.value)" name="advcateg" value="0"  tabindex="0" class="hidden">
+												<label>AC</label>
+													
+											</div>
+											<div class = "ui radio field">
+												<input type="radio" onchange = "changeform(this.value)" name="advcateg" value="1"  tabindex="0" class="hidden">
+												<label>TWG</label>
 												
+													
+											</div>
+
+											<div class = "ui radio field">
+												<input type="radio" onchange = "changeform(this.value)" name="advcateg" value="2"  tabindex="0" class="hidden">
+												<label>PSMU</label>
+												
+													
+											</div>
+											
 										</div>
-										
-									</div>
+									@elseif($action == 1)
+										: <span class="black" name="advcateg"></span><label>
+
+									@endif
 								</div> <br>
 
 								<div class = "field">
@@ -381,12 +389,6 @@
 
 				controlelements("none");
 
-				@if($action == 1 && isset($type))
-
-					fillAC();
-
-				@endif
-
 
 			} else {
 				lecturers = new Array();
@@ -418,8 +420,18 @@
 		@if(isset($type) && isset($recorddata))
 
 			function fillProfile() {
-				
-				$("input[name='advcateg'][value='{{$type}}']").prop('checked', true);
+				var typedesc = "";
+				@if($type == 0)
+					typedesc = "Advisory Council (AC)";
+
+				@elseif($type == 1)
+					typedesc = "Technical Working Group (TWG)";
+
+				@elseif($type == 2)
+					typedesc = "Police Strategy Management Unit (PSMU)";
+
+				@endif
+				document.getElementsByName('advcateg')[0].innerHTML = typedesc;
 				document.getElementsByName('advid')[0].value = "{{$type}}-{{$id}}";
 				document.getElementsByName('lname')[0].value = "{{$recorddata[0][0]->lname}}";
 				document.getElementsByName('fname')[0].value = "{{$recorddata[0][0]->fname}}";
@@ -446,15 +458,7 @@
 			function fillAC() {
 				//NOT WORKING
 				$('#acposition').val({!!$recorddata[0][0]->advisory_position_id!!}).dropdown('refresh');
-				$("#accateg").val({!!$recorddata[0][0]->categoryId!!}).dropdown('refresh');
-				getsubcateg();
-
-				$("#acsubcateg").dropdown("set exactly", "{{$recorddata[0][0]->subcategoryId}}"); 
-
-				@foreach($recorddata[1] as $sect)
-					$("#acsector").val(["{{$sect->ac_sector_id}}"]);
-				@endforeach
-
+				
 				//---------
 
 				document.getElementsByName('officename')[0].value = "{{$recorddata[0][0]->officename}}";
@@ -510,10 +514,9 @@
 
 
 				}//if(flag == 0) {]
-				//alert(lecturers);
 			//}//pattern
 
-			console.log(lecturers);
+			//console.log(lecturers);
 
 		}//add item to array
 
@@ -538,7 +541,15 @@
 
 
 		function controlaction() {
-			var slctdtype = $("input[name='advcateg']:checked").val();
+			var slctdtype;
+
+			@if($action == 0)
+				slctdtype = $("input[name='advcateg']:checked").val();
+
+			@else
+				slctdtype = {{$type}};
+
+			@endif
 			var traintitle = new Array();
 			var traincateg = new Array();
 			var location = new Array();
@@ -595,7 +606,6 @@
 						'acposition' : document.getElementsByName('acposition')[0].value,
 						'officename' : document.getElementsByName('officename')[0].value,
 						'officeadd' : document.getElementsByName('officeadd')[0].value,
-						'primary' : document.getElementsByName('primary')[0].value,
 						'secondary' : document.getElementsByName('secondary')[0].value,
 						'tertiary' : document.getElementsByName('tertiary')[0].value,
 						'quaternary' : document.getElementsByName('quaternary')[0].value,
@@ -663,7 +673,6 @@
 						'authorder' : document.getElementsByName('authorder')[0].value,
 						'pnppost' : document.getElementsByName('position')[0].value,
 						'rank' : document.getElementsByName('rank')[0].value,
-						'primary' : document.getElementsByName('primary')[0].value,
 						'secondary' : document.getElementsByName('secondary')[0].value,
 						'tertiary' : document.getElementsByName('tertiary')[0].value,
 						'quaternary' : document.getElementsByName('quaternary')[0].value,
@@ -696,7 +705,7 @@
 				});
 
 				setTimeout(function(){
-					window.location = "{{URL('directory')}}";
+					//window.location = "{{URL('directory')}}";
 				}, 2600);
 
 					

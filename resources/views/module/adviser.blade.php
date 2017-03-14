@@ -74,15 +74,24 @@
 												{{$acrec->acpositionname}} <br>
 												
 												@if($acrec->UnitOfficeQuaternaryName != "")
-													{{$acrec->UnitOfficeQuaternaryName}} <br>
+													{{$acrec->UnitOfficeQuaternaryName}}
 
-												@elseif($acrec->UnitOfficeTertiaryName != "")
-													{{$acrec->UnitOfficeTertiaryName}} <br>
-
-												@elseif($acrec->UnitOfficeSecondaryName != "")
-													{{$acrec->UnitOfficeSecondaryName}} <br>
+													@if($acrec->UnitOfficeTertiaryName != "")
+														,&nbsp;
+													@endif
 
 												@endif
+
+												@if($acrec->UnitOfficeTertiaryName != "")
+													{{$acrec->UnitOfficeTertiaryName}},&nbsp;
+
+													@if($acrec->UnitOfficeQuaternaryName != "")
+														<br>
+													@endif
+
+												@endif
+
+												{{$acrec->UnitOfficeSecondaryName}} <br>
 
 												@if($acrec->email != "")
 													{{$acrec->email}} <br>
@@ -103,7 +112,7 @@
 												
 											</p>
 
-											<p class = "p2"> Member since {{date('M Y',strtotime($acrec->startdate))}}</p>
+											<p valign="bottom" class = "p2"> Member since {{date('M Y',strtotime($acrec->startdate))}}</p>
 											
 										</div>
 									</div>
@@ -143,15 +152,24 @@
 												{{$tprec->PositionName}} <br>
 
 												@if($tprec->UnitOfficeQuaternaryName != "")
-													{{$tprec->UnitOfficeQuaternaryName}} <br>
+													{{$tprec->UnitOfficeQuaternaryName}}
 
-												@elseif($tprec->UnitOfficeTertiaryName != "")
-													{{$tprec->UnitOfficeTertiaryName}} <br>
-
-												@elseif($tprec->UnitOfficeSecondaryName != "")
-													{{$tprec->UnitOfficeSecondaryName}} <br>
+													@if($tprec->UnitOfficeTertiaryName != "")
+														,&nbsp;
+													@endif
 
 												@endif
+
+												@if($tprec->UnitOfficeTertiaryName != "")
+													{{$tprec->UnitOfficeTertiaryName}},&nbsp;
+
+													@if($tprec->UnitOfficeQuaternaryName != "")
+														<br>
+													@endif
+
+												@endif
+
+												{{$tprec->UnitOfficeSecondaryName}} <br>
 
 												
 
