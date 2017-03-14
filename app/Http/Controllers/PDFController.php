@@ -73,10 +73,7 @@ class PDFController extends Controller
 		
 			$res = $query->get();
 
-			if($req->loader == 1)
-				{ $this->createPDF($res); return $res;}
-			else 
-				{ return $res;}
+			return $res;
 			
 		}//civillian advisory
 
@@ -123,15 +120,12 @@ class PDFController extends Controller
 		
 			$res = $query->get();
 			//var_dump($req->all(),$query->toSql());
-			if($req->loader == 1)
-				{ $this->createPDF($res); return $res; }
-			else 
-				{ return $res;}
+			return $res;
 		}//police advisory
 
 	}
 
-    public function createPDF($res)
+    public function createPDF(Request $req)
     {
     	$data = $res;
     	$col= 10;
@@ -151,11 +145,11 @@ class PDFController extends Controller
 				$fpdf->Rect($col,$y0,64,35);
 				$fpdf->Image('images/Philippine-National-Police.png',$imageCol,$imagey0,23);
 				$fpdf->SetFont('Arial','B',10);
-				$fpdf->Text($textCol,$texty0,$data[$i]->lname.", ".$data[$i]->fname." "$data[$i]->mname);
-				$fpdf->Text($textCol,$texty0+5,$data[$i]->lname);
-				$fpdf->Text($textCol,$texty0+10,$data[$i]->lname);
-				$fpdf->Text($textCol,$texty0+15,$data[$i]->lname);
-				$fpdf->Text($textCol,$texty0+20,$data[$i]->lname);
+				$fpdf->Text($textCol,"Name");
+				$fpdf->Text($textCol,"Position");
+				$fpdf->Text($textCol,"Address");
+				$fpdf->Text($textCol,"Contact No");
+				$fpdf->Text($textCol,"Email");
 				if($j==2){
 					$col+=75;
 					$imageCol+=75;
@@ -190,7 +184,7 @@ class PDFController extends Controller
 
     	$headers=['Content-Type' => 'application/pdf'];
 
-    	Response::make($fpdf->output('Advisory_Council.pdf','F'),200, $headers);
+    	return Response::make($fpdf->output('Advisory_Council.pdf','F'),200, $headers);
 
     }
 
