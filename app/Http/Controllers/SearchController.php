@@ -193,6 +193,10 @@ class SearchController extends Controller
 
 	}
 
+
+
+
+
 	public function getUnitOffice(){
 		$unit = DB::table('unit_office_secondaries')
 					->select('UnitOfficeSecondaryName', DB::raw('count(*) as total'))
@@ -216,6 +220,9 @@ class SearchController extends Controller
 	}
 
 
+
+
+
 	public function getAge(){
 		$agepc = DB::table('police_advisory')
 					->select(DB::raw('TIMESTAMPDIFF(YEAR, birthdate, CURDATE()) AS age, count(*) as num'))
@@ -229,27 +236,36 @@ class SearchController extends Controller
 					->havingRaw('count(*) >= 0')
 					->groupBy('age')
 					->get();
-		$ageac = $ageac->keyBy('age');
-
+		
 			  foreach ($agepc as $value) {
 
 			  	$myage = $value->age;
 			  
-			  	if (!$ageac->search('$myage')) {
-			  		$ageac->push($value)->keyBy('age');
+			  	if ($ageac->where('age',$myage)->count() == 0) {
+			  		$ageac->push($value);
 			  	}else{
 			  		
-			  		//$x = $ageac->num->whereIn('age', [$myage])->get();
+			  		$ac_col = $ageac->where('age',$myage)->toArray();
+
+			  		$panum = $value->num;
+			  		$ac_col[0]->num = $ac_col[0]->num + $panum;
+
+			  		//$total = $acnum + $panum;
+			  		//$ageac = $ageac->forget('age')->where("age", "<>", $myage);
+			  		$ageac->merge($ac_col);
+
+
 			  		
 			  	}
 
 			  }
 			  $ageac = $ageac->sortBy('age');
-
+			  $ageac = $ageac->toArray();
 			  $dt = \Lava::DataTable();
 			   $dt->addStringColumn('Age')
-		       ->addNumberColumn('Total');
-
+		       ->addNumberColumn('Total')
+		       ->addNumberColumn('AgeInt');
+		       //print_r($ageac);
 		       foreach ($ageac as $value) {
 		       		$dt->addRow([$value->age, $value->num]);
 		       }
