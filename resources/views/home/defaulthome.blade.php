@@ -61,6 +61,7 @@
 		</div>
 					
 	</div>
+						
 
 	<div class = "twelve wide column">
 		<div class = "hcontent">
@@ -72,7 +73,45 @@
 						
 						<div class = "one column row">
 							
-						
+							<div class = "eight wide column">
+								<div class="row" id="unit-chart">
+									
+								</div>
+								{!! Lava::render('PieChart', 'UnitOffices', 'unit-chart'); !!}
+								
+							</div>
+
+							<div class = "eight wide column">
+								<div class="row" id="second-chart">
+									
+								</div>
+								
+								{!! Lava::render('PieChart', 'UnitSecondOffices', 'second-chart'); !!}
+								
+							</div>
+						</div>
+
+						<div class = "one column row">
+							
+							<div class = "eight wide column">
+								<div class="row" id="ter-chart">
+									
+								</div>
+								{!! Lava::render('PieChart', 'UnitTerOffices', 'ter-chart'); !!}
+								
+							</div>
+
+							<div class = "eight wide column">
+								<div class="row" id="quar-chart">
+									
+								</div>
+								
+								{!! Lava::render('PieChart', 'UnitQuarOffices', 'quar-chart'); !!}
+								
+							</div>
+						</div>
+
+						<div class ="one column row">
 							<div class = "eight wide column">
 								<div class="row" id="sector-chart">
 									
@@ -82,38 +121,18 @@
 							</div>
 
 							<div class = "eight wide column">
-								<div class="row" id="unit-chart">
+								<div class="row" id="age-chart">
 									
 								</div>
-								{!! Lava::render('PieChart', 'UnitOffices', 'unit-chart'); !!}
+								{!! Lava::render('PieChart', 'Age', 'age-chart'); !!}
 								
 							</div>
-						</div>
 
-						<div class ="one column row">
-						<div class = "eight wide column">
-							<div class="row" id="age-chart">
-								
-							</div>
-							{!! Lava::render('PieChart', 'Age', 'age-chart'); !!}
-							
 						</div>
-
-						<div class = "eight wide column">
-							<div class='row' id="gender-chart"></div>
-							{!! Lava::render('PieChart', 'Gender', 'gender-chart'); !!}
-						</div>
-						</div>
-
-						
-
 						
 						
+
 					</div>
-						
-						
-
-
 			
 				</div>
 		
@@ -122,6 +141,45 @@
 		</div>
 					
 	</div>
+
+	<!--<script type="text/javascript">
+
+		$(function() {
+		    $('#select').on('change', function() {
+								         
+			var choice = this.value;
+			if (choice == 1) {
+					$.getJSON('Dashboard/primary', function (dataTableJson) {
+			  			lava.loadData('UnitOffices', dataTableJson, function (chart) {
+						
+						  });
+					});
+			}else if (choice == 2) {
+				$.getJSON('Dashboard/secondary', function (dataTableJson) {
+					lava.loadData('UnitOffices', dataTableJson, function (chart) {
+															    
+					});
+				});
+			}else if (choice == 3) {
+				$.getJSON('Dashboard/tertiary', function (dataTableJson) {
+					lava.loadData('UnitOffices', dataTableJson, function (chart) {
+						
+					 });
+				});
+			}else if (choice == 4) {
+				$.getJSON('Dashboard/Quarternary', function (dataTableJson) {
+					lava.loadData('UnitOffices', dataTableJson, function (chart) {
+						
+					});
+				});
+
+			}//if
+								           
+
+			});
+		});
+
+	</script>-->
 
 
 @stop
