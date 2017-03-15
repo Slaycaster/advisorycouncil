@@ -1,6 +1,10 @@
 //Form
 
-var rowcount;
+var dval = ["Advisory Council Summit", "Family Conference", "Boot Camp(Basic)",
+				"Boot Camp(Master)", "Lecture Series", "Startegy Refresh", "Others"];
+
+var rowcount = 0;
+
 
 function removeElements() {
 
@@ -402,8 +406,6 @@ $(document).ready(function() {
 //Adviser Add Table
 
 function addrow() {
-	var dval = ["Advisory Council Summit", "Family Conference", "Boot Camp(Basic)",
-				"Boot Camp(Master)", "Lecture Series", "Startegy Refresh", "Others"];
 	var table = document.getElementById('traintable').getElementsByTagName('tbody')[0];
 
 	tr = document.createElement('tr');
@@ -561,7 +563,7 @@ function addrow() {
 	input6.setAttribute('id', rowcount);
 	input6.setAttribute('class','perfield');
 	input6.setAttribute('onclick','divonfocus()');
-	input6.setAttribute('onkeydown','if(event.keyCode == 13){ addarritem(this.id);}');
+	input6.setAttribute('onkeydown','if(event.keyCode == 13){ addarritem(this.id, this.value);}');
 	table.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild.appendChild(input6);
 
 	/*var textarea = document.createElement('textarea');

@@ -63,12 +63,13 @@ class AdvDirectoryController extends Controller {
 
 		$result = $this->getData((int) $tidelements[1], (int) $tidelements[0]);
 
-		//return $result;
+		//return $result[2][0];
 
 		return view('module.adviser_add')->with('action', 1)
 										 ->with('recorddata', $result)
 										 ->with('type', (int) $tidelements[0])
 										 ->with('id', (int) $tidelements[1]);
+
 		
 	}//readyedit
 
