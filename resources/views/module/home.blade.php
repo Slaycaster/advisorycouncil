@@ -6,7 +6,7 @@
 		<div class = "ui grid">
 			<div class = "row">
 				<div class = "nine wide column colheight">
-					<div class="ui icon input big search">
+					<div class="ui icon input medium search">
 						<i class="search icon"></i>
 						<input type="text" placeholder="Search...">
 					</div>

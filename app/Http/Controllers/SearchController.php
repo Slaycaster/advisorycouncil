@@ -194,10 +194,10 @@ class SearchController extends Controller
 	}
 
 	public function getUnitOffice(){
-		$unit = DB::table('unit_offices')
+		$unit = DB::table('unit_office_secondaries')
 					->select('UnitOfficeSecondaryName', DB::raw('count(*) as total'))
-					->Join('advisory_council', 'advisory_council.second_id', '=', 'unit_office_secondaries.id')
-					->Join('police_advisory', 'police_advisory.second_id', '=', 'unit_office_secondaries.id')
+					->join('advisory_council', 'advisory_council.second_id', '=', 'unit_office_secondaries.id')
+					->join('police_advisory', 'police_advisory.second_id', '=', 'unit_office_secondaries.id')
 					->havingRaw('count(*) >= 0')
 					->groupBy('UnitOfficeSecondaryName')->distinct()->get();
 
@@ -206,7 +206,7 @@ class SearchController extends Controller
             ->addNumberColumn('Total');
 
        foreach ($unit as $value) {
-       		$dt->addRow([$value->unitofficename, $value->total]);
+       		$dt->addRow([$value->UnitOfficeSecondaryName, $value->total]);
        }
         
        
@@ -271,17 +271,17 @@ class SearchController extends Controller
 						'colors' => array(
 										  '#3d9130', //green
 										  '#438db7', //baby blue
-										  '#ffe659', //yellow
-										  '#ffa359', //orange
+										  '#b49d19', //yellow
+										  '#be6822', //orange
 										  '#a73f3f', //red
-										  '#66ccc6', //teal 
-										  '#72d9a2', //mint
+										  '#3a8883', //teal 
+										  '#6bba90', //mint
 										  '#f788e6', //pink
 										  '#6174af', //indigo
-										  '#cd72f3'  //lavender
+										  '#9c58b9'  //lavender
 										  ),
-						'fontSize' => 14,
-						'height' => 500,
+						'fontSize' => 15,
+						'height' => 300,
 						'width' => 500
 						);
 
@@ -301,7 +301,7 @@ class SearchController extends Controller
        	$chartoption['title'] = 'AC Sector';
        	$sectorChart = \Lava::PieChart('Sector', $sectorTable, $chartoption);
 
-       	$sectorfilter  = \Lava::CategoryFilter(0, [
+       	/*$sectorfilter  = \Lava::CategoryFilter(0, [
 		    'ui' => [
 		        'labelStacking' => 'vertical',
 		        'allowTyping' => false
@@ -311,7 +311,7 @@ class SearchController extends Controller
 		$control = \Lava::ControlWrapper($sectorfilter, 'sectorcontrol');
 		$chart   = \Lava::ChartWrapper($sectorChart, 'sectorchart');
 
-		\Lava::Dashboard('Sector')->bind($control, $chart);  
+		\Lava::Dashboard('Sector')->bind($control, $chart);  */
 
 
 	
@@ -319,7 +319,7 @@ class SearchController extends Controller
        	$chartoption['title'] = 'Unit Offices';
        	$unitChart = \Lava::PieChart('UnitOffices', $unitTable, $chartoption);
 
-       	$unitfilter  = \Lava::CategoryFilter(0, [
+       	/*$unitfilter  = \Lava::CategoryFilter(0, [
 		    'ui' => [
 		        'labelStacking' => 'vertical',
 		        'allowTyping' => false
@@ -329,7 +329,7 @@ class SearchController extends Controller
 		$control = \Lava::ControlWrapper($unitfilter, 'unitcontrol');
 		$chart   = \Lava::ChartWrapper($unitChart, 'unitchart');
 
-		\Lava::Dashboard('UnitOffices')->bind($control, $chart);  
+		\Lava::Dashboard('UnitOffices')->bind($control, $chart);  */
 
 
 
@@ -340,9 +340,11 @@ class SearchController extends Controller
        	$ageTable = $this->getAge();
        	$agedashboard = \Lava::Dashboard('Age');
 
-	    $ageChart = \Lava::PieChart('Age', $ageTable, [
+       	$chartoption['title'] = 'Age Range of Stakeholders';
+       	$ageChart = \Lava::PieChart('Age', $ageTable, $chartoption);
+	    /*$ageChart = \Lava::PieChart('Age', $ageTable, [
 			    'pieSliceText' => 'value',
-			    'title' => 'Age Rage of Stakeholders'
+			    'title' => 'Age Range of Stakeholders'
 			]);
 
 		
@@ -355,7 +357,7 @@ class SearchController extends Controller
 
 		$control = \Lava::ControlWrapper($filter, 'control');
 		$chart   = \Lava::ChartWrapper($ageChart, 'chart');
-		$dashboard = $agedashboard->bind($control, $chart);
+		$dashboard = $agedashboard->bind($control, $chart);*/
 
 
 
@@ -376,7 +378,7 @@ class SearchController extends Controller
 	    }//if
 	    
 
-		$civilian = DB::table('advisory_council')
+		/*$civilian = DB::table('advisory_council')
 					->join('advisory_position', 'advisory_position.ID', '=', 'advisory_council.advisory_position_id')
 					->select('advisory_council.ID','lname', 'fname', 'mname', 'imagepath', 'email', 
 						     'contactno', 'landline','startdate', 'acpositionname', 'officename')
@@ -397,7 +399,7 @@ class SearchController extends Controller
 					->whereDate("police_advisory.created_at" , ">=", "DATE_ADD(NOW(),INTERVAL -15 DAY)")
 					->orderBy('police_advisory.created_at', 'desc')
 					->get();
-
+		*/
 
 
 
@@ -407,9 +409,9 @@ class SearchController extends Controller
 									   ->with('psmu', $psmu)
 									   ->with('pac', $pac)
 									   ->with('ptwg', $ptwg)
-									   ->with('ppsmu', $ppsmu)
-									   ->with('acmember', $civilian)
-									   ->with('tpmember', $police);
+									   ->with('ppsmu', $ppsmu);
+									   //->with('acmember', $civilian)
+									   //->with('tpmember', $police);
 
 
 	}

@@ -458,7 +458,7 @@
 			function fillAC() {
 				//NOT WORKING
 				$('#acposition').val({!!$recorddata[0][0]->advisory_position_id!!}).dropdown('refresh');
-				
+				//fill dropdown
 				//---------
 
 				document.getElementsByName('officename')[0].value = "{{$recorddata[0][0]->officename}}";
@@ -470,6 +470,8 @@
 			}//function fillAC() {
 
 			function fillTP() {
+				//fill dropdown
+				
 				document.getElementsByName('authorder')[0].value = '{{$recorddata[0][0]->authorityorder}}';
 				$("select[name='position']").dropdown('set selected', '{{$recorddata[0][0]->authorityorder}}')
 

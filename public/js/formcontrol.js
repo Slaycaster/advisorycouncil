@@ -183,6 +183,8 @@ function addT1Elements() { //AC ELEMENTS
 
 	tempcon.lastChild.lastChild.lastChild.appendChild(document.createTextNode('Secondary Unit/Office '));
 
+	createspan(tempcon);
+
 	var div12 = creatediv('field');
 	tempcon.lastChild.lastChild.appendChild(div12);
 
@@ -311,6 +313,8 @@ function addT2Elements() { //PSMU and TWG ELEMENTS
 	tempcon.lastChild.lastChild.appendChild(document.createElement('label'));
 
 	tempcon.lastChild.lastChild.lastChild.appendChild(document.createTextNode('Secondary Unit/Office '));
+
+	createspan(tempcon);
 
 	var div13 = creatediv('field');
 	tempcon.lastChild.lastChild.appendChild(div13);
