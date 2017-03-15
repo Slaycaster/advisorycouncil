@@ -6,14 +6,14 @@
 		<div class = "btncon">
 			<div class = "ui grid">
 				<div class = "row">
-					<div class = "five wide column moveright">
-						<div class = "ui icon addbtn button tiny" 
+					<div class = "six wide column moveright">
+						<div class = "ui icon addbtn button medium" 
 							onclick = "window.location='{{url('directory/add')}}'" 
 							title = "add AC Member">
 							<i class="plus icon topmargin"></i>
 							
 						</div>
-						<div class="ui icon addbtn dropdown button  tiny topmargin" title = "filter list">
+						<div class="ui icon addbtn dropdown button  medium topmargin" title = "filter list">
 							<i class="filter icon"></i>
 							<div class="menu">
 							    <div class="item" onclick ="window.location='{{url('directory/filter?f=0')}}'">
@@ -35,7 +35,7 @@
 						  </div>
 						</div>
 
-						<div class="ui icon input topmargin">
+						<div class="ui icon input medium search">
 							<i class="search icon"></i>
 							<input type="text" placeholder="Search...">
 						</div>

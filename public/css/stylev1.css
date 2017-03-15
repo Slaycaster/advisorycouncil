@@ -126,7 +126,7 @@ span {
 }
 
 .moveright {
-	margin-left: 73%;
+	margin-left: 69%;
 }
 
 .topmargin {
@@ -820,6 +820,7 @@ legend {
 
 .unorderedlist {
 	list-style-type: none;
+	margin-left: -65%;
 }
 .dlink:hover {
 	text-decoration: underline;
