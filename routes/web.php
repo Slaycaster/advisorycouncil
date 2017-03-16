@@ -179,3 +179,8 @@ Route::get('searchAll', 'SearchController@AdvancedSearch');
 Route::get('ACSearch/{sq}', 'SearchController@findAC');
 Route::get('PoliceSearch/{sq}', 'SearchController@findPA');
 Route::get('searchView', 'SearchController@view');
+
+//lester
+Route::get('/welcome', 'PDFController@index');
+Route::post('createPDF', 'PDFController@createPDF');
+Route::post('load-pdf-data', 'PDFController@loaddata');
