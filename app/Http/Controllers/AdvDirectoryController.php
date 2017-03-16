@@ -159,7 +159,8 @@ class AdvDirectoryController extends Controller {
 		/*INSERT CODE FOR DIRECTORY LIST VIEW*/
 
 		//return $adv;
-		return view('module.adviser')->with("directory", $adv);
+		return view('module.adviser')->with("directory", $adv)
+									 ->with("showcontrol", "true");
 	}//public function getList() {
 
 	public function filterList(Request $req) {

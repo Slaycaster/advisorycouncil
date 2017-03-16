@@ -109,7 +109,7 @@
                 <input type="hidden" name="_token" value="{{csrf_token()}}">
                 <input type="hidden" name="name" value="">
                 <input type="hidden" name="position" value="">
-                <input type="hidden" name="office"" value="">
+                <input type="hidden" name="office" value="">
                 <input type="hidden" name="address" value="">
                 <input type="hidden" name="contact" value="">
                 <input type="hidden" name="email" value="">
