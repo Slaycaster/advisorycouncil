@@ -4,7 +4,7 @@
 
 	<div class = "homecon">
 		<div class = "ui grid">
-			<div class = "row">
+			<!--<div class = "row">
 				<div class = "nine wide column colheight">
 					<div class="ui icon input medium search">
 						<i class="search icon"></i>
@@ -12,11 +12,11 @@
 					</div>
 				</div>
 			
-				
-			</div>
+				<hr>
+			</div>-->
 
 			<div class = "row">
-				<hr>
+				
 				
 				
 				@yield('homesection')

@@ -178,7 +178,7 @@ function addT1Elements() { //AC ELEMENTS
 	var div10 = creatediv('field');
 	tempcon.lastChild.lastChild.appendChild(div10);
 
-	createdropdown("primary", tempcon, 1, "getsecoffice()");
+	createdropdown("primary", tempcon, 1, "getsecoffice(this.value)");
 
 	var div11 = creatediv('field');
 	tempcon.lastChild.appendChild(div11);
@@ -192,7 +192,7 @@ function addT1Elements() { //AC ELEMENTS
 	var div12 = creatediv('field');
 	tempcon.lastChild.lastChild.appendChild(div12);
 
-	createdropdown("secondary", tempcon, 1, "getteroffice()");
+	createdropdown("secondary", tempcon, 1, "getteroffice(this.value)");
 
 	var div13 = creatediv('field');
 	tempcon.lastChild.appendChild(div13);
@@ -204,7 +204,7 @@ function addT1Elements() { //AC ELEMENTS
 	var div14 = creatediv('field');
 	tempcon.lastChild.lastChild.appendChild(div14);
 
-	createdropdown("tertiary", tempcon, 1, "getquaroffice()");
+	createdropdown("tertiary", tempcon, 1, "getquaroffice(this.value)");
 
 	var div15 = creatediv('field');
 	tempcon.lastChild.appendChild(div15);
@@ -309,7 +309,7 @@ function addT2Elements() { //PSMU and TWG ELEMENTS
 	var div11 = creatediv('field');
 	tempcon.lastChild.lastChild.appendChild(div11);
 
-	createdropdown("primary", tempcon, 1, "getsecoffice()");
+	createdropdown("primary", tempcon, 1, "getsecoffice(this.value)");
 
 	var div12 = creatediv('field');
 	tempcon.lastChild.appendChild(div12);
@@ -323,7 +323,7 @@ function addT2Elements() { //PSMU and TWG ELEMENTS
 	var div13 = creatediv('field');
 	tempcon.lastChild.lastChild.appendChild(div13);
 
-	createdropdown("secondary", tempcon, 1, "getteroffice()");
+	createdropdown("secondary", tempcon, 1, "getteroffice(this.value)");
 
 	var div14 = creatediv('field');
 	tempcon.lastChild.appendChild(div14);
@@ -335,7 +335,7 @@ function addT2Elements() { //PSMU and TWG ELEMENTS
 	var div15 = creatediv('field');
 	tempcon.lastChild.lastChild.appendChild(div15);
 
-	createdropdown("tertiary", tempcon, 1, "getquaroffice()");
+	createdropdown("tertiary", tempcon, 1, "getquaroffice(this.value)");
 
 	var div16 = creatediv('field');
 	tempcon.lastChild.appendChild(div16);

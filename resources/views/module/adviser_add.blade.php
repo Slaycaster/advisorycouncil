@@ -434,13 +434,18 @@
 
 				@endif
 
+				document.getElementById('profpic').src = "{{$recorddata[1][0]}}"
 				document.getElementsByName('advcateg')[0].innerHTML = typedesc;
-				document.getElementsByName('advid')[0].value = "{{$type}}-{{$id}}";
+				document.getElementsByName('advid')[0].value = "{{$id}}";
 				document.getElementsByName('lname')[0].value = "{{$recorddata[0][0]->lname}}";
 				document.getElementsByName('fname')[0].value = "{{$recorddata[0][0]->fname}}";
 				document.getElementsByName('mname')[0].value = "{{$recorddata[0][0]->mname}}";
 				document.getElementsByName('qname')[0].value = "{{$recorddata[0][0]->qualifier}}";
 				document.getElementsByName('bdate')[0].value = "{{date('Y-m-d', strtotime($recorddata[0][0]->birthdate))}}";
+				document.getElementsByName('street')[0].value = "{{$recorddata[0][0]->street}}";
+				document.getElementsByName('barangay')[0].value = "{{$recorddata[0][0]->barangay}}";
+				document.getElementsByName('city')[0].value = "{{$recorddata[0][0]->city}}";
+				document.getElementsByName('province')[0].value = "{{$recorddata[0][0]->province}}";
 				$("input[name='gender'][value='{{$recorddata[0][0]->gender}}']").prop('checked', true);
 				document.getElementsByName('mobile')[0].value = "{{$recorddata[0][0]->contactno}}";
 				document.getElementsByName('landline')[0].value = "{{$recorddata[0][0]->landline}}";
@@ -454,9 +459,9 @@
 					document.getElementsByName('durationedate')[0].value = "{{date('Y-m-d', strtotime($recorddata[0][0]->enddate))}}";
 				}//if
 
-				getsecoffice();
-				getteroffice();
-				getquaroffice();
+				getsecoffice(parseInt("{{$recorddata[0][0]->UnitOfficeID}}"));
+				getteroffice(parseInt("{{$recorddata[0][0]->second_id}}"));
+				getquaroffice(parseInt("{{$recorddata[0][0]->tertiary_id}}"));
 
 				$('#primary').dropdown('set selected', '{{$recorddata[0][0]->UnitOfficeID}}');
 				$('#secondary').dropdown('set selected', '{{$recorddata[0][0]->second_id}}');
@@ -485,49 +490,50 @@
 
 			}//function fillAC() {
 
+
 			function fillTP() {
 				//fill dropdown
 				document.getElementsByName('authorder')[0].value = '{{$recorddata[0][0]->authorityorder}}';
-				$("select[name='position']").dropdown('set selected', {!!$recorddata[0][0]->police_position_id!!});
-				$("select[name='rank']").dropdown('set selected', {!!$recorddata[0][0]->rank_id!!});
+				$("select[name='position']").dropdown('set selected', "{{$recorddata[0][0]->police_position_id}}");
+				$("select[name='rank']").dropdown('set selected', "{{$recorddata[0][0]->rank_id}}");
 
 				
 			}//function fillTP() {
 
-			function fillTable() {
+			@if(isset($recorddata[2]))
+				function fillTable() {
 
-				//console.log(rowcount);
+					@for($ctr = 0 ; $ctr < sizeof($recorddata[2][0]) ; $ctr++)
 
-				@for($ctr = 0 ; $ctr < sizeof($recorddata[2][0]) ; $ctr++)
+						addrow();
+						document.getElementsByName('traintitle')[{!!$ctr!!}].value = "{{$recorddata[2][0][$ctr]->trainingname}}";
 
-					addrow();
-					document.getElementsByName('traintitle')[{!!$ctr!!}].value = "{{$recorddata[2][0][$ctr]->trainingname}}";
+						//console.log(jQuery.inArray("{{$recorddata[2][0][$ctr]->trainingtype}}", dval));
+						if(jQuery.inArray("{{$recorddata[2][0][$ctr]->trainingtype}}", dval) > -1) {
+							$("select[name='traincateg']").eq({!!$ctr!!}).dropdown('set selected',  "{{$recorddata[2][0][$ctr]->trainingtype}}");
+						} else {
+							$("select[name='traincateg']").eq({!!$ctr!!}).dropdown('set selected', dval[dval.length-1]);
+							document.getElementsByName('othercon')[{!!$ctr!!}].style.display = "block";
+							document.getElementsByName('othercat')[{!!$ctr!!}].value = "{{$recorddata[2][0][$ctr]->trainingtype}}";
+							
+						}//if
 
-					//console.log(jQuery.inArray("{{$recorddata[2][0][$ctr]->trainingtype}}", dval));
-					if(jQuery.inArray("{{$recorddata[2][0][$ctr]->trainingtype}}", dval) > -1) {
-						$("select[name='traincateg']").eq({!!$ctr!!}).dropdown('set selected',  {!!$recorddata[2][0][$ctr]->trainingtype!!});
-					} else {
-						$("select[name='traincateg']").eq({!!$ctr!!}).dropdown('set selected', dval[dval.length-1]);
-						document.getElementsByName('othercon')[{!!$ctr!!}].style.display = "block";
-						document.getElementsByName('othercat')[{!!$ctr!!}].value = "{{$recorddata[2][0][$ctr]->trainingtype}}";
-						
-					}//if
+						document.getElementsByName('location')[{!!$ctr!!}].value = "{{$recorddata[2][0][$ctr]->location}}";
+						document.getElementsByName('trainsdate')[{!!$ctr!!}].value = "{{date('Y-m-d', strtotime($recorddata[2][0][$ctr]->startdate))}}";
+						document.getElementsByName('trainstime')[{!!$ctr!!}].value = "{{$recorddata[2][0][$ctr]->starttime}}";
+						document.getElementsByName('trainedate')[{!!$ctr!!}].value = "{{date('Y-m-d', strtotime($recorddata[2][0][$ctr]->enddate))}}";
+						document.getElementsByName('trainetime')[{!!$ctr!!}].value = "{{$recorddata[2][0][$ctr]->endtime}}";
+						document.getElementsByName('trainorg')[{!!$ctr!!}].value = "{{$recorddata[2][0][$ctr]->organizer}}";
 
-					document.getElementsByName('location')[{!!$ctr!!}].value = "{{$recorddata[2][0][$ctr]->location}}";
-					document.getElementsByName('trainsdate')[{!!$ctr!!}].value = "{{date('Y-m-d', strtotime($recorddata[2][0][$ctr]->startdate))}}";
-					document.getElementsByName('trainstime')[{!!$ctr!!}].value = "{{$recorddata[2][0][$ctr]->starttime}}";
-					document.getElementsByName('trainedate')[{!!$ctr!!}].value = "{{date('Y-m-d', strtotime($recorddata[2][0][$ctr]->enddate))}}";
-					document.getElementsByName('trainetime')[{!!$ctr!!}].value = "{{$recorddata[2][0][$ctr]->endtime}}";
-					document.getElementsByName('trainorg')[{!!$ctr!!}].value = "{{$recorddata[2][0][$ctr]->organizer}}";
+						@for($countlec = 0 ; $countlec < sizeof($recorddata[2][1][$ctr]) ; $countlec++)
+							addarritem({{$ctr}}, "{{$recorddata[2][1][$ctr][$countlec]->lecturername}}");
 
-					@for($countlec = 0 ; $countlec < sizeof($recorddata[2][1][$ctr]) ; $countlec++)
-						addarritem({{$ctr}}, "{{$recorddata[2][1][$ctr][$countlec]->lecturername}}");
-
+						@endfor
 					@endfor
-				@endfor
 
 
-			}//fillTable
+				}//fillTable
+			@endif
 
 		@endif
 
@@ -758,7 +764,7 @@
 				});
 
 				setTimeout(function(){
-					//window.location = "{{URL('directory')}}";
+					window.location = "{{URL('directory')}}";
 				}, 2600);
 
 					
@@ -846,18 +852,10 @@
 		}//function getInitialTPDropdown() {
 
 
-		function getsecoffice() {
-			var id;
-
-			@if($action == 0)
-				id = document.getElementsByName('primary')[0].value;
-			@else
-				id = {!!$recorddata[0][0]->UnitOfficeID!!}
-
-			@endif
+		function getsecoffice(val) {
 
 			var data = {
-					'poID' : id,
+					'poID' : val,
 					'_token' : '{{ Session::token() }}'
 
 				};
@@ -884,18 +882,9 @@
 
 		}//function getsecoffice() {
 
-		function getteroffice() {
-			var id;
-
-			@if($action == 0)
-				id = document.getElementsByName('secondary')[0].value;
-			@else
-				id = {!!$recorddata[0][0]->second_id!!}
-
-			@endif
-
+		function getteroffice(val) {
 			var data = {
-				'soID' :id,
+				'soID' : val,
 				'_token' : '{{ Session::token() }}'
 
 			};
@@ -919,18 +908,9 @@
 			});
 		}//function getteroffice() {
 
-		function getquaroffice() {
-			var id;
-
-			@if($action == 0)
-				id = document.getElementsByName('tertiary')[0].value;
-			@else
-				id = {!!$recorddata[0][0]->tertiary_id!!}
-
-			@endif
-
+		function getquaroffice(val) {
 			var data = {
-				'toID' : id,
+				'toID' : val,
 				'_token' : '{{ Session::token() }}'
 
 			};

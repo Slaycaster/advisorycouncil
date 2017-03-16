@@ -12,14 +12,14 @@ class Training extends Migration
         {
             $table->increments('ID');
             $table->string('trainingname', 100);
-            $table->date('startdate')->nullable();
-            $table->date('enddate')->nullable();
-            $table->string('location', 100)->nullable();
-            $table->string('organizer', 45)->nullable();
-            $table->time('starttime')->nullable();
-            $table->time('endtime')->nullable();
-            $table->string('trainingtype', 45)->nullable();
-            $table->integer('police_id')->unsigned()->nullable();
+            $table->date('startdate');
+            $table->date('enddate');
+            $table->string('location', 100);
+            $table->string('organizer', 45);
+            $table->time('starttime');
+            $table->time('endtime');
+            $table->string('trainingtype', 45);
+            $table->integer('police_id')->unsigned();
             $table->foreign('police_id')->references('ID')->on('Police_Advisory');
             $table->timestamps();
         });

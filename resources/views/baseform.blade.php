@@ -98,15 +98,24 @@
 		<div class = "mainbody">
 
 			<div class = "content1">
-				<!--<div class="ui tab" data-tab="home">
-				</div>
-				<div class="ui tab" data-tab="maintenance">
-				</div>
-				<div class="ui tab" data-tab="directory">
-				</div>
+				<div class = "ui grid">
+					<div class = "row">
+						<div class = "nine wide column colheight">
+							<div class="ui icon input big search">
+								<i class="search icon"></i>
+								<input type="text" placeholder="Search...">
+							</div>
+						</div>
+					
+						
+					</div>
 
-				<div class="ui tab" data-tab="admin">
-				</div>-->
+					<div class = "row">
+						<hr>
+						
+					</div>
+					
+				</div>
 
 				@yield('maincontent')
 				

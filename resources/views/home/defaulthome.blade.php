@@ -128,7 +128,22 @@
 								
 							</div>
 
+							
+
 						</div>
+
+						<div class = "one column row">
+							<div class = "eight wide column">
+								<div class="row" id="gender-chart">
+									
+								</div>
+								{!! Lava::render('PieChart', 'Gender', 'gender-chart'); !!}
+								
+							</div>
+							
+						</div>
+
+
 						
 						
 

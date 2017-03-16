@@ -102,13 +102,13 @@ class AdvDirectoryController extends Controller {
 		
 			if (isset($_POST['submit'])) {
 
-				if($data->advcateg == 0) {
+				if($data['advcateg'] == 0) {
 					$this->editAC($data);
 
 				} else {
 					$this->editTP($data);
 					
-					$trainID = $this->getTrainIDList($data->ID);
+					$trainID = $this->getTrainIDList($data['ID']);
 
 					$this->editLecturer($data, $trainID);
 
@@ -220,15 +220,9 @@ class AdvDirectoryController extends Controller {
 	}//public function getID() {
 
 	public function getTrainIDList($id) {
-		$getid = Training::where('training_id', $id)->pluck('ID');
+		$getid = Training::where('police_id', $id)->pluck('ID');
 
-		$trainID = array();
-		foreach($getid as $key=> $item) {
-			array_push($trainID, $item->ID);
-
-		}//foreach($getid as $key=> $item) {
-
-		return $trainID;
+		return $getid;
 	}//public function getTrainID($id) {
 
 	//DROPDOWN
