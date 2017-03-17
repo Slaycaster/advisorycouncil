@@ -109,7 +109,7 @@ class PDFController extends Controller
 				}
 
 				$positionname = $this->getName('Advisory_Position','acpositionname',$res->advisory_position_id); 
-				$sector = $this->getName('AC_Sector','sectorname'$res->ac_sector_id);
+				$sector = $this->getName('AC_Sector','sectorname',$res->ac_sector_id);
 			
 				$result = $result."/".$res->lname." - ".$res->fname." ".$res->mname."/".$office."/".$sector."/".$positionname."/".$res->gender."/".$res->city."-".$res->province."/".$res->imagepath."/".$res->contactno."/".$res->email."/".$res->startdate;
 
@@ -223,7 +223,7 @@ class PDFController extends Controller
 					$query2 = $query2->whereRaw("TIMESTAMPDIFF(YEAR, birthdate, CURDATE()) >=" . $ageFrom . " and TIMESTAMPDIFF(YEAR, birthdate, CURDATE()) <= " . $ageTo);
 									
 				}
-			$res = $query2->union($query)->get();			 
+			$result = $query2->union($query)->get();			 
 		}
 
 		return $result;
