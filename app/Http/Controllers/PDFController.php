@@ -336,6 +336,8 @@ class PDF extends FPDF
 	    $this->SetFont('Arial','B',15);
 	    // Move to the right
 	    $this->Cell(-160);
+	    $this->setFillColor(0,37,58);
+	    //$this->Rect(0,40,100,200);
 	    $this->Cell(0,10,'ADVISORY COUNCIL',0,0,'C');
 	    
 	    $this->Image('images/Philippine-National-Police.png',165,6,15);
