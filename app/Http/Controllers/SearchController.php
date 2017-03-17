@@ -504,13 +504,6 @@ class SearchController extends Controller
         $chartoption['title'] = 'Male and Female Stakeholders';
        	$genderChart = \Lava::PieChart('Gender', $genderTable, $chartoption);
 
-       	
-
-
-
-
-
-
        	$sectorTable = $this->getSector();
        	$chartoption['title'] = 'Percentage of Stakeholders per AC Sector';
        	$sectorChart = \Lava::PieChart('Sector', $sectorTable, $chartoption);

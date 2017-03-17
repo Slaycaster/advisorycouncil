@@ -63,12 +63,13 @@ class AdvDirectoryController extends Controller {
 
 		$result = $this->getData((int) $tidelements[1], (int) $tidelements[0]);
 
-		//return $result;
+		//return $result[2][0];
 
 		return view('module.adviser_add')->with('action', 1)
 										 ->with('recorddata', $result)
 										 ->with('type', (int) $tidelements[0])
 										 ->with('id', (int) $tidelements[1]);
+
 		
 	}//readyedit
 
@@ -101,13 +102,13 @@ class AdvDirectoryController extends Controller {
 		
 			if (isset($_POST['submit'])) {
 
-				if($data->advcateg == 0) {
+				if($data['advcateg'] == 0) {
 					$this->editAC($data);
 
 				} else {
 					$this->editTP($data);
 					
-					$trainID = $this->getTrainIDList($data->ID);
+					$trainID = $this->getTrainIDList($data['ID']);
 
 					$this->editLecturer($data, $trainID);
 
@@ -158,7 +159,8 @@ class AdvDirectoryController extends Controller {
 		/*INSERT CODE FOR DIRECTORY LIST VIEW*/
 
 		//return $adv;
-		return view('module.adviser')->with("directory", $adv);
+		return view('module.adviser')->with("directory", $adv)
+									 ->with("showcontrol", "true");
 	}//public function getList() {
 
 	public function filterList(Request $req) {
@@ -219,15 +221,9 @@ class AdvDirectoryController extends Controller {
 	}//public function getID() {
 
 	public function getTrainIDList($id) {
-		$getid = Training::where('training_id', $id)->pluck('ID');
+		$getid = Training::where('police_id', $id)->pluck('ID');
 
-		$trainID = array();
-		foreach($getid as $key=> $item) {
-			array_push($trainID, $item->ID);
-
-		}//foreach($getid as $key=> $item) {
-
-		return $trainID;
+		return $getid;
 	}//public function getTrainID($id) {
 
 	//DROPDOWN

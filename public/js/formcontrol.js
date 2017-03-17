@@ -1,6 +1,10 @@
 //Form
 
-var rowcount;
+var dval = ["Advisory Council Summit", "Family Conference", "Boot Camp(Basic)",
+				"Boot Camp(Master)", "Lecture Series", "Startegy Refresh", "Others"];
+
+var rowcount = 0;
+
 
 function removeElements() {
 
@@ -174,7 +178,7 @@ function addT1Elements() { //AC ELEMENTS
 	var div10 = creatediv('field');
 	tempcon.lastChild.lastChild.appendChild(div10);
 
-	createdropdown("primary", tempcon, 1, "getsecoffice()");
+	createdropdown("primary", tempcon, 1, "getsecoffice(this.value)");
 
 	var div11 = creatediv('field');
 	tempcon.lastChild.appendChild(div11);
@@ -188,7 +192,7 @@ function addT1Elements() { //AC ELEMENTS
 	var div12 = creatediv('field');
 	tempcon.lastChild.lastChild.appendChild(div12);
 
-	createdropdown("secondary", tempcon, 1, "getteroffice()");
+	createdropdown("secondary", tempcon, 1, "getteroffice(this.value)");
 
 	var div13 = creatediv('field');
 	tempcon.lastChild.appendChild(div13);
@@ -200,7 +204,7 @@ function addT1Elements() { //AC ELEMENTS
 	var div14 = creatediv('field');
 	tempcon.lastChild.lastChild.appendChild(div14);
 
-	createdropdown("tertiary", tempcon, 1, "getquaroffice()");
+	createdropdown("tertiary", tempcon, 1, "getquaroffice(this.value)");
 
 	var div15 = creatediv('field');
 	tempcon.lastChild.appendChild(div15);
@@ -305,7 +309,7 @@ function addT2Elements() { //PSMU and TWG ELEMENTS
 	var div11 = creatediv('field');
 	tempcon.lastChild.lastChild.appendChild(div11);
 
-	createdropdown("primary", tempcon, 1, "getsecoffice()");
+	createdropdown("primary", tempcon, 1, "getsecoffice(this.value)");
 
 	var div12 = creatediv('field');
 	tempcon.lastChild.appendChild(div12);
@@ -319,7 +323,7 @@ function addT2Elements() { //PSMU and TWG ELEMENTS
 	var div13 = creatediv('field');
 	tempcon.lastChild.lastChild.appendChild(div13);
 
-	createdropdown("secondary", tempcon, 1, "getteroffice()");
+	createdropdown("secondary", tempcon, 1, "getteroffice(this.value)");
 
 	var div14 = creatediv('field');
 	tempcon.lastChild.appendChild(div14);
@@ -331,7 +335,7 @@ function addT2Elements() { //PSMU and TWG ELEMENTS
 	var div15 = creatediv('field');
 	tempcon.lastChild.lastChild.appendChild(div15);
 
-	createdropdown("tertiary", tempcon, 1, "getquaroffice()");
+	createdropdown("tertiary", tempcon, 1, "getquaroffice(this.value)");
 
 	var div16 = creatediv('field');
 	tempcon.lastChild.appendChild(div16);
@@ -402,8 +406,6 @@ $(document).ready(function() {
 //Adviser Add Table
 
 function addrow() {
-	var dval = ["Advisory Council Summit", "Family Conference", "Boot Camp(Basic)",
-				"Boot Camp(Master)", "Lecture Series", "Startegy Refresh", "Others"];
 	var table = document.getElementById('traintable').getElementsByTagName('tbody')[0];
 
 	tr = document.createElement('tr');
@@ -561,7 +563,7 @@ function addrow() {
 	input6.setAttribute('id', rowcount);
 	input6.setAttribute('class','perfield');
 	input6.setAttribute('onclick','divonfocus()');
-	input6.setAttribute('onkeydown','if(event.keyCode == 13){ addarritem(this.id);}');
+	input6.setAttribute('onkeydown','if(event.keyCode == 13){ addarritem(this.id, this.value);}');
 	table.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild.appendChild(input6);
 
 	/*var textarea = document.createElement('textarea');

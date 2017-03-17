@@ -89,11 +89,8 @@
                     @endforeach
                 </select>
 
-                <select id="gender" onchange="loaddata()">
-                    <option value="0" selected>Select Gender</option>
-                    <option value="1" >Male</option>
-                    <option value="2" >Female</option>
-                </select>
+                Gender: <input type="checkbox" name="gender" value="Male">
+                        <input type="checkbox" name="gender" value="Female">
 
                 <input type="text" onkeyup="loaddata()" id="city" value="" placeholder="City">
                 <input type="text" onkeyup="loaddata()" id="province" value="" placeholder="Province">
@@ -109,7 +106,7 @@
                 <input type="hidden" name="_token" value="{{csrf_token()}}">
                 <input type="hidden" name="name" value="">
                 <input type="hidden" name="position" value="">
-                <input type="hidden" name="office"" value="">
+                <input type="hidden" name="office" value="">
                 <input type="hidden" name="address" value="">
                 <input type="hidden" name="contact" value="">
                 <input type="hidden" name="email" value="">

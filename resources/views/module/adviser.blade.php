@@ -4,7 +4,7 @@
 
 	<div class = "advcon">
 		<div class = "btncon">
-			<div class = "ui grid">
+			<!--<div class = "ui grid">
 				<div class = "row">
 					<div class = "six wide column moveright">
 						<div class = "ui icon addbtn button medium" 
@@ -42,13 +42,13 @@
 					</div>
 					
 				</div>
-			</div>
+			</div>-->
 
 			
 		</div>
 
 		<div class = "advcardcon">
-			<hr class="hr4">
+			<!--<hr class="hr4">-->
 
 			
 			<div class = "itemlist">

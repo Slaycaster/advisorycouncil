@@ -89,9 +89,9 @@ class PDFController extends Controller
 			$result = $numOfRows;
 			foreach($res as $res)
 			{
-				$office2name = $this->getOffice2Name($res->second_id);
-				$office3name = $this->getOffice3Name($res->tertiary_id);
-				$office4name = $this->getOffice4Name($res->quaternary_id);
+				$office2name = $this->getOffice2Name('unit_office_secondaries','UnitOfficeSecondaryName',$res->second_id);
+				$office3name = $this->getOffice3Name('unit_office_tertiaries','UnitOfficeTertiaryName',$res->tertiary_id);
+				$office4name = $this->getOffice4Name('unit_office_quaternaries','UnitOfficeQuaternaryName',$res->quaternary_id);
 
 				if($office3name!='' && $office4name!='')
 				{
@@ -173,9 +173,9 @@ class PDFController extends Controller
 			$result = $numOfRows;
 			foreach($res as $res)
 			{
-				$office2name = $this->getOffice2Name($res->second_id);
-				$office3name = $this->getOffice3Name($res->tertiary_id);
-				$office4name = $this->getOffice4Name($res->quaternary_id);
+				$office2name = $this->getOffice2Name('unit_office_secondaries','UnitOfficeSecondaryName',$res->second_id);
+				$office3name = $this->getOffice3Name('unit_office_tertiaries','UnitOfficeTertiaryName',$res->tertiary_id);
+				$office4name = $this->getOffice4Name('unit_office_quaternaries','UnitOfficeQuaternaryName',$res->quaternary_id);
 
 				if($office3name!='' && $office4name!='')
 				{
@@ -206,30 +206,12 @@ class PDFController extends Controller
 
 	}
 
-	public function getOffice2Name($second)
+	public function getOfficeName($thl,$field,$office)
 	{
-		$officename = unit_office_secondaries::select('UnitOfficeSecondaryName')->where('id','=', $second)->first();
-		$name = $officename->UnitOfficeSecondaryName;
+		$officename = DB::table($tbl)->select($field)->where('id','=', $office)->first();
+		$name = $officename->$field;
 		return $name;
 		
-	}
-
-	public function getOffice3Name($tertiary)
-	{
-		if($tertiary!='' || $tertiary!=null){
-			$officename = unit_office_tertiaries::select('UnitOfficeTertiaryName')->where('id','=', $tertiary)->first();
-			$name = $officename->UnitOfficeTertiaryName;
-			return $name;
-		} else {return '';}
-	}
-
-	public function getOffice4Name($quaternary)
-	{
-		if($quaternary!='' || $quaternary!=null){
-			$officename = unit_office_quaternaries::select('UnitOfficeQuaternaryName')->where('id','=',$quaternary)->first();
-			$name = $officename->UnitOfficeQuaternaryName;
-			return $name;
-		} else {return '';}
 	}
 
 	public function getPositionName($tbl,$field,$position)
