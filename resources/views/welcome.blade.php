@@ -89,8 +89,8 @@
                     @endforeach
                 </select>
 
-                Gender: <input type="checkbox" name="gender" value="Male">
-                        <input type="checkbox" name="gender" value="Female">
+                Gender: <input type="checkbox" id="gender" name="gender" value="Male" checked>
+                        <input type="checkbox" id="gender" name="gender" value="Female">
 
                 <input type="text" onkeyup="loaddata()" id="city" value="" placeholder="City">
                 <input type="text" onkeyup="loaddata()" id="province" value="" placeholder="Province">
@@ -184,6 +184,18 @@
                 responsive: true
             });
 
+            $("input[name='gender']").on('click', function(){
+                var selectval = this.value;
+
+                $(this).each(function(){
+                    if(this.id == selectval)
+                        { this.checked = true; }
+                    else
+                        { this.checked = false; }
+                });
+
+            });
+
             $('#clearRow').on('click', function(array){
                 tab.clear().draw();
             });
@@ -235,12 +247,19 @@
         function loaddata(){
             var advisory = document.getElementById('acselect').value;
             var data;
+            var gender;
             ageFrom = document.getElementById('ageFrom').value;
             ageTo = document.getElementById('ageTo').value;
             city = document.getElementById('city').value;
             province = document.getElementById('province').value;
-            gender = document.getElementById('gender').value;
+            gendersel = document.getElementById('gender').value;
             unitofficesecond = document.getElementById('office2').value;
+
+            if(gendersel == male)
+                { gender = 1; }
+            else { gender = 2; }
+            
+
 
             if(advisory==1)
             {

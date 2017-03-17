@@ -80,7 +80,6 @@ class PDFController extends Controller
 				{
 
 					$query = $query->whereRaw("TIMESTAMPDIFF(YEAR, birthdate, CURDATE()) >=" . $ageFrom . " and TIMESTAMPDIFF(YEAR, birthdate, CURDATE()) <= " . $ageTo);
-				
 									
 				}
 				
