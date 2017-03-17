@@ -180,6 +180,10 @@ return [
         App\Providers\RouteServiceProvider::class,
         LaravelCaptcha\Providers\LaravelCaptchaServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        //PDF Generator
+        Codedge\Fpdf\FpdfServiceProvider::class,
+        Khill\Lavacharts\Laravel\LavachartsServiceProvider::class
+
 
     ],
 
@@ -230,6 +234,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Fpdf' => Codedge\Fpdf\Facades\Fpdf::class,
+        'Lava' => Khill\Lavacharts\Laravel\LavachartsFacade::class,
 
     ],
 

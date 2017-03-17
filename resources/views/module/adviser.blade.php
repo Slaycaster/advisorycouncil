@@ -4,16 +4,16 @@
 
 	<div class = "advcon">
 		<div class = "btncon">
-			<div class = "ui grid">
+			<!--<div class = "ui grid">
 				<div class = "row">
-					<div class = "five wide column moveright">
-						<div class = "ui icon addbtn button tiny" 
+					<div class = "six wide column moveright">
+						<div class = "ui icon addbtn button medium" 
 							onclick = "window.location='{{url('directory/add')}}'" 
 							title = "add AC Member">
 							<i class="plus icon topmargin"></i>
 							
 						</div>
-						<div class="ui icon addbtn dropdown button  tiny topmargin" title = "filter list">
+						<div class="ui icon addbtn dropdown button  medium topmargin" title = "filter list">
 							<i class="filter icon"></i>
 							<div class="menu">
 							    <div class="item" onclick ="window.location='{{url('directory/filter?f=0')}}'">
@@ -35,20 +35,20 @@
 						  </div>
 						</div>
 
-						<div class="ui icon input topmargin">
+						<div class="ui icon input medium search">
 							<i class="search icon"></i>
 							<input type="text" placeholder="Search...">
 						</div>
 					</div>
 					
 				</div>
-			</div>
+			</div>-->
 
 			
 		</div>
 
 		<div class = "advcardcon">
-			<hr class="hr4">
+			<!--<hr class="hr4">-->
 
 			
 			<div class = "itemlist">
@@ -74,15 +74,24 @@
 												{{$acrec->acpositionname}} <br>
 												
 												@if($acrec->UnitOfficeQuaternaryName != "")
-													{{$acrec->UnitOfficeQuaternaryName}} <br>
+													{{$acrec->UnitOfficeQuaternaryName}}
 
-												@elseif($acrec->UnitOfficeTertiaryName != "")
-													{{$acrec->UnitOfficeTertiaryName}} <br>
-
-												@elseif($acrec->UnitOfficeSecondaryName != "")
-													{{$acrec->UnitOfficeSecondaryName}} <br>
+													@if($acrec->UnitOfficeTertiaryName != "")
+														,&nbsp;
+													@endif
 
 												@endif
+
+												@if($acrec->UnitOfficeTertiaryName != "")
+													{{$acrec->UnitOfficeTertiaryName}},&nbsp;
+
+													@if($acrec->UnitOfficeQuaternaryName != "")
+														<br>
+													@endif
+
+												@endif
+
+												{{$acrec->UnitOfficeSecondaryName}} <br>
 
 												@if($acrec->email != "")
 													{{$acrec->email}} <br>
@@ -103,7 +112,7 @@
 												
 											</p>
 
-											<p class = "p2"> Member since {{date('M Y',strtotime($acrec->startdate))}}</p>
+											<p valign="bottom" class = "p2"> Member since {{date('M Y',strtotime($acrec->startdate))}}</p>
 											
 										</div>
 									</div>
@@ -143,15 +152,24 @@
 												{{$tprec->PositionName}} <br>
 
 												@if($tprec->UnitOfficeQuaternaryName != "")
-													{{$tprec->UnitOfficeQuaternaryName}} <br>
+													{{$tprec->UnitOfficeQuaternaryName}}
 
-												@elseif($tprec->UnitOfficeTertiaryName != "")
-													{{$tprec->UnitOfficeTertiaryName}} <br>
-
-												@elseif($tprec->UnitOfficeSecondaryName != "")
-													{{$tprec->UnitOfficeSecondaryName}} <br>
+													@if($tprec->UnitOfficeTertiaryName != "")
+														,&nbsp;
+													@endif
 
 												@endif
+
+												@if($tprec->UnitOfficeTertiaryName != "")
+													{{$tprec->UnitOfficeTertiaryName}},&nbsp;
+
+													@if($tprec->UnitOfficeQuaternaryName != "")
+														<br>
+													@endif
+
+												@endif
+
+												{{$tprec->UnitOfficeSecondaryName}} <br>
 
 												
 

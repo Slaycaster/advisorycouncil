@@ -207,28 +207,36 @@
 						<div class = "tablecon">
 							<div class = "field">
 								<div class = "field">
-									<label>Stakeholder Category <span class="asterisk">*</span></label>
-									<div class = "inline fields">
-										<div class = "ui radio field">
-											<input type="radio" checked onchange = "changeform(this.value)" name="advcateg" value="0"  tabindex="0" class="hidden">
-											<label>AC</label>
-												
-										</div>
-										<div class = "ui radio field">
-											<input type="radio" onchange = "changeform(this.value)" name="advcateg" value="1"  tabindex="0" class="hidden">
-											<label>TWG</label>
-											
-												
-										</div>
+									<label>Stakeholder Category 
+									
+									@if($action == 0)
+										<span class="asterisk">*</span></label>
 
-										<div class = "ui radio field">
-											<input type="radio" onchange = "changeform(this.value)" name="advcateg" value="2"  tabindex="0" class="hidden">
-											<label>PSMU</label>
-											
+										<div class = "inline fields">
+											<div class = "ui radio field">
+												<input type="radio" checked onchange = "changeform(this.value)" name="advcateg" value="0"  tabindex="0" class="hidden">
+												<label>AC</label>
+													
+											</div>
+											<div class = "ui radio field">
+												<input type="radio" onchange = "changeform(this.value)" name="advcateg" value="1"  tabindex="0" class="hidden">
+												<label>TWG</label>
 												
+													
+											</div>
+
+											<div class = "ui radio field">
+												<input type="radio" onchange = "changeform(this.value)" name="advcateg" value="2"  tabindex="0" class="hidden">
+												<label>PSMU</label>
+												
+													
+											</div>
+											
 										</div>
-										
-									</div>
+									@elseif($action == 1)
+										: <span class="black" name="advcateg"></span><label>
+
+									@endif
 								</div> <br>
 
 								<div class = "field">
@@ -358,10 +366,12 @@
 					fillAC();
 
 				} else {
+					lecturers = new Array();
 					addT2Elements();
 					getInitialTPDropdown();
 					controlelements("block");
 					fillTP();
+					fillTable()
 
 				}//if
 
@@ -380,12 +390,6 @@
 				getInitialACDropdown();
 
 				controlelements("none");
-
-				@if($action == 1 && isset($type))
-
-					fillAC();
-
-				@endif
 
 
 			} else {
@@ -418,14 +422,30 @@
 		@if(isset($type) && isset($recorddata))
 
 			function fillProfile() {
-				
-				$("input[name='advcateg'][value='{{$type}}']").prop('checked', true);
-				document.getElementsByName('advid')[0].value = "{{$type}}-{{$id}}";
+				var typedesc = "";
+				@if($type == 0)
+					typedesc = "Advisory Council (AC)";
+
+				@elseif($type == 1)
+					typedesc = "Technical Working Group (TWG)";
+
+				@elseif($type == 2)
+					typedesc = "Police Strategy Management Unit (PSMU)";
+
+				@endif
+
+				document.getElementById('profpic').src = "{{$recorddata[1][0]}}"
+				document.getElementsByName('advcateg')[0].innerHTML = typedesc;
+				document.getElementsByName('advid')[0].value = "{{$id}}";
 				document.getElementsByName('lname')[0].value = "{{$recorddata[0][0]->lname}}";
 				document.getElementsByName('fname')[0].value = "{{$recorddata[0][0]->fname}}";
 				document.getElementsByName('mname')[0].value = "{{$recorddata[0][0]->mname}}";
 				document.getElementsByName('qname')[0].value = "{{$recorddata[0][0]->qualifier}}";
 				document.getElementsByName('bdate')[0].value = "{{date('Y-m-d', strtotime($recorddata[0][0]->birthdate))}}";
+				document.getElementsByName('street')[0].value = "{{$recorddata[0][0]->street}}";
+				document.getElementsByName('barangay')[0].value = "{{$recorddata[0][0]->barangay}}";
+				document.getElementsByName('city')[0].value = "{{$recorddata[0][0]->city}}";
+				document.getElementsByName('province')[0].value = "{{$recorddata[0][0]->province}}";
 				$("input[name='gender'][value='{{$recorddata[0][0]->gender}}']").prop('checked', true);
 				document.getElementsByName('mobile')[0].value = "{{$recorddata[0][0]->contactno}}";
 				document.getElementsByName('landline')[0].value = "{{$recorddata[0][0]->landline}}";
@@ -439,22 +459,27 @@
 					document.getElementsByName('durationedate')[0].value = "{{date('Y-m-d', strtotime($recorddata[0][0]->enddate))}}";
 				}//if
 
+				getsecoffice(parseInt("{{$recorddata[0][0]->UnitOfficeID}}"));
+				getteroffice(parseInt("{{$recorddata[0][0]->second_id}}"));
+				getquaroffice(parseInt("{{$recorddata[0][0]->tertiary_id}}"));
+
+				$('#primary').dropdown('set selected', '{{$recorddata[0][0]->UnitOfficeID}}');
+				$('#secondary').dropdown('set selected', '{{$recorddata[0][0]->second_id}}');
+				$('#tertiary').dropdown('set selected', '{{$recorddata[0][0]->tertiary_id}}');
+				$('#quaternary').dropdown('set selected', '{{$recorddata[0][0]->quaternary_id}}');
+
+
 
 
 			}//function fillProfile() {
 
 			function fillAC() {
 				//NOT WORKING
-				$('#acposition').val({!!$recorddata[0][0]->advisory_position_id!!}).dropdown('refresh');
-				$("#accateg").val({!!$recorddata[0][0]->categoryId!!}).dropdown('refresh');
-				getsubcateg();
+				$('#acposition').dropdown('set selected', '{{$recorddata[0][0]->advisory_position_id}}');
+				$('#acsector').dropdown('set selected', '{{$recorddata[0][0]->ac_sector_id}}');
+				
 
-				$("#acsubcateg").dropdown("set exactly", "{{$recorddata[0][0]->subcategoryId}}"); 
-
-				@foreach($recorddata[1] as $sect)
-					$("#acsector").val(["{{$sect->ac_sector_id}}"]);
-				@endforeach
-
+				//fill dropdown
 				//---------
 
 				document.getElementsByName('officename')[0].value = "{{$recorddata[0][0]->officename}}";
@@ -465,12 +490,50 @@
 
 			}//function fillAC() {
 
+
 			function fillTP() {
+				//fill dropdown
 				document.getElementsByName('authorder')[0].value = '{{$recorddata[0][0]->authorityorder}}';
-				$("select[name='position']").dropdown('set selected', '{{$recorddata[0][0]->authorityorder}}')
+				$("select[name='position']").dropdown('set selected', "{{$recorddata[0][0]->police_position_id}}");
+				$("select[name='rank']").dropdown('set selected', "{{$recorddata[0][0]->rank_id}}");
 
 				
 			}//function fillTP() {
+
+			@if(isset($recorddata[2]))
+				function fillTable() {
+
+					@for($ctr = 0 ; $ctr < sizeof($recorddata[2][0]) ; $ctr++)
+
+						addrow();
+						document.getElementsByName('traintitle')[{!!$ctr!!}].value = "{{$recorddata[2][0][$ctr]->trainingname}}";
+
+						//console.log(jQuery.inArray("{{$recorddata[2][0][$ctr]->trainingtype}}", dval));
+						if(jQuery.inArray("{{$recorddata[2][0][$ctr]->trainingtype}}", dval) > -1) {
+							$("select[name='traincateg']").eq({!!$ctr!!}).dropdown('set selected',  "{{$recorddata[2][0][$ctr]->trainingtype}}");
+						} else {
+							$("select[name='traincateg']").eq({!!$ctr!!}).dropdown('set selected', dval[dval.length-1]);
+							document.getElementsByName('othercon')[{!!$ctr!!}].style.display = "block";
+							document.getElementsByName('othercat')[{!!$ctr!!}].value = "{{$recorddata[2][0][$ctr]->trainingtype}}";
+							
+						}//if
+
+						document.getElementsByName('location')[{!!$ctr!!}].value = "{{$recorddata[2][0][$ctr]->location}}";
+						document.getElementsByName('trainsdate')[{!!$ctr!!}].value = "{{date('Y-m-d', strtotime($recorddata[2][0][$ctr]->startdate))}}";
+						document.getElementsByName('trainstime')[{!!$ctr!!}].value = "{{$recorddata[2][0][$ctr]->starttime}}";
+						document.getElementsByName('trainedate')[{!!$ctr!!}].value = "{{date('Y-m-d', strtotime($recorddata[2][0][$ctr]->enddate))}}";
+						document.getElementsByName('trainetime')[{!!$ctr!!}].value = "{{$recorddata[2][0][$ctr]->endtime}}";
+						document.getElementsByName('trainorg')[{!!$ctr!!}].value = "{{$recorddata[2][0][$ctr]->organizer}}";
+
+						@for($countlec = 0 ; $countlec < sizeof($recorddata[2][1][$ctr]) ; $countlec++)
+							addarritem({{$ctr}}, "{{$recorddata[2][1][$ctr][$countlec]->lecturername}}");
+
+						@endfor
+					@endfor
+
+
+				}//fillTable
+			@endif
 
 		@endif
 
@@ -491,8 +554,8 @@
 
 		}//function showfield(value) {
 
-		function addarritem(index) {
-			var text = document.getElementsByName('inputlecturer')[index].value;
+		function addarritem(index, text) {
+			//var text = document.getElementsByName('inputlecturer')[index].value;
 			var pattern = new RegExp("^(?=.*(\d|\w))[A-Za-z0-9 .,'-]{3,}$");
 			var flag = 0;
 
@@ -510,10 +573,9 @@
 
 
 				}//if(flag == 0) {]
-				//alert(lecturers);
 			//}//pattern
 
-			console.log(lecturers);
+			//console.log(lecturers);
 
 		}//add item to array
 
@@ -538,7 +600,15 @@
 
 
 		function controlaction() {
-			var slctdtype = $("input[name='advcateg']:checked").val();
+			var slctdtype;
+
+			@if($action == 0)
+				slctdtype = $("input[name='advcateg']:checked").val();
+
+			@else
+				slctdtype = {{$type}};
+
+			@endif
 			var traintitle = new Array();
 			var traincateg = new Array();
 			var location = new Array();
@@ -595,7 +665,6 @@
 						'acposition' : document.getElementsByName('acposition')[0].value,
 						'officename' : document.getElementsByName('officename')[0].value,
 						'officeadd' : document.getElementsByName('officeadd')[0].value,
-						'primary' : document.getElementsByName('primary')[0].value,
 						'secondary' : document.getElementsByName('secondary')[0].value,
 						'tertiary' : document.getElementsByName('tertiary')[0].value,
 						'quaternary' : document.getElementsByName('quaternary')[0].value,
@@ -663,7 +732,6 @@
 						'authorder' : document.getElementsByName('authorder')[0].value,
 						'pnppost' : document.getElementsByName('position')[0].value,
 						'rank' : document.getElementsByName('rank')[0].value,
-						'primary' : document.getElementsByName('primary')[0].value,
 						'secondary' : document.getElementsByName('secondary')[0].value,
 						'tertiary' : document.getElementsByName('tertiary')[0].value,
 						'quaternary' : document.getElementsByName('quaternary')[0].value,
@@ -728,7 +796,6 @@
 			   	success : function(data) {
 
 			   		$("select[name='acposition'] option").not("[value='disitem']").remove();
-			   		//$("select[name='accateg'] option").not("[value='disitem']").remove();
 			   		$("select[name='acsector'] option").not("[value='disitem']").remove();
 			   		$("select[name='primary'] option").not("[value='disitem']").remove();
 
@@ -736,11 +803,6 @@
 			   			populatedropdown(data[0][ctr]['ID'], 'acposition', data[0][ctr]['acpositionname']);
 			   			
 			   		};
-
-			   		/*for (var ctr = 0 ; ctr < data[1].length ; ctr++) {
-			   			populatedropdown(data[1][ctr]['ID'], 'accateg', data[1][ctr]['categoryname']);
-			   			
-			   		};*/
 
 			   		for (var ctr = 0 ; ctr < data[1].length ; ctr++) {
 			   			populatedropdown(data[1][ctr]['ID'], 'acsector', data[1][ctr]['sectorname']);
@@ -789,40 +851,15 @@
 			});
 		}//function getInitialTPDropdown() {
 
-		/*function getsubcateg() {
+
+		function getsecoffice(val) {
+
 			var data = {
-				'categID' : document.getElementsByName('accateg')[0].value,
-				'_token' : '{{ Session::token() }}'
+					'poID' : val,
+					'_token' : '{{ Session::token() }}'
 
-			};
+				};
 
-			$.ajax({
-				type: "POST",
-				url: "{{url('dropdown/getsubcateg')}}",
-				data: data,
-				dataType: 'json',
-			   	success : function(subcategory) {
-
-			   		$("select[name='acsubcateg'] option").not("[value='disitem']").remove();
-
-			   		for (var ctr = 0 ; ctr < subcategory.length ; ctr++) {
-			   			populatedropdown(subcategory[ctr]['ID'], 'acsubcateg', subcategory[ctr]['subcategoryname']);
-			   			
-			   		};
-
-			   		
-			   	}//success : function() {
-			});
-
-
-		}//function getsubcateg() {*/
-
-		function getsecoffice() {
-			var data = {
-				'poID' : document.getElementsByName('primary')[0].value,
-				'_token' : '{{ Session::token() }}'
-
-			};
 
 			$.ajax({
 				type: "POST",
@@ -845,9 +882,9 @@
 
 		}//function getsecoffice() {
 
-		function getteroffice() {
+		function getteroffice(val) {
 			var data = {
-				'soID' : document.getElementsByName('secondary')[0].value,
+				'soID' : val,
 				'_token' : '{{ Session::token() }}'
 
 			};
@@ -871,9 +908,9 @@
 			});
 		}//function getteroffice() {
 
-		function getquaroffice() {
+		function getquaroffice(val) {
 			var data = {
-				'toID' : document.getElementsByName('tertiary')[0].value,
+				'toID' : val,
 				'_token' : '{{ Session::token() }}'
 
 			};

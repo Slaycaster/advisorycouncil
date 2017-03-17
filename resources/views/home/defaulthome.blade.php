@@ -61,135 +61,93 @@
 		</div>
 					
 	</div>
+						
 
 	<div class = "twelve wide column">
 		<div class = "hcontent">
 			<div class="dcon">
 				<div class = "tablepane">
-					<div class = "mtitle">Recently Added</div>
+					<div class = "mtitle">Dashboard</div>
 
-					<br>
-
-					@if(sizeof($acmember) != 0)
-						<h6 class="ui horizontal divider divtitle">
-							Advisory Council
-						</h6>
-
-						<div id = "accardlist" class = "ui doubling grid cardlist2">
-
-							@foreach($acmember as $acrec)
-								<div class = "five1 wide column colheight">
-									<div class = "cardstyle" onclick = "loadModal('0-{{$acrec->ID}}')">
-										@if($acrec->imagepath != "")
-											<img class = "advphoto" src="{{URL::asset($acrec->imagepath)}}"/>
-										@else
-											<img class = "advphoto" src="{{URL::asset('objects/Logo/InitProfile.png')}}"/>
-										@endif
-										<div class = "advdata">
-											<h5 class = "name">{{$acrec->lname}}, {{$acrec->fname}} {{$acrec->mname}} (AC)</h5>
-											<p class = "p1">
-												{{$acrec->acpositionname}} <br>
-												{{$acrec->officename}} <br>
-												{{$acrec->email}} <br>
-
-												@if($acrec->contactno != "" && $acrec->landline != "")
-													{{$acrec->contactno/ $acrec->landline}}
-												@else
-													@if($acrec->contactno != "")
-														{{$acrec->contactno}}
-													@elseif($acrec->landline != "")
-														{{$acrec->landline}}
-													@endif
-												@endif
-												
-												
-											</p>
-
-											<p class = "p2"> Member since {{date('M Y',strtotime($acrec->startdate))}}</p>
-											
-										</div>
-									</div>
-
+					<div class= "ui grid">
+						
+						<div class = "one column row">
+							
+							<div class = "eight wide column">
+								<div class="row" id="unit-chart">
+									
 								</div>
-							@endforeach
-
-						</div>
-
-						<br>
-					@endif
-
-					@if(sizeof($tpmember) != 0)
-						<h4 class="ui horizontal divider divtitle">
-							TWG & PSMU
-						</h4>
-
-						<div id = "tpcardlist" class = "ui doubling grid cardlist2">
-
-							@foreach($tpmember as $tprec)
-								<div class = "five1 wide column colheight">
-									<div class = "cardstyle" onclick = "loadModal('{{$tprec->policetype}}-{{$tprec->ID}}')">
-										@if($tprec->imagepath != "")
-											<img class = "advphoto" src="{{URL::asset($tprec->imagepath)}}"/>
-										@else
-											<img class = "advphoto" src="{{URL::asset('objects/Logo/InitProfile.png')}}"/>
-										@endif
-										<div class = "advdata">
-											<h5 class = "name">{{$tprec->lname}}, {{$tprec->fname}} {{$tprec->mname}}
-
-												@if($tprec->policetype == 1)
-													(TWG)
-												@else
-													(PSMU)
-												@endif
-											</h5>
-											<p class = "p1">
-												{{$tprec->PositionName}} <br>
-
-												@if($tprec->UnitOfficeQuaternaryName != "")
-													{{$tprec->UnitOfficeQuaternaryName}} 
-
-												@elseif($tprec->UnitOfficeTertiaryName != "")
-													{{$tprec->UnitOfficeTertiaryName}} 
-
-												@elseif($tprec->UnitOfficeSecondaryName != "")
-													{{$tprec->UnitOfficeSecondaryName}} 
-
-												@else
-													{{$tprec->UnitOfficeName}} 
-
-												@endif
-
-												<br>
-
-												{{$tprec->email}} <br>
-
-												@if($tprec->contactno != "" && $tprec->landline != "")
-													{{$tprec->contactno/ $tprec->landline}}
-												@else
-													@if($tprec->contactno != "")
-														{{$tprec->contactno}}
-													@elseif($tprec->landline != "")
-														{{$tprec->landline}}
-													@endif
-												@endif
-												
-												
-											</p>
-
-											<p class = "p2"> Member since {{date('M Y',strtotime($tprec->startdate))}}</p>
-											
-										</div>
-									</div>
-
-								</div>
-							@endforeach
+								{!! Lava::render('PieChart', 'UnitOffices', 'unit-chart'); !!}
 								
+							</div>
+
+							<div class = "eight wide column">
+								<div class="row" id="second-chart">
+									
+								</div>
+								
+								{!! Lava::render('PieChart', 'UnitSecondOffices', 'second-chart'); !!}
+								
+							</div>
+						</div>
+
+						<div class = "one column row">
+							
+							<div class = "eight wide column">
+								<div class="row" id="ter-chart">
+									
+								</div>
+								{!! Lava::render('PieChart', 'UnitTerOffices', 'ter-chart'); !!}
+								
+							</div>
+
+							<div class = "eight wide column">
+								<div class="row" id="quar-chart">
+									
+								</div>
+								
+								{!! Lava::render('PieChart', 'UnitQuarOffices', 'quar-chart'); !!}
+								
+							</div>
+						</div>
+
+						<div class ="one column row">
+							<div class = "eight wide column">
+								<div class="row" id="sector-chart">
+									
+								</div>
+								{!! Lava::render('PieChart', 'Sector', 'sector-chart'); !!}
+								
+							</div>
+
+							<div class = "eight wide column">
+								<div class="row" id="age-chart">
+									
+								</div>
+								{!! Lava::render('PieChart', 'Age', 'age-chart'); !!}
+								
+							</div>
+
+							
 
 						</div>
 
-					@endif
+						<div class = "one column row">
+							<div class = "eight wide column">
+								<div class="row" id="gender-chart">
+									
+								</div>
+								{!! Lava::render('PieChart', 'Gender', 'gender-chart'); !!}
+								
+							</div>
+							
+						</div>
 
 
+						
+						
+
+					</div>
 			
 				</div>
 		
@@ -199,8 +157,44 @@
 					
 	</div>
 
+	<!--<script type="text/javascript">
 
+		$(function() {
+		    $('#select').on('change', function() {
+								         
+			var choice = this.value;
+			if (choice == 1) {
+					$.getJSON('Dashboard/primary', function (dataTableJson) {
+			  			lava.loadData('UnitOffices', dataTableJson, function (chart) {
+						
+						  });
+					});
+			}else if (choice == 2) {
+				$.getJSON('Dashboard/secondary', function (dataTableJson) {
+					lava.loadData('UnitOffices', dataTableJson, function (chart) {
+															    
+					});
+				});
+			}else if (choice == 3) {
+				$.getJSON('Dashboard/tertiary', function (dataTableJson) {
+					lava.loadData('UnitOffices', dataTableJson, function (chart) {
+						
+					 });
+				});
+			}else if (choice == 4) {
+				$.getJSON('Dashboard/Quarternary', function (dataTableJson) {
+					lava.loadData('UnitOffices', dataTableJson, function (chart) {
+						
+					});
+				});
 
-@include('home.directory_modal')
+			}//if
+								           
+
+			});
+		});
+
+	</script>-->
+
 
 @stop

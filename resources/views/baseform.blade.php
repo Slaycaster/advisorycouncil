@@ -34,6 +34,7 @@
 
 	</head>
 	<body onload = "init()">
+	
 		<header class = "banner">
 			<div class = "ui relaxed grid">
 				<div class = "six wide column">
@@ -97,15 +98,102 @@
 		<div class = "mainbody">
 
 			<div class = "content1">
-				<!--<div class="ui tab" data-tab="home">
-				</div>
-				<div class="ui tab" data-tab="maintenance">
-				</div>
-				<div class="ui tab" data-tab="directory">
-				</div>
+				<div class = "ui grid">
+					<div class = "row">
+						<div class = "nine wide column colheight">
+							<div class="ui icon input big search">
+								<i class="search icon"></i>
+								<input type="text" placeholder="Search...">
+							</div>
 
-				<div class="ui tab" data-tab="admin">
-				</div>-->
+							@if(isset($showcontrol))
+								<div class = "ui icon addbtn button medium" 
+									onclick = "window.location='{{url('directory/add')}}'" 
+									title = "add AC Member">
+									<i class="plus icon topmargin"></i>
+									
+								</div>
+
+								<div class="ui icon addbtn dropdown button  medium topmargin" title = "filter list">
+									<i class="filter icon"></i>
+									<div class="menu">
+										<div class="header">
+								      		Gender
+								    	</div>
+
+								    	<div class = "divider"></div>
+
+								    	<div class="item"  onclick ="">
+									     	Male
+									    </div>
+									    <div class="item"  onclick ="">
+									    	Female
+									    </div>
+
+									    <div class = "divider"></div>
+
+									    <div class="item" onclick ="">
+									    	Location
+									    </div>
+									    
+									    <div class = "divider"></div>
+
+									    <div class="header">
+								      		Category
+								    	</div>
+								    	<div class = "divider"></div>
+								    	<div class="item"  onclick ="">
+									     	All
+									    </div>
+								    	<div class="item"  onclick ="">
+									     	AC
+									    </div>
+									    <div class="item"  onclick ="">
+									    	TWG
+									    </div>
+									    <div class="item"  onclick ="">
+									    	PSMU
+									    </div>
+
+									    <div class = "divider"></div>
+
+									    
+
+									    <div class="item" onclick ="">
+									    	AC Position
+									    </div>
+									    
+									    <div class = "divider"></div>
+
+									     <div class="item" onclick ="">
+									    	AC Sector
+									    </div>
+
+									    <div class = "divider"></div>
+
+									     <div class="item" onclick ="">
+									    	Unit/Offices
+									    </div>
+									     
+
+
+
+								  </div>
+								</div>
+							@endif
+						</div>
+
+						
+					
+						
+					</div>
+
+					<div class = "row">
+						<hr>
+						
+					</div>
+					
+				</div>
 
 				@yield('maincontent')
 				
