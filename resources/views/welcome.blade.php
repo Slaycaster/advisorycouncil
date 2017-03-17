@@ -89,8 +89,8 @@
                     @endforeach
                 </select>
 
-                Gender: <input type="checkbox" id="gender" name="gender" value="Male" checked>
-                        <input type="checkbox" id="gender" name="gender" value="Female">
+                Gender: <input type="checkbox" id="gender" name="gender" value="Male" checked>Male
+                        <input type="checkbox" id="gender" name="gender" value="Female">Female
 
                 <input type="text" onkeyup="loaddata()" id="city" value="" placeholder="City">
                 <input type="text" onkeyup="loaddata()" id="province" value="" placeholder="Province">
@@ -184,16 +184,10 @@
                 responsive: true
             });
 
-            $("input[name='gender']").on('click', function(){
-                var selectval = this.value;
+            $("input[type='checkbox']").change(function(){
 
-                $(this).each(function(){
-                    if(this.id == selectval)
-                        { this.checked = true; }
-                    else
-                        { this.checked = false; }
-                });
-
+                $("input[type='checkbox']").prop('checked',false);
+                $(this).prop('checked',true);
             });
 
             $('#clearRow').on('click', function(array){
@@ -400,36 +394,37 @@
 
                     if(advisory==4)
                     {
-                            cell1 = data[i]['lname']+", "+data[i]['fname']+" "+data[i]['mname'];
-                            cell2 = data[i]['UnitOfficeSecondaryName']+", "+data[i]['UnitOfficeTertiaryName']+", "+data[i]['UnitOfficeQuaternaryName'];
+                        console.log(data);
+                            // cell1 = data[i]['lname']+", "+data[i]['fname']+" "+data[i]['mname'];
+                            // cell2 = data[i]['UnitOfficeSecondaryName']+", "+data[i]['UnitOfficeTertiaryName']+", "+data[i]['UnitOfficeQuaternaryName'];
 
-                            cell3 = "PNP";
-                            cell4 = data[i]['police_position_id'];
-                            cell5 = data[i]['gender'];
-                            cell6 = data[i]['city']+", "+data[i]['province'];
-                            cell7 = data[i]['birthdate'];
-                            cell8 = data[i]['contactno'];
-                            cell9 = data[i]['email'];
+                            // cell3 = "PNP";
+                            // cell4 = data[i]['police_position_id'];
+                            // cell5 = data[i]['gender'];
+                            // cell6 = data[i]['city']+", "+data[i]['province'];
+                            // cell7 = data[i]['birthdate'];
+                            // cell8 = data[i]['contactno'];
+                            // cell9 = data[i]['email'];
 
-                            val = cell1 + "/" + cell2 + "/" + cell3 + "/" + cell4 + "/" +
-                                  cell5 + "/" + cell6 + "/" + cell7 + "/" + cell8 + "/" + cell9;
+                            // val = cell1 + "/" + cell2 + "/" + cell3 + "/" + cell4 + "/" +
+                            //       cell5 + "/" + cell6 + "/" + cell7 + "/" + cell8 + "/" + cell9;
                             
 
-                            pdfname.push(cell1);
-                            pdfsecondoff.push(data[i]['second_id']);
-                            pdftertiaryoff.push(data[i]['tertiary_id']);
-                            pdfquaternaryoff.push(data[i]['quaternary_id']);
-                            pdfgender.push(data[i]['gender']);
-                            pdfposition.push(data[i]['police_position_id']);
-                            pdfemail.push(data[i]['email']);
-                            pdfcontact.push(data[i]['contactno']);
-                            pdfaddress.push(cell6);
-                            pdfsector.push("");  
-                            pdfimage.push(data[i]['imagepath']);
+                            // pdfname.push(cell1);
+                            // pdfsecondoff.push(data[i]['second_id']);
+                            // pdftertiaryoff.push(data[i]['tertiary_id']);
+                            // pdfquaternaryoff.push(data[i]['quaternary_id']);
+                            // pdfgender.push(data[i]['gender']);
+                            // pdfposition.push(data[i]['police_position_id']);
+                            // pdfemail.push(data[i]['email']);
+                            // pdfcontact.push(data[i]['contactno']);
+                            // pdfaddress.push(cell6);
+                            // pdfsector.push("");  
+                            // pdfimage.push(data[i]['imagepath']);
 
-                            //document.getElementById('pdfdata').value= val + val;
-                            document.getElementById('addRow').value = val;
-                            document.getElementById('addRow').click();
+                            // //document.getElementById('pdfdata').value= val + val;
+                            // document.getElementById('addRow').value = val;
+                            // document.getElementById('addRow').click();
 
                     }
                             console.log(pdfname);
