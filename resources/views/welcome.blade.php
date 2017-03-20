@@ -37,11 +37,10 @@
         
             <div>            
                 <select id="acselect" onchange="loaddata()">
-                        <option value="0">Select Advisory</option>
                         <option value="1">Civillian</option>
                         <option value="2">TWG</option>
                         <option value="3">PSMU</option>
-                        <option value="4">ALL</option>
+                        <option value="4" selected>ALL</option>
                 </select><br><br>
             </div>
             <div>
@@ -89,8 +88,8 @@
                     @endforeach
                 </select>
 
-                Gender: <input type="checkbox" id="gender" name="gender" value="Male" checked>Male
-                        <input type="checkbox" id="gender" name="gender" value="Female">Female
+                Gender: <input type="checkbox" id="genderM" onclick="loaddata()" name="gender" value="0">Male
+                        <input type="checkbox" id="genderF" onclick="loaddata()" name="gender" value="1">Female
 
                 <input type="text" onkeyup="loaddata()" id="city" value="" placeholder="City">
                 <input type="text" onkeyup="loaddata()" id="province" value="" placeholder="Province">
@@ -143,35 +142,7 @@
 
                 </thead>
                 <tbody>
-                    @foreach ($policeAdvisory as $polad)
-                       <tr {{$polad->ID}}>
-                            <td>{{$polad->lname}}, {{$polad->fname}} {{$polad->mname}}</td>
-                            <td>{{$polad->second_id}},{{$polad->tertiary_id}},{{$polad->quaternary_id}}</td>
-                            <td>PNP</td>
-                            <td>{{$polad->police_position_id}}</td>
-                            <td>{{$polad->gender}}</td>
-                            <td>{{$polad->city}}, {{$polad->province}}</td>
-                            <td>{{$polad->birthdate}}</td>
-                            <td>{{$polad->contactno}}</td>
-                            <td>{{$polad->email}}</td>
-                            <td>{{$polad->startdate}}</td>
-                        </tr>
-                    @endforeach
-
-                    @foreach ($advisoryCouncil as $adco)
-                       <tr {{$adco->ID}}>
-                            <td>{{$adco->lname}}, {{$adco->fname}} {{$adco->mname}}</td>
-                            <td>{{$adco->second_id}},{{$adco->tertiary_id}},{{$adco->quaternary_id}}</td>
-                            <td>{{$adco->ac_sector_id}}</td>
-                            <td>{{$adco->advisory_position_id}}</td>
-                            <td>{{$adco->gender}}</td>
-                            <td>{{$adco->city}}, {{$adco->province}}</td>
-                            <td>{{$adco->imagepath}}</td>
-                            <td>{{$adco->contactno}}</td>
-                            <td>{{$adco->email}}</td>
-                            <td>{{$adco->startdate}}</td>
-                        </tr>
-                    @endforeach
+                    
                 </tbody>
             </table>
         </div>
@@ -184,11 +155,7 @@
                 responsive: true
             });
 
-            $("input[type='checkbox']").change(function(){
-
-                $("input[type='checkbox']").prop('checked',false);
-                $(this).prop('checked',true);
-            });
+            loaddata();
 
             $('#clearRow').on('click', function(array){
                 tab.clear().draw();
@@ -218,19 +185,19 @@
     
     <script>
 
-        var pdfname = new Array();
-        var pdfsecondoff = new Array();
-        var pdftertiaryoff = new Array();
-        var pdfquaternaryoff = new Array();
-        var pdfsector = new Array();
-        var pdfaddress = new Array();
-        var pdfposition = new Array();
-        var pdfemail = new Array();
-        var pdfgender = new Array();
-        var pdfbday = new Array();
-        var pdfcontact = new Array();
-        var pdfimage = new Array();
-        var pdfsdate = new Array();
+        // var pdfname = new Array();
+        // var pdfsecondoff = new Array();
+        // var pdftertiaryoff = new Array();
+        // var pdfquaternaryoff = new Array();
+        // var pdfsector = new Array();
+        // var pdfaddress = new Array();
+        // var pdfposition = new Array();
+        // var pdfemail = new Array();
+        // var pdfgender = new Array();
+        // var pdfbday = new Array();
+        // var pdfcontact = new Array();
+        // var pdfimage = new Array();
+        // var pdfsdate = new Array();
 
         function adjustRange(val)
         {
@@ -239,6 +206,21 @@
         }
         
         function loaddata(){
+            
+            pdfname = [];
+            pdfsecondoff = [];
+            pdftertiaryoff = [];
+            pdfquaternaryoff = [];
+            pdfsector = [];
+            pdfaddress = [];
+            pdfposition = [];
+            pdfemail = [];
+            pdfgender = [];
+            pdfbday = [];
+            pdfcontact = [];
+            pdfimage = [];
+            pdfsdate = [];
+    
             var advisory = document.getElementById('acselect').value;
             var data;
             var gender;
@@ -246,14 +228,17 @@
             ageTo = document.getElementById('ageTo').value;
             city = document.getElementById('city').value;
             province = document.getElementById('province').value;
-            gendersel = document.getElementById('gender').value;
             unitofficesecond = document.getElementById('office2').value;
 
-            if(gendersel == male)
+            if(document.getElementById('genderM').checked == true && document.getElementById('genderF').checked == true)
+                { gender = 0;}
+            else if(document.getElementById('genderM').checked == true && document.getElementById('genderF').checked == false)
                 { gender = 1; }
-            else { gender = 2; }
-            
+            else if(document.getElementById('genderM').checked == false && document.getElementById('genderF').checked == true) 
+                { gender = 2; }
+            else { gender = 0; }
 
+            console.log(ageTo);
 
             if(advisory==1)
             {
@@ -303,8 +288,6 @@
                 };   
             }
 
-            document.getElementById('clearRow').click();
-
             $.ajax({
                 type: "POST",
                 data: data,
@@ -312,12 +295,14 @@
                 datatype: "JSON",
                 success: function(data){
                     
-                    responseArray = data.split("/");
-                    numOfRow = responseArray[0];
-                    num = 1;
-
+                    document.getElementById('clearRow').click();
+                    
                     if(advisory==1)
                     {
+                        responseArray = data.split("/");
+                        numOfRow = responseArray[0];
+                        num = 1;
+
                         for(i=0; i < numOfRow; i++)
                         {
                             cell1 = responseArray[num];num++;
@@ -355,6 +340,11 @@
 
                     if(advisory==2 || advisory==3)
                     {
+ 
+                        responseArray = data.split("/");
+                        numOfRow = responseArray[0];
+                        num = 1;
+
                         for(i=0; i < numOfRow; i++)
                         {
                             cell1 = responseArray[num];num++;
@@ -388,47 +378,85 @@
 
                             
                         }
-                        console.log(responseArray);
                           
                     }
 
                     if(advisory==4)
                     {
-                        console.log(data);
-                            // cell1 = data[i]['lname']+", "+data[i]['fname']+" "+data[i]['mname'];
-                            // cell2 = data[i]['UnitOfficeSecondaryName']+", "+data[i]['UnitOfficeTertiaryName']+", "+data[i]['UnitOfficeQuaternaryName'];
+                        responseArray = data[1].split("/");
+                        numOfRow = responseArray[0];
+                        num = 1;
 
-                            // cell3 = "PNP";
-                            // cell4 = data[i]['police_position_id'];
-                            // cell5 = data[i]['gender'];
-                            // cell6 = data[i]['city']+", "+data[i]['province'];
-                            // cell7 = data[i]['birthdate'];
-                            // cell8 = data[i]['contactno'];
-                            // cell9 = data[i]['email'];
+                        for(i=0; i < numOfRow; i++)
+                        {
+                            cell1 = responseArray[num];num++;
+                            cell2 = responseArray[num];num++;
+                            cell3 = responseArray[num];num++;
+                            cell4 = responseArray[num];num++;
+                            cell5 = responseArray[num];num++;
+                            cell6 = responseArray[num];num++;
+                            cell7 = responseArray[num];num++;
+                            cell8 = responseArray[num];num++;
+                            cell9 = responseArray[num];num++;
+                            cell10 = responseArray[num];num++;
 
-                            // val = cell1 + "/" + cell2 + "/" + cell3 + "/" + cell4 + "/" +
-                            //       cell5 + "/" + cell6 + "/" + cell7 + "/" + cell8 + "/" + cell9;
+                            val = cell1 + "/" + cell2 + "/" + cell3 + "/" + cell4 + "/" +
+                                  cell5 + "/" + cell6 + "/" + cell7 + "/" + cell8 + "/" +
+                                  cell9 + "/" + cell10;
+
+                            pdfname.push(cell1);
+                            pdfsecondoff.push(cell2);
+                            pdfsector.push(cell3); 
+                            pdfposition.push(cell4);
+                            pdfgender.push(cell5);
+                            pdfaddress.push(cell6);
+                            pdfimage.push(cell7);
+                            pdfcontact.push(cell8);
+                            pdfemail.push(cell9);
+                            pdfsdate.push(cell10);
+
+                            document.getElementById('addRow').value = val;
+                            document.getElementById('addRow').click();
                             
+                        }
 
-                            // pdfname.push(cell1);
-                            // pdfsecondoff.push(data[i]['second_id']);
-                            // pdftertiaryoff.push(data[i]['tertiary_id']);
-                            // pdfquaternaryoff.push(data[i]['quaternary_id']);
-                            // pdfgender.push(data[i]['gender']);
-                            // pdfposition.push(data[i]['police_position_id']);
-                            // pdfemail.push(data[i]['email']);
-                            // pdfcontact.push(data[i]['contactno']);
-                            // pdfaddress.push(cell6);
-                            // pdfsector.push("");  
-                            // pdfimage.push(data[i]['imagepath']);
+                        responseArray = data[0].split("/");
+                        numOfRow = responseArray[0];
+                        num = 1;
 
-                            // //document.getElementById('pdfdata').value= val + val;
-                            // document.getElementById('addRow').value = val;
-                            // document.getElementById('addRow').click();
+                        for(i=0; i < numOfRow; i++)
+                        {
+                            cell1 = responseArray[num];num++;
+                            cell2 = responseArray[num];num++;
+                            cell3 = "PNP";
+                            cell4 = responseArray[num];num++;
+                            cell5 = responseArray[num];num++;
+                            cell6 = responseArray[num];num++;
+                            cell7 = responseArray[num];num++;
+                            cell8 = responseArray[num];num++;
+                            cell9 = responseArray[num];num++;
+                            cell10 = responseArray[num];num++;
 
+                            val = cell1 + "/" + cell2 + "/" + cell3 + "/" + cell4 + "/" +
+                                  cell5 + "/" + cell6 + "/" + cell7 + "/" + cell8 + "/" +
+                                  cell9 + "/" + cell10;
+
+                            pdfname.push(cell1);
+                            pdfsecondoff.push(cell2);
+                            pdfsector.push(""); 
+                            pdfposition.push(cell4);
+                            pdfgender.push(cell5);
+                            pdfaddress.push(cell6);
+                            pdfimage.push(cell7);
+                            pdfcontact.push(cell8);
+                            pdfemail.push(cell9);
+                            pdfsdate.push(cell10);
+
+                            document.getElementById('addRow').value = val;
+                            document.getElementById('addRow').click();
                     }
-                            console.log(pdfname);
 
+                     }   
                             document.getElementsByName('name')[0].value = pdfname.join("/");
                             document.getElementsByName('office')[0].value = pdfsecondoff;
                             document.getElementsByName('gender')[0].value = pdfgender;
@@ -439,9 +467,10 @@
                             document.getElementsByName('sector')[0].value = pdfsector;
                             document.getElementsByName('imageurl')[0].value = pdfimage; 
                             document.getElementsByName('startdate')[0].value = pdfsdate;
-                 
+
                 }
-            });
+
+            });//AJAX
         }// LOAD DATA
         
         function removeDropdown(){
