@@ -309,80 +309,11 @@ class PDFController extends Controller
     public function createPDF(Request $req)
     {
     	//var_dump($req->all());
-    	$name = explode("/", $req->name);
-    	$position = explode(",", $req->position);
-    	$image = explode(",", $req->imageurl);
-    	$office = explode(",", $req->office);
-    	$sector = explode(",", $req->sector);
-    	$gender = explode(",", $req->gender);
-    	$location = explode(",", $req->address);
-    	$contact = explode(",", $req->contact);
-    	$email = explode(",", $req->email);
-
-    	$col= 10;
-    	$y0=40;
-    	$imageCol=12;
-    	$imagey0=42;
-    	$textCol=38;
-    	$texty0=45;
-
     	$fpdf= new PDF;
     	$fpdf->AddPage(90);
-    	$fpdf->SetFont('Arial','B',16);
-
-    	$i=1;
-    	while ($i <= count($position)) 
-    	{
-    		# code...
-    		$fpdf->Rect($col,$y0,64,35);
-			$fpdf->SetFont('Arial','B',7);
-			$fpdf->Text($textCol,$texty0,$name[$i-1]);
-			$fpdf->Text($textCol,$texty0+4,$position[$i-1]);
-			$fpdf->Text($textCol,$texty0+8,$office[$i-1]);
-			$fpdf->Text($textCol,$texty0+12,$contact[$i-1]);
-			$fpdf->Text($textCol,$texty0+16,$email[$i-1]);
-
-			if($image[$i-1] == null)
-    			{ $fpdf->Image('images/Philippine-National-Police.png',$imageCol,$imagey0,23); }
-    		else { $fpdf->Image($image[$i-1],$imageCol,$imagey0,23);}
-
-			if((($i+2)%2)==0){
-				$col+=75;
-				$imageCol+=75;
-				$textCol+=75;
-			}
-			else{
-				$col+=70;
-				$imageCol+=70;
-				$textCol+=70;
-			}
-
-			if(($i%16) ==0){
-				$fpdf->AddPage(90);
-				$col= 10;
-				$imageCol=12;
-				$textCol=38;
-				$y0 = 40;
-				$imagey0=42;
-				$texty0=45;
-			}
-			
-			if((($i+4)%4) ==0)
-			{
-				$col= 10;
-				$imageCol=12;
-				$textCol=38;
-				$y0 += 40;
-				$imagey0+=40;
-				$texty0+=40;
-			}
-			
-			$i++;
-    	}		
+    	$fpdf->body($req);
 
     	$headers=['Content-Type' => 'application/pdf'];
-
-    	//return $req->all();
     	return Response::make($fpdf->output('Advisory_Council.pdf','I'),200, $headers);
 
     }
@@ -414,14 +345,95 @@ class PDF extends FPDF
 	function Footer()
 	{
 	    // Position at 1.5 cm from bottom
-	    $this->SetY(-15);
+	    $this->SetY(-16);
+	    $y = $this->GetPageHeight();
+	    $x = $this->GetPageWidth();
+	    $this->Line(0,$y-16,$x,$y-16);
+	    $this->Line($x/2,0,$x/2,$y);
 	    // Arial italic 8
-	    $this->SetFont('Arial','I',8);
-	    // Page number
-	    $this->Cell(0,10,'Page '.$this->PageNo(),0,0,'C');
+	    $this->SetFont('Arial','',5.5);
+	    // Page numbe
+	    $this->text(10,197,"Vision: \".... a Highly Capable, Effectuve and Credible police service...");
+	    $this->text(20,199,"Towards the attainment of a safer place to live, work and do business.\"");
+	    $this->SetFont('Arial','B',5);
+
+	    $this->Cell(108,18,$this->PageNo().' Page',0,0,'C');
+	    $this->Cell(218,18,$this->PageNo().' Page',0,0,'C');
 
 	}
 
+	function body($req)
+	{
+		$name = explode("/", $req->name);
+    	$position = explode(",", $req->position);
+    	$image = explode(",", $req->imageurl);
+    	$office = explode(",", $req->office);
+    	$sector = explode(",", $req->sector);
+    	$gender = explode(",", $req->gender);
+    	$location = explode(",", $req->address);
+    	$contact = explode(",", $req->contact);
+    	$email = explode(",", $req->email);
+
+    	$col= 12;
+    	$y0=40;
+    	$imageCol=13;
+    	$imagey0=41;
+    	$textCol=42;
+    	$texty0=45;
+
+		$i=1;
+    	while ($i <= count($position)) 
+    	{
+    		# code...
+    		$this->Rect($col,$y0,64,35);
+			$this->SetFont('Arial','B',6);
+			$this->Text($textCol,$texty0,strtoupper($name[$i-1]));
+			$this->SetFont('Arial','',5);
+			$this->Text($textCol,$texty0+8,$position[$i-1]);
+			$this->Text($textCol,$texty0+11,$office[$i-1]);
+			$this->Text($textCol,$texty0+14,$contact[$i-1]);
+			$this->Text($textCol,$texty0+17,$email[$i-1]);
+
+			if($image[$i-1] == null)
+    			{ $this->Image('objects/Logo/InitProfile.png',$imageCol,$imagey0,27); }
+    		else 
+    			{ $this->Image($image[$i-1],$imageCol,$imagey0,23); }
+
+			if((($i+2)%2)==0){
+				$col=12;
+				$imageCol=13;
+				$textCol=42;
+				$y0 += 40;
+				$imagey0+=40;
+				$texty0+=40;
+			}
+			else{
+				$col+=64;
+				$imageCol+=64;
+				$textCol+=64;
+			}
+			
+			if((($i+4)%4) ==0)
+			{
+				$col= 10;
+				$imageCol=12;
+				$textCol=38;
+			}
+
+			if(($i%16) ==0){
+				$this->AddPage(90);
+				$col= 10;
+				$imageCol=12;
+				$textCol=38;
+				$y0 = 40;
+				$imagey0=42;
+				$texty0=45;
+			}
+			
+			$i++;
+    	}		
+
+	}
 
 }
 
