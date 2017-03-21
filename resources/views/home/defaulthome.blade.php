@@ -113,6 +113,25 @@
 
 						<div class ="one column row">
 							<div class = "eight wide column">
+								<div class="row" id="acposition-chart">
+									
+								</div>
+								{!! Lava::render('PieChart', 'ACPosition', 'acposition-chart'); !!}
+								
+							</div>
+
+							<div class = "eight wide column">
+								<div class="row" id="policeposition-chart">
+									
+								</div>
+								{!! Lava::render('PieChart', 'PolicePosition', 'policeposition-chart'); !!}
+								
+							</div>
+
+						</div>
+
+						<div class ="one column row">
+							<div class = "eight wide column">
 								<div class="row" id="sector-chart">
 									
 								</div>

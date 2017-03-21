@@ -419,6 +419,50 @@ class SearchController extends Controller
 
 	}
 
+	public function getACPosition(){
+		$position = DB::table('advisory_position')
+					->select('acpositionname', DB::raw('count(*) as total'))
+					->join('advisory_council', 'advisory_council.advisory_position_id', '=', 'advisory_position.ID')
+					->havingRaw('count(*) >= 0')
+					->groupBy('acpositionname')->get();
+
+		$dt = \Lava::DataTable();
+		$dt->addStringColumn('AC Position')
+            ->addNumberColumn('Total');
+
+
+       foreach ($position as $value) {
+       		$dt->addRow([$value->acpositionname, $value->total]);
+       }
+        
+       
+       
+       return $dt;
+
+	}
+
+	public function getPolicePosition(){
+		$position = DB::table('police_position')
+					->select('PositionName', DB::raw('count(*) as total'))
+					->join('police_advisory', 'police_advisory.police_position_id', '=', 'police_position.id')
+					->havingRaw('count(*) >= 0')
+					->groupBy('PositionName')->get();
+
+		$dt = \Lava::DataTable();
+		$dt->addStringColumn('Police Position')
+            ->addNumberColumn('Total');
+
+
+       foreach ($position as $value) {
+       		$dt->addRow([$value->PositionName, $value->total]);
+       }
+        
+       
+       
+       return $dt;
+
+	}
+
 
 
 	public function getAge(){
@@ -537,6 +581,15 @@ class SearchController extends Controller
        	$quarTable = $this->getQuarternaryOffice();
        	$chartoption['title'] = 'Percentage of Stakeholders per Quaternary Unit/Offices';
        	$quarChart = \Lava::PieChart('UnitQuarOffices', $quarTable, $chartoption);
+
+       	$acpositionTable = $this->getACPosition();
+       	$chartoption['title'] = 'Percentage of Stakeholders per AC Position';
+       	$acpositionChart = \Lava::PieChart('ACPosition', $acpositionTable , $chartoption);
+       
+       	$policepositionTable = $this->getPolicePosition();
+       	$chartoption['title'] = 'Percentage of Stakeholders per Police Position';
+       	$policepositionChart = \Lava::PieChart('PolicePosition', $policepositionTable , $chartoption);
+
 
 
 
