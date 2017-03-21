@@ -49,6 +49,7 @@ class PDFController extends Controller
 		$ageFrom=$req->ageFrom;
 		$ageTo=$req->ageTo;
 		$numOfRows = 0;
+		$result;
 		//$whereclause = Array();
 		//$policeAdvisoryQuery = DB::table('Police_Position');
 		
@@ -80,18 +81,17 @@ class PDFController extends Controller
 				{
 
 					$query = $query->whereRaw("TIMESTAMPDIFF(YEAR, birthdate, CURDATE()) >=" . $ageFrom . " and TIMESTAMPDIFF(YEAR, birthdate, CURDATE()) <= " . $ageTo);
-				
 									
 				}
 				
-			$res = $query->get();
+			$res = $query->distinct()->get();
 			$numOfRows = count($res);
 			$result = $numOfRows;
 			foreach($res as $res)
 			{
-				$office2name = $this->getOffice2Name($res->second_id);
-				$office3name = $this->getOffice3Name($res->tertiary_id);
-				$office4name = $this->getOffice4Name($res->quaternary_id);
+				$office2name = $this->getName('unit_office_secondaries','UnitOfficeSecondaryName',$res->second_id);
+				$office3name = $this->getName('unit_office_tertiaries','UnitOfficeTertiaryName',$res->tertiary_id);
+				$office4name = $this->getName('unit_office_quaternaries','UnitOfficeQuaternaryName',$res->quaternary_id);
 
 				if($office3name!='' && $office4name!='')
 				{
@@ -108,18 +108,17 @@ class PDFController extends Controller
 					$office = $office2name;
 				}
 
-				$positionname = $this->getPositionName('Advisory_Position','acpositionname',$res->advisory_position_id); 
-				$sector = $this->getSectorName($res->ac_sector_id);
+				$positionname = $this->getName('Advisory_Position','acpositionname',$res->advisory_position_id); 
+				$sector = $this->getName('AC_Sector','sectorname',$res->ac_sector_id);
 			
-				$result = $result."/".$res->lname." - ".$res->fname." ".$res->mname."/".$office."/".$sector."/".$positionname."/".$res->gender."/".$res->city."-".$res->province."/".$res->imagepath."/".$res->contactno."/".$res->email."/".$res->startdate;
+				$result = $result."/".$res->lname.", ".$res->fname." ".$res->mname."/".$office."/".$sector."/".$positionname."/".$res->gender."/".$res->city."-".$res->province."/".$res->imagepath."/".$res->contactno."/".$res->email."/".$res->startdate;
 
 			}
 			
-			return $result;
-			
 		}//civillian advisory
 
-		if($callid == 2){
+		if($callid == 2)
+		{
 			
 			$query = Police_Advisory::query();
 			$query = $query->where('policetype', '=', $req->advisory);
@@ -167,15 +166,16 @@ class PDFController extends Controller
 				
 									
 				}
+
 			//var_dump($query->toSql());
-			$res = $query->get();
+			$res = $query->distinct()->get();
 			$numOfRows = count($res);
 			$result = $numOfRows;
 			foreach($res as $res)
 			{
-				$office2name = $this->getOffice2Name($res->second_id);
-				$office3name = $this->getOffice3Name($res->tertiary_id);
-				$office4name = $this->getOffice4Name($res->quaternary_id);
+				$office2name = $this->getName('unit_office_secondaries','UnitOfficeSecondaryName',$res->second_id);
+				$office3name = $this->getName('unit_office_tertiaries','UnitOfficeTertiaryName',$res->tertiary_id);
+				$office4name = $this->getName('unit_office_quaternaries','UnitOfficeQuaternaryName',$res->quaternary_id);
 
 				if($office3name!='' && $office4name!='')
 				{
@@ -192,58 +192,118 @@ class PDFController extends Controller
 					$office = $office2name;
 				}
 
-				$positionname = $this->getPositionName('Police_Position','PositionName',$res->police_position_id); 
+				$positionname = $this->getName('Police_Position','PositionName',$res->police_position_id); 
 			
 				$result = $result."/".$res->lname.", ".$res->fname." ".$res->mname."/".$office."/".$positionname."/".$res->gender."/".$res->city."-".$res->province."/".$res->imagepath."/".$res->contactno."/".$res->email."/".$res->startdate;
 
 			}
-			
-
-						
-
-			return $result;
 		}//police advisory
 
-	}
+		if($callid == 3)
+		{
+			$query = Advisory_Council::query();
+			$query2 = Police_Position::query();
 
-	public function getOffice2Name($second)
-	{
-		$officename = unit_office_secondaries::select('UnitOfficeSecondaryName')->where('id','=', $second)->first();
-		$name = $officename->UnitOfficeSecondaryName;
-		return $name;
+			if($city != null || $city != "")
+				{ 
+					$query = $query->where('city','like','%'.$city.'%');
+					$query2 = $query2->where('city','like','%'.$city.'%');
+				}
 		
+			if($province != null || $province != "")
+				{ 
+					$query = $query->where('province','like','%'.$province.'%');
+					$query2 = $query2->where('province','like','%'.$province.'%');
+
+				}
+
+			if($ageFrom >0 && $ageTo > 0)
+				{
+
+					$query = $query->whereRaw("TIMESTAMPDIFF(YEAR, birthdate, CURDATE()) >=" . $ageFrom . " and TIMESTAMPDIFF(YEAR, birthdate, CURDATE()) <= " . $ageTo);
+					$query2 = $query2->whereRaw("TIMESTAMPDIFF(YEAR, birthdate, CURDATE()) >=" . $ageFrom . " and TIMESTAMPDIFF(YEAR, birthdate, CURDATE()) <= " . $ageTo);
+									
+				}
+			$res = $query->get();
+			$res2 = $query->get();
+
+			$numOfRows = count($res);
+			$numOfRows2 = count($res2);
+			$result = $numOfRows;
+			$result2 = $numOfRows2;
+			
+			foreach($res2 as $res2)
+			{
+				$office2name = $this->getName('unit_office_secondaries','UnitOfficeSecondaryName',$res2->second_id);
+				$office3name = $this->getName('unit_office_tertiaries','UnitOfficeTertiaryName',$res2->tertiary_id);
+				$office4name = $this->getName('unit_office_quaternaries','UnitOfficeQuaternaryName',$res2->quaternary_id);
+
+				if($office3name!='' && $office4name!='')
+				{
+					$office = $office4name." - ".$office3name." - ".$office2name;
+				}
+
+				if($office3name!='' && $office4name=='')
+				{
+					$office = $office3name." - ".$office2name;
+				}
+
+				if($office3name=='' && $office4name=='')
+				{
+					$office = $office2name;
+				}
+
+				$positionname = $this->getName('Advisory_Position','acpositionname',$res2->advisory_position_id); 
+				$sector = $this->getName('AC_Sector','sectorname',$res2->ac_sector_id);
+			
+				$result2 = $result2."/".$res2->lname.", ".$res2->fname." ".$res2->mname."/".$office."/".$sector."/".$positionname."/".$res2->gender."/".$res2->city."-".$res2->province."/".$res2->imagepath."/".$res2->contactno."/".$res2->email."/".$res2->startdate;
+
+			}
+
+			foreach($res as $res)
+			{
+				$office2name = $this->getName('unit_office_secondaries','UnitOfficeSecondaryName',$res->second_id);
+				$office3name = $this->getName('unit_office_tertiaries','UnitOfficeTertiaryName',$res->tertiary_id);
+				$office4name = $this->getName('unit_office_quaternaries','UnitOfficeQuaternaryName',$res->quaternary_id);
+
+				if($office3name!='' && $office4name!='')
+				{
+					$office = $office4name." - ".$office3name." - ".$office2name;
+				}
+
+				if($office3name!='' && $office4name=='')
+				{
+					$office = $office3name." - ".$office2name;
+				}
+
+				if($office3name=='' && $office4name=='')
+				{
+					$office = $office2name;
+				}
+
+				$positionname = $this->getName('Police_Position','PositionName',$res->police_position_id); 
+			
+				$result = $result."/".$res->lname.", ".$res->fname." ".$res->mname."/".$office."/".$positionname."/".$res->gender."/".$res->city."-".$res->province."/".$res->imagepath."/".$res->contactno."/".$res->email."/".$res->startdate;
+
+			}
+
+
+			return [$result,$result2];
+
+		}// ALL CIVILLIAN AND POLICE ADVISORY
+
+		return $result;
+			
 	}
 
-	public function getOffice3Name($tertiary)
+	public function getName($tbl,$field,$office)
 	{
-		if($tertiary!='' || $tertiary!=null){
-			$officename = unit_office_tertiaries::select('UnitOfficeTertiaryName')->where('id','=', $tertiary)->first();
-			$name = $officename->UnitOfficeTertiaryName;
+		if($office != '' && $office!=null){
+			$officename = DB::table($tbl)->select($field)->where('id','=', $office)->first();
+			$name = $officename->$field;
 			return $name;
-		} else {return '';}
-	}
-
-	public function getOffice4Name($quaternary)
-	{
-		if($quaternary!='' || $quaternary!=null){
-			$officename = unit_office_quaternaries::select('UnitOfficeQuaternaryName')->where('id','=',$quaternary)->first();
-			$name = $officename->UnitOfficeQuaternaryName;
-			return $name;
-		} else {return '';}
-	}
-
-	public function getPositionName($tbl,$field,$position)
-	{
-		$posname = DB::table($tbl)->select($field)->where('id','=',$position)->first();
-		$name = $posname->$field;
-		return $name;
-	}
-
-	public function getSectorName($sector)
-	{
-		$sectname = AC_Sector::select('sectorname')->where('ID','=',$sector)->first();
-		$name = $sectname->sectorname;
-		return $name;
+		}
+		else {return '';} 	
 	}
 
     public function createPDF(Request $req)
@@ -275,13 +335,17 @@ class PDFController extends Controller
     	{
     		# code...
     		$fpdf->Rect($col,$y0,64,35);
-			$fpdf->Image('images/Philippine-National-Police.png',$imageCol,$imagey0,23);
 			$fpdf->SetFont('Arial','B',7);
 			$fpdf->Text($textCol,$texty0,$name[$i-1]);
 			$fpdf->Text($textCol,$texty0+4,$position[$i-1]);
 			$fpdf->Text($textCol,$texty0+8,$office[$i-1]);
 			$fpdf->Text($textCol,$texty0+12,$contact[$i-1]);
 			$fpdf->Text($textCol,$texty0+16,$email[$i-1]);
+
+			if($image[$i-1] == null)
+    			{ $fpdf->Image('images/Philippine-National-Police.png',$imageCol,$imagey0,23); }
+    		else { $fpdf->Image($image[$i-1],$imageCol,$imagey0,23);}
+
 			if((($i+2)%2)==0){
 				$col+=75;
 				$imageCol+=75;
@@ -336,6 +400,8 @@ class PDF extends FPDF
 	    $this->SetFont('Arial','B',15);
 	    // Move to the right
 	    $this->Cell(-160);
+	    $this->setFillColor(0,37,58);
+	    //$this->Rect(0,40,100,200);
 	    $this->Cell(0,10,'ADVISORY COUNCIL',0,0,'C');
 	    
 	    $this->Image('images/Philippine-National-Police.png',165,6,15);
