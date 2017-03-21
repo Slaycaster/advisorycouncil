@@ -325,9 +325,9 @@ class PDF extends FPDF
 	// Page header
 	function Header()
 	{
-	    // Logo
-	    // Arial bold 15
+	    $x = $this->GetPageWidth();
 	    $this->Image('images/Philippine-National-Police.png',10,6,15);
+	    $this->Image('images/pp_logoforae.png',($x/2)-27,6,20);
 	    $this->SetFont('Arial','B',15);
 	    // Move to the right
 	    $this->Cell(-160);
@@ -335,7 +335,8 @@ class PDF extends FPDF
 	    //$this->Rect(0,40,100,200);
 	    $this->Cell(0,10,'ADVISORY COUNCIL',0,0,'C');
 	    
-	    $this->Image('images/Philippine-National-Police.png',165,6,15);
+	    $this->Image('images/Philippine-National-Police.png',($x/2)+10,6,15);
+	    $this->Image('images/pp_logoforae.png',$x-27,6,20);
 	    $this->Cell(-120);
 	    $this->Cell(0,10,'ADVISORY COUNCIL',0,0,'C');
 	    $this->Ln(10);
@@ -345,20 +346,23 @@ class PDF extends FPDF
 	function Footer()
 	{
 	    // Position at 1.5 cm from bottom
-	    $this->SetY(-16);
+	    $this->SetY(-15);
 	    $y = $this->GetPageHeight();
 	    $x = $this->GetPageWidth();
-	    $this->Line(0,$y-16,$x,$y-16);
+	    $this->Line(0,$y-15,$x,$y-15);
 	    $this->Line($x/2,0,$x/2,$y);
 	    // Arial italic 8
 	    $this->SetFont('Arial','',5.5);
 	    // Page numbe
-	    $this->text(10,197,"Vision: \".... a Highly Capable, Effectuve and Credible police service...");
-	    $this->text(20,199,"Towards the attainment of a safer place to live, work and do business.\"");
+	    
+	    $this->text(10,199,"Vision: \".... a Highly Capable, Effectuve and Credible police service...");
+	    $this->text(20,201,"Towards the attainment of a safer place to live, work and do business.\"");
+	    $this->text(($x/2)+10,199,"Vision: \".... a Highly Capable, Effectuve and Credible police service...");
+	    $this->text(($x/2)+20,201,"Towards the attainment of a safer place to live, work and do business.\"");
 	    $this->SetFont('Arial','B',5);
 
-	    $this->Cell(108,18,$this->PageNo().' Page',0,0,'C');
-	    $this->Cell(218,18,$this->PageNo().' Page',0,0,'C');
+	    $this->Cell(128,18,$this->PageNo().' Page',0,0,'C');
+	    $this->Cell(178,18,$this->PageNo().' Page',0,0,'C');
 
 	}
 
