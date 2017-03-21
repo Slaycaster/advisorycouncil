@@ -3,11 +3,35 @@
 
 @section('searchsection')
 	<div class ="advcardcon">
-		<h4 class="h4result">Results for "search"</h4>
-
-		<div class = "itemlist">
+		<div class="ui grid">
+			<div class = "row">
+				<div class = "sixteen wide column">
+					<div class = "hcontent1">
+						<div class="dcon">
+							<div class = "tablepane">
+								<div class = "mtitle">Results for "search"</div>
+							</div>
+						</div>
+					</div>
+				</div>
 				
+			</div>
+
+			<div class = "row">
+				<div class = "sixteen wide column">
+					
+					<div class = "itemlist">
+						
+					</div>
+						
+					
+					
+				</div>
+			</div>
+			
 		</div>
+
+		
 		
 	</div>
 

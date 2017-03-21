@@ -3,211 +3,217 @@
 	@section('maincontent')
 
 	<div class = "advcon">
-		<div class = "btncon">
-			<!--<div class = "ui grid">
-				<div class = "row">
-					<div class = "six wide column moveright">
-						<div class = "ui icon addbtn button medium" 
-							onclick = "window.location='{{url('directory/add')}}'" 
-							title = "add AC Member">
-							<i class="plus icon topmargin"></i>
-							
+		<div class = "ui grid">
+			<div class = "row">
+				<div class = "four wide column">
+					<div class = "ui segment filcon" id="summary">
+						<div class = "ui rail">
+							<div class = "ui con">
+								<div class="ui container">
+									<div class = "summhead">
+										<i class = "filter icon"></i>
+											Filter
+									</div>
+
+									<div class = "twelve wide column bspacing2">
+										<div class = "one field">
+											<label class="formlabel">Stakeholder Category</label>
+											<div class="field">
+												<select class="ui selection dropdown filselect" name = "filadvcateg">
+													<option value="0" selected>All</option>
+													<option value="1">Advisory Council (AC)</option>
+													<option value="2">Technical Working Group (TWG)</option>
+													<option value="3">Police Strategy Management Unit (PSMU)</option>
+
+												</select>
+											</div>
+										</div>
+										
+									</div>
+
+									<div class = "twelve wide column bspacing2">
+										<div class = "one field">
+											<label class="formlabel">AC Position</label>
+											<div class="field">
+												<select class="ui selection dropdown filselect" name = "filacposition">
+													<option value="disitem" selected>Select One</option>
+													
+
+												</select>
+											</div>
+										</div>
+										
+									</div>
+
+									<div class = "twelve wide column bspacing2">
+										<div class = "one field">
+											<label class="formlabel">PNP Position</label>
+											<div class="field">
+												<select class="ui selection dropdown filselect" name = "filpnpposition">
+													<option value="disitem" selected>Select One</option>
+													
+
+												</select>
+											</div>
+										</div>
+										
+									</div>
+
+
+									<div class = "twelve wide column bspacing2">
+										<div class = "one field">
+											<label class="formlabel">Unit/Offices</label>
+											<div class="field">
+												<select class="ui selection dropdown filselect" name = "filprimary">
+													<option value="disitem" selected>Primary Unit/Office</option>
+													
+
+												</select>
+											</div>
+
+											<div class="field bspacing1">
+												<select class="ui selection dropdown filselect" name = "filsecondary">
+													<option value="disitem" selected>Secondary Unit/Office</option>
+													
+
+												</select>
+											</div>
+
+											<div class="field bspacing1">
+												<select class="ui selection dropdown filselect" name = "filtertiary">
+													<option value="disitem" selected>Tertiary Unit/Office</option>
+													
+
+												</select>
+											</div>
+
+											<div class="field bspacing1">
+												<select class="ui selection dropdown filselect" name = "filquaternary">
+													<option value="disitem" selected>Quaternary Unit/Office</option>
+													
+
+												</select>
+											</div>
+										</div>
+										
+									</div>
+
+									<div class = "twelve wide column bspacing2">
+										<div class = "one field">
+											<label class="formlabel">AC Sector</label>
+											<div class="field">
+												<select class="ui selection dropdown filselect" name = "filacsector">
+													<option value="disitem" selected>Select One</option>
+													
+
+												</select>
+											</div>
+										</div>
+										
+									</div>
+
+									<div class = "twelve wide column bspacing2">
+										<div class = "one field">
+											<label class="formlabel">Gender</label>
+											<div class = "inline fields">
+												<div class = "ui checkbox field">
+													<input type="checkbox" name="filgender" value="0"  tabindex="0" class="hidden">
+													<label>Male</label>
+														
+												</div>
+												<div class = "ui checkbox field">
+													<input type="checkbox" name="filgender" value="1"  tabindex="0" class="hidden">
+													<label>Female</label>
+													
+														
+												</div>
+												
+											</div>
+										</div>
+										
+									</div>
+
+									<div class = "twelve wide column bspacing2">
+										<div class = "one field">
+											<label class="formlabel">Location</label>
+
+											<div class="ui input field filtext">
+												<input type="text" name = "filcityloc" placeholder="City">
+											</div>
+
+											<div class="ui input field bspacing1 filtext">
+												<input type="text" name = "filprovloc" placeholder="Province">
+											</div>
+										</div>
+										
+									</div>
+
+									<div class = "twelve wide column bspacing2">
+										<div class = "one field">
+											<label class="formlabel">Age</label>
+											<div class = "inline fields">
+												<div class = "ui input field">
+													<label class="agelbl">From</label>
+													<input type="number" class = "filspnr" step="1" min="10" max="75" name="filage1" value="10"  tabindex="0" class="hidden">
+													
+														
+												</div>
+												<div class = "ui input field">
+													<label class="agelbl">to</label>
+													<input type="number" class = "filspnr" step="1" min="10" max="75" name="filage2" value="11"  tabindex="0" class="hidden">
+													
+													
+														
+												</div>
+												
+											</div>
+										</div>
+										
+									</div>
+									
+									<div class ="twelve wide column  bspacing8 centerbtn2">
+										<button type="submit" name="submit" class="ui medium button">
+											Generate PDF
+										</button>
+									</div>
+
+
+
+									
+														
+								</div>
+											
+							</div>
+										
 						</div>
-						<div class="ui icon addbtn dropdown button  medium topmargin" title = "filter list">
-							<i class="filter icon"></i>
-							<div class="menu">
-							    <div class="item" onclick ="window.location='{{url('directory/filter?f=0')}}'">
-							    	Name
-							    </div>
-							    <div class = "divider"></div>
-							    <div class="header">
-						      		Date Created
-						    	</div>
-						    	<div class = "divider"></div>
-						    	<div class="item"  onclick ="window.location='{{url('directory/filter?f=1')}}'">
-							     	Ascending
-							    </div>
-							    <div class="item"  onclick ="window.location='{{url('directory/filter?f=2')}}'">
-							    	Descending
-							    </div>
+											
+									
+					</div>
+					
+				</div>
 
+				<div class = "twelve wide column">
+					<div class = "hcontent">
+						<div class="dcon">
+							<div class = "tablepane">
+								<div class = "mtitle">Stakeholder(s)</div>
+								<div class= "ui grid">
+									<div class = "column">
+										@yield('advisercontent')
+									</div>
+								</div>
+							</div>
 
-						  </div>
-						</div>
-
-						<div class="ui icon input medium search">
-							<i class="search icon"></i>
-							<input type="text" placeholder="Search...">
 						</div>
 					</div>
 					
 				</div>
-			</div>-->
-
-			
-		</div>
-
-		<div class = "advcardcon">
-			<!--<hr class="hr4">-->
-
-			
-			<div class = "itemlist">
-
-					@if(sizeof($directory[0]) != 0)
-						<h6 class="ui horizontal divider divtitle">
-							Advisory Council
-						</h6>
-
-						<div id = "accardlist" class = "ui doubling grid cardlist2">
-
-							@foreach($directory[0] as $acrec)
-								<div class = "four wide column colheight">
-									<div class = "cardstyle" onclick = "loadModal('0-{{$acrec->ID}}')">
-										@if($acrec->imagepath != "")
-											<img class = "advphoto" src="{{URL::asset($acrec->imagepath)}}"/>
-										@else
-											<img class = "advphoto" src="{{URL::asset('objects/Logo/InitProfile.png')}}"/>
-										@endif
-										<div class = "advdata">
-											<h5 class = "name">{{$acrec->lname}}, {{$acrec->fname}} {{$acrec->mname}} (AC)</h5>
-											<p class = "p1">
-												{{$acrec->acpositionname}} <br>
-												
-												@if($acrec->UnitOfficeQuaternaryName != "")
-													{{$acrec->UnitOfficeQuaternaryName}}
-
-													@if($acrec->UnitOfficeTertiaryName != "")
-														,&nbsp;
-													@endif
-
-												@endif
-
-												@if($acrec->UnitOfficeTertiaryName != "")
-													{{$acrec->UnitOfficeTertiaryName}},&nbsp;
-
-													@if($acrec->UnitOfficeQuaternaryName != "")
-														<br>
-													@endif
-
-												@endif
-
-												{{$acrec->UnitOfficeSecondaryName}} <br>
-
-												@if($acrec->email != "")
-													{{$acrec->email}} <br>
-												@endif
-
-												
-
-												@if($acrec->contactno != "" && $acrec->landline != "")
-													{{$acrec->contactno/ $acrec->landline}}
-												@else
-													@if($acrec->contactno != "")
-														{{$acrec->contactno}}
-													@elseif($acrec->landline != "")
-														{{$acrec->landline}}
-													@endif
-												@endif
-												
-												
-											</p>
-
-											<p valign="bottom" class = "p2"> Member since {{date('M Y',strtotime($acrec->startdate))}}</p>
-											
-										</div>
-									</div>
-
-								</div>
-							@endforeach
-
-						</div>
-					@endif
-						<br>
-
-					@if(sizeof($directory[1]) != 0)
-						<h4 class="ui horizontal divider divtitle">
-							TWG & PSMU
-						</h4>
-
-						<div id = "tpcardlist" class = "ui doubling grid cardlist2">
-
-							@foreach($directory[1] as $tprec)
-								<div class = "four wide column colheight">
-									<div class = "cardstyle" onclick = "loadModal('{{$tprec->policetype}}-{{$tprec->ID}}')">
-										@if($tprec->imagepath != "")
-											<img class = "advphoto" src="{{URL::asset($tprec->imagepath)}}"/>
-										@else
-											<img class = "advphoto" src="{{URL::asset('objects/Logo/InitProfile.png')}}"/>
-										@endif
-										<div class = "advdata">
-											<h5 class = "name">{{$tprec->lname}}, {{$tprec->fname}} {{$tprec->mname}}
-
-												@if($tprec->policetype == 1)
-													(TWG)
-												@else
-													(PSMU)
-												@endif
-											</h5>
-											<p class = "p1">
-												{{$tprec->PositionName}} <br>
-
-												@if($tprec->UnitOfficeQuaternaryName != "")
-													{{$tprec->UnitOfficeQuaternaryName}}
-
-													@if($tprec->UnitOfficeTertiaryName != "")
-														,&nbsp;
-													@endif
-
-												@endif
-
-												@if($tprec->UnitOfficeTertiaryName != "")
-													{{$tprec->UnitOfficeTertiaryName}},&nbsp;
-
-													@if($tprec->UnitOfficeQuaternaryName != "")
-														<br>
-													@endif
-
-												@endif
-
-												{{$tprec->UnitOfficeSecondaryName}} <br>
-
-												
-
-												@if($tprec->email != "")
-													{{$tprec->email}} <br>
-												@endif
-
-												@if($tprec->contactno != "" && $tprec->landline != "")
-													{{$tprec->contactno/ $tprec->landline}}
-												@else
-													@if($tprec->contactno != "")
-														{{$tprec->contactno}}
-													@elseif($tprec->landline != "")
-														{{$tprec->landline}}
-													@endif
-												@endif
-												
-												
-											</p>
-
-											<p class = "p2"> Member since {{date('M Y',strtotime($tprec->startdate))}}</p>
-											
-										</div>
-									</div>
-
-								</div>
-							@endforeach
-								
-
-						</div>
-
-					@endif
 				
 			</div>
 			
-			
-			
 		</div>
+
+		
 		
 	</div>
 
