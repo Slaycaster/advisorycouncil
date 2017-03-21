@@ -92,7 +92,6 @@ function createdropdown(oid, tempcon, dtype, offunc) {
 	tempcon.lastChild.lastChild.lastChild.appendChild(select);
 
 	var opt = document.createElement('option');
-	opt.setAttribute('disabled', 'disabled');
 	opt.setAttribute('selected', 'selected');
 	opt.setAttribute('value', 'disitem');
 
@@ -445,7 +444,8 @@ function addrow() {
 	table.lastChild.lastChild.lastChild.lastChild.appendChild(select1);
 
 	var opt1 = document.createElement('option');
-	opt1.setAttribute('class', 'disabled');
+	opt1.setAttribute('selected', 'selected');
+	opt1.setAttribute('value', 'disitem');
 	table.lastChild.lastChild.lastChild.lastChild.lastChild.appendChild(opt1);
 
 	table.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild.appendChild(document.createTextNode('Select One'));
