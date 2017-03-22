@@ -3,7 +3,7 @@
 	        <div class = "header mtitle">
 
 	        	<h3 class = "h3name" name = "name"></h3>
-	            <button class = "ui icon editbtn button tiny" name="editbtn" title = "edit">
+	            <button class = "ui icon editbtn button tiny" name="editbtn" title = "Edit AC Member Record">
 					<i class="edit icon topmargin"></i>
 							
 				</button>
@@ -398,7 +398,7 @@
 			
 			}//if
 
-			var gender;
+			var gender = "";
 
 			if(recorddata[0][0]['gender'] == 0) {
 				gender = "Male";
@@ -409,7 +409,7 @@
 		   	}//if
 
 		   	document.getElementsByName('gender')[0].innerHTML = gender;
-
+		
 		   	if(recorddata[0][0]['contactno'] !== "") {
 		   		document.getElementsByName('contactno')[0].innerHTML = recorddata[0][0]['contactno'];
 

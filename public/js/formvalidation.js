@@ -4,33 +4,6 @@ $('#form')
 	.form({
 		fields: {
 
-			categname: {
-				rules: [{
-					type : "empty"
-				},
-				{
-					type : "regExp",
-					value : /^(?=.*(\d|\w))[A-Za-z0-9 \-'.,]{3,35}$/
-				}]
-			},
-
-			sub_name: {
-				rules: [{
-					type : "empty"
-				},
-				{
-					type : "regExp",
-					value : /^(?=.*(\d|\w))[A-Za-z0-9 \-'.,]{3,35}$/
-				}]
-			},
-
-			category: {
-				rules: [{
-					type : "empty"
-				}]
-			},
-
-
 			positionname: {
 				rules: [{
 					type : "empty"

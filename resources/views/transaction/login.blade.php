@@ -20,12 +20,6 @@
 </form>
 <br>
 <br>
-<div id="gender-chart"></div>
-{!! Lava::render('DonutChart', 'Gender', 'gender-chart') !!}
-<div id="sector-chart"></div>
-{!! Lava::render('DonutChart', 'Sector', 'sector-chart') !!}
-<br>
-<br>
 
 
 <br>

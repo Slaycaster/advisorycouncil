@@ -1001,6 +1001,6 @@
 
 
 
-@include('module.adviser_modal')
+@include('adviser.adviser_modal')
 
 @stop
