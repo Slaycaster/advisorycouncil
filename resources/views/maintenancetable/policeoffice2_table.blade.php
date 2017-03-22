@@ -29,7 +29,7 @@
 				<div class = "twelve wide column bspacing2">
 					<div class = "field">
 						<select class="modified ui selection dropdown selectstyle2" name="office" id = "select">
-							<option disabled selected>Select One</option>
+							<option value = "disitem" selected>Select One</option>
 									  
 								@foreach($offices as $sitem)
 
@@ -189,29 +189,37 @@
 		}//function loaddata() {
 
 		function addData() {
-			var data = {
-				'name' : document.getElementsByName("name")[0].value,
-				'office' : document.getElementsByName("office")[0].value,
-				'haster' : document.getElementsByName("haster")[0].value,
-				'desc' : document.getElementsByName('desc')[0].value,
-				'submit': document.getElementsByName("submit")[0].value,
-				'_token' : '{{ Session::token() }}'
-			};
 
-			$.ajax({
-				type: "POST",
-				url: "{{url('confirmpolice')}}",
-				data: data,
-			   	success : function() {
-			   		resetflag('Saved!');
+			//if(document.getElementsByName("office")[0].value !== "disitem") {
+				$("#officecon").removeClass('active');
+
+				var data = {
+					'name' : document.getElementsByName("name")[0].value,
+					'office' : document.getElementsByName("office")[0].value,
+					'haster' : document.getElementsByName("haster")[0].value,
+					'desc' : document.getElementsByName('desc')[0].value,
+					'submit': document.getElementsByName("submit")[0].value,
+					'_token' : '{{ Session::token() }}'
+				};
+
+				$.ajax({
+					type: "POST",
+					url: "{{url('confirmpolice')}}",
+					data: data,
+				   	success : function() {
+				   		resetflag('Saved!');
 
 
-			   	}
-			});
+				   	}
+				});
 
-			setTimeout(function(){
-				location.reload();
-			}, 2600);
+				setTimeout(function(){
+					location.reload();
+				}, 2600);
+			/*} else {
+				$("#officecon").addClass('active');
+			}//if*/
+			
 
 		}//function addData(){
 

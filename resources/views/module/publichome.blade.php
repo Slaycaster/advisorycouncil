@@ -59,7 +59,7 @@
 				<div class = "ui segment rightpane">
 					<div class = "row">
 						<div class = "nine wide column colheight">
-							<div class="ui icon input big search2">
+							<div class="ui icon input big search2 search">
 								<i class="search icon"></i>
 								<input type="text" placeholder="Search...">
 							</div>

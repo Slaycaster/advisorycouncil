@@ -34,11 +34,8 @@ class AdvisoryCouncil extends Migration
             $table->date('birthdate');
             $table->text('imagepath')->nullable();
             $table->integer('advisory_position_id')->unsigned();
-            //$table->integer('subcategoryId')->unsigned();
             $table->integer('ac_sector_id')->unsigned();
 
-
-            //$table->integer('unit_id')->unsigned();
             $table->integer('second_id')->unsigned();
             $table->integer('tertiary_id')->unsigned()->nullable();
             $table->integer('quaternary_id')->unsigned()->nullable();
@@ -46,7 +43,6 @@ class AdvisoryCouncil extends Migration
 
             $table->foreign('ac_sector_id')->references('ID')->on('AC_Sector');
             $table->foreign('advisory_position_id')->references('ID')->on('Advisory_Position');
-            //$table->foreign('unit_id')->references('id')->on('unit_offices');
             $table->foreign('second_id')->references('id')->on('unit_office_secondaries');
             $table->foreign('tertiary_id')->references('id')->on('unit_office_tertiaries');
             $table->foreign('quaternary_id')->references('id')->on('unit_office_quaternaries');

@@ -41,7 +41,7 @@
 					<div class = "field">
 						<select class="modified ui selection dropdown selectstyle2" name="select_office1" id = "office1"
 						onchange="Select_Office(this.value)">
-							<option selected value = "disitem" disabled>Select One</option>
+							<option value = "disitem" disabled>Select One</option>
 
 							@foreach($poOne as $rs1)
 					       		<option value="{{$rs1->id}}">{{$rs1->UnitOfficeName}}</option>
@@ -58,7 +58,7 @@
 
 						<select class="modified ui selection dropdown selectstyle2" name="select_office2" id = "office2" >
 
-							<option selected  disabled value = "disitem">Select One</option>
+							<option selected  value = "disitem">Select One</option>
 
 						</select>
 									
