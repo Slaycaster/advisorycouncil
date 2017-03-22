@@ -107,12 +107,17 @@
 							</div>
 
 							@if(isset($showcontrol))
-								<div class = "ui icon addbtn button medium" 
+								<!--<div class = "ui icon addbtn button medium" 
 									onclick = "window.location='{{url('directory/add')}}'" 
 									title = "Add AC Member">
 									<i class="plus icon topmargin"></i>
 									
-								</div>
+								</div>-->
+
+								<button type="button" class="ui right labeled icon button">
+									<i class="plus icon"></i>
+									ADD
+								</button>
 							@endif
 						</div>
 
@@ -139,4 +144,14 @@
 		</footer>
 		
 	</body>
+
+	<script type="text/javascript">
+
+	/*window.onscroll = function(ev) {
+		    if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
+		      // you're at the bottom of the page
+		      console.log("Bottom of page");
+		    }
+		};*/
+	</script>
 </html>

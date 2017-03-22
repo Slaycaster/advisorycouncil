@@ -35,9 +35,12 @@
 
 	</div>
 
+	<script type="text/javascript" src="{{ URL::asset('js/formcontrol.js') }}"></script>
+
 	<script type="text/javascript">
 
 		function loadCModal() {
+
 			var message = "";
 
 			if ("{{$action}}" === '1') {
@@ -50,6 +53,5 @@
 
 			document.getElementsByName('modalmessage')[0].innerHTML = message;
 			$('#confirmmodal').modal('show');
-
 		}//load Modal
 	</script>

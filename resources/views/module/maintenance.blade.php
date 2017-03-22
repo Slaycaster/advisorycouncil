@@ -12,8 +12,6 @@
 					<div class="item">
 		    			<div class="menu">
 
-		    				<!--<a class="item" id = "m1" href = "{{url('maintenance/accategory')}}">Advisory Council Category</a>
-		    				<a class="item" id = "m2" href = "{{url('maintenance/acsubcategory')}}">Advisory Council Sub-category</a>-->
 		    				<a class="item" id = "m1" href = "{{url('maintenance/primaryoffice')}}">Primary Unit/Office</a>
 		    				<a class="item" id = "m2" href = "{{url('maintenance/secondaryoffice')}}" >Secondary Unit/Office</a>
 		    				<a class="item" id = "m3" href = "{{url('maintenance/tertiaryoffice')}}" >Tertiary Unit/Office</a>
@@ -134,9 +132,9 @@
 
 	</script>
 
-	<script type="text/javascript" src = "{{ URL::asset('js/formvalidation.js') }}"></script>
+	<script type="text/javascript" src="{{ URL::asset('js/maintevalidation.js') }}"></script>
 	<script type="text/javascript" src = "{{ URL::asset('js/formcontrol.js') }}"></script>
-
+	
 
 
 

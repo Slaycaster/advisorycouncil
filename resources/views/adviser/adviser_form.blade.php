@@ -1,8 +1,6 @@
 @extends('baseform')
-	
-@section('maincontent')
-	<script type="text/javascript" src="{{ URL::asset('js/transvalidation.js') }}"></script>
 
+@section('maincontent')
 	<div class = "advcon">
 		<div class = "formattp tablepane">
 			<div class = "mtitle">
@@ -11,12 +9,10 @@
 			</div>
 
 			<div class = "tablecon">
-				<form action = "javascript:loadCModal()" class = "ui form" id = "form">
-
-					<input type="hidden" value="" name="advid"/>
-
-
-					<div class = "fborder tablepane">
+				<form action ="javascript:loadCModal()"  class = "ui form" id = "form">
+					<div class="fborder">
+						<input type="hidden" value="" name="advid"/>
+					
 						<div class = "minvtitle mtitle">
 							Profile			
 						</div>
@@ -54,6 +50,7 @@
 										</div>
 										
 									</div>
+
 									<div class = "four fields">
 										<div class = "field">
 											<label>Birthdate <span class="asterisk">*</span></label>
@@ -80,7 +77,9 @@
 												</div>
 												
 											</div>
-										</div>			
+										</div>
+
+
 									</div>
 
 									<div class = "field">
@@ -112,9 +111,8 @@
  										</div>
  										
  									</div>
-								
 
-									<h4 class="ui dividing header">Contact Information</h4>
+ 									<h4 class="ui dividing header">Contact Information</h4>
 
 									<div class = "four fields">
 
@@ -176,7 +174,6 @@
 											</div>
 										</div>		
 									</div>
-									
 
 								</div>
 								<div class = "three wide column">
@@ -269,7 +266,21 @@
 
 								</div>
 
+								<!--<div class ="five fields">
+									<div class = "field">
+										<label>Primary</label>
+
+										<div class = "field">
+											<select class="ui selection dropdown" name="primaryoffice" name="primaryoffice">
+												<option selected="selected" value="disitem">Select  One</option>
+											</select>
+										</div>
+										
+									</div>	
+								</div>-->
+
 								<div id = "tempfields">
+									
 									
 		
 								</div>
@@ -285,6 +296,7 @@
 							<div class = "fbtop minvtitle mtitle">
 								Training							
 							</div>
+
 
 							<div class = "tablecon">
 								<table class = "ui celled padding table" id = "traintable">
@@ -314,11 +326,12 @@
 						</div>
 
 						<br>
-								
+						
+
+					
+							
 					</div>
-
 					<br>
-
 					<center>
 
 						<button type = "submit" name="submit" 
@@ -329,19 +342,14 @@
 						<button type="button" onclick = "$('#cancelmodal').modal('show');" 
 								class="ui large button">
 							Cancel
-
 						</button>
 					</center>
 				</form>
-
-
-				
 			</div>
-							
 		</div>
-		
 	</div>
 
+	<script type="text/javascript" src="{{ URL::asset('js/transvalidation.js') }}"></script>
 	<script type="text/javascript" src="{{ URL::asset('js/formcontrol.js') }}"></script>
 
 	<script type="text/javascript">
@@ -385,6 +393,8 @@
 
 		}//if('{{$action}}' == '0') {
 
+		reinst();
+
 		function changeform(selcat) {
 			if(selcat == 0) {
 				removeElements();
@@ -412,6 +422,8 @@
 				};
 
 			}//if(selcat == 0) {
+
+			reinst();
 
 		}//function changeform() {
 
@@ -505,7 +517,10 @@
 			@if(isset($recorddata[2]))
 				function fillTable() {
 
+					destroy();
+
 					@for($ctr = 0 ; $ctr < sizeof($recorddata[2][0]) ; $ctr++)
+
 
 						addrow();
 						document.getElementsByName('traintitle')[{!!$ctr!!}].value = "{{$recorddata[2][0][$ctr]->trainingname}}";
@@ -531,6 +546,8 @@
 							addarritem({{$ctr}}, "{{$recorddata[2][1][$ctr][$countlec]->lecturername}}");
 
 						@endfor
+
+						tablevalidate({!!$ctr!!});
 					@endfor
 
 
@@ -546,9 +563,11 @@
 			for(var find = 0 ; find < categsel.length ; find++) {
 				if(categsel[find].value == 7) {
 					document.getElementsByName('othercon')[find].style.display = "block";
+					document.getElementsByName('othercon')[find].setAttribute('required', 'required');
 
 				} else {
 					document.getElementsByName('othercon')[find].style.display = "none";
+					document.getElementsByName('othercon')[find].removeAttribute('required');
 
 				}//if
 
@@ -561,21 +580,32 @@
 			var pattern = new RegExp("^(?=.*(\d|\w))[A-Za-z0-9 .,'-]{3,}$");
 			var flag = 0;
 
-			//if(pattern.test(text) == true) {
-				for (var count = 0 ; count < lecturers.length ; count++) {
-					if(text === lecturers[count][0] && index == lecturers[count][1]) {
-						flag = 1;
-						break;
-					}//if
-				};//for
+			if(text !== "") {
+				var items = text.split(",");
 
-				if(flag == 0) {
-					additem(text, index);
-					lecturers.push(new Array(text, index));
+				for (var itemcount = 0 ; itemcount < items.length ; itemcount++) {
+					for (var count = 0 ; count < lecturers.length ; count++) {
+						if(items[itemcount].trim().toLowerCase() === lecturers[count][0].toLowerCase() && index == lecturers[count][1]) {
+							flag = 1;
+							break;
+						}//if
+					};//for
+
+					if(flag == 0) {
+						
+						additem(items[itemcount].trim(), index);
+						lecturers.push(new Array(items[itemcount].trim(), index));
+						
+						
 
 
-				}//if(flag == 0) {]
-			//}//pattern
+					}//if(flag == 0) {]
+
+				
+				};
+
+				setvalidity(index);
+			}//pattern
 
 			//console.log(lecturers);
 
@@ -594,6 +624,9 @@
 				}//if
 					
 			};//for
+
+			setvalidity(index);
+
 
 			//console.log(lecturers);
 
@@ -998,10 +1031,8 @@
 
 		}//previewphoto
 
+
 	</script>
-
-	
-
 
 @include('adviser.adviser_modal')
 
