@@ -102,9 +102,18 @@ class SearchController extends Controller
 						     'UnitOfficeQuaternaryName', 'PositionName')
 					->orderBy('police_advisory.lname', 'desc')
 					->get();
+					/*
+					$ac = $ac->push($pa);
+					if (count($pa) != 0) {
+						$ac = $ac->push($pa);
+					}
+					*/
+					
 
-					$data = array('ac' => $ac, 'pa' => $pa );
-					return $data;
+					//return $data;
+					return view('search.search_result')->with('data',$ac)
+													   ->with('data2',$pa)
+													   ->with('active', '#tab1');
 
 	}
 
@@ -125,8 +134,10 @@ class SearchController extends Controller
 					->orderBy('advisory_council.created_at', 'desc')
 					->get();
 
-		return $ac;
 
+		return view('search.search_result')->with('data',$ac)
+										   ->with('data2',array())
+										   ->with('active', '#tab1');
 	}
 
 	public function findPA(Request $req){
@@ -144,7 +155,10 @@ class SearchController extends Controller
 						     'UnitOfficeQuaternaryName', 'PositionName')
 					->orderBy('police_advisory.created_at', 'desc')
 					->get();
-					return $police;
+
+					return view('search.search_result')->with('data2',$police)
+													   ->with('data',array())
+													   ->with('active', '#tab1');
 	}
 
 

@@ -32,6 +32,10 @@
 		<script type="text/javascript" src="{{ URL::asset('js/datatable/dataTables.responsive.min.js') }}"></script>
 		<script type="text/javascript" src="{{ URL::asset('js/datatable/responsive.semanticui.min.js') }}"></script>
 
+
+		<link href="{{ URL::asset('selectize/css/selectize.bootstrap3.css') }}" rel="stylesheet">
+		<script type="text/javascript" src='{{ URL::asset("selectize/js/standalone/selectize.min.js") }}'></script>
+
 	</head>
 	<body onload = "init()">
 	
@@ -101,10 +105,13 @@
 				<div class = "ui grid">
 					<div class = "row">
 						<div class = "nine wide column colheight">
+							<select id="searchbox" name="q" placeholder="Search Advisers or category" ></select>
+							<!-- 
 							<div class="ui icon input big search">
 								<i class="search icon"></i>
 								<input type="text" placeholder="Search...">
 							</div>
+							-->
 
 							@if(isset($showcontrol))
 								<div class = "ui icon addbtn button medium" 
@@ -133,6 +140,71 @@
 			</div>
 			
 		</div>
+		<script>
+		    
+				    var root = '{{url("/")}}';
+				    $(document).ready(function(){
+				   
+				    $('#searchbox').selectize({
+				        valueField: 'url',
+				        labelField: 'fname',
+				        searchField: ['fname','mname','lname'],
+				        maxOptions: 20,
+				        options: [],
+				        create: function(input){
+				            window.location = "searchAll?sq=" + input;
+
+
+				        },
+				        createOnBlur: false,
+				        render: {
+				            option_create: function(data, escape) {
+				              return '<div class="create">Typing <strong>' + escape(data.input) + '</strong>&hellip;</div>';
+				            },
+				            option: function(item, escape) {
+				                if (item.imagepath == '') {
+				                    return '<div><img style="width:30px;height:30px;" src="'+ '{{URL::asset("objects/Logo/InitProfile.png")}}' +'"> ' +escape(item.fname) + " " + escape(item.imagepath)+ " " + escape(item.lname)+'</div>';    
+				                }else{
+				                    return '<div><img style="width:30px;height:30px;" src="'+ item.imagepath +'"> ' +escape(item.fname) + " " + escape(item.mname)+ " " + escape(item.lname)+'</div>';
+				                };
+				                
+				            }
+				        },
+				        optgroups: [
+				            {value: 'AdvisoryCouncil', label: 'Advisory Council'},
+				            {value: 'police', label: 'Police Advisory'}
+				        ],
+				        optgroupField: 'class',
+				        optgroupOrder: ['AdvisoryCouncil','police'],
+				        load: function(query, callback) {
+				            if (!query.length) return callback();
+				            $.ajax({
+				                url: 'search',
+				                type: 'GET',
+				                dataType: 'json',
+				                data: {
+				                    q: query
+				                },
+				                error: function() {
+				                    callback();
+				                },
+				                success: function(res) {
+				                    callback(res.data);
+				                }
+				            });
+				        },
+				        onChange: function(){
+
+				            window.location = this.items[0];
+				        }
+				    });
+				});
+
+				function reset(){
+				    $('#searchbox').first().selectize()[0].selectize.setValue('‌​');
+				}
+
+		</script>
 
 		<footer class = "footer">
 			<center>Advisory Council | 2016</center>

@@ -190,3 +190,7 @@ Route::get('Dashboard/Quarternary', 'SearchController@getQuarternaryOffice');
 Route::get('/welcome', 'PDFController@index');
 Route::post('createPDF', 'PDFController@createPDF');
 Route::post('load-pdf-data', 'PDFController@loaddata');
+
+
+//ren routes for redirection of search
+Route::post('home/search2', 'SearchController@view');
