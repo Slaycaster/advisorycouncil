@@ -45,7 +45,7 @@ class PoliceOfficesController extends Controller
     		$id = App\Models\unit_offices::find($request->policeID);
     		$id->UnitOfficeName = $request->name;
             $id->UnitOfficeHasField = $request->hassec;
-            $id->desc = $request->desc;
+            $office->desc = $request->desc;
 
     		$id->save();
     	}
