@@ -204,6 +204,25 @@ class PDFController extends Controller
 			$query = Advisory_Council::query();
 			$query2 = Police_Position::query();
 
+			if($req->office2 != 0)
+				{ 
+					//array_add($whereclause, "second_id",$req->office2);
+					$query = $query->where('second_id','=',$req->office2);
+					$query2 = $query2->where('second_id','=',$req->office2);
+				}
+
+			if($req->office3 != 0)
+				{//array_add($whereclause, "tertiary_id",$req->office3);
+					$query = $query->where('tertiary_id','=',$req->office3);
+					$query2 = $query2->where('tertiary_id','=',$req->office3);
+				}
+		
+			if($req->office4 != 0)
+				{//array_add($whereclause, "quaternary_id",$req->office4); 
+					$query = $query->where('quaternary_id','=',$req->office4);
+					$query2 = $query2->where('quaternary_id','=',$req->office4);
+				}
+
 			if($city != null || $city != "")
 				{ 
 					$query = $query->where('city','like','%'.$city.'%');
