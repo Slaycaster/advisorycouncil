@@ -51,8 +51,8 @@ class SearchController extends Controller
 		
 		// Data normalization
 		
-		$adv = $this->appendURL($adv, 'ACSearch');
-		$police = $this->appendURL($police, 'PoliceSearch');
+		$adv = $this->appendURL($adv, 'search\civilian');
+		$police = $this->appendURL($police, 'search\police');
 		
 		// Add type of data to each item of each set of results
 		$adv = $this->appendValue($adv, 'AdvisoryCouncil', 'class');
@@ -112,8 +112,7 @@ class SearchController extends Controller
 
 					//return $data;
 					return view('search.search_result')->with('data',$ac)
-													   ->with('data2',$pa)
-													   ->with('active', '#tab1');
+													   ->with('data2',$pa);
 
 	}
 
@@ -136,8 +135,7 @@ class SearchController extends Controller
 
 
 		return view('search.search_result')->with('data',$ac)
-										   ->with('data2',array())
-										   ->with('active', '#tab1');
+										   ->with('data2',array());
 	}
 
 	public function findPA(Request $req){
@@ -157,8 +155,7 @@ class SearchController extends Controller
 					->get();
 
 					return view('search.search_result')->with('data2',$police)
-													   ->with('data',array())
-													   ->with('active', '#tab1');
+													   ->with('data',array());
 	}
 
 
@@ -544,8 +541,9 @@ class SearchController extends Controller
 
 
 
-	public function dashboard(){
-		
+	public function dashboard(Request $req){
+		//UI
+		$req->session()->put('tabtitle', '#tab1');
 
 		$chartoption = array(
 						'title' => '',

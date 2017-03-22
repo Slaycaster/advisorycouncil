@@ -156,7 +156,10 @@ class AdvDirectoryController extends Controller {
 		return array($civilian, $police);
 	}
 
-	public function getList() {
+	public function getList(Request $req) {
+		//UI
+		$req->session()->put('tabtitle', '#tab3');
+
 		$adv = $this->getAdv('created_at', 'desc');
 		/*INSERT CODE FOR DIRECTORY LIST VIEW*/
 

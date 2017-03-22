@@ -157,7 +157,7 @@
 				        maxOptions: 20,
 				        options: [],
 				        create: function(input){
-				            window.location = "searchAll?sq=" + input;
+				            window.location = "search?sq=" + input;
 
 
 				        },
@@ -184,7 +184,7 @@
 				        load: function(query, callback) {
 				            if (!query.length) return callback();
 				            $.ajax({
-				                url: 'search',
+				                url: 'loadsuggestion',
 				                type: 'GET',
 				                dataType: 'json',
 				                data: {

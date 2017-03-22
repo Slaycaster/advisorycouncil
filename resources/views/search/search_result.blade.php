@@ -9,7 +9,7 @@
 					<div class = "hcontent1">
 						<div class="dcon">
 							<div class = "tablepane">
-								<div class = "mtitle">Results for "search"</div>
+								<div class = "mtitle">Results for "{{Request::get('sq')}}"</div>
 							</div>
 						</div>
 					</div>
@@ -17,13 +17,12 @@
 				
 			</div>
 
-			<div class = "row">
-				<div class = "sixteen wide column">
+
+
+			<div class = "itemlist2">
 					@if(count($data) == 0 && count($data2) == 0)
-						<div class = "itemlist">
-							No Search Found!
-					
-						</div>
+						<br>
+						<h3 class="texttitle"><center>NO RECORD TO SHOW</center></h3>
 
 					@else
 					@if(count($data) != 0)
@@ -34,7 +33,7 @@
 						<div id = "accardlist" class = "ui doubling grid cardlist2">
 
 							@foreach($data as $acrec)
-								<div class = "five1 wide column colheight">
+								<div class = "four wide column colheight">
 									<div class = "cardstyle" onclick = "loadModal('0-{{$acrec->ID}}')">
 										@if($acrec->imagepath != "")
 											<img class = "advphoto" src="{{URL::asset($acrec->imagepath)}}"/>
@@ -105,7 +104,7 @@
 						<div id = "tpcardlist" class = "ui doubling grid cardlist2">
 
 							@foreach($data2 as $tprec)
-								<div class = "five1 wide column colheight">
+								<div class = "four wide column colheight">
 									<div class = "cardstyle" onclick = "loadModal('{{$tprec->policetype}}-{{$tprec->ID}}')">
 										@if($tprec->imagepath != "")
 											<img class = "advphoto" src="{{URL::asset($tprec->imagepath)}}"/>
@@ -181,8 +180,8 @@
 
 					
 					
-				</div>
 			</div>
+
 			
 		</div>
 
@@ -191,7 +190,7 @@
 	</div>
 
 	<script type="text/javascript">
-		$('{{$active}}').attr('class', 'mlink item active');
+		$('{{session("tabtitle")}}').attr('class', 'mlink item active');
 
 	</script>
 
