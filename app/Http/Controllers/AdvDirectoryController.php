@@ -47,7 +47,9 @@ class AdvDirectoryController extends Controller {
 
 	public function readyadd(){
 
- 		return view('adviser.adviser_add')->with('action', 0);
+ 		//return view('adviser.adviser_add')->with('action', 0);
+
+ 		return view('adviser.adviser_form')->with('action', 0);
 
  	}//select dropdowns
 

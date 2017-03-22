@@ -2,7 +2,7 @@
 
 
 @section('searchsection')
-	<div class ="advcardcon">
+	<div class ="advcardcon" style="background-color: white">
 		<div class="ui grid">
 			<div class = "row">
 				<div class = "sixteen wide column">

@@ -168,17 +168,20 @@ Route::get('directory/search', function() {
 	return view('search.search_result')->with('active', '#tab3');
 });
 
+Route::get('search', function() {
+	return view('search.psearch_result');
+});
 
 
 
 ///-------------------------------------------------------------------------------------------------------------------------------
 
 //smart search [ren]
-Route::get('search', 'SearchController@index');
+/*Route::get('search', 'SearchController@index');
 Route::get('searchAll', 'SearchController@AdvancedSearch');
 Route::get('ACSearch/{sq}', 'SearchController@findAC');
 Route::get('PoliceSearch/{sq}', 'SearchController@findPA');
-Route::get('searchView', 'SearchController@view');
+Route::get('searchView', 'SearchController@view');*/
 
 //dashboard for offices[ren]
 Route::get('Dashboard/primary', 'SearchController@getUnitOffice');

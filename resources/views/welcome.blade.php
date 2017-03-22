@@ -185,20 +185,6 @@
     
     <script>
 
-        // var pdfname = new Array();
-        // var pdfsecondoff = new Array();
-        // var pdftertiaryoff = new Array();
-        // var pdfquaternaryoff = new Array();
-        // var pdfsector = new Array();
-        // var pdfaddress = new Array();
-        // var pdfposition = new Array();
-        // var pdfemail = new Array();
-        // var pdfgender = new Array();
-        // var pdfbday = new Array();
-        // var pdfcontact = new Array();
-        // var pdfimage = new Array();
-        // var pdfsdate = new Array();
-
         function adjustRange(val)
         {
           document.getElementById('ageTo').value = val;
@@ -237,8 +223,6 @@
             else if(document.getElementById('genderM').checked == false && document.getElementById('genderF').checked == true) 
                 { gender = 2; }
             else { gender = 0; }
-
-            console.log(ageTo);
 
             if(advisory==1)
             {
@@ -279,6 +263,8 @@
                 data = {
                     'callid' : 3,
                     'office2' : unitofficesecond,
+                    'office3' : document.getElementById('office3').value,
+                    'office4' : document.getElementById('office4').value,
                     'ageFrom' : ageFrom,
                     'ageTo' : ageTo,
                     'city' : city,
@@ -383,78 +369,85 @@
 
                     if(advisory==4)
                     {
-                        responseArray = data[1].split("/");
-                        numOfRow = responseArray[0];
-                        num = 1;
 
-                        for(i=0; i < numOfRow; i++)
+                        if(data[1]!='' && data[1]!=null && data[1]!=0)
                         {
-                            cell1 = responseArray[num];num++;
-                            cell2 = responseArray[num];num++;
-                            cell3 = responseArray[num];num++;
-                            cell4 = responseArray[num];num++;
-                            cell5 = responseArray[num];num++;
-                            cell6 = responseArray[num];num++;
-                            cell7 = responseArray[num];num++;
-                            cell8 = responseArray[num];num++;
-                            cell9 = responseArray[num];num++;
-                            cell10 = responseArray[num];num++;
+                            responseArray = data[1].split("/");
+                            numOfRow = responseArray[0];
+                            num = 1;
 
-                            val = cell1 + "/" + cell2 + "/" + cell3 + "/" + cell4 + "/" +
-                                  cell5 + "/" + cell6 + "/" + cell7 + "/" + cell8 + "/" +
-                                  cell9 + "/" + cell10;
+                            for(i=0; i < numOfRow; i++)
+                            {
+                                cell1 = responseArray[num];num++;
+                                cell2 = responseArray[num];num++;
+                                cell3 = responseArray[num];num++;
+                                cell4 = responseArray[num];num++;
+                                cell5 = responseArray[num];num++;
+                                cell6 = responseArray[num];num++;
+                                cell7 = responseArray[num];num++;
+                                cell8 = responseArray[num];num++;
+                                cell9 = responseArray[num];num++;
+                                cell10 = responseArray[num];num++;
 
-                            pdfname.push(cell1);
-                            pdfsecondoff.push(cell2);
-                            pdfsector.push(cell3); 
-                            pdfposition.push(cell4);
-                            pdfgender.push(cell5);
-                            pdfaddress.push(cell6);
-                            pdfimage.push(cell7);
-                            pdfcontact.push(cell8);
-                            pdfemail.push(cell9);
-                            pdfsdate.push(cell10);
+                                val = cell1 + "/" + cell2 + "/" + cell3 + "/" + cell4 + "/" +
+                                      cell5 + "/" + cell6 + "/" + cell7 + "/" + cell8 + "/" +
+                                      cell9 + "/" + cell10;
 
-                            document.getElementById('addRow').value = val;
-                            document.getElementById('addRow').click();
-                            
+                                pdfname.push(cell1);
+                                pdfsecondoff.push(cell2);
+                                pdfsector.push(cell3); 
+                                pdfposition.push(cell4);
+                                pdfgender.push(cell5);
+                                pdfaddress.push(cell6);
+                                pdfimage.push(cell7);
+                                pdfcontact.push(cell8);
+                                pdfemail.push(cell9);
+                                pdfsdate.push(cell10);
+
+                                document.getElementById('addRow').value = val;
+                                document.getElementById('addRow').click();
+                                
+                            }
                         }
 
-                        responseArray = data[0].split("/");
-                        numOfRow = responseArray[0];
-                        num = 1;
-
-                        for(i=0; i < numOfRow; i++)
+                        if(data[0]!='' && data[0]!=null && data[0]!=0)
                         {
-                            cell1 = responseArray[num];num++;
-                            cell2 = responseArray[num];num++;
-                            cell3 = "PNP";
-                            cell4 = responseArray[num];num++;
-                            cell5 = responseArray[num];num++;
-                            cell6 = responseArray[num];num++;
-                            cell7 = responseArray[num];num++;
-                            cell8 = responseArray[num];num++;
-                            cell9 = responseArray[num];num++;
-                            cell10 = responseArray[num];num++;
+                            responseArray = data[0].split("/");
+                            numOfRow = responseArray[0];
+                            num = 1;
 
-                            val = cell1 + "/" + cell2 + "/" + cell3 + "/" + cell4 + "/" +
-                                  cell5 + "/" + cell6 + "/" + cell7 + "/" + cell8 + "/" +
-                                  cell9 + "/" + cell10;
+                            for(i=0; i < numOfRow; i++)
+                            {
+                                cell1 = responseArray[num];num++;
+                                cell2 = responseArray[num];num++;
+                                cell3 = "PNP";
+                                cell4 = responseArray[num];num++;
+                                cell5 = responseArray[num];num++;
+                                cell6 = responseArray[num];num++;
+                                cell7 = responseArray[num];num++;
+                                cell8 = responseArray[num];num++;
+                                cell9 = responseArray[num];num++;
+                                cell10 = responseArray[num];num++;
 
-                            pdfname.push(cell1);
-                            pdfsecondoff.push(cell2);
-                            pdfsector.push(""); 
-                            pdfposition.push(cell4);
-                            pdfgender.push(cell5);
-                            pdfaddress.push(cell6);
-                            pdfimage.push(cell7);
-                            pdfcontact.push(cell8);
-                            pdfemail.push(cell9);
-                            pdfsdate.push(cell10);
+                                val = cell1 + "/" + cell2 + "/" + cell3 + "/" + cell4 + "/" +
+                                      cell5 + "/" + cell6 + "/" + cell7 + "/" + cell8 + "/" +
+                                      cell9 + "/" + cell10;
 
-                            document.getElementById('addRow').value = val;
-                            document.getElementById('addRow').click();
-                    }
+                                pdfname.push(cell1);
+                                pdfsecondoff.push(cell2);
+                                pdfsector.push(""); 
+                                pdfposition.push(cell4);
+                                pdfgender.push(cell5);
+                                pdfaddress.push(cell6);
+                                pdfimage.push(cell7);
+                                pdfcontact.push(cell8);
+                                pdfemail.push(cell9);
+                                pdfsdate.push(cell10);
+
+                                document.getElementById('addRow').value = val;
+                                document.getElementById('addRow').click();
+                            }
+                        }
 
                      }   
                             document.getElementsByName('name')[0].value = pdfname.join("/");

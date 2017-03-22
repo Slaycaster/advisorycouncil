@@ -3,7 +3,7 @@
 @section('phomesection')
 
 	<div class =  "dcon">
-		<hr class="hr3">
+		
 
 		@if(sizeof($directory[0]) != 0)
 			
