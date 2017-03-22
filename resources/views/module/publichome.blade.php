@@ -67,6 +67,10 @@
 							
 					</div>
 
+					<div class="row">
+						<hr class="hr3">
+					</div>
+
 					<div class = "hcontent">
 					
 						@yield('phomesection')

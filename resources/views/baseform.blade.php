@@ -14,7 +14,7 @@
 		<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/icon.css')}}">
 		<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/toast.css')}}">
 		<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/multipletextinput.css')}}">
-		<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/res.css')}}">>
+		<!--<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/res.css')}}">-->
 
 		<!-- JS -->
 		<script type="text/javascript" src="{{ URL::asset('js/jquery-2.1.4.js') }}"></script>
@@ -145,7 +145,7 @@
 		
 	</body>
 
-	<script type="text/javascript">
+	<!--<script type="text/javascript">
 
 	/*window.onscroll = function(ev) {
 		    if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
@@ -153,5 +153,5 @@
 		      console.log("Bottom of page");
 		    }
 		};*/
-	</script>
+	</script>-->
 </html>

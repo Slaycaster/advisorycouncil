@@ -1,8 +1,8 @@
-@extends('module.search')
+@extends('module.publichome')
 
+@section('phomesection')
 
-@section('searchsection')
-	<div class ="advcardcon" style="background-color: white">
+	<div class ="advcardcon">
 		<div class="ui grid">
 			<div class = "row">
 				<div class = "sixteen wide column">
@@ -35,10 +35,6 @@
 		
 	</div>
 
-	<script type="text/javascript">
-		$('{{$active}}').attr('class', 'mlink item active');
-
-	</script>
 
 
 @stop
