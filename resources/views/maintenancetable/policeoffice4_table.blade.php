@@ -43,7 +43,7 @@
 				<div class = "field">
 					<select onchange="populate(1,this.value)" class="modified ui selection dropdown selectstyle2" name="office" id = "select1">
 
-						<option selected class="disabled" value="disitem" >Select One</option>
+						<option selected value="disitem" >Select One</option>
 						@foreach ( $office as $office )
 							<option value="{{$office->id}}">{{$office->UnitOfficeName}}</option>
 						@endforeach
@@ -58,8 +58,7 @@
 			<div class = "twelve wide column bspacing2">
 				<div class = "field">
 					<select  onchange="populate(2,this.value)" class="modified ui selection dropdown selectstyle2" name="office2" id = "select2">
-						<option selected class="
-						disabled" value="disitem">Select One</option>
+						<option selected value="disitem">Select One</option>
 						
 					</select>
 									
@@ -71,7 +70,7 @@
 				<div class = "field">
 					<select class="modified ui selection dropdown selectstyle2" name="office3" id = "select3">
 
-						<option selected class="disabled" value="disitem">Select One</option>			 
+						<option selected value="disitem">Select One</option>			 
 						
 					</select>
 									

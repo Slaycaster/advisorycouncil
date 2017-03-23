@@ -38,8 +38,8 @@
 
 .acname {
 	width: auto;
-	height: 80%;
-	margin-top: 3%;
+	height: 72%;
+	margin-top: 3.7%;
 	margin-left: 2%;
 
 }
@@ -82,6 +82,7 @@ span {
    cursor: not-allowed !important;
 }
 
+
 .ui.tabular.menu > .disabled.item:hover {
 	background-color: transparent;
 	color: #565656;
@@ -98,6 +99,13 @@ span {
 	background-color: #00253a;
 	text-decoration: none !important;
 	cursor: pointer;
+
+}
+
+.mlink2.disabled.item:hover i.inverted.circular.icon.user{
+	background-color: #565656 !important;
+	text-decoration: none !important;
+	cursor: not-allowed !important;
 
 }
 
@@ -194,7 +202,7 @@ hr {
 	height: 90%;
 	margin: 2% 2% 2% 2%;
 	font-family: "Franklin Gothic Book";
-	position:relative
+	position:relative;
 }
 
 .objfit {
@@ -228,6 +236,18 @@ hr {
 	bottom:0;
 }
 
+.p3 {
+	font-family: "Franklin Gothic Book";
+	font-size: 80%;
+	width: 100%;
+	max-width: 100%;
+	font-style: italic;
+	text-align: right;
+	color: #787878;
+	position:absolute;
+	bottom: 60%;
+
+}
 .ui.horizontal.divider.divtitle{
 	font-family: "Franklin Gothic Book";
 	font-size: 90%;
@@ -390,6 +410,11 @@ form, .dcon {
 	margin-bottom: 15%;
 	margin-top: 2%;
 	margin-left: 2%;
+}
+
+.bspacing1 {
+	margin-top: 2%;
+
 }
 
 .bspacing2 {
@@ -573,6 +598,14 @@ form, .dcon {
 	height: auto;
 }
 
+.hcontent1 {
+	width: 96%;
+	margin-top: 1%;
+	min-height: 90%;
+	margin-left: 2%;
+	height: auto;
+}
+
 .banner1 {
 	background-color: #00253a;
 	width: 100%;
@@ -582,8 +615,8 @@ form, .dcon {
 
 .acname1 {
 	width: auto;
-	height: 80%;
-	margin-top: 3%;
+	height: 72%;
+	margin-top: 3.7%;
 	margin-left: 2%;
 	cursor: pointer;
 
@@ -651,7 +684,7 @@ form, .dcon {
 }
 
 .hr3 {
-	width: 100%;
+	width: 98s%;
 	margin-right: 10%;
 	margin-top: 2%;
 	margin-bottom: 2%;
@@ -685,6 +718,12 @@ form, .dcon {
 	margin-top: 4%;
 }
 
+.centerbtn2 {
+	margin-left: 22%;
+	margin-top: 8%;
+}
+
+
 .cardstyleportrait {
 	border: 2px solid #ebebeb;
 	width: 100%;
@@ -717,7 +756,9 @@ form, .dcon {
 }
 
 .search2 {
-	margin-left: 1%;
+	margin-left: 0.5%;
+	margin-top: 1%;
+	margin-bottom: 1%;
 }
 
 #viewadv {
@@ -836,6 +877,12 @@ legend {
 	margin-left: 2.5%;
 }
 
+.itemlist2 {
+	height: auto;
+	width: 93.5%;
+	margin-left: 3.2%;
+}
+
 .ui.tabular.menu .hidden.item {
 	display: none;
 }
@@ -846,4 +893,36 @@ legend {
 
 .orderedlist {
 	padding-left: 3%;
+}
+
+.filselect {
+	width: 87%;
+}
+
+.ui.segment.filcon {
+	width: 95%;
+	height: 50em;
+	margin: 4% 0 0 5%;
+	background-color: #ede8e6;
+}
+
+.filtext {
+	width: 87%;
+}
+
+.agelbl {
+	margin-top: 5%;
+	margin-right: 6%;
+
+}
+
+.filspnr {
+	margin-left: 6%;
+	width: 35%;
+}
+
+.texttitle {
+	font-family: "Franklin Gothic Book";
+	color: #565656;
+	font-weight: bold;
 }

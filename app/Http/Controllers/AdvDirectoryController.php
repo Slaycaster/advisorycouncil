@@ -47,7 +47,9 @@ class AdvDirectoryController extends Controller {
 
 	public function readyadd(){
 
- 		return view('module.adviser_add')->with('action', 0);
+ 		//return view('adviser.adviser_add')->with('action', 0);
+
+ 		return view('adviser.adviser_form')->with('action', 0);
 
  	}//select dropdowns
 
@@ -65,7 +67,7 @@ class AdvDirectoryController extends Controller {
 
 		//return $result[2][0];
 
-		return view('module.adviser_add')->with('action', 1)
+		return view('adviser.adviser_add')->with('action', 1)
 										 ->with('recorddata', $result)
 										 ->with('type', (int) $tidelements[0])
 										 ->with('id', (int) $tidelements[1]);
@@ -154,35 +156,17 @@ class AdvDirectoryController extends Controller {
 		return array($civilian, $police);
 	}
 
-	public function getList() {
+	public function getList(Request $req) {
+		//UI
+		$req->session()->put('tabtitle', '#tab3');
+
 		$adv = $this->getAdv('created_at', 'desc');
 		/*INSERT CODE FOR DIRECTORY LIST VIEW*/
 
 		//return $adv;
-		return view('module.adviser')->with("directory", $adv)
+		return view('adviser.advisercontent')->with("directory", $adv)
 									 ->with("showcontrol", "true");
 	}//public function getList() {
-
-	public function filterList(Request $req) {
-		if(!isset($req->f)) {
-			return redirect('directory');
-		}//if
-
-		$filter = $req->f;
-
-		if((int)$filter == 0) {
-			$adv = $this->getAdv('lname', 'asc');
-
-		} else if((int)$filter == 1) {
-			$adv = $this->getAdv('created_at', 'asc');
-
-		} else {
-			$adv = $this->getAdv('created_at', 'desc');
-
-		}//if
-
-		return view('module.adviser')->with("directory", $adv);
-	}//public function filterList(Request $req) {
 
 	public function readyPHome() {
 		if (Auth::check()) {

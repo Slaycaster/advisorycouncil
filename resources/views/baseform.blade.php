@@ -32,6 +32,10 @@
 		<script type="text/javascript" src="{{ URL::asset('js/datatable/dataTables.responsive.min.js') }}"></script>
 		<script type="text/javascript" src="{{ URL::asset('js/datatable/responsive.semanticui.min.js') }}"></script>
 
+
+		<link href="{{ URL::asset('selectize/css/selectize.bootstrap3.css') }}" rel="stylesheet">
+		<script type="text/javascript" src='{{ URL::asset("selectize/js/standalone/selectize.min.js") }}'></script>
+
 	</head>
 	<body onload = "init()">
 	
@@ -101,85 +105,26 @@
 				<div class = "ui grid">
 					<div class = "row">
 						<div class = "nine wide column colheight">
+							<select id="searchbox" name="q" placeholder="Search Advisers or category" ></select>
+							<!-- 
 							<div class="ui icon input big search">
 								<i class="search icon"></i>
 								<input type="text" placeholder="Search...">
 							</div>
+							-->
 
 							@if(isset($showcontrol))
-								<div class = "ui icon addbtn button medium" 
+								<!--<div class = "ui icon addbtn button medium" 
 									onclick = "window.location='{{url('directory/add')}}'" 
-									title = "add AC Member">
+									title = "Add AC Member">
 									<i class="plus icon topmargin"></i>
 									
-								</div>
+								</div>-->
 
-								<div class="ui icon addbtn dropdown button  medium topmargin" title = "filter list">
-									<i class="filter icon"></i>
-									<div class="menu">
-										<div class="header">
-								      		Gender
-								    	</div>
-
-								    	<div class = "divider"></div>
-
-								    	<div class="item"  onclick ="">
-									     	Male
-									    </div>
-									    <div class="item"  onclick ="">
-									    	Female
-									    </div>
-
-									    <div class = "divider"></div>
-
-									    <div class="item" onclick ="">
-									    	Location
-									    </div>
-									    
-									    <div class = "divider"></div>
-
-									    <div class="header">
-								      		Category
-								    	</div>
-								    	<div class = "divider"></div>
-								    	<div class="item"  onclick ="">
-									     	All
-									    </div>
-								    	<div class="item"  onclick ="">
-									     	AC
-									    </div>
-									    <div class="item"  onclick ="">
-									    	TWG
-									    </div>
-									    <div class="item"  onclick ="">
-									    	PSMU
-									    </div>
-
-									    <div class = "divider"></div>
-
-									    
-
-									    <div class="item" onclick ="">
-									    	AC Position
-									    </div>
-									    
-									    <div class = "divider"></div>
-
-									     <div class="item" onclick ="">
-									    	AC Sector
-									    </div>
-
-									    <div class = "divider"></div>
-
-									     <div class="item" onclick ="">
-									    	Unit/Offices
-									    </div>
-									     
-
-
-
-								  </div>
-								</div>
+								<button type="button" class="ui right labeled icon button">
+									<i class="plus icon"></i>
+									ADD
+								</button>
 							@endif
 						</div>
 
@@ -200,10 +145,85 @@
 			</div>
 			
 		</div>
+		<script>
+		    
+				    var root = '{{url("/")}}';
+				    $(document).ready(function(){
+				   
+				    $('#searchbox').selectize({
+				        valueField: 'url',
+				        labelField: 'fname',
+				        searchField: ['fname','mname','lname'],
+				        maxOptions: 20,
+				        options: [],
+				        create: function(input){
+				            window.location = "search?sq=" + input;
+
+
+				        },
+				        createOnBlur: false,
+				        render: {
+				            option_create: function(data, escape) {
+				              return '<div class="create">Typing <strong>' + escape(data.input) + '</strong>&hellip;</div>';
+				            },
+				            option: function(item, escape) {
+				                if (item.imagepath == '') {
+				                    return '<div><img style="width:30px;height:30px;" src="'+ '{{URL::asset("objects/Logo/InitProfile.png")}}' +'"> ' +escape(item.fname) + " " + escape(item.imagepath)+ " " + escape(item.lname)+'</div>';    
+				                }else{
+				                    return '<div><img style="width:30px;height:30px;" src="'+ item.imagepath +'"> ' +escape(item.fname) + " " + escape(item.mname)+ " " + escape(item.lname)+'</div>';
+				                };
+				                
+				            }
+				        },
+				        optgroups: [
+				            {value: 'AdvisoryCouncil', label: 'Advisory Council'},
+				            {value: 'police', label: 'Police Advisory'}
+				        ],
+				        optgroupField: 'class',
+				        optgroupOrder: ['AdvisoryCouncil','police'],
+				        load: function(query, callback) {
+				            if (!query.length) return callback();
+				            $.ajax({
+				                url: 'loadsuggestion',
+				                type: 'GET',
+				                dataType: 'json',
+				                data: {
+				                    q: query
+				                },
+				                error: function() {
+				                    callback();
+				                },
+				                success: function(res) {
+				                    callback(res.data);
+				                }
+				            });
+				        },
+				        onChange: function(){
+
+				            window.location = this.items[0];
+				        }
+				    });
+				});
+
+				function reset(){
+				    $('#searchbox').first().selectize()[0].selectize.setValue('‌​');
+				}
+
+		</script>
 
 		<footer class = "footer">
 			<center>Advisory Council | 2016</center>
 		</footer>
 		
 	</body>
+
+	<!--<script type="text/javascript">
+
+	/*window.onscroll = function(ev) {
+		    if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
+		      // you're at the bottom of the page
+		      console.log("Bottom of page");
+		    }
+		};*/
+	</script>-->
 </html>

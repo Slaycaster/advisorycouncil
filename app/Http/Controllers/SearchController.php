@@ -51,8 +51,8 @@ class SearchController extends Controller
 		
 		// Data normalization
 		
-		$adv = $this->appendURL($adv, 'ACSearch');
-		$police = $this->appendURL($police, 'PoliceSearch');
+		$adv = $this->appendURL($adv, 'search\civilian');
+		$police = $this->appendURL($police, 'search\police');
 		
 		// Add type of data to each item of each set of results
 		$adv = $this->appendValue($adv, 'AdvisoryCouncil', 'class');
@@ -73,22 +73,26 @@ class SearchController extends Controller
 		$query = $req->sq;
 		$ac = DB::table('advisory_council')
 					->join('advisory_position', 'advisory_position.ID', '=', 'advisory_council.advisory_position_id')
+					->join('unit_office_secondaries', 'unit_office_secondaries.id', '=', 'advisory_council.second_id')
+					->join('unit_offices', 'unit_offices.id', '=', 'unit_office_secondaries.UnitOfficeID')
+					->leftJoin('unit_office_tertiaries', 'unit_office_tertiaries.id', '=', 'advisory_council.tertiary_id')
+					->leftJoin('unit_office_quaternaries', 'unit_office_quaternaries.id', '=', 'advisory_council.quaternary_id')
 					->select('advisory_council.ID','lname', 'fname', 'mname', 'imagepath', 'email', 
-						     'contactno', 'landline','startdate', 'acpositionname', 'officename')
-					->whereDate("advisory_council.created_at" , ">=", "DATE_ADD(NOW(),INTERVAL -15 DAY)")
+						     'contactno', 'landline','startdate', 'acpositionname', 'officename',
+						     'UnitOfficeName', 'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
+						     'UnitOfficeQuaternaryName')
 					->where('fname','like','%'.$query.'%')
 					->orWhere('lname','like','%'.$query.'%')
 					->orWhere('mname','like','%'.$query.'%')
-
-					->orderBy('advisory_council.created_at', 'desc')
+					->orderBy('advisory_council.lname', 'desc')
 					->get();
 	
 		$pa = DB::table('police_advisory')
 					->join('police_position', 'police_position.id', '=', 'police_advisory.police_position_id')
-					->join('unit_offices', 'unit_offices.id', '=', 'police_advisory.unit_id')
 					->join('unit_office_secondaries', 'unit_office_secondaries.id', '=', 'police_advisory.second_id')
-					->join('unit_office_tertiaries', 'unit_office_tertiaries.id', '=', 'police_advisory.tertiary_id')
-					->join('unit_office_quaternaries', 'unit_office_quaternaries.id', '=', 'police_advisory.quaternary_id')
+					->join('unit_offices', 'unit_offices.id', '=', 'unit_office_secondaries.UnitOfficeID')
+					->leftJoin('unit_office_tertiaries', 'unit_office_tertiaries.id', '=', 'police_advisory.tertiary_id')
+					->leftJoin('unit_office_quaternaries', 'unit_office_quaternaries.id', '=', 'police_advisory.quaternary_id')
 					->where('fname','like','%'.$query.'%')
 					->orWhere('lname','like','%'.$query.'%')
 					->orWhere('mname','like','%'.$query.'%')
@@ -96,11 +100,19 @@ class SearchController extends Controller
 						     'contactno', 'landline', 'startdate', 'policetype',
 						     'UnitOfficeName', 'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
 						     'UnitOfficeQuaternaryName', 'PositionName')
-					->orderBy('police_advisory.created_at', 'desc')
+					->orderBy('police_advisory.lname', 'desc')
 					->get();
+					/*
+					$ac = $ac->push($pa);
+					if (count($pa) != 0) {
+						$ac = $ac->push($pa);
+					}
+					*/
+					
 
-					$data = array('ac' => $ac, 'pa' => $pa );
-					return $data;
+					//return $data;
+					return view('search.search_result')->with('data',$ac)
+													   ->with('data2',$pa);
 
 	}
 
@@ -109,24 +121,31 @@ class SearchController extends Controller
 		$query = $req->sq;
 		$ac = DB::table('advisory_council')
 					->join('advisory_position', 'advisory_position.ID', '=', 'advisory_council.advisory_position_id')
+					->join('unit_office_secondaries', 'unit_office_secondaries.id', '=', 'advisory_council.second_id')
+					->join('unit_offices', 'unit_offices.id', '=', 'unit_office_secondaries.UnitOfficeID')
+					->leftJoin('unit_office_tertiaries', 'unit_office_tertiaries.id', '=', 'advisory_council.tertiary_id')
+					->leftJoin('unit_office_quaternaries', 'unit_office_quaternaries.id', '=', 'advisory_council.quaternary_id')
 					->select('advisory_council.ID','lname', 'fname', 'mname', 'imagepath', 'email', 
-						     'contactno', 'landline','startdate', 'acpositionname', 'officename')
+						     'contactno', 'landline','startdate', 'acpositionname', 'officename',
+						     'UnitOfficeName', 'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
+						     'UnitOfficeQuaternaryName')
 					->where('advisory_council.ID','=',$query)
 					->orderBy('advisory_council.created_at', 'desc')
 					->get();
 
-		return $ac;
 
+		return view('search.search_result')->with('data',$ac)
+										   ->with('data2',array());
 	}
 
 	public function findPA(Request $req){
 		$query = $req->sq;
 		$police = DB::table('police_advisory')
 					->join('police_position', 'police_position.id', '=', 'police_advisory.police_position_id')
-					->join('unit_offices', 'unit_offices.id', '=', 'police_advisory.unit_id')
 					->join('unit_office_secondaries', 'unit_office_secondaries.id', '=', 'police_advisory.second_id')
-					->join('unit_office_tertiaries', 'unit_office_tertiaries.id', '=', 'police_advisory.tertiary_id')
-					->join('unit_office_quaternaries', 'unit_office_quaternaries.id', '=', 'police_advisory.quaternary_id')
+					->join('unit_offices', 'unit_offices.id', '=', 'unit_office_secondaries.UnitOfficeID')
+					->leftJoin('unit_office_tertiaries', 'unit_office_tertiaries.id', '=', 'police_advisory.tertiary_id')
+					->leftJoin('unit_office_quaternaries', 'unit_office_quaternaries.id', '=', 'police_advisory.quaternary_id')
 					->where('police_advisory.ID','=',$query)
 					->select('police_advisory.ID', 'lname', 'fname', 'mname', 'imagepath', 'email', 
 						     'contactno', 'landline', 'startdate', 'policetype',
@@ -134,7 +153,9 @@ class SearchController extends Controller
 						     'UnitOfficeQuaternaryName', 'PositionName')
 					->orderBy('police_advisory.created_at', 'desc')
 					->get();
-					return $police;
+
+					return view('search.search_result')->with('data2',$police)
+													   ->with('data',array());
 	}
 
 
@@ -419,6 +440,50 @@ class SearchController extends Controller
 
 	}
 
+	public function getACPosition(){
+		$position = DB::table('advisory_position')
+					->select('acpositionname', DB::raw('count(*) as total'))
+					->join('advisory_council', 'advisory_council.advisory_position_id', '=', 'advisory_position.ID')
+					->havingRaw('count(*) >= 0')
+					->groupBy('acpositionname')->get();
+
+		$dt = \Lava::DataTable();
+		$dt->addStringColumn('AC Position')
+            ->addNumberColumn('Total');
+
+
+       foreach ($position as $value) {
+       		$dt->addRow([$value->acpositionname, $value->total]);
+       }
+        
+       
+       
+       return $dt;
+
+	}
+
+	public function getPolicePosition(){
+		$position = DB::table('police_position')
+					->select('PositionName', DB::raw('count(*) as total'))
+					->join('police_advisory', 'police_advisory.police_position_id', '=', 'police_position.id')
+					->havingRaw('count(*) >= 0')
+					->groupBy('PositionName')->get();
+
+		$dt = \Lava::DataTable();
+		$dt->addStringColumn('Police Position')
+            ->addNumberColumn('Total');
+
+
+       foreach ($position as $value) {
+       		$dt->addRow([$value->PositionName, $value->total]);
+       }
+        
+       
+       
+       return $dt;
+
+	}
+
 
 
 	public function getAge(){
@@ -476,8 +541,9 @@ class SearchController extends Controller
 
 
 
-	public function dashboard(){
-		
+	public function dashboard(Request $req){
+		//UI
+		$req->session()->put('tabtitle', '#tab1');
 
 		$chartoption = array(
 						'title' => '',
@@ -537,6 +603,15 @@ class SearchController extends Controller
        	$quarTable = $this->getQuarternaryOffice();
        	$chartoption['title'] = 'Percentage of Stakeholders per Quaternary Unit/Offices';
        	$quarChart = \Lava::PieChart('UnitQuarOffices', $quarTable, $chartoption);
+
+       	$acpositionTable = $this->getACPosition();
+       	$chartoption['title'] = 'Percentage of Stakeholders per AC Position';
+       	$acpositionChart = \Lava::PieChart('ACPosition', $acpositionTable , $chartoption);
+       
+       	$policepositionTable = $this->getPolicePosition();
+       	$chartoption['title'] = 'Percentage of Stakeholders per Police Position';
+       	$policepositionChart = \Lava::PieChart('PolicePosition', $policepositionTable , $chartoption);
+
 
 
 

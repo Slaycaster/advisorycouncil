@@ -1,35 +1,9 @@
 //FORM VALIDATIONS
 
+//MAINTENANCE
 $('#form')
 	.form({
 		fields: {
-
-			categname: {
-				rules: [{
-					type : "empty"
-				},
-				{
-					type : "regExp",
-					value : /^(?=.*(\d|\w))[A-Za-z0-9 \-'.,]{3,35}$/
-				}]
-			},
-
-			sub_name: {
-				rules: [{
-					type : "empty"
-				},
-				{
-					type : "regExp",
-					value : /^(?=.*(\d|\w))[A-Za-z0-9 \-'.,]{3,35}$/
-				}]
-			},
-
-			category: {
-				rules: [{
-					type : "empty"
-				}]
-			},
-
 
 			positionname: {
 				rules: [{
@@ -71,6 +45,16 @@ $('#form')
 				}]
 			},
 
+			terName: {
+				rules: [{
+					type : "empty"
+				},
+				{
+					type : "regExp",
+					value : /^(?=.*(\d|\w))[A-Za-z0-9 \-'.,]{3,35}$/
+				}]
+			},
+
 			contact: {
 				rules: [{
 					type : "empty"
@@ -84,10 +68,60 @@ $('#form')
 			office: {
 				rules: [{
 					type : "empty"
+				},
+				{
+					type : "regExp",
+					value : /^[0-9]+$/
 				}]
 			},
 
-			street: {
+			office2: {
+				rules: [{
+					type : "empty"
+				},
+				{
+					type : "regExp",
+					value : /^[0-9]+$/
+				}]
+			},
+
+			office3: {
+				rules: [{
+					type : "empty"
+				},
+				{
+					type : "regExp",
+					value : /^[0-9]+$/
+				}]
+			},
+
+			select_office1: {
+				rules: [{
+					type : "empty"
+				},
+				{
+					type : "regExp",
+					value : /^[0-9]+$/
+				}]
+			},
+
+			select_office2: {
+				rules: [{
+					type : "empty"
+				},
+				{
+					type : "regExp",
+					value : /^[0-9]+$/
+				}]
+			}
+		}
+	});
+
+
+
+/**
+
+street: {
 				rules: [{
 					type : "empty"
 				},
@@ -124,5 +158,5 @@ $('#form')
 
 				}]
 			}
-		}
-	});
+			**/
+

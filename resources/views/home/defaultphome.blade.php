@@ -3,7 +3,7 @@
 @section('phomesection')
 
 	<div class =  "dcon">
-		<hr class="hr3">
+		
 
 		@if(sizeof($directory[0]) != 0)
 			
@@ -52,7 +52,7 @@
 											
 										</p>
 
-										<p class = "p2"> Member since {{date('M Y',strtotime($acrec->startdate))}} &nbsp;&nbsp;</p>
+										<p class = "p3"> Member since {{date('M Y',strtotime($acrec->startdate))}} &nbsp;&nbsp;</p>
 										
 									</div>
 								</div>
@@ -114,7 +114,7 @@
 											
 										</p>
 
-										<p class = "p2"> Member since {{date('M Y',strtotime($tprec->startdate))}} &nbsp;&nbsp;</p>
+										<p class = "p3"> Member since {{date('M Y',strtotime($tprec->startdate))}} &nbsp;&nbsp;</p>
 										
 									</div>
 								</div>

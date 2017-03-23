@@ -2,8 +2,15 @@ html, body{
 	height:100%;
 }
 
-/*(min-device-width: 768px) and*/
-@media all and  (min-device-width : 768px) {
+/*(min-device-width: 768px) and
+@media all and  (min-device-width : 768px)
+@media screen and (max-width: 699px) and (min-width: 520px)*/
+
+/***********TABLET*****************/
+@media all and (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) 
+
+ {
+ 	
 	.ui.vertical.menu{
 		width:100%;
 	}
@@ -34,3 +41,67 @@ html, body{
 
 
 /* and (max-device-width : 1024px)  */
+
+/***********DESKTOP**************************/
+
+@media all and (min-width: 1024px) and (orientation: landscape){
+
+
+}/*END OF MEDIA*/
+
+
+/*********************mobile************************/
+
+@media all and (min-width: 1024px) and (orientation: landscape){
+
+
+}/*END OF MEDIA*/
+
+
+/* iPads (portrait) ----------- */
+@media all and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
+/* Styles */
+
+.acname{
+    height: auto; 
+    width: auto; 
+    max-width: 350px; 
+    max-height: 80%;
+
+}
+
+.banner {
+	background-color: #ede8e6;
+	width: 100%;
+	height: 13%;
+}
+
+.bspacing{
+		width:90%;
+	}
+.tablecon {
+	margin-top:80%;
+	position: absolute;
+	height: 98%;
+	width: 95%;
+	margin: 2% 0 0 2.5%;
+}
+
+.ui.vertical.menu{
+		width:90%;
+	}
+
+/*.mcontent {
+	margin-top: 2%;
+	margin-left: -4%;
+	height: 100%;
+	width: 98%;
+}	*/
+
+.tablepane{
+	width:80%;
+}
+
+
+
+}	
