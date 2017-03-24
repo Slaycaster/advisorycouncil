@@ -7,6 +7,7 @@ use App\Models\Advisory_Council;
 use App\Models\Police_Advisory;
 use Response;
 use DB;
+use Auth;
 
 class SearchController extends Controller
 {
@@ -111,8 +112,15 @@ class SearchController extends Controller
 					
 
 					//return $data;
-					return view('search.search_result')->with('data',$ac)
-													   ->with('data2',$pa);
+
+					if (Auth::check()) {
+				    	return view('search.search_result')->with('data',$ac)
+													       ->with('data2',$pa);
+					} else {
+				    	return view('search.psearch_result')->with('data',$ac)
+													       ->with('data2',$pa);	
+					}
+					
 
 	}
 
@@ -134,8 +142,17 @@ class SearchController extends Controller
 					->get();
 
 
-		return view('search.search_result')->with('data',$ac)
-										   ->with('data2',array());
+		if (Auth::check()) {
+				    	return view('search.search_result')->with('data',$ac)
+										   				   ->with('data2',array());
+					} else {
+				    	return view('search.psearch_result')->with('data',$ac)
+										   					->with('data2',array());
+					}
+
+
+		
+
 	}
 
 	public function findPA(Request $req){
@@ -154,8 +171,15 @@ class SearchController extends Controller
 					->orderBy('police_advisory.created_at', 'desc')
 					->get();
 
-					return view('search.search_result')->with('data2',$police)
-													   ->with('data',array());
+					if (Auth::check()) {
+				    	return view('search.search_result')->with('data2',$police)
+													   	   ->with('data',array());
+					} else {
+				    	return view('search.psearch_result')->with('data2',$police)
+													   	   ->with('data',array());
+					}
+
+					
 	}
 
 
