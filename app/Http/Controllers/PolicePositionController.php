@@ -8,10 +8,11 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Police_Position;
 
+
 class PolicePositionController extends Controller
 {
-    public function index_policeposition()
-	{
+    public function index_policeposition(Request $req){
+        $req->session()->put('tabtitle', '#tab2');
         $positions = DB::table('Police_Position')->get();
 		return view('maintenancetable/policeposition_table', compact('positions'));
         //->with('sql', $sql);

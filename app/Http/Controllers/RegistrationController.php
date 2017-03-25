@@ -12,7 +12,9 @@ use Response;
 
 class RegistrationController extends Controller
 {
-    public function index(){
+    public function index(Request $req){
+        $req->session()->put('tabtitle', '#tab4');
+
         if(Auth::user()->admintype == 1) {
             return redirect('home');
         }//if

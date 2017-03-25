@@ -105,7 +105,7 @@
 				<div class = "ui grid">
 					<div class = "row">
 						<div class = "nine wide column colheight">
-							<select id="searchbox" name="q" placeholder="Search Advisers or category" ></select>
+							<select id="searchbox" name="q" placeholder="Search Stakeholder(s)" ></select>
 							<!-- 
 							<div class="ui icon input big search">
 								<i class="search icon"></i>
@@ -157,7 +157,7 @@
 				        maxOptions: 20,
 				        options: [],
 				        create: function(input){
-				            window.location = "search?sq=" + input;
+				            window.location = "/search?sq=" + input;
 
 
 				        },
@@ -167,11 +167,13 @@
 				              return '<div class="create">Typing <strong>' + escape(data.input) + '</strong>&hellip;</div>';
 				            },
 				            option: function(item, escape) {
-				                if (item.imagepath == '') {
-				                    return '<div><img style="width:30px;height:30px;" src="'+ '{{URL::asset("objects/Logo/InitProfile.png")}}' +'"> ' +escape(item.fname) + " " + escape(item.imagepath)+ " " + escape(item.lname)+'</div>';    
+				                if (item.imagepath == null) {
+				                    return '<div><div class="imgcon"><img class="dropphoto" src="{{URL::asset('objects/Logo/InitProfile.png')}}"></div>&nbsp;<label class="dropname">' +escape(item.fname) + " " + escape(item.mname)+ " " + escape(item.lname)+'</label></div>';    
 				                }else{
-				                    return '<div><img style="width:30px;height:30px;" src="'+ item.imagepath +'"> ' +escape(item.fname) + " " + escape(item.mname)+ " " + escape(item.lname)+'</div>';
+				                   return '<div><div class="imgcon"><img class="dropphoto" src="'+escape(item.imagepath)+'"></div>&nbsp;<label class="dropname">' +escape(item.fname) + " " + escape(item.mname)+ " " + escape(item.lname)+'</label></div>';    
 				                };
+
+
 				                
 				            }
 				        },
@@ -184,7 +186,7 @@
 				        load: function(query, callback) {
 				            if (!query.length) return callback();
 				            $.ajax({
-				                url: 'loadsuggestion',
+				                url: "{{url('loadsuggestion')}}",
 				                type: 'GET',
 				                dataType: 'json',
 				                data: {

@@ -6,9 +6,12 @@ use Illuminate\Http\Request;
 use App;
 use App\Models;
 
+
 class PoliceOfficesController extends Controller
 {
-    public function index(){
+    public function index(Request $req){
+      $req->session()->put('tabtitle', '#tab2');
+        
     	$office = App\Models\unit_offices::all();
 
 		return view('maintenancetable/policeoffice_table')->with('offices', $office);

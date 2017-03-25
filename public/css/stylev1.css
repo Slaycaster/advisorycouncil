@@ -926,3 +926,24 @@ legend {
 	color: #565656;
 	font-weight: bold;
 }
+
+.dropphoto {
+	width: 30px;
+	height: 30px;
+	object-fit:cover;
+}
+
+.dropname {
+	font-family: "Franklin Gothic Book";
+	font-weight: bold;
+	margin-top: 1%;
+	float:left;
+	margin-left: 1%;
+
+}
+
+.imgcon {
+	width: auto;
+	height: 100%;
+	float: left;
+}

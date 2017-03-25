@@ -61,7 +61,8 @@ class SearchController extends Controller
 		$data = array_merge($adv,$police);
 		
 		return Response::json(array(
-			'data'=>$data
+			'data'=>$data,
+			'query'=>$query
 		));
 	}
 
@@ -112,7 +113,8 @@ class SearchController extends Controller
 
 					//return $data;
 					return view('search.search_result')->with('data',$ac)
-													   ->with('data2',$pa);
+													   ->with('data2',$pa)
+													   ->with('query', $query);
 
 	}
 

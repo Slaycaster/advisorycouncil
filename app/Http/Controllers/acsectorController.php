@@ -11,7 +11,9 @@ use App\Http\Controllers\Controller;
 class acsectorController extends Controller
 {
    
-    public function index_acsectors(){
+    public function index_acsectors(Request $req){
+      $req->session()->put('tabtitle', '#tab2');
+      
       $sector = DB::table('AC_Sector')
       ->orderBy('AC_Sector.ID','DESC')
       ->get();
