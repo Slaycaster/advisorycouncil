@@ -275,9 +275,9 @@
 
 		function addData() {
 			var data = {
-				'name' : $('#name').val(),
+				'name' : $('#name').val().trim(),
 				'office3' : $('#select3').val(),
-				'desc' : document.getElementsByName('desc')[0].value,
+				'desc' : document.getElementsByName('desc')[0].value.trim(),
 				'submit': document.getElementsByName("submit")[0].value,
 				'_token' : '{{ Session::token() }}'
 			};
@@ -303,8 +303,8 @@
 			var data = {
 				'subID' : document.getElementsByName('ID')[0].value,
 				'office3' : $('#select3').val(),
-				'desc' : document.getElementsByName('desc')[0].value,
-				'name' : document.getElementsByName("name")[0].value,
+				'desc' : document.getElementsByName('desc')[0].value.trim(),
+				'name' : document.getElementsByName("name")[0].value.trim(),
 				'submit': document.getElementsByName("submit")[0].value,
 				'_token' : '{{ Session::token() }}'
 			};

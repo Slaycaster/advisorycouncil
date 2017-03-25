@@ -163,9 +163,9 @@
 
 		function addData() {
 			var data = {
-				'name' : document.getElementsByName("name")[0].value,
+				'name' : document.getElementsByName("name")[0].value.trim(),
 				'hassec' : document.getElementsByName("hassec")[0].value,
-				'desc' : document.getElementsByName("desc")[0].value,
+				'desc' : document.getElementsByName("desc")[0].value.trim(),
 				'submit': document.getElementsByName("submit")[0].value,
 				'_token' : '{{ Session::token() }}'
 			};
@@ -189,9 +189,9 @@
 		function editData() {
 			var data = {
 				'policeID' : document.getElementsByName('officeid')[0].value,
-				'name' : document.getElementsByName("name")[0].value,
+				'name' : document.getElementsByName("name")[0].value.trim(),
 				'hassec' : document.getElementsByName("hassec")[0].value,
-				'desc' : document.getElementsByName("desc")[0].value,
+				'desc' : document.getElementsByName("desc")[0].value.trim(),
 				'submit': document.getElementsByName("submit")[0].value,
 				'_token' : '{{ Session::token() }}'
 			};

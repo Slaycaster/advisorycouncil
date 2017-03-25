@@ -78,6 +78,11 @@ function reinst() {
 			authorder: {
 				rules: [{
 					type : "empty"
+				},
+				
+				{
+					type : "regExp",
+					value : /^[0-9]+$/
 				}]
 			},
 
@@ -155,6 +160,10 @@ function tablevalidate(id) {
 			authorder: {
 				rules: [{
 					type : "empty"
+				},
+				{
+					type : "regExp",
+					value : /^[0-9]+$/
 				}]
 			},
 
