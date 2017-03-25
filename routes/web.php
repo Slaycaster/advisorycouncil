@@ -91,6 +91,12 @@ Route::get('dropdown/getinittpd', 'AdvDirectoryController@getInitTPD');
 //ADMIN @author: Shie Eugenio
 Route::get('admin', 'RegistrationController@index')->middleware('auth');
 
+//SMART SEARCH @author: Ren Buluran
+Route::get('loadsuggestion', 'SearchController@index'); //predictive
+Route::get('search', 'SearchController@AdvancedSearch');
+Route::get('search/civilian/{sq}', 'SearchController@findAC'); //get ac
+Route::get('search/police/{sq}', 'SearchController@findPA'); //get tp
+
 //--------------------------------------------------------------------------------------------
 //BACK-END
 
@@ -176,11 +182,7 @@ Route::get('directory/search', function() {
 
 ///-------------------------------------------------------------------------------------------------------------------------------
 
-//smart search [ren]
-Route::get('loadsuggestion', 'SearchController@index'); //predictive
-Route::get('search', 'SearchController@AdvancedSearch');
-Route::get('search/civilian/{sq}', 'SearchController@findAC'); //get ac
-Route::get('search/police/{sq}', 'SearchController@findPA'); //get tp
+
 
 //dashboard for offices[ren]
 Route::get('Dashboard/primary', 'SearchController@getUnitOffice');

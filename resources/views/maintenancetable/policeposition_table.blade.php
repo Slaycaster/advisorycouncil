@@ -111,8 +111,8 @@
 			if(func == 1)
 			{
 				data = {
-						'ppname' : document.getElementsByName('positionname')[0].value,
-						'ppdesc' : document.getElementsByName('description')[0].value,
+						'ppname' : document.getElementsByName('positionname')[0].value.trim(),
+						'ppdesc' : document.getElementsByName('description')[0].value.trim(),
 						'callId' : 1,
 						'submit' : document.getElementsByName('submit')[0].value,
 						'_token' : '{{ Session::token()}}'
@@ -141,8 +141,8 @@
 			{
 				data = {
 						'id' : document.getElementById('ID').value,
-						'ppname' : document.getElementsByName('positionname')[0].value,
-						'ppdesc' : document.getElementsByName('description')[0].value,
+						'ppname' : document.getElementsByName('positionname')[0].value.trim(),
+						'ppdesc' : document.getElementsByName('description')[0].value.trim(),
 						'callId' : 3,
 						'submit' : document.getElementsByName('submit')[0].value,
 						'_token' : '{{ Session::token()}}'

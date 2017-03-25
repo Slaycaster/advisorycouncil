@@ -646,27 +646,27 @@
 				if (slctdtype == 0) {
 					var data = {
 						'ID' : document.getElementsByName('advid')[0].value,
-						'lname' : document.getElementsByName('lname')[0].value,
-						'fname' : document.getElementsByName('fname')[0].value,
-						'mname' : document.getElementsByName('mname')[0].value,
-						'qname' : document.getElementsByName('qname')[0].value,
+						'lname' : document.getElementsByName('lname')[0].value.trim(),
+						'fname' : document.getElementsByName('fname')[0].value.trim(),
+						'mname' : document.getElementsByName('mname')[0].value.trim(),
+						'qname' : document.getElementsByName('qname')[0].value.trim(),
 						'bdate' : document.getElementsByName('bdate')[0].value,
-						'street' : document.getElementsByName('street')[0].value,
-						'barangay' : document.getElementsByName('barangay')[0].value,
-						'city' : document.getElementsByName('city')[0].value,
-						'province' : document.getElementsByName('province')[0].value,
+						'street' : document.getElementsByName('street')[0].value.trim(),
+						'barangay' : document.getElementsByName('barangay')[0].value.trim(),
+						'city' : document.getElementsByName('city')[0].value.trim(),
+						'province' : document.getElementsByName('province')[0].value.trim(),
 						'gender' : $("input[name='gender']:checked").val(),
-						'mobile' : document.getElementsByName('mobile')[0].value,
-						'landline' : document.getElementsByName('landline')[0].value,
-						'email' : document.getElementsByName('email')[0].value,
-						'facebook' : document.getElementsByName('facebook')[0].value,
-						'twitter' : document.getElementsByName('twitter')[0].value,
-						'instagram' : document.getElementsByName('instagram')[0].value,
+						'mobile' : document.getElementsByName('mobile')[0].value.trim(),
+						'landline' : document.getElementsByName('landline')[0].value.trim(),
+						'email' : document.getElementsByName('email')[0].value.trim(),
+						'facebook' : document.getElementsByName('facebook')[0].value.trim(),
+						'twitter' : document.getElementsByName('twitter')[0].value.trim(),
+						'instagram' : document.getElementsByName('instagram')[0].value.trim(),
 						'advcateg' : slctdtype,
 						'durstart' : document.getElementsByName('durationsdate')[0].value,
 						'acposition' : document.getElementsByName('acposition')[0].value,
-						'officename' : document.getElementsByName('officename')[0].value,
-						'officeadd' : document.getElementsByName('officeadd')[0].value,
+						'officename' : document.getElementsByName('officename')[0].value.trim(),
+						'officeadd' : document.getElementsByName('officeadd')[0].value.trim(),
 						'secondary' : document.getElementsByName('secondary')[0].value,
 						'tertiary' : document.getElementsByName('tertiary')[0].value,
 						'quaternary' : document.getElementsByName('quaternary')[0].value,
@@ -682,17 +682,17 @@
 						var initspk = new Array();
 
 						if(document.getElementsByName('traintitle')[count].value !== "") {
-							traintitle.push(document.getElementsByName('traintitle')[count].value);
+							traintitle.push(document.getElementsByName('traintitle')[count].value.trim());
 
 							if(document.getElementsByName('traincateg')[count].value == 7) {
-								traincateg.push(document.getElementsByName('othercat')[count].value);
+								traincateg.push(document.getElementsByName('othercat')[count].value.trim());
 
 							} else {
 								traincateg.push(document.getElementsByName('traincateg')[count].value);
 
 							}//if
 
-							location.push(document.getElementsByName('location')[count].value);
+							location.push(document.getElementsByName('location')[count].value.trim());
 							sdate.push(document.getElementsByName('trainsdate')[count].value);
 							edate.push(document.getElementsByName('trainedate')[count].value);
 							stime.push(document.getElementsByName('trainstime')[count].value);
@@ -713,25 +713,25 @@
 					
 					var data = {
 						'ID' : document.getElementsByName('advid')[0].value,
-						'lname' : document.getElementsByName('lname')[0].value,
-						'fname' : document.getElementsByName('fname')[0].value,
-						'mname' : document.getElementsByName('mname')[0].value,
-						'qname' : document.getElementsByName('qname')[0].value,
+						'lname' : document.getElementsByName('lname')[0].value.trim(),
+						'fname' : document.getElementsByName('fname')[0].value.trim(),
+						'mname' : document.getElementsByName('mname')[0].value.trim(),
+						'qname' : document.getElementsByName('qname')[0].value.trim(),
 						'bdate' : document.getElementsByName('bdate')[0].value,
 						'gender' : $("input[name='gender']:checked").val(),
-						'street' : document.getElementsByName('street')[0].value,
-						'barangay' : document.getElementsByName('barangay')[0].value,
-						'city' : document.getElementsByName('city')[0].value,
-						'province' : document.getElementsByName('province')[0].value,
-						'mobile' : document.getElementsByName('mobile')[0].value,
-						'landline' : document.getElementsByName('landline')[0].value,
-						'email' : document.getElementsByName('email')[0].value,
-						'facebook' : document.getElementsByName('facebook')[0].value,
-						'twitter' : document.getElementsByName('twitter')[0].value,
-						'instagram' : document.getElementsByName('instagram')[0].value,
+						'street' : document.getElementsByName('street')[0].value.trim(),
+						'barangay' : document.getElementsByName('barangay')[0].value.trim(),
+						'city' : document.getElementsByName('city')[0].value.trim(),
+						'province' : document.getElementsByName('province')[0].value.trim(),
+						'mobile' : document.getElementsByName('mobile')[0].value.trim(),
+						'landline' : document.getElementsByName('landline')[0].value.trim(),
+						'email' : document.getElementsByName('email')[0].value.trim(),
+						'facebook' : document.getElementsByName('facebook')[0].value.trim(),
+						'twitter' : document.getElementsByName('twitter')[0].value.trim(),
+						'instagram' : document.getElementsByName('instagram')[0].value.trim(),
 						'advcateg' : slctdtype,
 						'durstart' : document.getElementsByName('durationsdate')[0].value,
-						'authorder' : document.getElementsByName('authorder')[0].value,
+						'authorder' : document.getElementsByName('authorder')[0].value.trim(),
 						'pnppost' : document.getElementsByName('position')[0].value,
 						'rank' : document.getElementsByName('rank')[0].value,
 						'secondary' : document.getElementsByName('secondary')[0].value,

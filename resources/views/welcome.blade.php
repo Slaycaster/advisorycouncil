@@ -165,7 +165,7 @@
                
                 var array = $(this).attr('value').split("/");
                 
-                tab.row.add([
+               /* tab.row.add([
                     array[0],
                     array[1],
                     array[2],
@@ -177,7 +177,8 @@
                     array[8],
                     array[9]
 
-                ]).draw();
+                ]).draw();*/
+            console.log(array);
 
             });
         });//document ready function
@@ -481,67 +482,7 @@
                     document.getElementById('sector').style.display = 'hidden';
                 }
         }
-        // for(var i=0;i<data.length;i++)
-        //                 {
-        //                     cell1 = data[i]['lname']+", "+data[i]['fname']+" "+data[i]['mname'];
-        //                     cell2 = data[i]['UnitOfficeSecondaryName'];
-        //                     cell3 = data[i]['sectorname'];
-        //                     cell4 = data[i]['acpositionname'];
-        //                     cell5 = data[i]['gender'];
-        //                     cell6 = data[i]['city']+", "+data[i]['province'];
-        //                     cell7 = data[i]['birthdate'];
-        //                     cell8 = data[i]['contactno'];
-        //                     cell9 = data[i]['email'];
 
-        //                     val = cell1 + "/" + cell2 + "/" + cell3 + "/" + cell4 + "/" +
-        //                           cell5 + "/" + cell6 + "/" + cell7 + "/" + cell8 + "/" + cell9; 
-
-        //                     pdfname.push(cell1);
-        //                     pdfsecondoff.push(data[i]['UnitOfficeSecondaryName']);
-        //                     pdftertiaryoff.push(data[i]['UnitOfficeTertiaryName']);
-        //                     pdfquaternaryoff.push(data[i]['UnitOfficeQuaternaryName']);
-        //                     pdfgender.push(data[i]['gender']);
-        //                     pdfposition.push(data[i]['acpositionname']);
-        //                     pdfemail.push(data[i]['email']);
-        //                     pdfcontact.push(data[i]['contactno']);
-        //                     pdfaddress.push(cell6);
-        //                     pdfsector.push(data[i]['sectorname']);
-        //                     pdfimage.push(data[i]['imagepath']);
-                         
-
-         // for(var i=0;i<data.length;i++)
-                        // {
-                        //     cell1 = data[i]['lname']+", "+data[i]['fname']+" "+data[i]['mname'];
-                        //     cell2 = data[i]['UnitOfficeSecondaryName']+", "+data[i]['UnitOfficeTertiaryName']+", "+data[i]['UnitOfficeQuaternaryName'];
-                        //     cell3 = "PNP";
-                        //     cell4 = data[i]['PositionName'];
-                        //     cell5 = data[i]['gender'];
-                        //     cell6 = data[i]['city']+", "+data[i]['province'];
-                        //     cell7 = data[i]['birthdate'];
-                        //     cell8 = data[i]['contactno'];
-                        //     cell9 = data[i]['email'];
-
-                        //     val = cell1 + "/" + cell2 + "/" + cell3 + "/" + cell4 + "/" +
-                        //           cell5 + "/" + cell6 + "/" + cell7 + "/" + cell8 + "/" + cell9;
-                            
-
-                        //     pdfname.push(cell1);
-                        //     pdfsecondoff.push(data[i]['UnitOfficeSecondaryName']);
-                        //     pdftertiaryoff.push(data[i]['UnitOfficeTertiaryName']);
-                        //     pdfquaternaryoff.push(data[i]['UnitOfficeQuaternaryName']);
-                        //     pdfgender.push(data[i]['gender']);
-                        //     pdfposition.push(data[i]['PositionName']);
-                        //     pdfemail.push(data[i]['email']);
-                        //     pdfcontact.push(data[i]['contactno']);
-                        //     pdfaddress.push(cell6);
-                        //     pdfsector.push("");  
-                        //     pdfimage.push(data[i]['imagepath']);
-
-                        //     //document.getElementById('pdfdata').value= val + val;
-                        //     document.getElementById('addRow').value = val;
-                        //     document.getElementById('addRow').click();
-
-                        // }
     </script>
 
 </html>

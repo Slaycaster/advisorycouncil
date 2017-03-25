@@ -112,8 +112,8 @@ function CRUD(id, func){
 	if(func == 1)
 	{
 		data = {
-			'acpname' : document.getElementsByName('acpositionname')[0].value,
-			'acpdesc' : document.getElementsByName('description')[0].value,
+			'acpname' : document.getElementsByName('acpositionname')[0].value.trim(),
+			'acpdesc' : document.getElementsByName('description')[0].value.trim(),
 			'submit': document.getElementsByName("submit")[0].value,
 			'callId' : 1,
 			'_token' : '{{ Session::token() }}'
@@ -139,8 +139,8 @@ function CRUD(id, func){
 	{
 		data = {
 			'id' : document.getElementById('ID').value,
-			'acpname' : document.getElementsByName('acpositionname')[0].value,
-			'acpdesc' : document.getElementsByName('description')[0].value,
+			'acpname' : document.getElementsByName('acpositionname')[0].value.trim(),
+			'acpdesc' : document.getElementsByName('description')[0].value.trim(),
 			'submit': document.getElementsByName("submit")[0].value,
 			'callId' : 3,
 			'_token' : '{{ Session::token() }}'

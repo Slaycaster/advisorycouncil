@@ -113,8 +113,8 @@
 		if(func == 1)
 		{
 			data = {
-				'secname' : document.getElementsByName('acsectorName')[0].value,
-				'secdesc' : document.getElementsByName('Desc')[0].value,
+				'secname' : document.getElementsByName('acsectorName')[0].value.trim(),
+				'secdesc' : document.getElementsByName('Desc')[0].value.trim(),
 				'submit': document.getElementsByName("submit")[0].value,
 				'callId' : 1,
 				'_token' : '{{ Session::token() }}'
@@ -141,8 +141,8 @@
 		{
 			data = {
 				'id' : document.getElementById('acsectorID').value,
-				'secname' : document.getElementsByName('acsectorName')[0].value,
-				'secdesc' : document.getElementsByName('Desc')[0].value,
+				'secname' : document.getElementsByName('acsectorName')[0].value.trim(),
+				'secdesc' : document.getElementsByName('Desc')[0].value.trim(),
 				'submit': document.getElementsByName("submit")[0].value,
 				'callId' : 3,
 				'_token' : '{{ Session::token() }}'
