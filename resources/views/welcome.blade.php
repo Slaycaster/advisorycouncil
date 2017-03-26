@@ -7,7 +7,7 @@
         <link rel="shortcut icon" type="image/png" href="{{URL::asset('images/Philippine-National-Police.png')}}"> <!--LOGO-->
 
         <!-- CSS -->
-        <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/semantic.css')}}">
+       <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/semantic.css')}}">
         <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/stylev1.css')}}">
         <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/icon.css')}}">
         <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/toast.css')}}">
@@ -124,8 +124,8 @@
         
 
 
-        <div >
-            <table id="datatables" class="ui celled table" cellspacing="0" width="100%">
+        <div class = "advcardcon">
+            <!--<table id="datatables" class="ui celled table" cellspacing="0" width="100%">
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -144,7 +144,26 @@
                 <tbody>
                     
                 </tbody>
-            </table>
+            </table>-->
+
+            <div class="itemlist">
+                <h6 id="acdivider" style="display:block" class="ui horizontal divider divtitle">
+                    Advisory Council
+                </h6>
+
+                <div id = "accardlist" class = "ui doubling grid cardlist2">
+                </div>
+
+                <h6 id="tpdivider" style="display:block" class="ui horizontal divider divtitle">
+                    TWG & PSMU
+                </h6>
+
+                <div id = "tpcardlist" class = "ui doubling grid cardlist2">
+                </div>
+                
+            </div>
+
+
         </div>
 
     </body>
@@ -182,6 +201,9 @@
 
             });
         });//document ready function
+
+
+        
     </script>
     
     <script>

@@ -9,7 +9,7 @@ function reinst() {
 				},
 				{
 					type : "regExp",
-					value : /^(?=.*(\d|\w))[A-Za-z0-9 ]{3,35}$/
+					value : /^(?=.*(\d|\w))[A-Za-z0-9 ]{2,35}$/
 				}]
 			},
 

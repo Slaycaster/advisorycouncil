@@ -234,8 +234,8 @@ function addT1Elements() { //AC ELEMENTS
 
 	createdropdown("acsector", tempcon, 0, "");
 
-
-	$("select").dropdown('refresh'); //refresh dropdown
+	$("select").not('#searchbox').dropdown('refresh');
+	//$("select").dropdown('refresh'); //refresh dropdown
 }//function addACElements() {
 
 
@@ -348,7 +348,8 @@ function addT2Elements() { //PSMU and TWG ELEMENTS
 
 	createdropdown("quaternary", tempcon, 0, "");
 
-	$("select").dropdown('refresh'); //refresh dropdown
+	$("select").not('#searchbox').dropdown('refresh');
+	//$("select").dropdown('refresh'); //refresh dropdown
 }//function addT2Elements() {
 
 
@@ -658,3 +659,9 @@ function setvalidity(id) {
 
 
 }//validatefield
+
+//NAME CARD
+
+function addnamecard() {
+            
+}//addnamecard

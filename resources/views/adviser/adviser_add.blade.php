@@ -766,7 +766,7 @@
 				});
 
 				setTimeout(function(){
-					window.location = "{{URL('directory')}}";
+					//window.location = "{{URL('directory')}}";
 				}, 2600);
 
 					

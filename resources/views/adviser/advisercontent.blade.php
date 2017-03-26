@@ -77,9 +77,9 @@
 						<br>
 
 					@if(sizeof($directory[1]) != 0)
-						<h4 class="ui horizontal divider divtitle">
+						<h6 class="ui horizontal divider divtitle">
 							TWG & PSMU
-						</h4>
+						</h6>
 
 						<div id = "tpcardlist" class = "ui doubling grid cardlist2">
 

@@ -799,7 +799,7 @@
 				});
 
 				setTimeout(function(){
-					window.location = "{{URL('directory')}}";
+					//window.location = "{{URL('directory')}}";
 				}, 2600);
 
 					
@@ -849,7 +849,7 @@
 			   			
 			   		};
 
-			   		$("select").dropdown('refresh');
+			   		$("select").not('#searchbox').dropdown('refresh');
 
 
 
@@ -1034,6 +1034,6 @@
 
 	</script>
 
-@include('adviser.adviser_modal')
 
+@include('adviser.adviser_modal')
 @stop
