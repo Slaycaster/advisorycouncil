@@ -94,7 +94,7 @@
                 <input type="text" onkeyup="loaddata()" id="city" value="" placeholder="City">
                 <input type="text" onkeyup="loaddata()" id="province" value="" placeholder="Province">
 
-                Age From:<input type="number" style="width: 45px;" onkeyup="adjustRange(this.value)" value = '0' id="ageFrom"> to <input style="width: 45px;" type="number" id="ageTo" value = '0' onkeyup="loaddata()" ><br><br>
+                Age From:<input type="number" style="width: 45px;" onkeyup="adjustRange(this.value)" id="ageFrom"> to <input style="width: 45px;" type="number" id="ageTo" onkeyup="loaddata()" ><br><br>
             
                 <button id="clearRow" style="display: none;"></button>
                 <button id="addRow" style="display: none;"></button>
