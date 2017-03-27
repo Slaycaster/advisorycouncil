@@ -623,7 +623,7 @@ class SearchController extends Controller
 
        	$sectorTable = $this->getSector();
        	$chartoption['title'] = 'Percentage of Stakeholders per AC Sector';
-       	$sectorChart = \Lava::PieChart('Sector', $sectorTable, $chartoption);
+       	$sectorChart = \Lava::BarChart('Sector', $sectorTable, $chartoption);
 
        	/*$sectorfilter  = \Lava::CategoryFilter(0, [
 		    'ui' => [
@@ -657,11 +657,11 @@ class SearchController extends Controller
 
        	$acpositionTable = $this->getACPosition();
        	$chartoption['title'] = 'Percentage of Stakeholders per AC Position';
-       	$acpositionChart = \Lava::PieChart('ACPosition', $acpositionTable , $chartoption);
+       	$acpositionChart = \Lava::BarChart('ACPosition', $acpositionTable , $chartoption);
        
        	$policepositionTable = $this->getPolicePosition();
        	$chartoption['title'] = 'Percentage of Stakeholders per Police Position';
-       	$policepositionChart = \Lava::PieChart('PolicePosition', $policepositionTable , $chartoption);
+       	$policepositionChart = \Lava::BarChart('PolicePosition', $policepositionTable , $chartoption);
 
 
 
