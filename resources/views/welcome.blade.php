@@ -7,7 +7,7 @@
         <link rel="shortcut icon" type="image/png" href="{{URL::asset('images/Philippine-National-Police.png')}}"> <!--LOGO-->
 
         <!-- CSS -->
-        <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/semantic.css')}}">
+       <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/semantic.css')}}">
         <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/stylev1.css')}}">
         <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/icon.css')}}">
         <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/toast.css')}}">
@@ -103,7 +103,9 @@
             <div>
             <form method="post" action="createPDF" target="_blank"> 
                 <input type="hidden" name="_token" value="{{csrf_token()}}">
-                <input type="hidden" name="name" value="">
+                <input type="hidden" name="fname" value="">
+                <input type="hidden" name="mname" value="">
+                <input type="hidden" name="lname" value="">
                 <input type="hidden" name="position" value="">
                 <input type="hidden" name="office2" value="">
                 <input type="hidden" name="office3" value="">
@@ -128,8 +130,8 @@
         
 
 
-        <div >
-            <table id="datatables" class="ui celled table" cellspacing="0" width="100%">
+        <div class = "advcardcon">
+             <table id="datatables" class="ui celled table" cellspacing="0" width="100%">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -137,7 +139,7 @@
                         <th>Office</th>
                         <th>Sector</th>
                         <th>Position</th>
-                        <th>Police Type</th>
+                        <th>Type</th>
                         <th>Gender</th>
                         <th>Location</th>
                         <th>ImagePath</th>
@@ -152,6 +154,25 @@
                     
                 </tbody>
             </table>
+
+            <div class="itemlist">
+                <h6 id="acdivider" style="display:block" class="ui horizontal divider divtitle">
+                    Advisory Council
+                </h6>
+
+                <div id = "accardlist" class = "ui doubling grid cardlist2">
+                </div>
+
+                <h6 id="tpdivider" style="display:block" class="ui horizontal divider divtitle">
+                    TWG & PSMU
+                </h6>
+
+                <div id = "tpcardlist" class = "ui doubling grid cardlist2">
+                </div>
+                
+            </div>
+
+
         </div>
 
     </body>
@@ -188,15 +209,20 @@
                     array[12]
 
                 ]).draw();
-            //console.log(array);
+                //console.log(array);
 
             });
         });//document ready function
+
+
+
     </script>
     
     <script>
             var pdfid=[];
-            var pdfname = [];
+            var pdffname = [];
+            var pdfmname = [];
+            var pdflname = [];
             var pdfsecondoff = [];
             var pdftertiaryoff = [];
             var pdfquaternaryoff = [];
@@ -223,7 +249,9 @@
         function loaddata(){
             
             pdfid=[];
-            pdfname = [];
+            pdffname = [];
+            pdfmname = [];
+            pdflname = [];
             pdfsecondoff = [];
             pdftertiaryoff = [];
             pdfquaternaryoff = [];
@@ -316,8 +344,7 @@
                 success: function(data){
                     
                     document.getElementById('clearRow').click();
-                    console.log(data);
-                    
+          
                     if(advisory==1)
                     {
                         loadAC(data);      
@@ -342,7 +369,9 @@
                         }
 
                      }   
-                            document.getElementsByName('name')[0].value = pdfname.join("/");
+                            document.getElementsByName('fname')[0].value = pdffname;
+                            document.getElementsByName('mname')[0].value = pdfmname;
+                            document.getElementsByName('lname')[0].value = pdflname;
                             document.getElementsByName('office2')[0].value = pdfsecondoff;
                             document.getElementsByName('office3')[0].value = pdftertiaryoff;
                             document.getElementsByName('office4')[0].value = pdfquaternaryoff;
@@ -371,7 +400,16 @@
                         for(i=0; i < numOfRow; i++)
                         {
                             cell1 = responseArray[num];num++;
-                            cell2 = responseArray[num];num++;
+                            
+                            if(responseArray[num+2]!="" && responseArray[num+2]!=null)
+                                { cell2 = responseArray[num] + ", " + responseArray[num+1] +" "+responseArray[num+2] ; }
+                            else { cell2 = responseArray[num] + ", " + responseArray[num+1]; }
+
+                            pdffname.push(responseArray[num+1]);
+                            pdfmname.push(responseArray[num+2]);
+                            pdflname.push(responseArray[num]);
+
+                            num+=3;
                             
                             if(responseArray[num+1]!='' && responseArray[num+2]!='')
                             {
@@ -421,7 +459,6 @@
                                   cell9 + "/" + cell10 + "/" + cell11 + "/" + cell12 + "/" + cell13;
 
                             pdfid.push(cell1);
-                            pdfname.push(cell2);
                             pdfsector.push(cell4); 
                             pdfposition.push(cell5);
                             pdfpoltype.push(cell6);
@@ -447,8 +484,19 @@
                         for(i=0; i < numOfRow; i++)
                         {
                             cell1 = responseArray[num];num++;
-                            cell2 = responseArray[num];num++;
                             
+                            if(responseArray[num+2]!="" && responseArray[num+2]!=null)
+                                { 
+                                    cell2 = responseArray[num] + ", " + responseArray[num+1] +" "+responseArray[num+2] ; 
+                                }
+                            else { cell2 = responseArray[num] + ", " + responseArray[num+1]; }
+                                
+                                pdffname.push(responseArray[num+1]);
+                                pdfmname.push(responseArray[num+2]);
+                                pdflname.push(responseArray[num]);
+
+                            num+=3;
+
                             if(responseArray[num+1]!='' && responseArray[num+2]!='')
                             {
                                 //$office = $office4name." - ".$office3name." - ".$office2name;
@@ -500,7 +548,6 @@
                                   cell9 + "/" + cell10 + "/" + cell11 + "/" + cell12 + "/" + cell13;
 
                             pdfid.push(cell1);
-                            pdfname.push(cell2);
                             pdfsector.push(""); 
                             pdfposition.push(cell5);
                             if(cell6==1)

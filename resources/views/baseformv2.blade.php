@@ -18,6 +18,8 @@
 		<script type="text/javascript" src="{{ URL::asset('js/jquery-2.1.4.js') }}"></script>
 		<script type="text/javascript" src="{{ URL::asset('js/semantic.js') }}"></script>
 		<script type="text/javascript" src="{{ URL::asset('js/initialization.js') }}"></script>
+
+		<!--Smart Search-->
 		<link href="{{ URL::asset('selectize/css/selectize.bootstrap3.css') }}" rel="stylesheet">
 		<script type="text/javascript" src='{{ URL::asset("selectize/js/standalone/selectize.min.js") }}'></script>
 	</head>

@@ -12,8 +12,8 @@ class Training extends Migration
         {
             $table->increments('ID');
             $table->string('trainingname', 100);
-            $table->date('startdate');
-            $table->date('enddate');
+            $table->date('startdate')->nullable();
+            $table->date('enddate')->nullable();
             $table->string('location', 100);
             $table->string('organizer', 45);
             $table->time('starttime');

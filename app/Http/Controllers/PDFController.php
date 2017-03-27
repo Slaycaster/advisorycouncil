@@ -137,7 +137,7 @@ class PDFController extends Controller
 
 				$positionname = $this->getName('Police_Position','PositionName',$res->police_position_id); 
 			
-				$result = $result."/".$res->ID."/".$res->lname.", ".$res->fname." ".$mname."/".$office2name."/".$office3name."/".$office4name."/".$positionname."/".$res->policetype."/".$res->gender."/".$res->city."-".$res->province."/".$res->imagepath."/".$res->contactno."/".$res->landline."/".$res->email."/".$res->startdate;
+				$result = $result."/".$res->ID."/".$res->lname."/".$res->fname."/".$mname."/".$office2name."/".$office3name."/".$office4name."/".$positionname."/".$res->policetype."/".$res->gender."/".$res->city."-".$res->province."/".$res->imagepath."/".$res->contactno."/".$res->landline."/".$res->email."/".$res->startdate;
 
 			}
 
@@ -191,7 +191,7 @@ class PDFController extends Controller
 				$positionname = $this->getName('Advisory_Position','acpositionname',$res->advisory_position_id); 
 				$sector = $this->getName('AC_Sector','sectorname',$res->ac_sector_id);
 			
-				$result = $result."/".$res->ID."/".$res->lname.", ".$res->fname." ".$mname."/".$office2name."/".$office3name."/".$office4name."/".$sector."/".$positionname."/".$res->gender."/".$res->city."-".$res->province."/".$res->imagepath."/".$res->contactno."/".$res->landline."/".$res->email."/".$res->startdate;
+				$result = $result."/".$res->ID."/".$res->lname."/".$res->fname."/".$mname."/".$office2name."/".$office3name."/".$office4name."/".$sector."/".$positionname."/".$res->gender."/".$res->city."-".$res->province."/".$res->imagepath."/".$res->contactno."/".$res->landline."/".$res->email."/".$res->startdate;
 
 			}
 
@@ -272,7 +272,9 @@ class PDF extends FPDF
 
 	function body($req)
 	{
-		$name = explode("/", $req->name);
+		$fname = explode(",", $req->fname);
+		$mname = explode(",", $req->mname);
+		$lname = explode(",", $req->lname);
     	$position = explode(",", $req->position);
     	$image = explode(",", $req->imageurl);
     	$office2 = explode(",", $req->office2);
@@ -302,7 +304,7 @@ class PDF extends FPDF
 
     		$this->Rect($col,$y0,85,45);
 			$this->SetFont('Arial','B',9);
-			$this->Text($textCol,$texty0,(strtoupper($name[$i-1])." (".$poltype[$i-1].")"));
+			$this->Text($textCol,$texty0,(strtoupper($lname[$i-1]).", ".strtoupper($fname[$i-1])." ".strtoupper($mname[$i-1])." (".$poltype[$i-1].")"));
 			$this->SetFont('Arial','',8);
 			$this->Text($textCol,$texty0+8,$position[$i-1]);
 			$this->Text($textCol,$texty0+11,$office2[$i-1]);

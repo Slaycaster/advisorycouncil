@@ -19,7 +19,7 @@
 										<div class = "one field">
 											<label class="formlabel">Stakeholder Category</label>
 											<div class="field">
-												<select onchange = "fieldcontrol(); loaddata()" class="ui selection dropdown filselect" name = "filadvcateg">
+												<select onchange = "fieldcontrol();" class="ui selection dropdown filselect" name = "filadvcateg">
 													<option value="4" selected>All</option>
 													<option value="1">Advisory Council (AC)</option>
 													<option value="2">Technical Working Group (TWG)</option>
@@ -37,6 +37,11 @@
 											<div class="field">
 												<select onchange = "loaddata()" class="ui selection dropdown filselect" name = "filacposition">
 													<option value="disitem" selected>Select One</option>
+
+													@foreach ($acposition as $acp)
+								                        <option value="{{$acp->ID}}">{{$acp->acpositionname}}</option>
+								                    @endforeach
+
 													
 
 												</select>
@@ -52,6 +57,9 @@
 												<select onchange = "loaddata()" class="ui selection dropdown filselect" name = "filpnpposition">
 													<option value="disitem" selected>Select One</option>
 													
+													@foreach ($pnpposition as $pnpp)
+								                        <option value="{{$pnpp->id}}">{{$pnpp->PositionName}}</option>
+								                    @endforeach
 
 												</select>
 											</div>
@@ -64,15 +72,17 @@
 										<div class = "one field">
 											<label class="formlabel">Unit/Offices</label>
 											<div class="field">
-												<select class="ui selection dropdown filselect" name = "filprimary">
+												<select class="ui selection dropdown filselect" onchange="getsecoffice(this.value)" name = "filprimary">
 													<option value="disitem" selected>Primary Unit/Office</option>
-													
+													@foreach ($unitoffice as $puo)
+								                        <option value="{{$puo->id}}">{{$puo->UnitOfficeName}}</option>
+								                    @endforeach
 
 												</select>
 											</div>
 
 											<div class="field bspacing1">
-												<select onchange = "loaddata()" class="ui selection dropdown filselect" name = "filsecondary">
+												<select onchange = "getteroffice(this.value); loaddata()" class="ui selection dropdown filselect" name = "filsecondary">
 													<option value="disitem" selected>Secondary Unit/Office</option>
 													
 
@@ -80,7 +90,7 @@
 											</div>
 
 											<div class="field bspacing1">
-												<select onchange = "loaddata()" class="ui selection dropdown filselect" name = "filtertiary">
+												<select onchange = "getquaroffice(this.value); loaddata()" class="ui selection dropdown filselect" name = "filtertiary">
 													<option value="disitem" selected>Tertiary Unit/Office</option>
 													
 
@@ -104,7 +114,9 @@
 											<div class="field">
 												<select onchange = "loaddata()" class="ui selection dropdown filselect" name = "filacsector">
 													<option value="disitem" selected>Select One</option>
-													
+													@foreach ($acsector as $acs)
+								                        <option value="{{$acs->ID}}">{{$acs->sectorname}}</option>
+								                    @endforeach
 
 												</select>
 											</div>
@@ -221,6 +233,13 @@
 	<script type="text/javascript">
 		$('#tab3').attr('class', 'mlink item active');
 
+		//--- TEMPORARY
+		$("select[name='filacposition']").dropdown().addClass('disabled', 'disabled');
+		$("select[name='filacsector']").dropdown().addClass('disabled', 'disabled');
+		$("select[name='filpnpposition']").dropdown().addClass('disabled', 'disabled');
+		//-------
+
+		
 		function checkageinput() {
 			var age1 = document.getElementsByName('filage1')[0].value;
 			var age2 = document.getElementsByName('filage2')[0].value;
@@ -236,6 +255,118 @@
 			
 
 		}//checkageinput
+
+		function fieldcontrol() {
+			var advcateg = $("select[name='filadvcateg']").val();
+
+			if(advcateg == 1) {
+				$("select[name='filacposition']").dropdown().removeClass('disabled');
+				$("select[name='filacsector']").dropdown().removeClass('disabled');
+				$("select[name='filpnpposition']").dropdown().addClass('disabled');
+
+
+			} else if(advcateg == 2 || advcateg == 3) {
+				$("select[name='filacposition']").dropdown().addClass('disabled', 'disabled');
+				$("select[name='filacsector']").dropdown().addClass('disabled', 'disabled');
+				$("select[name='filpnpposition']").dropdown().removeClass('disabled');
+
+			} else if(advcateg == 4) {
+				/*$("select[name='filacposition']").dropdown().removeClass('disabled');
+				$("select[name='filacsector']").dropdown().removeClass('disabled');
+				$("select[name='filpnpposition']").dropdown().removeClass('disabled');*/
+
+				$("select[name='filacposition']").dropdown().addClass('disabled', 'disabled');
+				$("select[name='filacsector']").dropdown().addClass('disabled', 'disabled');
+				$("select[name='filpnpposition']").dropdown().addClass('disabled', 'disabled');
+
+
+			}
+
+		}//changefieldstate
+
+
+		//------------------------
+		function getsecoffice(val) {
+
+			var data = {
+					'poID' : val,
+					'_token' : '{{ Session::token() }}'
+
+				};
+
+
+			$.ajax({
+				type: "POST",
+				url: "{{url('dropdown/getsecoffice')}}",
+				data: data,
+				dataType: 'json',
+			   	success : function(secoffice) {
+
+			   		$("select[name='secondary'] option").not("[value='disitem']").remove();
+
+			   		for (var ctr = 0 ; ctr < secoffice.length ; ctr++) {
+			   			populatedropdown(secoffice[ctr]['id'], 'filsecondary', secoffice[ctr]['UnitOfficeSecondaryName']);
+			   			
+			   		};
+
+
+			   		
+			   	}//success : function() {
+			});
+
+		}//function getsecoffice() {
+
+		function getteroffice(val) {
+			var data = {
+				'soID' : val,
+				'_token' : '{{ Session::token() }}'
+
+			};
+
+			$.ajax({
+				type: "POST",
+				url: "{{url('dropdown/getteroffice')}}",
+				data: data,
+				dataType: 'json',
+			   	success : function(teroffice) {
+
+			   		$("select[name='tertiary'] option").not("[value='disitem']").remove();
+
+			   		for (var ctr = 0 ; ctr < teroffice.length ; ctr++) {
+			   			populatedropdown(teroffice[ctr]['id'], 'filtertiary', teroffice[ctr]['UnitOfficeTertiaryName']);
+			   			
+			   		};
+
+			   		
+			   	}//success : function() {
+			});
+		}//function getteroffice() {
+
+		function getquaroffice(val) {
+			var data = {
+				'toID' : val,
+				'_token' : '{{ Session::token() }}'
+
+			};
+
+			$.ajax({
+				type: "POST",
+				url: "{{url('dropdown/getquaroffice')}}",
+				data: data,
+				dataType: 'json',
+			   	success : function(quaroffice) {
+
+			   		$("select[name='quaternary'] option").not("[value='disitem']").remove();
+
+			   		for (var ctr = 0 ; ctr < quaroffice.length ; ctr++) {
+			   			populatedropdown(quaroffice[ctr]['id'], 'filquaternary', quaroffice[ctr]['UnitOfficeQuaternaryName']);
+			   			
+			   		};
+
+			   		
+			   	}//success : function() {
+			});
+		}//function getteroffice() {
 
 		
 	</script>

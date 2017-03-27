@@ -35,8 +35,6 @@
 
 	</div>
 
-	<script type="text/javascript" src="{{ URL::asset('js/formcontrol.js') }}"></script>
-
 	<script type="text/javascript">
 
 		function loadCModal() {
