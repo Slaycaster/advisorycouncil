@@ -489,10 +489,14 @@
 
 			function fillAC() {
 				//NOT WORKING
-				$('#acposition').dropdown('set selected', '{{$recorddata[0][0]->advisory_position_id}}');
-				$('#acsector').dropdown('set selected', '{{$recorddata[0][0]->ac_sector_id}}');
 				
+				//setTimeout(function(){
+					//$("select[name='acposition']").dropdown('setup menu');
 
+					$("select[name='acposition']").dropdown('set selected','{{$recorddata[0][0]->advisory_position_id}}').dropdown();
+					$("select[name='acsector']").dropdown('set selected','{{$recorddata[0][0]->ac_sector_id}}');
+				
+				//}, 100);
 				//fill dropdown
 				//---------
 
@@ -794,13 +798,15 @@
 				   	success : function() {
 
 				   		loadtoast("Saved");
+
+				   		setTimeout(function(){
+							window.location = "{{URL('directory')}}";
+						}, 2600);
 				   	
 				   	}//success : function() {
 				});
 
-				setTimeout(function(){
-					//window.location = "{{URL('directory')}}";
-				}, 2600);
+				
 
 					
        			

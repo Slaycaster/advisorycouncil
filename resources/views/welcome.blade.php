@@ -125,7 +125,7 @@
 
 
         <div class = "advcardcon">
-            <!--<table id="datatables" class="ui celled table" cellspacing="0" width="100%">
+             <table id="datatables" class="ui celled table" cellspacing="0" width="100%">
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -144,7 +144,7 @@
                 <tbody>
                     
                 </tbody>
-            </table>-->
+            </table>
 
             <div class="itemlist">
                 <h6 id="acdivider" style="display:block" class="ui horizontal divider divtitle">
@@ -184,7 +184,7 @@
                
                 var array = $(this).attr('value').split("/");
                 
-               /* tab.row.add([
+               tab.row.add([
                     array[0],
                     array[1],
                     array[2],
@@ -196,14 +196,14 @@
                     array[8],
                     array[9]
 
-                ]).draw();*/
+                ]).draw();
             console.log(array);
 
             });
         });//document ready function
 
 
-        
+
     </script>
     
     <script>
@@ -306,6 +306,7 @@
                     
                     document.getElementById('clearRow').click();
                     
+                    console.log(data);
                     if(advisory==1)
                     {
                         responseArray = data.split("/");

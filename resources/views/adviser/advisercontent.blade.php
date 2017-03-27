@@ -26,11 +26,8 @@
 												{{$acrec->acpositionname}} <br>
 												
 												@if($acrec->UnitOfficeQuaternaryName != "")
-													{{$acrec->UnitOfficeQuaternaryName}}
+													{{$acrec->UnitOfficeQuaternaryName}},&nbsp;
 
-													@if($acrec->UnitOfficeTertiaryName != "")
-														,&nbsp;
-													@endif
 
 												@endif
 
@@ -64,7 +61,7 @@
 												
 											</p>
 
-											<p valign="bottom" class = "p2"> Member since {{date('M Y',strtotime($acrec->startdate))}}</p>
+											<p valign="bottom" class = "p2"> Member since {{date('d M Y',strtotime($acrec->startdate))}}</p>
 											
 										</div>
 									</div>
