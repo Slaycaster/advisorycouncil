@@ -45,15 +45,15 @@ use Redirect;
 
 class AdvDirectoryController extends Controller {
 
-	public function readyadd(){
+	public function readyadd(Request $req){
 
- 		//return view('adviser.adviser_add')->with('action', 0);
-
+		$req->session()->put('tabtitle', '#tab3');
  		return view('adviser.adviser_form')->with('action', 0);
 
  	}//select dropdowns
 
  	public function readyedit(Request $req) {
+ 		$req->session()->put('tabtitle', '#tab3');
 
  		if(!isset($req->c)) {
  			return redirect("directory");
@@ -67,7 +67,7 @@ class AdvDirectoryController extends Controller {
 
 		//return $result[2][0];
 
-		return view('adviser.adviser_add')->with('action', 1)
+		return view('adviser.adviser_form')->with('action', 1)
 										 ->with('recorddata', $result)
 										 ->with('type', (int) $tidelements[0])
 										 ->with('id', (int) $tidelements[1]);
@@ -161,11 +161,20 @@ class AdvDirectoryController extends Controller {
 		$req->session()->put('tabtitle', '#tab3');
 
 		$adv = $this->getAdv('created_at', 'desc');
+		$acposition = Advisory_Position::select('ID', 'acpositionname')->get();
+		$pnpposition = Police_Position::select('id', 'PositionName')->get();
+		$acsector = AC_Sector::select('ID', 'sectorname')->get();
+		$unitoffice = unit_offices::select('id', 'UnitOfficeName')->get();
+
 		/*INSERT CODE FOR DIRECTORY LIST VIEW*/
 
-		//return $adv;
+		//return $unitoffice;
 		return view('adviser.advisercontent')->with("directory", $adv)
-									 ->with("showcontrol", "true");
+									 		 ->with("showcontrol", "true")
+									 		 ->with("acposition", $acposition)
+									 		 ->with("pnpposition",$pnpposition)
+									 		 ->with("acsector", $acsector)
+									 		 ->with("unitoffice", $unitoffice);
 	}//public function getList() {
 
 	public function readyPHome() {
@@ -299,7 +308,6 @@ class AdvDirectoryController extends Controller {
 	 		$advisory->imagepath = $this->loadphoto($data['upphoto']);
 
 	 	}//if
-	 	print_r($data['acsector']);
 
         $advisory->advisory_position_id = $data['acposition'];
         $advisory->ac_sector_id = $data['acsector'];
@@ -477,7 +485,7 @@ class AdvDirectoryController extends Controller {
 		   	$training->police_id = $id;
 		   	$training->save();
 
-		   	$trainID = $this->getTrainID();
+		   	$trainID = $this->getTrainID($id);
 
 		   	$this->addLecturer($data['speaker'][$i], $trainID);
 
@@ -492,8 +500,9 @@ class AdvDirectoryController extends Controller {
 
     }// update Training
 
-   	public function getTrainID() {
-   		$getid = Training::orderBy('ID', 'desc')->take(1)->get();
+   	public function getTrainID($id) {
+   		$getid = Training::where('police_id', '=', $id)
+   						 ->orderBy('ID', 'desc')->take(1)->get();
 
 		foreach ($getid as $key => $id) {
             return $id->ID;

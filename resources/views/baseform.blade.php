@@ -22,7 +22,6 @@
 		<script type="text/javascript" src="{{ URL::asset('js/initialization.js') }}"></script>
 		<script type="text/javascript" src="{{ URL::asset('js/toast.js') }}"></script>
 
-
 		<!--Data Table plugins and design-->
 		<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/datatable/dataTables.semanticui.min.css')}}">
 		<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/datatable/responsive.semanticui.min.css')}}">
@@ -32,7 +31,7 @@
 		<script type="text/javascript" src="{{ URL::asset('js/datatable/dataTables.responsive.min.js') }}"></script>
 		<script type="text/javascript" src="{{ URL::asset('js/datatable/responsive.semanticui.min.js') }}"></script>
 
-
+		<!--Smart Search-->
 		<link href="{{ URL::asset('selectize/css/selectize.bootstrap3.css') }}" rel="stylesheet">
 		<script type="text/javascript" src='{{ URL::asset("selectize/js/standalone/selectize.min.js") }}'></script>
 
@@ -106,12 +105,6 @@
 					<div class = "row">
 						<div class = "nine wide column colheight">
 							<select id="searchbox" name="q" placeholder="Search Stakeholder(s)" ></select>
-							<!-- 
-							<div class="ui icon input big search">
-								<i class="search icon"></i>
-								<input type="text" placeholder="Search...">
-							</div>
-							-->
 
 							@if(isset($showcontrol))
 								<!--<div class = "ui icon addbtn button medium" 
@@ -121,7 +114,9 @@
 									
 								</div>-->
 
-								<button type="button" class="ui right labeled icon button">
+								<button type="button" class="ui right labeled icon button"
+									onclick = "window.open('{{url('directory/add')}}')" 
+									title = "Add AC Member">
 									<i class="plus icon"></i>
 									ADD
 								</button>
