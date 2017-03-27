@@ -198,3 +198,7 @@ Route::post('load-pdf-data', 'PDFController@loaddata');
 
 //ren routes for redirection of search
 Route::post('home/search2', 'SearchController@view');
+
+
+//dynamic graphs
+Route::get('Dashboard/Linegraph/ACPosition', 'SearchController@getLineChartACPosition');

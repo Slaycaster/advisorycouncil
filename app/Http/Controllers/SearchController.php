@@ -555,9 +555,34 @@ class SearchController extends Controller
 		       ->addNumberColumn('Total')
 		       ->addNumberColumn('AgeInt');
 		       //print_r($ageac);
+
+		        $dataCollection =  collect([
+										    ['name' => 'part1','desc' => '15 to 30', 'num' => 0],
+										    ['name' => 'part2','desc' => '31 to 40', 'num' => 0],
+										    ['name' => 'part3','desc' => '41 to 60', 'num' => 0],
+										    ['name' => 'part4','desc' => '60 and above', 'num' => 0],
+										]);
+		       $dataArray = $dataCollection->toArray();
+
+
 		       foreach ($ageac as $value) {
-		       		$dt->addRow([$value->age, $value->num]);
-		       }
+				       
+				       
+				       	if ($value->age >= 15 && $value->age <= 30 ) {
+				       				$dataArray[0]['num'] = $dataArray[0]['num'] + $value->num;
+				       	}else if ($value->age > 30 && $value->age <= 40 ) {
+				       				$dataArray[1]['num']= $dataArray[1]['num'] + $value->num;
+				       	}else if($value->age > 40 && $value->age <= 60 ){
+				       				$dataArray[2]['num'] = $dataArray[2]['num'] + $value->num;
+				       	}else if($value->age > 60){
+				       				$dataArray[3]['num'] = $dataArray[3]['num'] + $value->num;
+				       	}
+		       	}
+			for ($i=0; $i < 4; $i++) { 
+					       		$dt->addRow([$dataArray[$i]['desc'], $dataArray[$i]['num']]);
+					       	}		       	
+
+		      
 
 		       return $dt;
 	
@@ -598,7 +623,7 @@ class SearchController extends Controller
 
        	$sectorTable = $this->getSector();
        	$chartoption['title'] = 'Percentage of Stakeholders per AC Sector';
-       	$sectorChart = \Lava::PieChart('Sector', $sectorTable, $chartoption);
+       	$sectorChart = \Lava::BarChart('Sector', $sectorTable, $chartoption);
 
        	/*$sectorfilter  = \Lava::CategoryFilter(0, [
 		    'ui' => [
@@ -632,11 +657,11 @@ class SearchController extends Controller
 
        	$acpositionTable = $this->getACPosition();
        	$chartoption['title'] = 'Percentage of Stakeholders per AC Position';
-       	$acpositionChart = \Lava::PieChart('ACPosition', $acpositionTable , $chartoption);
+       	$acpositionChart = \Lava::BarChart('ACPosition', $acpositionTable , $chartoption);
        
        	$policepositionTable = $this->getPolicePosition();
        	$chartoption['title'] = 'Percentage of Stakeholders per Police Position';
-       	$policepositionChart = \Lava::PieChart('PolicePosition', $policepositionTable , $chartoption);
+       	$policepositionChart = \Lava::BarChart('PolicePosition', $policepositionTable , $chartoption);
 
 
 
