@@ -36,6 +36,18 @@ html, body{
 		width:58px;
 	}
 
+	.ui.segment.filcon {
+	width: 70%;
+	height: 50em;
+	margin: 4% 0 0 5%;
+	background-color: #ede8e6;
+}
+
+	.filselect {
+	width: 40%;
+}	
+
+
 	
 }/*end of @media*/
 
@@ -100,6 +112,10 @@ html, body{
 
 .tablepane{
 	width:80%;
+}
+
+.filselect {
+	width: 70%;
 }
 
 
