@@ -6,9 +6,12 @@ use Illuminate\Http\Request;
 use App;
 use App\Models;
 
+
 class PoliceOfficeTwoController extends Controller
 {
-    public function index(){
+    public function index(Request $req){
+      $req->session()->put('tabtitle', '#tab2');
+        
     	$suboffice = App\Models\unit_office_secondaries::with('unitoffice')->get();
     	$office = App\Models\unit_offices::where('UnitOfficeHasField', '=', 'True')->get();
 

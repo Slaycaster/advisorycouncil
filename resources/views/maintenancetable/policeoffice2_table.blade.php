@@ -194,10 +194,10 @@
 				$("#officecon").removeClass('active');
 
 				var data = {
-					'name' : document.getElementsByName("name")[0].value,
+					'name' : document.getElementsByName("name")[0].value.trim(),
 					'office' : document.getElementsByName("office")[0].value,
 					'haster' : document.getElementsByName("haster")[0].value,
-					'desc' : document.getElementsByName('desc')[0].value,
+					'desc' : document.getElementsByName('desc')[0].value.trim(),
 					'submit': document.getElementsByName("submit")[0].value,
 					'_token' : '{{ Session::token() }}'
 				};
@@ -227,9 +227,9 @@
 			var data = {
 				'subID' : document.getElementsByName('subid')[0].value,
 				'office' : document.getElementsByName("office")[0].value,
-				'name' : document.getElementsByName("name")[0].value,
+				'name' : document.getElementsByName("name")[0].value.trim(),
 				'haster' : document.getElementsByName("haster")[0].value,
-				'desc' : document.getElementsByName('desc')[0].value,
+				'desc' : document.getElementsByName('desc')[0].value.trim(),
 				'submit': document.getElementsByName("submit")[0].value,
 				'_token' : '{{ Session::token() }}'
 			};

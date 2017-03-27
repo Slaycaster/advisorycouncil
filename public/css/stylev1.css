@@ -684,9 +684,9 @@ form, .dcon {
 }
 
 .hr3 {
-	width: 100%;
+	width: 98%;
 	margin-right: 10%;
-	margin-top: 2%;
+	margin-top: 8%;
 	margin-bottom: 2%;
 
 }
@@ -877,6 +877,12 @@ legend {
 	margin-left: 2.5%;
 }
 
+.itemlist2 {
+	height: auto;
+	width: 93.5%;
+	margin-left: 3.2%;
+}
+
 .ui.tabular.menu .hidden.item {
 	display: none;
 }
@@ -913,4 +919,37 @@ legend {
 .filspnr {
 	margin-left: 6%;
 	width: 35%;
+}
+
+.texttitle {
+	font-family: "Franklin Gothic Book";
+	color: #565656;
+	font-weight: bold;
+}
+
+.dropphoto {
+	width: 30px;
+	height: 30px;
+	object-fit:cover;
+}
+
+.dropname {
+	font-family: "Franklin Gothic Book";
+	font-weight: bold;
+	margin-top: 1%;
+	float:left;
+	margin-left: 1%;
+
+}
+
+.imgcon {
+	width: auto;
+	height: 100%;
+	float: left;
+}
+
+.newmargin {
+  margin-top: -2% !important;
+  margin-left: -1% !important;
+  width: 90% !important;
 }

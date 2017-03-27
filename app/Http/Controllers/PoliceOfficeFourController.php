@@ -12,12 +12,11 @@ use App\Models\unit_office_tertiaries;
 use App\Models\unit_offices;
 use App\Models\unit_office_secondaries;
 
-
 class PoliceOfficeFourController extends Controller
 {
-    public function index(){
-    	//$tertiaryid = $office4['UnitOfficeTertiaryID'];
-    	//$tertiarydata = DB::table('unit_office_tertiaries')->find($tertiaryid);
+    public function index(Request $req){
+      $req->session()->put('tabtitle', '#tab2');
+
     	$office = DB::table('unit_offices')->where('UnitOfficeHasField','=','true')->get();
     	$office4 = DB::table('unit_office_quaternaries')
             ->select('unit_office_quaternaries.id','unit_office_quaternaries.UnitOfficeQuaternaryName',

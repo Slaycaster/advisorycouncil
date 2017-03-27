@@ -19,8 +19,8 @@
 										<div class = "one field">
 											<label class="formlabel">Stakeholder Category</label>
 											<div class="field">
-												<select class="ui selection dropdown filselect" name = "filadvcateg">
-													<option value="0" selected>All</option>
+												<select onchange = "fieldcontrol(); loaddata()" class="ui selection dropdown filselect" name = "filadvcateg">
+													<option value="4" selected>All</option>
 													<option value="1">Advisory Council (AC)</option>
 													<option value="2">Technical Working Group (TWG)</option>
 													<option value="3">Police Strategy Management Unit (PSMU)</option>
@@ -35,7 +35,7 @@
 										<div class = "one field">
 											<label class="formlabel">AC Position</label>
 											<div class="field">
-												<select class="ui selection dropdown filselect" name = "filacposition">
+												<select onchange = "loaddata()" class="ui selection dropdown filselect" name = "filacposition">
 													<option value="disitem" selected>Select One</option>
 													
 
@@ -49,7 +49,7 @@
 										<div class = "one field">
 											<label class="formlabel">PNP Position</label>
 											<div class="field">
-												<select class="ui selection dropdown filselect" name = "filpnpposition">
+												<select onchange = "loaddata()" class="ui selection dropdown filselect" name = "filpnpposition">
 													<option value="disitem" selected>Select One</option>
 													
 
@@ -72,7 +72,7 @@
 											</div>
 
 											<div class="field bspacing1">
-												<select class="ui selection dropdown filselect" name = "filsecondary">
+												<select onchange = "loaddata()" class="ui selection dropdown filselect" name = "filsecondary">
 													<option value="disitem" selected>Secondary Unit/Office</option>
 													
 
@@ -80,7 +80,7 @@
 											</div>
 
 											<div class="field bspacing1">
-												<select class="ui selection dropdown filselect" name = "filtertiary">
+												<select onchange = "loaddata()" class="ui selection dropdown filselect" name = "filtertiary">
 													<option value="disitem" selected>Tertiary Unit/Office</option>
 													
 
@@ -88,7 +88,7 @@
 											</div>
 
 											<div class="field bspacing1">
-												<select class="ui selection dropdown filselect" name = "filquaternary">
+												<select onchange = "loaddata()" class="ui selection dropdown filselect" name = "filquaternary">
 													<option value="disitem" selected>Quaternary Unit/Office</option>
 													
 
@@ -102,7 +102,7 @@
 										<div class = "one field">
 											<label class="formlabel">AC Sector</label>
 											<div class="field">
-												<select class="ui selection dropdown filselect" name = "filacsector">
+												<select onchange = "loaddata()" class="ui selection dropdown filselect" name = "filacsector">
 													<option value="disitem" selected>Select One</option>
 													
 
@@ -117,12 +117,12 @@
 											<label class="formlabel">Gender</label>
 											<div class = "inline fields">
 												<div class = "ui checkbox field">
-													<input type="checkbox" name="filgender" value="0"  tabindex="0" class="hidden">
+													<input type="checkbox" onselect="loaddata()" name="filgender" value="0"  tabindex="0" class="hidden">
 													<label>Male</label>
 														
 												</div>
 												<div class = "ui checkbox field">
-													<input type="checkbox" name="filgender" value="1"  tabindex="0" class="hidden">
+													<input type="checkbox" onselect="loaddata()" name="filgender" value="1"  tabindex="0" class="hidden">
 													<label>Female</label>
 													
 														
@@ -138,11 +138,11 @@
 											<label class="formlabel">Location</label>
 
 											<div class="ui input field filtext">
-												<input type="text" name = "filcityloc" placeholder="City">
+												<input type="text" onchange = "loaddata()" name = "filcityloc" placeholder="City">
 											</div>
 
 											<div class="ui input field bspacing1 filtext">
-												<input type="text" name = "filprovloc" placeholder="Province">
+												<input type="text" onchange = "loaddata()" name = "filprovloc" placeholder="Province">
 											</div>
 										</div>
 										
@@ -154,13 +154,13 @@
 											<div class = "inline fields">
 												<div class = "ui input field">
 													<label class="agelbl">From</label>
-													<input type="number" class = "filspnr" step="1" min="10" max="75" name="filage1" value="10"  tabindex="0" class="hidden">
+													<input type="number" onchange="checkageinput()" class = "filspnr" step="1" min="0" max="75" name="filage1" value="0">
 													
 														
 												</div>
 												<div class = "ui input field">
 													<label class="agelbl">to</label>
-													<input type="number" class = "filspnr" step="1" min="10" max="75" name="filage2" value="11"  tabindex="0" class="hidden">
+													<input type="number" onchange="checkageinput()" class = "filspnr" step="1" min = "0" max="75" name="filage2" value="0">
 													
 													
 														
@@ -216,12 +216,30 @@
 		
 		
 	</div>
+	
 
 	<script type="text/javascript">
 		$('#tab3').attr('class', 'mlink item active');
 
-	</script>
+		function checkageinput() {
+			var age1 = document.getElementsByName('filage1')[0].value;
+			var age2 = document.getElementsByName('filage2')[0].value;
 
+			if(age1 != 0 && age2 != 0) {
+				if(age1 >= 10 && age2 > age1) {
+					//call loaddata function
+					//loaddata();
+
+					console.log('hello');
+				}//if
+			}//if
+			
+
+		}//checkageinput
+
+		
+	</script>
+	
 @include('home.directory_modal')
 
 @stop

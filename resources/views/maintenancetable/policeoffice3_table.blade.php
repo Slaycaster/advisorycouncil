@@ -41,7 +41,7 @@
 					<div class = "field">
 						<select class="modified ui selection dropdown selectstyle2" name="select_office1" id = "office1"
 						onchange="Select_Office(this.value)">
-							<option value = "disitem" disabled>Select One</option>
+							<option value = "disitem">Select One</option>
 
 							@foreach($poOne as $rs1)
 					       		<option value="{{$rs1->id}}">{{$rs1->UnitOfficeName}}</option>
@@ -188,10 +188,10 @@
 		if(func == 1)
 		{
 			data = {
-				'tername' : document.getElementsByName('terName')[0].value,
+				'tername' : document.getElementsByName('terName')[0].value.trim(),
 				'hasquart' : $('#hasQuart').is(":checked"),  
 				'office2' : $('#office2').val(),
-				'desc' : document.getElementsByName('desc')[0].value,
+				'desc' : document.getElementsByName('desc')[0].value.trim(),
 				'submit': document.getElementsByName("submit")[0].value,
 				'callId' : 1,
 				'_token' : '{{ Session::token() }}'
@@ -207,10 +207,10 @@
 
 			data = {
 				'id' : document.getElementById('ID').value,
-				'tername' : document.getElementsByName('terName')[0].value,
+				'tername' : document.getElementsByName('terName')[0].value.trim(),
 				'hasquart' : $('#hasQuart').is(":checked"), 
 				'office2' : $('#office2').val(),
-				'desc' : document.getElementsByName('desc')[0].value,
+				'desc' : document.getElementsByName('desc')[0].value.trim(),
 				'submit': document.getElementsByName("submit")[0].value,
 				'callId' : 3,
 				'_token' : '{{ Session::token() }}'

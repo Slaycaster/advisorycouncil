@@ -47,7 +47,9 @@ class AdvDirectoryController extends Controller {
 
 	public function readyadd(){
 
- 		return view('adviser.adviser_add')->with('action', 0);
+ 		//return view('adviser.adviser_add')->with('action', 0);
+
+ 		return view('adviser.adviser_form')->with('action', 0);
 
  	}//select dropdowns
 
@@ -154,7 +156,10 @@ class AdvDirectoryController extends Controller {
 		return array($civilian, $police);
 	}
 
-	public function getList() {
+	public function getList(Request $req) {
+		//UI
+		$req->session()->put('tabtitle', '#tab3');
+
 		$adv = $this->getAdv('created_at', 'desc');
 		/*INSERT CODE FOR DIRECTORY LIST VIEW*/
 

@@ -11,13 +11,14 @@ use App\Models\Advisory_Position;
 
 class ACPositionController extends Controller
 {
-	public function index_acposition()
+	public function index_acposition(Request $req)
 	{
+        $req->session()->put('tabtitle', '#tab2');
+        
         $positions = DB::table('Advisory_Position')->get();
 		return view('maintenancetable/advisoryposition_table', compact('positions'));
         //->with('sql', $sql);
 	}
-	
 
     public function acpositioncrud(Request $request)
     {

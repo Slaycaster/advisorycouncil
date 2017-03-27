@@ -393,15 +393,6 @@ function divonfocus(index) {
 
 }//function divonfocus() {
 
-$(document).ready(function() {
-  $(window).keydown(function(event){
-    if(event.keyCode == 13) {
-      event.preventDefault();
-      return false;
-    }
-  });
-});
-
 //Adviser Add Table
 
 function addrow() {
@@ -420,9 +411,12 @@ function addrow() {
 	table.lastChild.lastChild.appendChild(document.createElement('center'));
 
 	var div1 = creatediv('ui input field');
+	div1.setAttribute('name', 'titlecon');
 	table.lastChild.lastChild.lastChild.appendChild(div1);
 
 	var input1 = createinput('text', 'traintitle', 'e.g. The Sample Title');
+	input1.setAttribute('id', 'traintitle-' + rowcount);
+	input1.setAttribute('onchange', 'setvalidity(this.id)');
 	table.lastChild.lastChild.lastChild.lastChild.appendChild(input1);
 
 
@@ -433,19 +427,20 @@ function addrow() {
 
 	table.lastChild.lastChild.appendChild(document.createElement('center'));
 
-	var div2 = creatediv('field')
+	var div2 = creatediv('field');
+	div2.setAttribute('name', 'categcon');
 	table.lastChild.lastChild.lastChild.appendChild(div2);
 
 	var select1 = document.createElement('select');
-	select1.setAttribute('id', 'select');
+	select1.setAttribute('id', 'traincateg-' + rowcount);
 	select1.setAttribute('class', 'ui selection dropdown');
-	select1.setAttribute('onchange', 'showfield()');
+	select1.setAttribute('onchange', 'showfield(); setvalidity(this.id)');
 	select1.setAttribute('name','traincateg');
 	table.lastChild.lastChild.lastChild.lastChild.appendChild(select1);
 
 	var opt1 = document.createElement('option');
 	opt1.setAttribute('selected', 'selected');
-	opt1.setAttribute('value', 'disitem');
+	opt1.setAttribute('value', '-');
 	table.lastChild.lastChild.lastChild.lastChild.lastChild.appendChild(opt1);
 
 	table.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild.appendChild(document.createTextNode('Select One'));
@@ -483,9 +478,12 @@ function addrow() {
 	table.lastChild.lastChild.appendChild(document.createElement('center'));
 
 	var div4 = creatediv('ui input field');
+	div4.setAttribute('name', 'loccon');
 	table.lastChild.lastChild.lastChild.appendChild(div4);
 
 	var input3 = createinput('text', 'location', 'e.g. Makati City');
+	input3.setAttribute('id','location-' + rowcount);
+	input3.setAttribute('onchange', 'setvalidity(this.id)');
 	table.lastChild.lastChild.lastChild.lastChild.appendChild(input3);
 
 
@@ -500,16 +498,22 @@ function addrow() {
 	table.lastChild.lastChild.lastChild.appendChild(div);
 
 	var div5 = creatediv('ui input field');
+	div5.setAttribute('name', 'sdcon');
+
 	table.lastChild.lastChild.lastChild.lastChild.appendChild(div5);
 
 	var input4 = createinput('date', 'trainsdate', '');
+	input4.setAttribute('id', 'trainsdate-' + rowcount);
 	input4.setAttribute('max', "{{date('Y-m-d', strtotime(date('Y-m-d')  . ' +1 day'))}}");
+	input4.setAttribute('onchange', 'setvalidity(this.id)');
 	table.lastChild.lastChild.lastChild.lastChild.lastChild.appendChild(input4);
 
 	var div10 = creatediv('ui input field');
 	table.lastChild.lastChild.lastChild.lastChild.appendChild(div10);
 
 	var input8 = createinput('time', 'trainstime', '');
+	input8.setAttribute('id', rowcount);
+	input8.setAttribute('onchange', 'setvalidity(this.id)');
 	table.lastChild.lastChild.lastChild.lastChild.lastChild.appendChild(input8);
 
 
@@ -524,16 +528,22 @@ function addrow() {
 	table.lastChild.lastChild.lastChild.appendChild(div6);
 
 	var div11 = creatediv('ui input field');
+	div11.setAttribute('name', 'edcon');
+
 	table.lastChild.lastChild.lastChild.lastChild.appendChild(div11);
 
 	var input5 = createinput('date', 'trainedate', '');
+	input5.setAttribute('id', 'trainedate-' + rowcount);
 	input5.setAttribute('max', "{{date('Y-m-d', strtotime(date('Y-m-d')  . ' +1 day'))}}");
+	input5.setAttribute('onchange', 'setvalidity(this.id)');
 	table.lastChild.lastChild.lastChild.lastChild.lastChild.appendChild(input5);
 
 	var div11 = creatediv('ui input field');
 	table.lastChild.lastChild.lastChild.lastChild.appendChild(div11);
 
 	var input9 =  createinput('time', 'trainetime', '');
+	input9.setAttribute('id', rowcount);
+	input9.setAttribute('onchange', 'setvalidity(this.id)');
 	table.lastChild.lastChild.lastChild.lastChild.lastChild.appendChild(input9);
 
 	//------------------------------------Lecturer----------------------------------------------
@@ -564,6 +574,8 @@ function addrow() {
 	input6.setAttribute('class','perfield');
 	input6.setAttribute('onclick','divonfocus()');
 	input6.setAttribute('onkeydown','if(event.keyCode == 13){ addarritem(this.id, this.value);}');
+	input6.setAttribute('onblur','addarritem(this.id, this.value)');
+
 	table.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild.appendChild(input6);
 
 	/*var textarea = document.createElement('textarea');
@@ -582,9 +594,12 @@ function addrow() {
 	table.lastChild.lastChild.appendChild(document.createElement('center'));
 
 	var div9 = creatediv('ui input field');
+	div9.setAttribute('name','orgcon')
 	table.lastChild.lastChild.lastChild.appendChild(div9);
 
 	var input7 = createinput('text', 'trainorg', 'e.g. CPSM');
+	input7.setAttribute('id', 'trainorg-' +  rowcount);
+	input7.setAttribute('onchange', 'setvalidity(this.id)');
 	table.lastChild.lastChild.lastChild.lastChild.appendChild(input7);
 
 	rowcount = rowcount + 1;
@@ -599,3 +614,47 @@ function populatedropdown(id, selname, desc) {
 	document.getElementsByName(selname)[0].appendChild(item);
 	document.getElementsByName(selname)[0].lastChild.appendChild(document.createTextNode(desc));
 }//function populatedropdown() {
+
+
+//TABLE VALIDATION
+
+function setvalidity(id) {
+
+	var index = id.split("-");
+
+	var title = !(document.getElementsByName('traintitle')[index[1]].value == "");
+	var categ = !(document.getElementsByName('traincateg')[index[1]].value == "disitem");
+	var loc = !(document.getElementsByName('location')[index[1]].value == "");
+	var sd = !(document.getElementsByName('trainsdate')[index[1]].value == "");
+	var st = !(document.getElementsByName('trainstime')[index[1]].value == "");
+	var et = !(document.getElementsByName('trainstime')[index[1]].value == "");
+	var ed = !(document.getElementsByName('trainedate')[index[1]].value == "");
+	var org = !(document.getElementsByName('trainorg')[index[1]].value == "");
+	//var lect = jQuery.inArray(id, lecturer[]);
+	var lect;
+
+	for(var ctr = 0 ; ctr < lecturers.length ; ctr++) {
+		if(lecturers[ctr][1] == id) {
+			lect = true;
+			break;
+
+		} else {
+			lect = false;
+		}
+	};
+
+	//console.log(title || categ || loc || sd || ed || org || lect);
+	if(title || categ || loc || sd || st|| et || ed || org || lect || st || et) {
+
+		destroy();
+		tablevalidate(index[1]);
+	} else {
+
+		destroy();
+		reinst();
+
+	}//if
+	
+
+
+}//validatefield

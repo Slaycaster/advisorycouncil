@@ -2,10 +2,31 @@
 
 @section('phomesection')
 
-	<div class =  "dcon">
-		
+	<div class ="advcardcon">
+		<div class="ui grid">
+			<div class = "row">
+				<div class = "sixteen wide column">
+					<div class = "hcontent1">
+						<div class="dcon">
+							<div class = "tablepane">
+								<div class = "mtitle">Results for "{{Request::get('sq')}}"</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
 
-		@if(sizeof($directory[0]) != 0)
+			<div class = "row">
+				<div class = "sixteen wide column">
+					
+					<div class = "itemlist">
+						@if(count($data) == 0 && count($data2) == 0)
+						<br>
+						<h3 class="texttitle"><center>NO RECORD TO SHOW</center></h3>
+
+						@else
+						@if(count($data) != 0)
 			
 					
 			<h6 class="ui horizontal divider divtitle">
@@ -14,7 +35,7 @@
 
 			<div id = "accardlist" class = "ui doubling grid cardlist2">
 
-						@foreach($directory[0] as $acrec)
+						@foreach($data as $acrec)
 
 							<div class = "four wide column colheight">
 								<div class = "cardstyleportrait">
@@ -65,14 +86,14 @@
 
 			<br>
 		
-		@if(sizeof($directory[1]) != 0)
+		@if(count($data2) != 0)
 			<h4 class="ui horizontal divider divtitle">
 				TWG & PSMU
 			</h4>
 
 			<div id = "tpcardlist" class = "ui doubling grid cardlist2">
 
-						@foreach($directory[1] as $tprec)
+						@foreach($data2 as $tprec)
 							<div class = "four wide column colheight1">
 								<div class = "cardstyleportrait">
 									@if($tprec->imagepath != "")
@@ -125,9 +146,21 @@
 
 			</div>
 		@endif
-		
+		@endif
+						
+					</div>
+						
+					
+					
+				</div>
+			</div>
 			
+		</div>
+
+		
+		
 	</div>
+
 
 
 @stop
