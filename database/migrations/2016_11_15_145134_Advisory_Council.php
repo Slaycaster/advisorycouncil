@@ -26,12 +26,12 @@ class AdvisoryCouncil extends Migration
             $table->string('city', 45)->nullable();
             $table->string('barangay', 45)->nullable();
             $table->string('province', 45)->nullable();
-            $table->date('startdate');
+            $table->date('startdate')->nullable();
             $table->date('enddate')->nullable();
             $table->string('fbuser', 20)->nullable();
             $table->string('twitteruser', 20)->nullable();
             $table->string('iguser', 20)->nullable();
-            $table->date('birthdate');
+            $table->date('birthdate')->nullable();
             $table->text('imagepath')->nullable();
             $table->integer('advisory_position_id')->unsigned();
             $table->integer('ac_sector_id')->unsigned();
