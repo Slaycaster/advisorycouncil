@@ -115,7 +115,7 @@
 								</div>-->
 
 								<button type="button" class="ui right labeled icon button"
-									onclick = "window.location='{{url('directory/add')}}'" 
+									onclick = "window.open('{{url('directory/add')}}')" 
 									title = "Add AC Member">
 									<i class="plus icon"></i>
 									ADD

@@ -133,7 +133,7 @@
 
 						<div class ="one column row">
 							<div class = "sixteen wide column">
-								<div class="row" id="acposition-chart">
+								<div class = "row " id="acposition-chart">
 									
 								</div>
 								{!! Lava::render('BarChart', 'ACPosition', 'acposition-chart'); !!}

@@ -197,11 +197,7 @@
                     array[9]
 
                 ]).draw();
-<<<<<<< HEAD
-            console.log(array);
-=======
-            //console.log(array);
->>>>>>> 62717d264d5971ea482ad86498a0a5bb6b279e37
+                console.log(array);
 
             });
         });//document ready function

@@ -91,12 +91,6 @@ class PDFController extends Controller
 				{
 					$office = $office2name;
 				}
-<<<<<<< HEAD
-				$positionname = $this->getName('Advisory_Position','acpositionname',$res->advisory_position_id); 
-				$sector = $this->getName('AC_Sector','sectorname',$res->ac_sector_id);
-			
-				$result = $result."/".$res->lname.", ".$res->fname." ".$res->mname."/".$office."/".$sector."/".$positionname."/".$res->gender."/".$res->city."-".$res->province."/".$res->imagepath."/".$res->contactno."/".$res->email."/".$res->startdate;
-=======
 
 				if($res->mname != '' && $res->mname!=null)
 				{
@@ -107,8 +101,6 @@ class PDFController extends Controller
 				$sector = $this->getName('AC_Sector','sectorname',$res->ac_sector_id);
 			
 				$result = $result."/".$res->lname.", ".$res->fname." ".$mname."/".$office."/".$sector."/".$positionname."/".$res->gender."/".$res->city."-".$res->province."/".$res->imagepath."/".$res->contactno."/".$res->email."/".$res->startdate;
-
->>>>>>> 62717d264d5971ea482ad86498a0a5bb6b279e37
 			}
 			
 		}//civillian advisory
@@ -181,11 +173,7 @@ class PDFController extends Controller
 				{
 					$office = $office2name;
 				}
-<<<<<<< HEAD
-				$positionname = $this->getName('Police_Position','PositionName',$res->police_position_id); 
-			
-				$result = $result."/".$res->lname.", ".$res->fname." ".$res->mname."/".$office."/".$positionname."/".$res->gender."/".$res->city."-".$res->province."/".$res->imagepath."/".$res->contactno."/".$res->email."/".$res->startdate;
-=======
+
 
 				if($res->mname != '' && $res->mname!=null)
 				{
@@ -196,7 +184,6 @@ class PDFController extends Controller
 			
 				$result = $result."/".$res->lname.", ".$res->fname." ".$mname."/".$office."/".$positionname."/".$res->gender."/".$res->city."-".$res->province."/".$res->imagepath."/".$res->contactno."/".$res->email."/".$res->startdate;
 
->>>>>>> 62717d264d5971ea482ad86498a0a5bb6b279e37
 			}
 		}//police advisory
 		if($callid == 3)
@@ -231,12 +218,8 @@ class PDFController extends Controller
 					$query = $query->where('province','like','%'.$province.'%');
 					$query2 = $query2->where('province','like','%'.$province.'%');
 				}
-<<<<<<< HEAD
-			if($ageFrom >0 && $ageTo > 0)
-=======
 
 			if($ageFrom >0 && $ageTo > 0 && $ageFrom != '' && $ageTo != '') 
->>>>>>> 62717d264d5971ea482ad86498a0a5bb6b279e37
 				{
 					$query = $query->whereRaw("TIMESTAMPDIFF(YEAR, birthdate, CURDATE()) >=" . $ageFrom . " and TIMESTAMPDIFF(YEAR, birthdate, CURDATE()) <= " . $ageTo);
 					$query2 = $query2->whereRaw("TIMESTAMPDIFF(YEAR, birthdate, CURDATE()) >=" . $ageFrom . " and TIMESTAMPDIFF(YEAR, birthdate, CURDATE()) <= " . $ageTo);
@@ -267,12 +250,6 @@ class PDFController extends Controller
 				{
 					$office = $office2name;
 				}
-<<<<<<< HEAD
-				$positionname = $this->getName('Advisory_Position','acpositionname',$res2->advisory_position_id); 
-				$sector = $this->getName('AC_Sector','sectorname',$res2->ac_sector_id);
-			
-				$result2 = $result2."/". $res2->ID."/".$res2->lname.", ".$res2->fname." ".$res2->mname."/".$office."/".$sector."/".$positionname."/".$res2->gender."/".$res2->city."-".$res2->province."/".$res2->imagepath."/".$res2->contactno."/".$res2->email."/".$res2->startdate;
-=======
 
 				if($res2->mname != '' && $res2->mname!=null)
 				{
@@ -284,7 +261,6 @@ class PDFController extends Controller
 			
 				$result2 = $result2."/".$res2->lname.", ".$res2->fname." ".$midname."/".$office."/".$sector."/".$positionname."/".$res2->gender."/".$res2->city."-".$res2->province."/".$res2->imagepath."/".$res2->contactno."/".$res2->email."/".$res2->startdate;
 
->>>>>>> 62717d264d5971ea482ad86498a0a5bb6b279e37
 			}
 			foreach($res as $res)
 			{
@@ -303,11 +279,6 @@ class PDFController extends Controller
 				{
 					$office = $office2name;
 				}
-<<<<<<< HEAD
-				$positionname = $this->getName('Police_Position','PositionName',$res->police_position_id); 
-			
-				$result = $result."/".$res->lname.", ".$res->fname." ".$res->mname."/".$office."/".$positionname."/".$res->gender."/".$res->city."-".$res->province."/".$res->imagepath."/".$res->contactno."/".$res->email."/".$res->startdate;
-=======
 
 				if($res->mname != '' && $res->mname!=null)
 				{
@@ -318,7 +289,6 @@ class PDFController extends Controller
 			
 				$result = $result."/".$res->lname.", ".$res->fname." ".$mname."/".$office."/".$positionname."/".$res->gender."/".$res->city."-".$res->province."/".$res->imagepath."/".$res->contactno."/".$res->email."/".$res->startdate;
 
->>>>>>> 62717d264d5971ea482ad86498a0a5bb6b279e37
 			}
 			return [$result,$result2];
 		}// ALL CIVILLIAN AND POLICE ADVISORY
@@ -380,8 +350,7 @@ class PDF extends FPDF
 	    // // Arial italic 8
 	    $this->SetFont('Arial','',7);
 	    // Page numbe
-	    
-<<<<<<< HEAD
+
 	    $this->text(10,199,"Vision: \".... a Highly Capable, Effectuve and Credible police service...");
 	    $this->text(20,201,"Towards the attainment of a safer place to live, work and do business.\"");
 	    $this->text(($x/2)+10,199,"Vision: \".... a Highly Capable, Effectuve and Credible police service...");
@@ -389,16 +358,6 @@ class PDF extends FPDF
 	    $this->SetFont('Arial','B',5);
 	    $this->Cell(128,18,$this->PageNo().' Page',0,0,'C');
 	    $this->Cell(178,18,$this->PageNo().' Page',0,0,'C');
-=======
-	    $this->text(30,$y-15,"Vision: \".... a Highly Capable, Effective and Credible police service towards the attainment of a safer place to live, work and do business.\"");
-	    // $this->text(($x/2)+10,199,"Vision: \".... a Highly Capable, Effectuve and Credible police service...");
-	    // $this->text(($x/2)+20,201,"Towards the attainment of a safer place to live, work and do business.\"");
-	    $this->SetFont('Arial','B',7);
-
-	    $this->Cell(0,9,$this->PageNo().' Page',0,0,'C');
-	   // $this->Cell(0,18,$this->PageNo().' Page',0,0,'C');
-
->>>>>>> 62717d264d5971ea482ad86498a0a5bb6b279e37
 	}
 	function body($req)
 	{
@@ -411,24 +370,13 @@ class PDF extends FPDF
     	$location = explode(",", $req->address);
     	$contact = explode(",", $req->contact);
     	$email = explode(",", $req->email);
-<<<<<<< HEAD
     	$col= 12;
     	$y0=40;
     	$imageCol=13;
     	$imagey0=41;
     	$textCol=42;
     	$texty0=45;
-=======
 
-    	$x = ($this->GetPageWidth())/2;
-	    $col=20;
-    	$y0=55;
-    	$imageCol=21;
-    	$imagey0=56;
-    	$textCol=58;
-    	$texty0=60;
-
->>>>>>> 62717d264d5971ea482ad86498a0a5bb6b279e37
 		$i=1;
     	while ($i <= count($position)) 
     	{
@@ -445,12 +393,9 @@ class PDF extends FPDF
 			if($image[$i-1] == null)
     			{ $this->Image('objects/Logo/InitProfile.png',$imageCol,$imagey0,35); }
     		else 
-<<<<<<< HEAD
-    			{ $this->Image($image[$i-1],$imageCol,$imagey0,23); }
-=======
-    			{ $this->Image($image[$i-1],$imageCol,$imagey0,35); }
 
->>>>>>> 62717d264d5971ea482ad86498a0a5bb6b279e37
+    			{ $this->Image($image[$i-1],$imageCol,$imagey0,23); }
+
 			if((($i+2)%2)==0){
 				$col=20;
 				$imageCol=21;
@@ -464,7 +409,7 @@ class PDF extends FPDF
 				$imageCol=($x)+1;
 				$textCol=(($x)+38);
 			}
-<<<<<<< HEAD
+
 			if(($i%16) ==0){
 				$this->AddPage(90);
 				$col= 10;
@@ -473,17 +418,7 @@ class PDF extends FPDF
 				$y0 = 40;
 				$imagey0=42;
 				$texty0=45;
-=======
 
-			if(($i%8)==0){
-				$this->AddPage();
-				$col=20;
-		    	$y0=55;
-		    	$imageCol=21;
-		    	$imagey0=56;
-		    	$textCol=58;
-		    	$texty0=60;
->>>>>>> 62717d264d5971ea482ad86498a0a5bb6b279e37
 			}
 			
 			$i++;
