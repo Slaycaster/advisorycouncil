@@ -116,7 +116,7 @@
 								<div class="row" id="acposition-chart">
 									
 								</div>
-								{!! Lava::render('PieChart', 'ACPosition', 'acposition-chart'); !!}
+								{!! Lava::render('BarChart', 'ACPosition', 'acposition-chart'); !!}
 								
 							</div>
 
@@ -124,7 +124,7 @@
 								<div class="row" id="policeposition-chart">
 									
 								</div>
-								{!! Lava::render('PieChart', 'PolicePosition', 'policeposition-chart'); !!}
+								{!! Lava::render('BarChart', 'PolicePosition', 'policeposition-chart'); !!}
 								
 							</div>
 
@@ -135,7 +135,7 @@
 								<div class="row" id="sector-chart">
 									
 								</div>
-								{!! Lava::render('PieChart', 'Sector', 'sector-chart'); !!}
+								{!! Lava::render('BarChart', 'Sector', 'sector-chart'); !!}
 								
 							</div>
 

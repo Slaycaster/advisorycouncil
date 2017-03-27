@@ -1,6 +1,7 @@
 @extends('baseformv2')
 
 @section('publicpagesection')
+
 	<div class = "ui grid">
 		<div class = "row">
 			<div class = "four wide column">
@@ -59,12 +60,22 @@
 				<div class = "ui segment rightpane">
 					<div class = "row">
 						<div class = "nine wide column colheight">
+							<!--
 							<div class="ui icon input big search2 search">
 								<i class="search icon"></i>
-								<input type="text" placeholder="Search...">
+								<input type="text" placeholder="Search..."> 
 							</div>
+							-->
+							<select id="searchbox" class="newmargin" name="q" placeholder="Search Stakeholder(s)" ></select>
+
 						</div>
 							
+					</div>
+					
+
+					<div class="row">
+						<br>
+						<hr class="hr3">
 					</div>
 
 					<div class = "hcontent">
@@ -81,5 +92,6 @@
 
 
 
+	@include('home.search_script')
 
 @stop

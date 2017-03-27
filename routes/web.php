@@ -91,6 +91,12 @@ Route::get('dropdown/getinittpd', 'AdvDirectoryController@getInitTPD');
 //ADMIN @author: Shie Eugenio
 Route::get('admin', 'RegistrationController@index')->middleware('auth');
 
+//SMART SEARCH @author: Ren Buluran
+Route::get('loadsuggestion', 'SearchController@index'); //predictive
+Route::get('search', 'SearchController@AdvancedSearch');
+Route::get('search/civilian/{sq}', 'SearchController@findAC'); //get ac
+Route::get('search/police/{sq}', 'SearchController@findPA'); //get tp
+
 //--------------------------------------------------------------------------------------------
 //BACK-END
 
@@ -168,17 +174,15 @@ Route::get('directory/search', function() {
 	return view('search.search_result')->with('active', '#tab3');
 });
 
+/*Route::get('search', function() {
+	return view('search.psearch_result');
+});*/
 
 
 
 ///-------------------------------------------------------------------------------------------------------------------------------
 
-//smart search [ren]
-Route::get('search', 'SearchController@index');
-Route::get('searchAll', 'SearchController@AdvancedSearch');
-Route::get('ACSearch/{sq}', 'SearchController@findAC');
-Route::get('PoliceSearch/{sq}', 'SearchController@findPA');
-Route::get('searchView', 'SearchController@view');
+
 
 //dashboard for offices[ren]
 Route::get('Dashboard/primary', 'SearchController@getUnitOffice');
@@ -190,3 +194,11 @@ Route::get('Dashboard/Quarternary', 'SearchController@getQuarternaryOffice');
 Route::get('/welcome', 'PDFController@index');
 Route::post('createPDF', 'PDFController@createPDF');
 Route::post('load-pdf-data', 'PDFController@loaddata');
+
+
+//ren routes for redirection of search
+Route::post('home/search2', 'SearchController@view');
+
+
+//dynamic graphs
+Route::get('Dashboard/Linegraph/ACPosition', 'SearchController@getLineChartACPosition');
