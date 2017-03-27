@@ -135,9 +135,17 @@ class PDFController extends Controller
 					$mname = substr($res->mname, 0,1).".";
 				}else {$mname = "";}
 
+				if($res->city!='' && $res->province!='')
+					{	$location = $res->city. " - ". $res->province; }
+				else if($res->city!='' && $res->province=='')
+					{ $location = $res->city; }
+				else if($res->city=='' && $res->province!='')
+				    { $location = $res->province; }
+				else { $location = "";}
+
 				$positionname = $this->getName('Police_Position','PositionName',$res->police_position_id); 
 			
-				$result = $result."/".$res->ID."/".$res->lname."/".$res->fname."/".$mname."/".$office2name."/".$office3name."/".$office4name."/".$positionname."/".$res->policetype."/".$res->gender."/".$res->city."-".$res->province."/".$res->imagepath."/".$res->contactno."/".$res->landline."/".$res->email."/".$res->startdate;
+				$result = $result."|".$res->ID."|".$res->lname."|".$res->fname."|".$mname."|".$office2name."|".$office3name."|".$office4name."|".$positionname."|".$res->policetype."|".$res->gender."|".$location."|".$res->imagepath."|".$res->contactno."|".$res->landline."|".$res->email."|".$res->startdate;
 
 			}
 
@@ -188,10 +196,18 @@ class PDFController extends Controller
 					$mname = substr($res->mname, 0,1).".";
 				}else {$mname = "";}
 
+				if($res->city!='' && $res->province!='')
+					{	$location = $res->city. " - ". $res->province; }
+				else if($res->city!='' && $res->province=='')
+					{ $location = $res->city; }
+				else if($res->city=='' && $res->province!='')
+				    { $location = $res->province; }
+				else { $location = "";}
+
 				$positionname = $this->getName('Advisory_Position','acpositionname',$res->advisory_position_id); 
 				$sector = $this->getName('AC_Sector','sectorname',$res->ac_sector_id);
 			
-				$result = $result."/".$res->ID."/".$res->lname."/".$res->fname."/".$mname."/".$office2name."/".$office3name."/".$office4name."/".$sector."/".$positionname."/".$res->gender."/".$res->city."-".$res->province."/".$res->imagepath."/".$res->contactno."/".$res->landline."/".$res->email."/".$res->startdate;
+				$result = $result."|".$res->ID."|".$res->lname."|".$res->fname."|".$mname."|".$office2name."|".$office3name."|".$office4name."|".$sector."|".$positionname."|".$res->gender."|".$location."|".$res->imagepath."|".$res->contactno."|".$res->landline."|".$res->email."|".$res->startdate;
 
 			}
 

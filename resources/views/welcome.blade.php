@@ -191,7 +191,7 @@
 
             $('#addRow').on('click', function(array){
                
-                var array = $(this).attr('value').split("/");
+                var array = $(this).attr('value').split("|");
                 
                tab.row.add([
                     array[0],
@@ -344,6 +344,8 @@
                 success: function(data){
                     
                     document.getElementById('clearRow').click();
+
+                    console.log(data);
           
                     if(advisory==1)
                     {
@@ -393,7 +395,7 @@
 
         function loadAC(data)
         {
-            responseArray = data.split("/");
+            responseArray = data.split("|");
                         numOfRow = responseArray[0];
                         num = 1;
 
@@ -454,9 +456,9 @@
                             cell12 = responseArray[num];num++;
                             cell13 = responseArray[num];num++;
 
-                            val = cell1 + "/" + cell2 + "/" + cell3 + "/" + cell4 + "/" +
-                                  cell5 + "/" + cell6 + "/" + cell7 + "/" + cell8 + "/" +
-                                  cell9 + "/" + cell10 + "/" + cell11 + "/" + cell12 + "/" + cell13;
+                            val = cell1 + "|" + cell2 + "|" + cell3 + "|" + cell4 + "|" +
+                                  cell5 + "|" + cell6 + "|" + cell7 + "|" + cell8 + "|" +
+                                  cell9 + "|" + cell10 + "|" + cell11 + "|" + cell12 + "|" + cell13;
 
                             pdfid.push(cell1);
                             pdfsector.push(cell4); 
@@ -477,7 +479,7 @@
 
         function loadPolAd(data)
         {
-            responseArray = data.split("/");
+            responseArray = data.split("|");
                         numOfRow = responseArray[0];
                         num = 1;
 
@@ -543,9 +545,9 @@
                             cell13 = responseArray[num];num++;
 
 
-                            val = cell1 + "/" + cell2 + "/" + cell3 + "/" + cell4 + "/" +
-                                  cell5 + "/" + cell6 + "/" + cell7 + "/" + cell8 + "/" +
-                                  cell9 + "/" + cell10 + "/" + cell11 + "/" + cell12 + "/" + cell13;
+                            val = cell1 + "|" + cell2 + "|" + cell3 + "|" + cell4 + "|" +
+                                  cell5 + "|" + cell6 + "|" + cell7 + "|" + cell8 + "|" +
+                                  cell9 + "|" + cell10 + "|" + cell11 + "|" + cell12 + "|" + cell13;
 
                             pdfid.push(cell1);
                             pdfsector.push(""); 
