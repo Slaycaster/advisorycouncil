@@ -53,7 +53,7 @@
 
 									<div class = "four fields">
 										<div class = "field">
-											<label>Birthdate <span class="asterisk">*</span></label>
+											<label>Birthdate</label>
 
 											<div class = "ui input field">
 												<input type="date" name = "bdate">
@@ -246,7 +246,7 @@
 								<div class = "five fields">
 
 									<div class = "field">
-										<label>Start Date <span class="asterisk">*</span></label>
+										<label>Start Date </label>
 
 
 										<div class = "ui input field">
@@ -455,7 +455,7 @@
 				document.getElementsByName('fname')[0].value = "{{$recorddata[0][0]->fname}}";
 				document.getElementsByName('mname')[0].value = "{{$recorddata[0][0]->mname}}";
 				document.getElementsByName('qname')[0].value = "{{$recorddata[0][0]->qualifier}}";
-				document.getElementsByName('bdate')[0].value = "{{date('Y-m-d', strtotime($recorddata[0][0]->birthdate))}}";
+				
 				document.getElementsByName('street')[0].value = "{{$recorddata[0][0]->street}}";
 				document.getElementsByName('barangay')[0].value = "{{$recorddata[0][0]->barangay}}";
 				document.getElementsByName('city')[0].value = "{{$recorddata[0][0]->city}}";
@@ -467,12 +467,19 @@
 				document.getElementsByName('facebook')[0].value = "{{$recorddata[0][0]->fbuser}}";
 				document.getElementsByName('twitter')[0].value = "{{$recorddata[0][0]->twitteruser}}";
 				document.getElementsByName('instagram')[0].value = "{{$recorddata[0][0]->iguser}}";
-				document.getElementsByName('durationsdate')[0].value = "{{date('Y-m-d', strtotime($recorddata[0][0]->startdate))}}";
+				if("{{$recorddata[0][0]->startdate}}" !== "") {
+					document.getElementsByName('durationsdate')[0].value = "{{date('Y-m-d', strtotime($recorddata[0][0]->startdate))}}";
+				}//if
 
 				if("{{$recorddata[0][0]->enddate}}" !== "") {
 					document.getElementsByName('durationedate')[0].value = "{{date('Y-m-d', strtotime($recorddata[0][0]->enddate))}}";
 				}//if
 
+				if("{{$recorddata[0][0]->birthdate}}" !== "") {
+					document.getElementsByName('bdate')[0].value = "{{date('Y-m-d', strtotime($recorddata[0][0]->birthdate))}}";
+				}//if
+
+				
 				getsecoffice(parseInt("{{$recorddata[0][0]->UnitOfficeID}}"));
 				getteroffice(parseInt("{{$recorddata[0][0]->second_id}}"));
 				getquaroffice(parseInt("{{$recorddata[0][0]->tertiary_id}}"));
@@ -489,10 +496,14 @@
 
 			function fillAC() {
 				//NOT WORKING
-				$('#acposition').dropdown('set selected', '{{$recorddata[0][0]->advisory_position_id}}');
-				$('#acsector').dropdown('set selected', '{{$recorddata[0][0]->ac_sector_id}}');
 				
+				//setTimeout(function(){
+					//$("select[name='acposition']").dropdown('setup menu');
 
+					$("select[name='acposition']").dropdown('set selected','{{$recorddata[0][0]->advisory_position_id}}').dropdown();
+					$("select[name='acsector']").dropdown('set selected','{{$recorddata[0][0]->ac_sector_id}}');
+				
+				//}, 100);
 				//fill dropdown
 				//---------
 
@@ -636,14 +647,17 @@
 
 		function controlaction() {
 			var slctdtype;
+			var durend = "";
 
 			@if($action == 0)
 				slctdtype = $("input[name='advcateg']:checked").val();
 
 			@else
 				slctdtype = {{$type}};
+				durend = document.getElementsByName('durationedate')[0].value;
 
 			@endif
+
 			var traintitle = new Array();
 			var traincateg = new Array();
 			var location = new Array();
@@ -697,6 +711,7 @@
 						'instagram' : document.getElementsByName('instagram')[0].value.trim(),
 						'advcateg' : slctdtype,
 						'durstart' : document.getElementsByName('durationsdate')[0].value,
+						'durend' : durend,
 						'acposition' : document.getElementsByName('acposition')[0].value,
 						'officename' : document.getElementsByName('officename')[0].value.trim(),
 						'officeadd' : document.getElementsByName('officeadd')[0].value.trim(),
@@ -763,6 +778,7 @@
 						'twitter' : document.getElementsByName('twitter')[0].value.trim(),
 						'instagram' : document.getElementsByName('instagram')[0].value.trim(),
 						'advcateg' : slctdtype,
+						'durend' : durend,
 						'durstart' : document.getElementsByName('durationsdate')[0].value,
 						'authorder' : document.getElementsByName('authorder')[0].value.trim(),
 						'pnppost' : document.getElementsByName('position')[0].value,
@@ -794,13 +810,15 @@
 				   	success : function() {
 
 				   		loadtoast("Saved");
+
+				   		setTimeout(function(){
+							window.location = "{{URL('directory')}}";
+						}, 2600);
 				   	
 				   	}//success : function() {
 				});
 
-				setTimeout(function(){
-					window.location = "{{URL('directory')}}";
-				}, 2600);
+				
 
 					
        			
@@ -849,7 +867,7 @@
 			   			
 			   		};
 
-			   		$("select").dropdown('refresh');
+			   		$("select").not('#searchbox').dropdown('refresh');
 
 
 
@@ -1034,6 +1052,6 @@
 
 	</script>
 
-@include('adviser.adviser_modal')
 
+@include('adviser.adviser_modal')
 @stop

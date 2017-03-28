@@ -9,7 +9,7 @@ function reinst() {
 				},
 				{
 					type : "regExp",
-					value : /^(?=.*(\d|\w))[A-Za-z0-9 ]{3,35}$/
+					value : /^(?=.*(\d|\w))[A-Za-z0-9 ]{2,35}$/
 				}]
 			},
 
@@ -19,19 +19,17 @@ function reinst() {
 				},
 				{
 					type : "regExp",
-					value : /^(?=.*(\d|\w))[A-Za-z0-9 ]{3,35}$/
+					value : /^(?=.*(\d|\w))[A-Za-z0-9 ]{2,35}$/
+<<<<<<< HEAD
 				}]
 			},
 
-			bdate: {
+			mname: {
 				rules: [{
-					type : "empty"
-				}]
-			},
-
-			durationsdate: {
-				rules: [{
-					type : "empty"
+					type : "regExp",
+					value : /^(?=.*(\d|\w))[A-Za-z0-9 ]{1,35}$/
+=======
+>>>>>>> 590e85b0189be3846c106f4f330588b1dfa7029e
 				}]
 			},
 
@@ -121,19 +119,14 @@ function tablevalidate(id) {
 				},
 				{
 					type : "regExp",
-					value : /^(?=.*(\d|\w))[A-Za-z0-9 ]{3,35}$/
+					value : /^(?=.*(\d|\w))[A-Za-z0-9 ]{2,35}$/
 				}]
 			},
 
-			bdate: {
+			mname: {
 				rules: [{
-					type : "empty"
-				}]
-			},
-
-			durationsdate: {
-				rules: [{
-					type : "empty"
+					type : "regExp",
+					value : /^(?=.*(\d|\w))[A-Za-z0-9 ]{2,35}$/
 				}]
 			},
 

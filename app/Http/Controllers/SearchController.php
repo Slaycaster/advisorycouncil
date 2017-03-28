@@ -621,7 +621,11 @@ class SearchController extends Controller
        	$unitChart = \Lava::PieChart('UnitOffices', $unitTable, $chartoption);
 
 
+<<<<<<< HEAD
        	$chartoption['width'] = 900;
+=======
+       	//$chartoption['width'] = 500;
+>>>>>>> ae598b1c120f31b6495691fb4aea8aa599a76c25
 
         $genderTable = $this->getGender();
 		
@@ -640,12 +644,20 @@ class SearchController extends Controller
        	$chartoption['title'] = 'Percentage of Stakeholders per Police Position';
        	$policepositionChart = \Lava::PieChart('PolicePosition', $policepositionTable , $chartoption);
 
+<<<<<<< HEAD
        	$chartoption['width'] = 1000;
+=======
+       	$chartoption['width'] = 700;
+>>>>>>> ae598b1c120f31b6495691fb4aea8aa599a76c25
 		$secondTable = $this->getSecondOffice();
        	$chartoption['title'] = 'Percentage of Stakeholders per Secondary Unit/Offices';
        	$secondChart = \Lava::AreaChart('UnitSecondOffices', $secondTable, $chartoption);
 
+<<<<<<< HEAD
        	$chartoption['width'] = 1500;
+=======
+       	$chartoption['width'] = 900;
+>>>>>>> ae598b1c120f31b6495691fb4aea8aa599a76c25
        	$terTable = $this->getTertiaryOffice();
        	$chartoption['title'] = 'Percentage of Stakeholders per Tertiary Unit/Offices';
        	$terChart = \Lava::AreaChart('UnitTerOffices', $terTable, $chartoption);

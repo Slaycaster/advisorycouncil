@@ -26,12 +26,12 @@ class PoliceAdvisory extends Migration
             $table->tinyInteger('policetype');
             $table->string('authorityorder', 20)->unique();
             $table->text('imagepath')->nullable();
-            $table->date('startdate');
+            $table->date('startdate')->nullable();
             $table->date('enddate')->nullable();
             $table->string('fbuser', 20)->nullable();
             $table->string('twitteruser', 20)->nullable();
             $table->string('iguser', 20)->nullable();
-            $table->date('birthdate');
+            $table->date('birthdate')->nullable();
             $table->integer('rank_id')->unsigned();
             $table->foreign('rank_id')->references('id')->on('ranks');
             $table->integer('police_position_id')->unsigned();

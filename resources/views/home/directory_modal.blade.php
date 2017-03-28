@@ -386,7 +386,12 @@
 															recorddata[0][0]['mname'] + " " + 
 															recorddata[0][0]['lname'] + " " +
 															recorddata[0][0]['qualifier'];
-			document.getElementsByName('bdate')[0].innerHTML = recorddata[1][1];
+			if(recorddata[0][0]["birthdate"] != null) {
+				document.getElementsByName('bdate')[0].innerHTML = recorddata[1][1];
+			} else {
+				document.getElementsByName('bdate')[0].innerHTML = "N/A";
+
+			}//if
 
 			if(recorddata[0][0]["street"] !== "") {
 				document.getElementsByName('homeaddress')[0].innerHTML = recorddata[0][0]['street'] + " " +
@@ -461,7 +466,13 @@
 
 		function fillacdata(recorddata) {
 			//document.getElementsByName('acadvcateg')[0].innerHTML = "Advisory Council (AC)";
-			document.getElementsByName('acduration')[0].innerHTML = recorddata[1][2] + " - " + recorddata[1][3];
+			if(recorddata[0][0]['startdate'] != null) {
+				document.getElementsByName('acduration')[0].innerHTML = recorddata[1][2] + " - " + recorddata[1][3];
+
+			} else {
+				document.getElementsByName('acduration')[0].innerHTML = "N/A";
+
+			}//if
 			document.getElementsByName('acposition')[0].innerHTML = recorddata[0][0]['acpositionname'];
 
 			if(recorddata[0][0]['officename'] !== "") {
@@ -511,7 +522,13 @@
 
 			document.getElementsByName('tpadvcateg')[0].innerHTML = type;*/
 
-			document.getElementsByName('tpduration')[0].innerHTML = recorddata[2][2] + " - " + recorddata[2][3];
+		if(recorddata[0][0]['startdate'] != null) {
+				document.getElementsByName('tpduration')[0].innerHTML = recorddata[2][2] + " - " + recorddata[2][3];
+
+			} else {
+				document.getElementsByName('tpduration')[0].innerHTML = "N/A";
+
+			}//iff
 
 			document.getElementsByName('tpauthorder')[0].innerHTML = recorddata[0][0]["authorityorder"];
 

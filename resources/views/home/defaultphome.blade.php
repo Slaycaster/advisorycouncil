@@ -29,11 +29,7 @@
 											{{$acrec->acpositionname}} <br>
 
 											@if($acrec->UnitOfficeQuaternaryName != "")
-												{{$acrec->UnitOfficeQuaternaryName}}
-
-												@if($acrec->UnitOfficeTertiaryName != "")
-													,&nbsp;
-												@endif
+												{{$acrec->UnitOfficeQuaternaryName}},&nbsp;
 
 											@endif
 
@@ -52,7 +48,7 @@
 											
 										</p>
 
-										<p class = "p3"> Member since {{date('M Y',strtotime($acrec->startdate))}} &nbsp;&nbsp;</p>
+										<p class = "p3"> Member since {{date('d M Y',strtotime($acrec->startdate))}} &nbsp;&nbsp;</p>
 										
 									</div>
 								</div>
@@ -66,9 +62,9 @@
 			<br>
 		
 		@if(sizeof($directory[1]) != 0)
-			<h4 class="ui horizontal divider divtitle">
+			<h6 class="ui horizontal divider divtitle">
 				TWG & PSMU
-			</h4>
+			</h6>
 
 			<div id = "tpcardlist" class = "ui doubling grid cardlist2">
 
