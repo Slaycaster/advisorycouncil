@@ -61,7 +61,9 @@
 												
 											</p>
 
-											<p valign="bottom" class = "p2"> Member since {{date('d M Y',strtotime($acrec->startdate))}}</p>
+											@if($acrec->startdate != "")
+												<p valign="bottom" class = "p2"> Member since {{date('d M Y',strtotime($acrec->startdate))}}</p>
+											@endif
 											
 										</div>
 									</div>

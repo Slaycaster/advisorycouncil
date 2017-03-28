@@ -293,11 +293,22 @@ class AdvDirectoryController extends Controller {
 	 	$advisory->officename = $data['officename'];
         $advisory->officeaddress = $data['officeadd'];
 	 	$advisory->email = $data['email'];
-	 	$advisory->startdate = $data['durstart'];
+
+	 	if($data['durstart'] != "") {
+	 		$advisory->startdate = $data['durstart'];
+
+	 	}//if
+		if($data['bdate'] != "") {
+	 		$advisory->birthdate = $data['bdate'];
+
+	 	}//if
+
 	 	$advisory->fbuser = $data['facebook'];
 	 	$advisory->twitteruser = $data['twitter'];
 	 	$advisory->iguser = $data['instagram'];
-	 	$advisory->birthdate = $data['bdate'];
+
+	 	
+
 	 	$advisory->street = $data['street'];
 	 	$advisory->city = $data['city'];
 	 	$advisory->province = $data['province'];
@@ -338,11 +349,36 @@ class AdvDirectoryController extends Controller {
 	 	$advisory->officename = $data['officename'];
         $advisory->officeaddress = $data['officeadd'];
 	 	$advisory->email = $data['email'];
-	 	$advisory->startdate = $data['durstart'];
+	 	
+	 	if($data['durstart'] != "") {
+	 		$advisory->startdate = $data['durstart'];
+
+	 	} else {
+	 		$advisory->startdate = NULL;
+
+	 	}//if
+
+	 	if($data['durend'] != "") {
+	 		$advisory->enddate = $data['durend'];
+
+	 	} else {
+	 		$advisory->enddate = NULL;
+
+	 	}//if
+
+
+		if($data['bdate'] != "") {
+	 		$advisory->birthdate = $data['bdate'];
+
+	 	} else {
+	 		$advisory->birthdate = NULL;
+
+	 	}//if
+
 	 	$advisory->fbuser = $data['facebook'];
 	 	$advisory->twitteruser = $data['twitter'];
 	 	$advisory->iguser = $data['instagram'];
-	 	$advisory->birthdate = $data['bdate'];
+	 	
 	 	$advisory->street = $data['street'];
 	 	$advisory->city = $data['city'];
 	 	$advisory->province = $data['province'];
@@ -385,11 +421,21 @@ class AdvDirectoryController extends Controller {
 	 	$advisory->contactno = $data['mobile'];
 	 	$advisory->landline = $data['landline'];
 	 	$advisory->email = $data['email'];
-	 	$advisory->startdate = $data['durstart'];
+
+	 	if($data['durstart'] != "") {
+	 		$advisory->startdate = $data['durstart'];
+
+	 	}//if
+
 	 	$advisory->fbuser = $data['facebook'];
 	 	$advisory->twitteruser = $data['twitter'];
 	 	$advisory->iguser = $data['instagram'];
-	 	$advisory->birthdate = $data['bdate'];
+	 	
+	 	if($data['bdate'] != "") {
+	 		$advisory->birthdate = $data['bdate'];
+
+	 	}//if
+
 	 	$advisory->street = $data['street'];
 	 	$advisory->city = $data['city'];
 	 	$advisory->province = $data['province'];
@@ -434,16 +480,39 @@ class AdvDirectoryController extends Controller {
 	 	$advisory->contactno = $data['mobile'];
 	 	$advisory->landline = $data['landline'];
 	 	$advisory->email = $data['email'];
-	 	$advisory->startdate = $data['durstart'];
 	 	$advisory->fbuser = $data['facebook'];
 	 	$advisory->twitteruser = $data['twitter'];
 	 	$advisory->iguser = $data['instagram'];
-	 	$advisory->birthdate = $data['bdate'];
 	 	$advisory->street = $data['street'];
 	 	$advisory->city = $data['city'];
 	 	$advisory->province = $data['province'];
 	 	$advisory->barangay = $data['barangay'];
 	 	$advisory->policetype = $data['advcateg'];
+
+	 	if($data['durstart'] != "") {
+	 		$advisory->startdate = $data['durstart'];
+
+	 	} else {
+	 		$advisory->startdate = NULL;
+
+	 	}//if
+
+	 	if($data['durend'] != "") {
+	 		$advisory->enddate = $data['durend'];
+
+	 	} else {
+	 		$advisory->enddate = NULL;
+
+	 	}//if
+
+
+		if($data['bdate'] != "") {
+	 		$advisory->birthdate = $data['bdate'];
+
+	 	} else {
+	 		$advisory->birthdate = NULL;
+
+	 	}//if
 
 	 	if($data['upphoto'] != "") {
 	 		$advisory->imagepath = $this->loadphoto($data['upphoto']);

@@ -20,6 +20,7 @@ function reinst() {
 				{
 					type : "regExp",
 					value : /^(?=.*(\d|\w))[A-Za-z0-9 ]{2,35}$/
+<<<<<<< HEAD
 				}]
 			},
 
@@ -27,6 +28,8 @@ function reinst() {
 				rules: [{
 					type : "regExp",
 					value : /^(?=.*(\d|\w))[A-Za-z0-9 ]{1,35}$/
+=======
+>>>>>>> 590e85b0189be3846c106f4f330588b1dfa7029e
 				}]
 			},
 
