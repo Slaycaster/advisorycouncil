@@ -138,7 +138,7 @@ class AdvDirectoryController extends Controller {
 						     'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
 						     'UnitOfficeQuaternaryName')
 					->orderBy('advisory_council.'. $filter, $sorter)
-					->get();
+					->paginate(12);
 	
 		$police = DB::table('police_advisory')
 					->join('police_position', 'police_position.id', '=', 'police_advisory.police_position_id')
@@ -151,7 +151,7 @@ class AdvDirectoryController extends Controller {
 						     'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
 						     'UnitOfficeQuaternaryName', 'PositionName')
 					->orderBy('police_advisory.' . $filter, $sorter)
-					->get();
+					->paginate(12);
 
 		return array($civilian, $police);
 	}

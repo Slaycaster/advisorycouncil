@@ -75,6 +75,7 @@ class SearchController extends Controller
 		$query = $req->sq;
 		$ac = DB::table('advisory_council')
 					->join('advisory_position', 'advisory_position.ID', '=', 'advisory_council.advisory_position_id')
+					->join('ac_sector', 'advisory_council.ac_sector_id', '=', 'ac_sector.ID')
 					->join('unit_office_secondaries', 'unit_office_secondaries.id', '=', 'advisory_council.second_id')
 					->join('unit_offices', 'unit_offices.id', '=', 'unit_office_secondaries.UnitOfficeID')
 					->leftJoin('unit_office_tertiaries', 'unit_office_tertiaries.id', '=', 'advisory_council.tertiary_id')
@@ -82,28 +83,39 @@ class SearchController extends Controller
 					->select('advisory_council.ID','lname', 'fname', 'mname', 'imagepath', 'email', 
 						     'contactno', 'landline','startdate', 'acpositionname', 'officename',
 						     'UnitOfficeName', 'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
-						     'UnitOfficeQuaternaryName')
+						     'UnitOfficeQuaternaryName','sectorname')
 					->where('fname','like','%'.$query.'%')
 					->orWhere('lname','like','%'.$query.'%')
 					->orWhere('mname','like','%'.$query.'%')
+					->orWhere('sectorname','like','%'.$query.'%')
+					->orWhere('UnitOfficeName','like','%'.$query.'%')
+					->orWhere('UnitOfficeSecondaryName','like','%'.$query.'%')
+					->orWhere('UnitOfficeTertiaryName','like','%'.$query.'%')
+					->orWhere('UnitOfficeQuaternaryName','like','%'.$query.'%')
 					->orderBy('advisory_council.lname', 'desc')
-					->get();
+					->paginate(12);
 	
 		$pa = DB::table('police_advisory')
 					->join('police_position', 'police_position.id', '=', 'police_advisory.police_position_id')
 					->join('unit_office_secondaries', 'unit_office_secondaries.id', '=', 'police_advisory.second_id')
 					->join('unit_offices', 'unit_offices.id', '=', 'unit_office_secondaries.UnitOfficeID')
+					->join('ranks', 'ranks.id', '=', 'police_advisory.rank_id')
 					->leftJoin('unit_office_tertiaries', 'unit_office_tertiaries.id', '=', 'police_advisory.tertiary_id')
 					->leftJoin('unit_office_quaternaries', 'unit_office_quaternaries.id', '=', 'police_advisory.quaternary_id')
 					->where('fname','like','%'.$query.'%')
 					->orWhere('lname','like','%'.$query.'%')
 					->orWhere('mname','like','%'.$query.'%')
+					->orWhere('PositionName','like','%'.$query.'%')
+					->orWhere('UnitOfficeName','like','%'.$query.'%')
+					->orWhere('UnitOfficeSecondaryName','like','%'.$query.'%')
+					->orWhere('UnitOfficeTertiaryName','like','%'.$query.'%')
+					->orWhere('UnitOfficeQuaternaryName','like','%'.$query.'%')
 					->select('police_advisory.ID', 'lname', 'fname', 'mname', 'imagepath', 'email', 
 						     'contactno', 'landline', 'startdate', 'policetype',
 						     'UnitOfficeName', 'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
 						     'UnitOfficeQuaternaryName', 'PositionName')
 					->orderBy('police_advisory.lname', 'desc')
-					->get();
+					->paginate(12);
 					/*
 					$ac = $ac->push($pa);
 					if (count($pa) != 0) {
