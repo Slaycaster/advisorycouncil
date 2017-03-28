@@ -23,13 +23,6 @@ function reinst() {
 				}]
 			},
 
-			mname: {
-				rules: [{
-					type : "regExp",
-					value : /^(?=.*(\d|\w))[A-Za-z0-9 ]{1,35}$/
-				}]
-			},
-
 			primary: {
 				rules: [{
 					type : "empty"

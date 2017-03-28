@@ -13,11 +13,15 @@ class ACPositionController extends Controller
 {
 	public function index_acposition(Request $req)
 	{
-        $req->session()->put('tabtitle', '#tab2');
+        try {
+            $req->session()->put('tabtitle', '#tab2');
         
-        $positions = DB::table('Advisory_Position')->get();
-		return view('maintenancetable/advisoryposition_table', compact('positions'));
-        //->with('sql', $sql);
+            $positions = DB::table('Advisory_Position')->get();
+            return view('maintenancetable/advisoryposition_table', compact('positions'));
+        } catch(Exception $e) {
+            //return view('errors.errorpage');
+        }//
+       
 	}
 
     public function acpositioncrud(Request $request)

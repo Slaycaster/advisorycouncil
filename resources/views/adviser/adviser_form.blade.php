@@ -53,7 +53,7 @@
 
 									<div class = "four fields">
 										<div class = "field">
-											<label>Birthdate <span class="asterisk">*</span></label>
+											<label>Birthdate</label>
 
 											<div class = "ui input field">
 												<input type="date" name = "bdate">
@@ -246,7 +246,7 @@
 								<div class = "five fields">
 
 									<div class = "field">
-										<label>Start Date <span class="asterisk">*</span></label>
+										<label>Start Date </label>
 
 
 										<div class = "ui input field">
