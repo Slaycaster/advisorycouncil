@@ -41,6 +41,10 @@
 								<label class="formlabel">No. of TWG: <span class = "labeldesc">{{ $twg }}</span></label>
 											
 							</div>
+							<div class ="twelve wide column  bspacing8">
+								<label class="formlabel">No. of birthdays 2 weeks from now <span class = "labeldesc">{{ $ubday }}</span></label>
+											
+							</div>
 
 							<br>
 

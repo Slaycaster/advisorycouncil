@@ -136,7 +136,13 @@ class AdvDirectoryController extends Controller {
 					->select('advisory_council.ID','lname', 'fname', 'mname', 'imagepath', 'email', 
 						     'contactno', 'landline','startdate', 'acpositionname', 'officename',
 						     'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
-						     'UnitOfficeQuaternaryName')
+						     'UnitOfficeQuaternaryName',DB::raw(' DATEDIFF(DATE_ADD(
+						        birthdate, 
+						        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+						            YEAR(CURDATE())-YEAR(birthdate),
+						            YEAR(CURDATE())-YEAR(birthdate)+1
+						        ) YEAR
+						    ),CURDATE()) as daysleft'))
 					->orderBy('advisory_council.'. $filter, $sorter)
 					->paginate(12);
 	
@@ -149,7 +155,13 @@ class AdvDirectoryController extends Controller {
 					->select('police_advisory.ID', 'lname', 'fname', 'mname', 'imagepath', 'email', 
 						     'contactno', 'landline', 'startdate', 'policetype',
 						     'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
-						     'UnitOfficeQuaternaryName', 'PositionName')
+						     'UnitOfficeQuaternaryName', 'PositionName', DB::raw('DATEDIFF(DATE_ADD(
+					        birthdate, 
+					        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+					            YEAR(CURDATE())-YEAR(birthdate),
+					            YEAR(CURDATE())-YEAR(birthdate)+1
+					        ) YEAR
+					    ),CURDATE()) as daysleft'))
 					->orderBy('police_advisory.' . $filter, $sorter)
 					->paginate(12);
 
