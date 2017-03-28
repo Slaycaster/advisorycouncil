@@ -1,0 +1,12 @@
+@media only screen and (min-width: 1200px) and (max-width: 1919px)
+,only screen and and (min-device-width: 1200px) and (max-device-width: 1919px)
+{
+
+	html{
+		background-color: red;
+		width:1280px;
+		height:100%;
+		
+	}
+
+	}//end @largeMonitorBreakpoint : 1280px;

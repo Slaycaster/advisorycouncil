@@ -1,0 +1,50 @@
+@media only screen and (max-width: 1920px) , only screen and (max-device-width: 1920px) 
+{
+
+	html{
+		background-color: blue;
+		width:1920px;
+		height:100%;
+		
+	}
+
+	.advphoto1 {
+	height: 60%;
+	width: 100%;
+	border-top-left-radius: inherit;
+	border-top-right-radius: inherit;
+	object-fit: cover;
+ 	}
+
+ 	.cardstyleportrait {
+	border: 2px solid #ebebeb;
+	width: 100%;
+	min-height: 100px;
+	height: 100%;
+	max-height: 500px;
+	border-radius: 3%;
+	margin-left: 4%;
+	}
+
+	.colheight {
+	height: 500px;
+	}
+
+	.logfield {
+	width: 130%;	
+	}
+
+	.hr1 {
+	width: 124%;
+	}
+
+	.tablepane {
+	height: 100%;
+	width: 80%;
+	border-radius: 0.28571429rem;
+   }
+
+
+
+
+	}//end @widescreenMonitorBreakpoint : 1920px;
