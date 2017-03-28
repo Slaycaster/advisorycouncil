@@ -73,7 +73,7 @@
 						
 						<div class = "one column row">
 							
-							<div class = "eight wide column">
+							<div class = "five wide column">
 								<div class="row" id="unit-chart">
 									
 								</div>
@@ -81,32 +81,36 @@
 								
 							</div>
 
-							<div class = "eight wide column">
+							<div class = "ten wide column">
 								<div class="row" id="second-chart">
 									
 								</div>
 								
-								{!! Lava::render('PieChart', 'UnitSecondOffices', 'second-chart'); !!}
+								{!! Lava::render('AreaChart', 'UnitSecondOffices', 'second-chart'); !!}
 								
 							</div>
 						</div>
 
 						<div class = "one column row">
 							
-							<div class = "eight wide column">
+							<div class = "sixteen wide column">
 								<div class="row" id="ter-chart">
 									
 								</div>
-								{!! Lava::render('PieChart', 'UnitTerOffices', 'ter-chart'); !!}
+								{!! Lava::render('AreaChart', 'UnitTerOffices', 'ter-chart'); !!}
 								
 							</div>
 
-							<div class = "eight wide column">
+						</div>
+
+						<div class = "one column row">
+
+							<div class = "sixteen wide column">
 								<div class="row" id="quar-chart">
 									
 								</div>
 								
-								{!! Lava::render('PieChart', 'UnitQuarOffices', 'quar-chart'); !!}
+								{!! Lava::render('AreaChart', 'UnitQuarOffices', 'quar-chart'); !!}
 								
 							</div>
 						</div>
@@ -132,22 +136,19 @@
 
 
 						<div class ="one column row">
-							<div class = "sixteen wide column">
+							<div class = "eight wide column">
 								<div class = "row " id="acposition-chart">
 									
 								</div>
-								{!! Lava::render('BarChart', 'ACPosition', 'acposition-chart'); !!}
+								{!! Lava::render('PieChart', 'ACPosition', 'acposition-chart'); !!}
 								
 							</div>
 
-						</div>
-
-						<div class ="one column row">
-							<div class = "sixteen wide column">
+							<div class = "neight wide column">
 								<div class="row" id="policeposition-chart">
 									
 								</div>
-								{!! Lava::render('BarChart', 'PolicePosition', 'policeposition-chart'); !!}
+								{!! Lava::render('PieChart', 'PolicePosition', 'policeposition-chart'); !!}
 								
 							</div>
 
@@ -158,7 +159,7 @@
 								<div class="row" id="sector-chart">
 									
 								</div>
-								{!! Lava::render('BarChart', 'Sector', 'sector-chart'); !!}
+								{!! Lava::render('AreaChart', 'Sector', 'sector-chart'); !!}
 								
 							</div>
 

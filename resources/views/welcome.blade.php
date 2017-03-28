@@ -103,9 +103,15 @@
             <div>
             <form method="post" action="createPDF" target="_blank"> 
                 <input type="hidden" name="_token" value="{{csrf_token()}}">
-                <input type="hidden" name="name" value="">
+                <input type="hidden" name="fname" value="">
+                <input type="hidden" name="mname" value="">
+                <input type="hidden" name="lname" value="">
                 <input type="hidden" name="position" value="">
-                <input type="hidden" name="office" value="">
+                <input type="hidden" name="office2" value="">
+                <input type="hidden" name="office3" value="">
+                <input type="hidden" name="office4" value="">
+                <input type="hidden" name="poltype" value="">
+                <input type="hidden" name="landline" value="">
                 <input type="hidden" name="address" value="">
                 <input type="hidden" name="contact" value="">
                 <input type="hidden" name="email" value="">
@@ -128,14 +134,17 @@
              <table id="datatables" class="ui celled table" cellspacing="0" width="100%">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Name</th>
                         <th>Office</th>
                         <th>Sector</th>
                         <th>Position</th>
+                        <th>Type</th>
                         <th>Gender</th>
                         <th>Location</th>
                         <th>ImagePath</th>
                         <th>Contact NO</th>
+                        <th>Landline</th>
                         <th>Email</th>
                         <th>Start Date</th>
                     </tr>
@@ -182,7 +191,7 @@
 
             $('#addRow').on('click', function(array){
                
-                var array = $(this).attr('value').split("/");
+                var array = $(this).attr('value').split("|");
                 
                tab.row.add([
                     array[0],
@@ -194,10 +203,13 @@
                     array[6],
                     array[7],
                     array[8],
-                    array[9]
+                    array[9],
+                    array[10],
+                    array[11],
+                    array[12]
 
                 ]).draw();
-                console.log(array);
+                //console.log(array);
 
             });
         });//document ready function
@@ -207,6 +219,26 @@
     </script>
     
     <script>
+            var pdfid=[];
+            var pdffname = [];
+            var pdfmname = [];
+            var pdflname = [];
+            var pdfsecondoff = [];
+            var pdftertiaryoff = [];
+            var pdfquaternaryoff = [];
+            var pdfsector = [];
+            var pdfaddress = [];
+            var pdfposition = [];
+            var pdfpoltype = [];
+            var pdflandline = [];
+            var pdfemail = [];
+            var pdfgender = [];
+            var pdfbday = [];
+            var pdfcontact = [];
+            var pdfimage = [];
+            var pdfsdate = [];
+    
+
 
         function adjustRange(val)
         {
@@ -216,13 +248,18 @@
         
         function loaddata(){
             
-            pdfname = [];
+            pdfid=[];
+            pdffname = [];
+            pdfmname = [];
+            pdflname = [];
             pdfsecondoff = [];
             pdftertiaryoff = [];
             pdfquaternaryoff = [];
             pdfsector = [];
             pdfaddress = [];
             pdfposition = [];
+            pdfpoltype = [];
+            pdflandline = [];
             pdfemail = [];
             pdfgender = [];
             pdfbday = [];
@@ -286,6 +323,7 @@
                 data = {
                     'callid' : 3,
                     'office2' : unitofficesecond,
+                    'advisory' : 0,
                     'office3' : document.getElementById('office3').value,
                     'office4' : document.getElementById('office4').value,
                     'ageFrom' : ageFrom,
@@ -296,6 +334,7 @@
                     '_token' : '{{ Session::token() }}'
                 };   
             }
+            console.log(data);
 
             $.ajax({
                 type: "POST",
@@ -305,177 +344,41 @@
                 success: function(data){
                     
                     document.getElementById('clearRow').click();
-                    
+
                     console.log(data);
+          
                     if(advisory==1)
                     {
-                        responseArray = data.split("/");
-                        numOfRow = responseArray[0];
-                        num = 1;
-
-                        for(i=0; i < numOfRow; i++)
-                        {
-                            cell1 = responseArray[num];num++;
-                            cell2 = responseArray[num];num++;
-                            cell3 = responseArray[num];num++;
-                            cell4 = responseArray[num];num++;
-                            cell5 = responseArray[num];num++;
-                            cell6 = responseArray[num];num++;
-                            cell7 = responseArray[num];num++;
-                            cell8 = responseArray[num];num++;
-                            cell9 = responseArray[num];num++;
-                            cell10 = responseArray[num];num++;
-
-                            val = cell1 + "/" + cell2 + "/" + cell3 + "/" + cell4 + "/" +
-                                  cell5 + "/" + cell6 + "/" + cell7 + "/" + cell8 + "/" +
-                                  cell9 + "/" + cell10;
-
-                            pdfname.push(cell1);
-                            pdfsecondoff.push(cell2);
-                            pdfsector.push(cell3); 
-                            pdfposition.push(cell4);
-                            pdfgender.push(cell5);
-                            pdfaddress.push(cell6);
-                            pdfimage.push(cell7);
-                            pdfcontact.push(cell8);
-                            pdfemail.push(cell9);
-                            pdfsdate.push(cell10);
-
-                            document.getElementById('addRow').value = val;
-                            document.getElementById('addRow').click();
-                            
-                        }      
-
+                        loadAC(data);      
                     }
 
                     if(advisory==2 || advisory==3)
                     {
- 
-                        responseArray = data.split("/");
-                        numOfRow = responseArray[0];
-                        num = 1;
-
-                        for(i=0; i < numOfRow; i++)
-                        {
-                            cell1 = responseArray[num];num++;
-                            cell2 = responseArray[num];num++;
-                            cell3 = "PNP";
-                            cell4 = responseArray[num];num++;
-                            cell5 = responseArray[num];num++;
-                            cell6 = responseArray[num];num++;
-                            cell7 = responseArray[num];num++;
-                            cell8 = responseArray[num];num++;
-                            cell9 = responseArray[num];num++;
-                            cell10 = responseArray[num];num++;
-
-                            val = cell1 + "/" + cell2 + "/" + cell3 + "/" + cell4 + "/" +
-                                  cell5 + "/" + cell6 + "/" + cell7 + "/" + cell8 + "/" +
-                                  cell9 + "/" + cell10;
-
-                            pdfname.push(cell1);
-                            pdfsecondoff.push(cell2);
-                            pdfsector.push(""); 
-                            pdfposition.push(cell4);
-                            pdfgender.push(cell5);
-                            pdfaddress.push(cell6);
-                            pdfimage.push(cell7);
-                            pdfcontact.push(cell8);
-                            pdfemail.push(cell9);
-                            pdfsdate.push(cell10);
-
-                            document.getElementById('addRow').value = val;
-                            document.getElementById('addRow').click();
-
-                            
-                        }
-                          
+                        loadPolAd(data);
                     }
 
                     if(advisory==4)
                     {
 
-                        if(data[1]!='' && data[1]!=null && data[1]!=0)
-                        {
-                            responseArray = data[1].split("/");
-                            numOfRow = responseArray[0];
-                            num = 1;
-
-                            for(i=0; i < numOfRow; i++)
-                            {
-                                cell1 = responseArray[num];num++;
-                                cell2 = responseArray[num];num++;
-                                cell3 = responseArray[num];num++;
-                                cell4 = responseArray[num];num++;
-                                cell5 = responseArray[num];num++;
-                                cell6 = responseArray[num];num++;
-                                cell7 = responseArray[num];num++;
-                                cell8 = responseArray[num];num++;
-                                cell9 = responseArray[num];num++;
-                                cell10 = responseArray[num];num++;
-
-                                val = cell1 + "/" + cell2 + "/" + cell3 + "/" + cell4 + "/" +
-                                      cell5 + "/" + cell6 + "/" + cell7 + "/" + cell8 + "/" +
-                                      cell9 + "/" + cell10;
-
-                                pdfname.push(cell1);
-                                pdfsecondoff.push(cell2);
-                                pdfsector.push(cell3); 
-                                pdfposition.push(cell4);
-                                pdfgender.push(cell5);
-                                pdfaddress.push(cell6);
-                                pdfimage.push(cell7);
-                                pdfcontact.push(cell8);
-                                pdfemail.push(cell9);
-                                pdfsdate.push(cell10);
-
-                                document.getElementById('addRow').value = val;
-                                document.getElementById('addRow').click();
-                                
-                            }
-                        }
-
                         if(data[0]!='' && data[0]!=null && data[0]!=0)
                         {
-                            responseArray = data[0].split("/");
-                            numOfRow = responseArray[0];
-                            num = 1;
+                            loadAC(data[0]);
+                        }
 
-                            for(i=0; i < numOfRow; i++)
-                            {
-                                cell1 = responseArray[num];num++;
-                                cell2 = responseArray[num];num++;
-                                cell3 = "PNP";
-                                cell4 = responseArray[num];num++;
-                                cell5 = responseArray[num];num++;
-                                cell6 = responseArray[num];num++;
-                                cell7 = responseArray[num];num++;
-                                cell8 = responseArray[num];num++;
-                                cell9 = responseArray[num];num++;
-                                cell10 = responseArray[num];num++;
-
-                                val = cell1 + "/" + cell2 + "/" + cell3 + "/" + cell4 + "/" +
-                                      cell5 + "/" + cell6 + "/" + cell7 + "/" + cell8 + "/" +
-                                      cell9 + "/" + cell10;
-
-                                pdfname.push(cell1);
-                                pdfsecondoff.push(cell2);
-                                pdfsector.push(""); 
-                                pdfposition.push(cell4);
-                                pdfgender.push(cell5);
-                                pdfaddress.push(cell6);
-                                pdfimage.push(cell7);
-                                pdfcontact.push(cell8);
-                                pdfemail.push(cell9);
-                                pdfsdate.push(cell10);
-
-                                document.getElementById('addRow').value = val;
-                                document.getElementById('addRow').click();
-                            }
+                        if(data[1]!='' && data[1]!=null && data[1]!=0)
+                        {
+                            loadPolAd(data[1]);
                         }
 
                      }   
-                            document.getElementsByName('name')[0].value = pdfname.join("/");
-                            document.getElementsByName('office')[0].value = pdfsecondoff;
+                            document.getElementsByName('fname')[0].value = pdffname;
+                            document.getElementsByName('mname')[0].value = pdfmname;
+                            document.getElementsByName('lname')[0].value = pdflname;
+                            document.getElementsByName('office2')[0].value = pdfsecondoff;
+                            document.getElementsByName('office3')[0].value = pdftertiaryoff;
+                            document.getElementsByName('office4')[0].value = pdfquaternaryoff;
+                            document.getElementsByName('poltype')[0].value = pdfpoltype;
+                            document.getElementsByName('landline')[0].value = pdflandline;
                             document.getElementsByName('gender')[0].value = pdfgender;
                             document.getElementsByName('position')[0].value = pdfposition;
                             document.getElementsByName('email')[0].value = pdfemail;
@@ -489,23 +392,185 @@
 
             });//AJAX
         }// LOAD DATA
-        
-        function removeDropdown(){
-                if(document.getElementById('acselect').value == 0){
-                    document.getElementById('office1').style.display = 'hidden';
-                    document.getElementById('office2').style.display = 'hidden'; 
-                    document.getElementById('office3').style.display = 'hidden';
-                    document.getElementById('sector').style.display = 'block';         
-                }
-                else if(document.getElementById('acselect').value == 1 || document.getElementById('acselect').value == 2){
 
-                    document.getElementById('office1').style.display = 'block';
-                    document.getElementById('office2').style.display = 'block'; 
-                    document.getElementById('office3').style.display = 'block';
-                    document.getElementById('sector').style.display = 'hidden';
-                }
+        function loadAC(data)
+        {
+            responseArray = data.split("|");
+                        numOfRow = responseArray[0];
+                        num = 1;
+
+                        for(i=0; i < numOfRow; i++)
+                        {
+                            cell1 = responseArray[num];num++;
+                            
+                            if(responseArray[num+2]!="" && responseArray[num+2]!=null)
+                                { cell2 = responseArray[num] + ", " + responseArray[num+1] +" "+responseArray[num+2] ; }
+                            else { cell2 = responseArray[num] + ", " + responseArray[num+1]; }
+
+                            pdffname.push(responseArray[num+1]);
+                            pdfmname.push(responseArray[num+2]);
+                            pdflname.push(responseArray[num]);
+
+                            num+=3;
+                            
+                            if(responseArray[num+1]!='' && responseArray[num+2]!='')
+                            {
+                                //$office = $office4name." - ".$office3name." - ".$office2name;
+                                cell3 = responseArray[num+2] +' - ' + responseArray[num+1] +' - '+ responseArray[num];
+                                pdftertiaryoff.push(responseArray[num+1]);
+                                pdfquaternaryoff.push(responseArray[num+2]);
+                            }
+
+                            if(responseArray[num+1]!='' && responseArray[num+2]=='')
+                            {
+                                //$office = $office3name." - ".$office2name;
+                                //cell3 = responseArray[num];num+=3;
+                                cell3 = responseArray[num+1] +' - '+ responseArray[num];
+                                pdftertiaryoff.push(responseArray[num+1]);
+                                pdfquaternaryoff.push("");
+                            }
+
+                            if(responseArray[num+1]=='' && responseArray[num+2]=='')
+                            {
+                              //  $office = $office2name;
+                                cell3 = responseArray[num];
+                                pdftertiaryoff.push("");
+                                pdfquaternaryoff.push("");
+                            
+                            }
+
+                            pdfsecondoff.push(responseArray[num]);
+
+                            num+=3;
+
+                            //cell3 = responseArray[num];num+=3;
+                            
+                            cell4 = responseArray[num];num++;
+                            cell5 = responseArray[num];num++;
+                            cell6 = "AC";
+                            cell7 = responseArray[num];num++;
+                            cell8 = responseArray[num];num++;
+                            cell9 = responseArray[num];num++;
+                            cell10 = responseArray[num];num++;
+                            cell11 = responseArray[num];num++;
+                            cell12 = responseArray[num];num++;
+                            cell13 = responseArray[num];num++;
+
+                            val = cell1 + "|" + cell2 + "|" + cell3 + "|" + cell4 + "|" +
+                                  cell5 + "|" + cell6 + "|" + cell7 + "|" + cell8 + "|" +
+                                  cell9 + "|" + cell10 + "|" + cell11 + "|" + cell12 + "|" + cell13;
+
+                            pdfid.push(cell1);
+                            pdfsector.push(cell4); 
+                            pdfposition.push(cell5);
+                            pdfpoltype.push(cell6);
+                            pdfgender.push(cell7);
+                            pdfaddress.push(cell8);
+                            pdfimage.push(cell9);
+                            pdfcontact.push(cell10);
+                            pdflandline.push(cell11);
+                            pdfemail.push(cell12);
+                            pdfsdate.push(cell13);
+                            document.getElementById('addRow').value = val;
+                            document.getElementById('addRow').click();
+                            
+                        }
+        }
+
+        function loadPolAd(data)
+        {
+            responseArray = data.split("|");
+                        numOfRow = responseArray[0];
+                        num = 1;
+
+                        for(i=0; i < numOfRow; i++)
+                        {
+                            cell1 = responseArray[num];num++;
+                            
+                            if(responseArray[num+2]!="" && responseArray[num+2]!=null)
+                                { 
+                                    cell2 = responseArray[num] + ", " + responseArray[num+1] +" "+responseArray[num+2] ; 
+                                }
+                            else { cell2 = responseArray[num] + ", " + responseArray[num+1]; }
+                                
+                                pdffname.push(responseArray[num+1]);
+                                pdfmname.push(responseArray[num+2]);
+                                pdflname.push(responseArray[num]);
+
+                            num+=3;
+
+                            if(responseArray[num+1]!='' && responseArray[num+2]!='')
+                            {
+                                //$office = $office4name." - ".$office3name." - ".$office2name;
+                                cell3 = responseArray[num+2] +' - ' + responseArray[num+1] +' - '+ responseArray[num];
+                                pdftertiaryoff.push(responseArray[num+1]);
+                                pdfquaternaryoff.push(responseArray[num+2]);
+                            
+                            }
+
+                            if(responseArray[num+1]!='' && responseArray[num+2]=='')
+                            {
+                                //$office = $office3name." - ".$office2name;
+                                //cell3 = responseArray[num];num+=3;
+                                cell3 = responseArray[num+1] +' - '+ responseArray[num];
+                                pdftertiaryoff.push(responseArray[num+1]);
+                                pdfquaternaryoff.push("");
+                            }
+
+                            if(responseArray[num+1]=='' && responseArray[num+2]=='')
+                            {
+                              //  $office = $office2name;
+                              cell3 = responseArray[num];
+                              pdftertiaryoff.push("");
+                              pdfquaternaryoff.push("");
+                            
+                            }
+
+                            pdfsecondoff.push(responseArray[num]);
+                            pdftertiaryoff.push(responseArray[num+1]);
+                            pdfquaternaryoff.push(responseArray[num+2]);
+
+                            num+=3;
+
+                            //cell3 = responseArray[num];num+=3;
+                            cell4 = "PNP";
+                            cell5 = responseArray[num];num++;
+                            cell6 = responseArray[num];num++;
+                            cell7 = responseArray[num];num++;
+                            cell8 = responseArray[num];num++;
+                            cell9 = responseArray[num];num++;
+                            cell10 = responseArray[num];num++;
+                            cell11 = responseArray[num];num++;
+                            cell12 = responseArray[num];num++;
+                            cell13 = responseArray[num];num++;
+
+
+                            val = cell1 + "|" + cell2 + "|" + cell3 + "|" + cell4 + "|" +
+                                  cell5 + "|" + cell6 + "|" + cell7 + "|" + cell8 + "|" +
+                                  cell9 + "|" + cell10 + "|" + cell11 + "|" + cell12 + "|" + cell13;
+
+                            pdfid.push(cell1);
+                            pdfsector.push(""); 
+                            pdfposition.push(cell5);
+                            if(cell6==1)
+                                { pdfpoltype.push("TWG"); }
+                            else { pdfpoltype.push("PSMU"); }
+                            pdfgender.push(cell7);
+                            pdfaddress.push(cell8);
+                            pdfimage.push(cell9);
+                            pdfcontact.push(cell10);
+                            pdflandline.push(cell11);
+                            pdfemail.push(cell12);
+                            pdfsdate.push(cell13);
+
+                            document.getElementById('addRow').value = val;
+                            document.getElementById('addRow').click();
+
+                            
+                        }
         }
 
     </script>
 
 </html>
+
