@@ -182,7 +182,8 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         //PDF Generator
         Codedge\Fpdf\FpdfServiceProvider::class,
-        Khill\Lavacharts\Laravel\LavachartsServiceProvider::class
+        Khill\Lavacharts\Laravel\LavachartsServiceProvider::class,
+        Barryvdh\Snappy\ServiceProvider::class
 
 
     ],
@@ -236,6 +237,8 @@ return [
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Fpdf' => Codedge\Fpdf\Facades\Fpdf::class,
         'Lava' => Khill\Lavacharts\Laravel\LavachartsFacade::class,
+        'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
+        'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class
 
     ],
 
