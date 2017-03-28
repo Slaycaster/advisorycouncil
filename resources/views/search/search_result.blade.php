@@ -110,7 +110,7 @@
 						<h6 class="ui horizontal divider divtitle">
 							TWG & PSMU
 						</h6>
-
+						<div class="infinite-scroll">
 						<div id = "tpcardlist" class = "ui doubling grid cardlist2">
 
 							@foreach($data2 as $tprec)
@@ -183,6 +183,8 @@
 								
 
 						</div>
+
+					</div>
 
 					@endif
 
