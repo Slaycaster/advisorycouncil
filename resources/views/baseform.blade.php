@@ -14,14 +14,19 @@
 		<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/icon.css')}}">
 		<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/toast.css')}}">
 		<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/multipletextinput.css')}}">
-		<!--<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/res.css')}}">-->
+		<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/res.css')}}">
+		<link rel="stylesheet" type="text/css" media="only screen and (max-width: 767px) , only screen and (max-device-width: 767px)" href="{{ URL::asset('css/mobileDevice.css')}}" />
+		<link rel="stylesheet" type="text/css" media="only screen and (min-width: 768px) and (max-width: 991px), only screen and  (min-device-width: 768px) and (max-device-width: 991px)" href="{{ URL::asset('css/tabletDevice.css')}}" />
+		<link rel="stylesheet" type="text/css" media="only screen and (min-width: 992px) and (max-width: 1199px), only screen and (min-device-width: 992px) and (max-device-width: 1199px)" href="{{ URL::asset('css/computerMonitor.css')}}" />
+		<link rel="stylesheet" type="text/css" media="only screen and (max-width: 1920px) , only screen and (max-device-width: 1920px)" href="{{ URL::asset('css/wideScreenMonitor.css')}}" />
+		<link rel="stylesheet" type="text/css" media="only screen and (min-width: 1200px) and (max-width: 1919px) , only screen and and (min-device-width: 1200px) and (max-device-width: 1919px)" href="{{ URL::asset('css/largeMonitor.css')}}" />
+
 
 		<!-- JS -->
 		<script type="text/javascript" src="{{ URL::asset('js/jquery-2.1.4.js') }}"></script>
 		<script type="text/javascript" src="{{ URL::asset('js/semantic.js') }}"></script>
 		<script type="text/javascript" src="{{ URL::asset('js/initialization.js') }}"></script>
 		<script type="text/javascript" src="{{ URL::asset('js/toast.js') }}"></script>
-
 
 		<!--Data Table plugins and design-->
 		<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/datatable/dataTables.semanticui.min.css')}}">
@@ -32,7 +37,7 @@
 		<script type="text/javascript" src="{{ URL::asset('js/datatable/dataTables.responsive.min.js') }}"></script>
 		<script type="text/javascript" src="{{ URL::asset('js/datatable/responsive.semanticui.min.js') }}"></script>
 
-
+		<!--Smart Search-->
 		<link href="{{ URL::asset('selectize/css/selectize.bootstrap3.css') }}" rel="stylesheet">
 		<script type="text/javascript" src='{{ URL::asset("selectize/js/standalone/selectize.min.js") }}'></script>
 
@@ -106,12 +111,6 @@
 					<div class = "row">
 						<div class = "nine wide column colheight">
 							<select id="searchbox" name="q" placeholder="Search Stakeholder(s)" ></select>
-							<!-- 
-							<div class="ui icon input big search">
-								<i class="search icon"></i>
-								<input type="text" placeholder="Search...">
-							</div>
-							-->
 
 							@if(isset($showcontrol))
 								<!--<div class = "ui icon addbtn button medium" 
@@ -121,7 +120,9 @@
 									
 								</div>-->
 
-								<button type="button" class="ui right labeled icon button">
+								<button type="button" class="ui right labeled icon button"
+									onclick = "window.open('{{url('directory/add')}}')" 
+									title = "Add AC Member">
 									<i class="plus icon"></i>
 									ADD
 								</button>

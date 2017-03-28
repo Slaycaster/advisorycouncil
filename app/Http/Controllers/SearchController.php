@@ -616,103 +616,52 @@ class SearchController extends Controller
 						'width' => 500
 						);
 
-        $genderTable = $this->getGender();
-		
-        $chartoption['title'] = 'Male and Female Stakeholders';
-       	$genderChart = \Lava::PieChart('Gender', $genderTable, $chartoption);
-
-       	$sectorTable = $this->getSector();
-       	$chartoption['title'] = 'Percentage of Stakeholders per AC Sector';
-       	$sectorChart = \Lava::BarChart('Sector', $sectorTable, $chartoption);
-
-       	/*$sectorfilter  = \Lava::CategoryFilter(0, [
-		    'ui' => [
-		        'labelStacking' => 'vertical',
-		        'allowTyping' => false
-		    ]
-		]);
-
-		$control = \Lava::ControlWrapper($sectorfilter, 'sectorcontrol');
-		$chart   = \Lava::ChartWrapper($sectorChart, 'sectorchart');
-
-		\Lava::Dashboard('Sector')->bind($control, $chart);  */
-
-
 		$unitTable = $this->getUnitOffice();
        	$chartoption['title'] = 'Percentage of Stakeholders per Primary Unit/Offices';
        	$unitChart = \Lava::PieChart('UnitOffices', $unitTable, $chartoption);
 
 
-		$secondTable = $this->getSecondOffice();
-       	$chartoption['title'] = 'Percentage of Stakeholders per Secondary Unit/Offices';
-       	$secondChart = \Lava::PieChart('UnitSecondOffices', $secondTable, $chartoption);
+       	$chartoption['width'] = 900;
 
-       	$terTable = $this->getTertiaryOffice();
-       	$chartoption['title'] = 'Percentage of Stakeholders per Tertiary Unit/Offices';
-       	$terChart = \Lava::PieChart('UnitTerOffices', $terTable, $chartoption);
+        $genderTable = $this->getGender();
+		
+        $chartoption['title'] = 'Male and Female Stakeholders';
+       	$genderChart = \Lava::PieChart('Gender', $genderTable, $chartoption);
 
-       	$quarTable = $this->getQuarternaryOffice();
-       	$chartoption['title'] = 'Percentage of Stakeholders per Quaternary Unit/Offices';
-       	$quarChart = \Lava::PieChart('UnitQuarOffices', $quarTable, $chartoption);
+       	$ageTable = $this->getAge();
+       	$chartoption['title'] = 'Age Range of Stakeholders';
+       	$ageChart = \Lava::PieChart('Age', $ageTable, $chartoption);
 
        	$acpositionTable = $this->getACPosition();
        	$chartoption['title'] = 'Percentage of Stakeholders per AC Position';
-       	$acpositionChart = \Lava::BarChart('ACPosition', $acpositionTable , $chartoption);
+       	$acpositionChart = \Lava::PieChart('ACPosition', $acpositionTable , $chartoption);
        
        	$policepositionTable = $this->getPolicePosition();
        	$chartoption['title'] = 'Percentage of Stakeholders per Police Position';
-       	$policepositionChart = \Lava::BarChart('PolicePosition', $policepositionTable , $chartoption);
+       	$policepositionChart = \Lava::PieChart('PolicePosition', $policepositionTable , $chartoption);
 
+       	$chartoption['width'] = 1000;
+		$secondTable = $this->getSecondOffice();
+       	$chartoption['title'] = 'Percentage of Stakeholders per Secondary Unit/Offices';
+       	$secondChart = \Lava::AreaChart('UnitSecondOffices', $secondTable, $chartoption);
 
+       	$chartoption['width'] = 1500;
+       	$terTable = $this->getTertiaryOffice();
+       	$chartoption['title'] = 'Percentage of Stakeholders per Tertiary Unit/Offices';
+       	$terChart = \Lava::AreaChart('UnitTerOffices', $terTable, $chartoption);
 
+       	$quarTable = $this->getQuarternaryOffice();
+       	$chartoption['title'] = 'Percentage of Stakeholders per Quaternary Unit/Offices';
+       	$quarChart = \Lava::AreaChart('UnitQuarOffices', $quarTable, $chartoption);
 
+       	
+       	
+       	
+       	$sectorTable = $this->getSector();
+       	$chartoption['title'] = 'Percentage of Stakeholders per AC Sector';
+       	$sectorChart = \Lava::AreaChart('Sector', $sectorTable, $chartoption);
 
-	
-		/*
-       	$unitfilter  = \Lava::CategoryFilter(0, [
-		    'ui' => [
-		        'labelStacking' => 'vertical',
-		        'allowTyping' => false
-		    ]
-		]);
-
-		$control = \Lava::ControlWrapper($unitfilter, 'unitcontrol');
-		$chart   = \Lava::ChartWrapper($unitChart, 'unitchart');
-
-		\Lava::Dashboard('UnitOffices')->bind($control, $chart);  */
-
-
-
-
-
-
-
-       	$ageTable = $this->getAge();
-       	$agedashboard = \Lava::Dashboard('Age');
-
-       	$chartoption['title'] = 'Age Range of Stakeholders';
-       	$ageChart = \Lava::PieChart('Age', $ageTable, $chartoption);
-	    /*$ageChart = \Lava::PieChart('Age', $ageTable, [
-			    'pieSliceText' => 'value',
-			    'title' => 'Age Range of Stakeholders'
-			]);
-
-		
-		$filter  = \Lava::NumberRangeFilter(1, [
-		    'ui' => [
-		        'labelStacking' => 'vertical',
-		        'minValue' => 0
-		    ]
-		]);
-
-		$control = \Lava::ControlWrapper($filter, 'control');
-		$chart   = \Lava::ChartWrapper($ageChart, 'chart');
-		$dashboard = $agedashboard->bind($control, $chart);*/
-
-
-
-
-       $ac = Advisory_Council::count();
+      	$ac = Advisory_Council::count();
 	    $twg = Police_Advisory::where('policetype', '=', 1)->count();
 	    $psmu = Police_Advisory::where('policetype', '=', 2)->count();
 	    $pac = 0;
