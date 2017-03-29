@@ -807,7 +807,13 @@ class SearchController extends Controller
 										    ),CURDATE())'),'>', 0)
 		    								->count();
 
-		    $fdayac = Advisory_Council::where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+		    $fdayac = Advisory_Council::select('fname','lname','mname', DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+										            YEAR(CURDATE())-YEAR(birthdate),
+										            YEAR(CURDATE())-YEAR(birthdate)+1
+										        ) YEAR
+										    ),CURDATE()) as daysleft'))
+		    								->where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
 										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
 										            YEAR(CURDATE())-YEAR(birthdate),
 										            YEAR(CURDATE())-YEAR(birthdate)+1
@@ -820,7 +826,13 @@ class SearchController extends Controller
 										        ) YEAR
 										    ),CURDATE())'),'>', 0)->get();
 
-			$fdaypa = Police_Advisory::where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+			$fdaypa = Police_Advisory::select('fname','lname','mname', DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+										            YEAR(CURDATE())-YEAR(birthdate),
+										            YEAR(CURDATE())-YEAR(birthdate)+1
+										        ) YEAR
+										    ),CURDATE()) as daysleft'))
+										->where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
 										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
 										            YEAR(CURDATE())-YEAR(birthdate),
 										            YEAR(CURDATE())-YEAR(birthdate)+1
