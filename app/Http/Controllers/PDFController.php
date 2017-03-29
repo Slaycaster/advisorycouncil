@@ -17,6 +17,7 @@ use App\Models\Police_Advisory;
 use App\Models\unit_office_quaternaries;
 use App\Models\unit_office_tertiaries;
 use App\Models\unit_office_secondaries;
+use File;
 
 class PDFController extends Controller
 {
@@ -236,6 +237,8 @@ class PDFController extends Controller
 
     }
 
+
+
 }//CLASS PDFController
 
 class PDF extends FPDF
@@ -303,57 +306,115 @@ class PDF extends FPDF
     	$location = explode(",", $req->address);
     	$contact = explode(",", $req->contact);
     	$email = explode(",", $req->email);
+    	$startdate = explode(",", $req->startdate);
+    	$trimfilestring;
 
     	$x = ($this->GetPageWidth())/2;
 	    $col=20;
     	$y0=55;
-    	$imageCol=21;
-    	$imagey0=56;
-    	$textCol=58;
-    	$texty0=60;
+    	$imageCol=23;
+    	$imagey0=60;
+    	$textCol=60;
+    	$texty0=65;
 
 		$i=1;
-		//var_dump($position);
+		
     	while ($i <= count($position)) 
     	{
     		# code...\
-
     		$this->Rect($col,$y0,85,45);
 			$this->SetFont('Arial','B',9);
-			$this->Text($textCol,$texty0,(strtoupper($lname[$i-1]).", ".strtoupper($fname[$i-1])." ".strtoupper($mname[$i-1])." (".$poltype[$i-1].")"));
+			$this->Text($textCol,$texty0,(strtoupper($fname[$i-1])." ".strtoupper($mname[$i-1])." ".strtoupper($lname[$i-1])));
+			$this->text($textCol-1,$texty0+3," (".$poltype[$i-1].")");
 			$this->SetFont('Arial','',8);
 			$this->Text($textCol,$texty0+8,$position[$i-1]);
-			$this->Text($textCol,$texty0+11,$office2[$i-1]);
-			$this->Text($textCol,$texty0+14,$contact[$i-1]);
-			$this->Text($textCol,$texty0+17,$email[$i-1]);
+			if($office3[$i-1]!='')
+				{ $this->Text($textCol,$texty0+11,$office2[$i-1]." - ".$office3[$i-1]); }
+			else { $this->Text($textCol,$texty0+11,$office2[$i-1]); }
+			if($office4[$i-1]!="")
+			{
+				$this->text($textCol,$texty0+14,$office4[$i-1]);
+				$this->Text($textCol,$texty0+14,$contact[$i-1]);
+				$this->Text($textCol,$texty0+17,$email[$i-1]);
+			}
+			else 
+			{ 
+				$this->Text($textCol,$texty0+14,$contact[$i-1]);
+				$this->Text($textCol,$texty0+17,$email[$i-1]);
+			}
+			if($startdate!="")
+			{	
+				$this->Text($textCol+12,$texty0+32,"Member since ".date("M Y", strtotime($startdate[$i-1])));
+			}
+			// $trimfilestring = explode('/', $image[$i-1]);
+			// $ext = explode('.', $trimfilestring[2]);
+			// //var_dump($trimfilestring);
+			// $ext = substr($trimfilestring[0], strpos($trimfilestring[0], "/") + 1);
+			// $base64string = substr($trimfilestring[1], strpos($trimfilestring[1], ",") + 1);
 
-			if($image[$i-1] == null)
-    			{ $this->Image('objects/Logo/InitProfile.png',$imageCol,$imagey0,35); }
-    		else 
-    			{ $this->Image($image[$i-1],$imageCol,$imagey0,35); }
+			// $decodephoto = base64_decode($base64string);
 
-			if((($i+2)%2)==0){
+			// $filename =  "objects/displayphoto/" . str_random() . "." . $ext;
+
+			// file_put_contents($filename, $decodephoto);
+		   //var_dump($image[27]);
+			// $filename = $image[0];
+			// print_r($filename);
+			// break;
+			// print_r($trimfilestring[2]);
+			// break;
+			// if(($i-1)==12) { $this->Image('objects/Logo/InitProfile.png',$imageCol,$imagey0,35); }
+    		
+			// else
+			// $filename = file_get_contents($image[$i-1]);
+			// var_dump($filename);
+			
+			// var_dump(getimagesize($image[$i-1]));
+			if($image[$i-1]!="")
+	    			{ 
+				    	
+						// $curlHandler = curl_init();
+
+						// curl_setopt($curlHandler, CURLOPT_URL, $image[$i-1]);
+						// curl_setopt($curlHandler, CURLOPT_HEADER, 0);
+
+						// $output = curl_exec($curlHandler);
+
+						//$img = asset($image[$i-1]);
+	    				// $filename = $image[$i-1];
+	    				//$this->Image('objects/displayphoto/'.$trimfilestring[2].'',$imageCol,$imagey0,35,35,''.strtoupper($ext[1]).''); 
+	    				// $this->setXY($imageCol,$imagey0);
+	    				// $filename = file_get_contents($image[$i-1]);
+	    				$this->Image($image[$i-1],$imageCol,$imagey0,35,35);
+	    				// catch throw new Exception(); }
+	    				// finally { $this->Image('objects/Logo/InitProfile.png',$imageCol,$imagey0,35,35); }
+	    				// curl_close($curlHandler);
+	    			}
+	    		else 
+	    		 	{ $this->Image('objects/Logo/InitProfile.png',$imageCol,$imagey0,35,35); }
+
+    		 if((($i+2)%2)==0){
 				$col=20;
-				$imageCol=21;
-				$textCol=58;
+				$imageCol=23;
+				$textCol=60;
 				$y0 += 52;
 				$imagey0+=52;
-				$texty0+=53;
+				$texty0+=52;
 			}
 			else{
 				$col=($x);
-				$imageCol=($x)+1;
-				$textCol=(($x)+38);
+				$imageCol=($x)+3;
+				$textCol=(($x)+40);
 			}
 
 			if(($i%8)==0){
 				$this->AddPage();
 				$col=20;
 		    	$y0=55;
-		    	$imageCol=21;
-		    	$imagey0=56;
-		    	$textCol=58;
-		    	$texty0=60;
+		    	$imageCol=23;
+		    	$imagey0=60;
+		    	$textCol=60;
+		    	$texty0=65;
 			}
 			
 			$i++;
@@ -361,6 +422,38 @@ class PDF extends FPDF
 
 	}
 
+}
+
+class PDF_MemImage extends FPDF
+{
+	function __construct($orientation='P', $unit='mm', $format='A4')
+	{
+		parent::__construct($orientation, $unit, $format);
+		// Register var stream protocol
+		stream_wrapper_register('var', 'VariableStream');
+	}
+
+	function MemImage($data, $x=null, $y=null, $w=0, $h=0, $link='')
+	{
+		// Display the image contained in $data
+		$v = 'img'.md5($data);
+		$GLOBALS[$v] = $data;
+		$a = getimagesize('var://'.$v);
+		if(!$a)
+			$this->Error('Invalid image data');
+		$type = substr(strstr($a['mime'],'/'),1);
+		$this->Image('var://'.$v, $x, $y, $w, $h, $type, $link);
+		unset($GLOBALS[$v]);
+	}
+
+	function GDImage($im, $x=null, $y=null, $w=0, $h=0, $link='')
+	{
+		// Display the GD image associated with $im
+		ob_start();
+		imagepng($im);
+		$data = ob_get_clean();
+		$this->MemImage($data, $x, $y, $w, $h, $link);
+	}
 }
 
 

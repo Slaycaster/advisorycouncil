@@ -642,6 +642,7 @@ class AdvDirectoryController extends Controller {
 
 		return $this->getData($id, $type);
 
+
 	}//readyModal
 
 	public function getData($id, $type){

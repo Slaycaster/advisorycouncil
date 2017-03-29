@@ -9,17 +9,20 @@
 					<div class = "ui segment filcon" id="summary">
 						<div class = "ui rail">
 							<div class = "ui con">
-								<div class="ui container">
+								<div class="ui container ">
 									<div class = "summhead">
 										<i class = "filter icon"></i>
 											Filter
 									</div>
 
-									<div class = "twelve wide column bspacing2">
+										
+											<label class="formlabel">Stakeholder Category</label>
+											
+								<div class = "twelve wide column bspacing2">
 										<div class = "one field">
 											<label class="formlabel">Stakeholder Category</label>
 											<div class="field">
-												<select onchange = "fieldcontrol();" class="ui selection dropdown filselect" name = "filadvcateg">
+												<select onchange = "fieldcontrol();" class="ui fluid selection dropdown " name = "filadvcateg">
 													<option value="4" selected>All</option>
 													<option value="1">Advisory Council (AC)</option>
 													<option value="2">Technical Working Group (TWG)</option>
@@ -30,6 +33,9 @@
 										</div>
 										
 									</div>
+
+									
+										
 
 									<div class = "twelve wide column bspacing2">
 										<div class = "one field">

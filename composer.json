@@ -12,7 +12,8 @@
         "codedge/laravel-fpdf": "^1.0",
         "maatwebsite/excel": "~2.1.0",
         "khill/lavacharts" : "3.0.*",
-        "khill/datatableplus" : "dev-master"
+        "khill/datatableplus" : "dev-master",
+        "barryvdh/laravel-snappy": "^0.3.3"
 
     },
     "require-dev": {

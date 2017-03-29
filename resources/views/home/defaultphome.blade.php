@@ -2,7 +2,7 @@
 
 @section('phomesection')
 
-	<div class =  "dcon">
+	<div class =  "dcon rwddcon">
 		
 
 		@if(sizeof($directory[0]) != 0)
@@ -17,7 +17,7 @@
 
 						@foreach($directory[0] as $acrec)
 
-							<div class = "four wide column colheight">
+							<div class = "four wide column colheight ">
 								<div class = "cardstyleportrait">
 									@if($acrec->imagepath != "")
 										<img class = "advphoto1" src="{{URL::asset($acrec->imagepath)}}"/>
