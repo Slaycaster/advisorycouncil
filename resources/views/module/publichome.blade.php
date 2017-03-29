@@ -8,7 +8,7 @@
 				<div class = "ui segment logcon" id="summary">
 					<div class = "ui rail">
 						<div class = "ui sticky">
-							<div class="ui container">
+							
 								<div class = "loghead">
 									<i class = "inverted circular user icon"></i>
 										Sign in
@@ -21,7 +21,7 @@
 										
 									<div class = "logcontent">
 
-										<div class ="twelve wide column  bspacing8">
+										<div class ="twelve wide column bspacing8">
 											<div class="ui input logfield">
 												<input type="text" name = "username" placeholder="Username">
 											</div>
@@ -46,7 +46,7 @@
 									</div>
 								</form>
 												
-							</div>
+							
 									
 						</div>
 								
@@ -59,7 +59,11 @@
 			<div class = "twelve wide column">
 				<div class = "ui segment rightpane">
 					<div class = "row">
+<<<<<<< HEAD
 						<div class = "nine wide column">
+=======
+						<div class = "nine wide column ">
+>>>>>>> 2960c59817609548b2a5a49938e522c32e28b21b
 							<!--
 							<div class="ui icon input big search2 search">
 								<i class="search icon"></i>

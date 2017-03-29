@@ -7,9 +7,14 @@ html, body{
 @media screen and (max-width: 699px) and (min-width: 520px)*/
 
 /***********TABLET*****************/
-@media all and (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) 
+@media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) 
 
  {
+ 	html{
+ 		background-color: yellow;
+ 		width:768px;
+ 	}
+ 	
  	
 	.ui.vertical.menu{
 		width:100%;
@@ -36,6 +41,18 @@ html, body{
 		width:58px;
 	}
 
+	.ui.segment.filcon {
+	width: 70%;
+	height: 50em;
+	margin: 4% 0 0 5%;
+	background-color: #ede8e6;
+}
+
+	.filselect {
+	width: 40%;
+}	
+
+
 	
 }/*end of @media*/
 
@@ -44,7 +61,7 @@ html, body{
 
 /***********DESKTOP**************************/
 
-@media all and (min-width: 1024px) and (orientation: landscape){
+@media only screen and (min-width: 1024px) and (orientation: landscape){
 
 
 }/*END OF MEDIA*/
@@ -52,15 +69,19 @@ html, body{
 
 /*********************mobile************************/
 
-@media all and (min-width: 1024px) and (orientation: landscape){
+@media only screen and (min-width: 1024px) and (orientation: landscape){
 
 
 }/*END OF MEDIA*/
 
 
 /* iPads (portrait) ----------- */
-@media all and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
 /* Styles */
+html{
+ 		background-color: yellow;
+ 		width:768px;
+ 	}
 
 .acname{
     height: auto; 
@@ -100,6 +121,10 @@ html, body{
 
 .tablepane{
 	width:80%;
+}
+
+.filselect {
+	width: 70%;
 }
 
 

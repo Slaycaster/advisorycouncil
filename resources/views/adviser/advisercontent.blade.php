@@ -9,7 +9,7 @@
 						<h6 class="ui horizontal divider divtitle">
 							Advisory Council
 						</h6>
-
+						<div class="infinite-scroll">
 						<div id = "accardlist" class = "ui doubling grid cardlist2">
 
 							@foreach($directory[0] as $acrec)
@@ -61,15 +61,32 @@
 												
 											</p>
 
-											<p valign="bottom" class = "p2"> Member since {{date('d M Y',strtotime($acrec->startdate))}}</p>
+											@if($acrec->startdate != "")
+												<p valign="bottom" class = "p2"> Member since {{date('d M Y',strtotime($acrec->startdate))}}</p>
+												@if($acrec->daysleft > 7 && $acrec->daysleft <= 14)
+										
+												<p valign="bottom" class = "p2" style="color:red;">2 Weeks before birthday</p>
+												
+												@elseif($acrec->daysleft <= 7 && $acrec->daysleft > 0)
+												
+												<p valign="bottom" class = "p2" style="color:red;">{{$acrec->daysleft}} days before birthday</p>
+												
+												@elseif($acrec->daysleft == 0)
+												<p valign="bottom" class = "p2" style="color:red;">Happy Birthday!</p>
+												
+												@endif
+
+											@endif
 											
 										</div>
 									</div>
 
 								</div>
 							@endforeach
+							{{ $directory[0]->links() }}
 
 						</div>
+					</div>
 					@endif
 						<br>
 
@@ -77,7 +94,7 @@
 						<h6 class="ui horizontal divider divtitle">
 							TWG & PSMU
 						</h6>
-
+						<div class="infinite-scroll">
 						<div id = "tpcardlist" class = "ui doubling grid cardlist2">
 
 							@foreach($directory[1] as $tprec)
@@ -140,15 +157,28 @@
 											</p>
 
 											<p class = "p2"> Member since {{date('M Y',strtotime($tprec->startdate))}}</p>
-											
+											@if($tprec->daysleft > 7 && $tprec->daysleft <= 14)
+										
+											<p valign="bottom" class = "p2" style="color:red;">2 Weeks before birthday</p>
+												
+											@elseif($tprec->daysleft <= 7 && $tprec->daysleft > 0)
+												
+											<p valign="bottom" class = "p2" style="color:red;">{{$acrec->daysleft}} days before birthday</p>
+												
+											@elseif($tprec->daysleft == 0)
+											<p valign="bottom" class = "p2" style="color:red;">Happy Birthday!</p>
+											@endif
 										</div>
 									</div>
 
 								</div>
 							@endforeach
+							{{ $directory[1]->links() }}
 								
 
 						</div>
+
+					</div>
 
 					@endif
 				
@@ -157,6 +187,26 @@
 			
 			
 		</div>
+
+		<script type="text/javascript" src='{{ URL::asset("jscroll/jquery.jscroll.min.js") }}'></script>
+		<script type="text/javascript">
+				$('viewadv').modal('hide');
+		        $('ul.pagination').hide();
+		        $(function() {
+		            $('.infinite-scroll').jscroll({
+		                autoTrigger: true,
+		                loadingHtml: '<img class="center-block" src="/images/loading.gif" alt="Loading..." />', // MAKE SURE THAT YOU PUT THE CORRECT IMG PATH
+		                padding: 0,
+		                nextSelector: '.pagination li.active + li a',
+		                contentSelector: 'div.infinite-scroll',
+		                callback: function() {
+		                    $('ul.pagination').remove();
+		                }
+		            });
+		        });
+
+		</script>
+
 
 
 

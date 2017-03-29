@@ -1,5 +1,5 @@
 @extends('baseform')
-
+	
 @section('maincontent')
 	<div class = "advcon">
 		<div class = "formattp tablepane">
@@ -9,10 +9,12 @@
 			</div>
 
 			<div class = "tablecon">
-				<form action ="javascript:loadCModal()"  class = "ui form" id = "form">
-					<div class="fborder">
-						<input type="hidden" value="" name="advid"/>
-					
+				<form action = "javascript:loadCModal()" class = "ui form" id = "form">
+
+					<input type="hidden" value="" name="advid"/>
+
+
+					<div class = "fborder tablepane">
 						<div class = "minvtitle mtitle">
 							Profile			
 						</div>
@@ -50,10 +52,9 @@
 										</div>
 										
 									</div>
-
 									<div class = "four fields">
 										<div class = "field">
-											<label>Birthdate</label>
+											<label>Birthdate <span class="asterisk">*</span></label>
 
 											<div class = "ui input field">
 												<input type="date" name = "bdate">
@@ -77,9 +78,7 @@
 												</div>
 												
 											</div>
-										</div>
-
-
+										</div>			
 									</div>
 
 									<div class = "field">
@@ -111,8 +110,9 @@
  										</div>
  										
  									</div>
+								
 
- 									<h4 class="ui dividing header">Contact Information</h4>
+									<h4 class="ui dividing header">Contact Information</h4>
 
 									<div class = "four fields">
 
@@ -174,6 +174,7 @@
 											</div>
 										</div>		
 									</div>
+									
 
 								</div>
 								<div class = "three wide column">
@@ -246,11 +247,11 @@
 								<div class = "five fields">
 
 									<div class = "field">
-										<label>Start Date </label>
+										<label>Start Date <span class="asterisk">*</span></label>
 
 
 										<div class = "ui input field">
-											<input type="date" name="durationsdate">
+											<input type="date" name = "durationsdate">
 												
 										</div>
 									</div>
@@ -266,21 +267,7 @@
 
 								</div>
 
-								<!--<div class ="five fields">
-									<div class = "field">
-										<label>Primary</label>
-
-										<div class = "field">
-											<select class="ui selection dropdown" name="primaryoffice" name="primaryoffice">
-												<option selected="selected" value="disitem">Select  One</option>
-											</select>
-										</div>
-										
-									</div>	
-								</div>-->
-
 								<div id = "tempfields">
-									
 									
 		
 								</div>
@@ -296,7 +283,6 @@
 							<div class = "fbtop minvtitle mtitle">
 								Training							
 							</div>
-
 
 							<div class = "tablecon">
 								<table class = "ui celled padding table" id = "traintable">
@@ -326,12 +312,11 @@
 						</div>
 
 						<br>
-						
-
-					
-							
+								
 					</div>
+
 					<br>
+
 					<center>
 
 						<button type = "submit" name="submit" 
@@ -342,14 +327,19 @@
 						<button type="button" onclick = "$('#cancelmodal').modal('show');" 
 								class="ui large button">
 							Cancel
+
 						</button>
 					</center>
 				</form>
+
+
+				
 			</div>
+							
 		</div>
+		
 	</div>
 
-	<script type="text/javascript" src="{{ URL::asset('js/transvalidation.js') }}"></script>
 	<script type="text/javascript" src="{{ URL::asset('js/formcontrol.js') }}"></script>
 
 	<script type="text/javascript">
@@ -393,8 +383,6 @@
 
 		}//if('{{$action}}' == '0') {
 
-		reinst();
-
 		function changeform(selcat) {
 			if(selcat == 0) {
 				removeElements();
@@ -422,8 +410,6 @@
 				};
 
 			}//if(selcat == 0) {
-
-			reinst();
 
 		}//function changeform() {
 
@@ -455,7 +441,7 @@
 				document.getElementsByName('fname')[0].value = "{{$recorddata[0][0]->fname}}";
 				document.getElementsByName('mname')[0].value = "{{$recorddata[0][0]->mname}}";
 				document.getElementsByName('qname')[0].value = "{{$recorddata[0][0]->qualifier}}";
-				
+				document.getElementsByName('bdate')[0].value = "{{date('Y-m-d', strtotime($recorddata[0][0]->birthdate))}}";
 				document.getElementsByName('street')[0].value = "{{$recorddata[0][0]->street}}";
 				document.getElementsByName('barangay')[0].value = "{{$recorddata[0][0]->barangay}}";
 				document.getElementsByName('city')[0].value = "{{$recorddata[0][0]->city}}";
@@ -467,19 +453,12 @@
 				document.getElementsByName('facebook')[0].value = "{{$recorddata[0][0]->fbuser}}";
 				document.getElementsByName('twitter')[0].value = "{{$recorddata[0][0]->twitteruser}}";
 				document.getElementsByName('instagram')[0].value = "{{$recorddata[0][0]->iguser}}";
-				if("{{$recorddata[0][0]->startdate}}" !== "") {
-					document.getElementsByName('durationsdate')[0].value = "{{date('Y-m-d', strtotime($recorddata[0][0]->startdate))}}";
-				}//if
+				document.getElementsByName('durationsdate')[0].value = "{{date('Y-m-d', strtotime($recorddata[0][0]->startdate))}}";
 
 				if("{{$recorddata[0][0]->enddate}}" !== "") {
 					document.getElementsByName('durationedate')[0].value = "{{date('Y-m-d', strtotime($recorddata[0][0]->enddate))}}";
 				}//if
 
-				if("{{$recorddata[0][0]->birthdate}}" !== "") {
-					document.getElementsByName('bdate')[0].value = "{{date('Y-m-d', strtotime($recorddata[0][0]->birthdate))}}";
-				}//if
-
-				
 				getsecoffice(parseInt("{{$recorddata[0][0]->UnitOfficeID}}"));
 				getteroffice(parseInt("{{$recorddata[0][0]->second_id}}"));
 				getquaroffice(parseInt("{{$recorddata[0][0]->tertiary_id}}"));
@@ -496,14 +475,10 @@
 
 			function fillAC() {
 				//NOT WORKING
+				$('#acposition').dropdown('set selected', '{{$recorddata[0][0]->advisory_position_id}}');
+				$('#acsector').dropdown('set selected', '{{$recorddata[0][0]->ac_sector_id}}');
 				
-				//setTimeout(function(){
-					//$("select[name='acposition']").dropdown('setup menu');
 
-					$("select[name='acposition']").dropdown('set selected','{{$recorddata[0][0]->advisory_position_id}}').dropdown();
-					$("select[name='acsector']").dropdown('set selected','{{$recorddata[0][0]->ac_sector_id}}');
-				
-				//}, 100);
 				//fill dropdown
 				//---------
 
@@ -528,10 +503,7 @@
 			@if(isset($recorddata[2]))
 				function fillTable() {
 
-					destroy();
-
 					@for($ctr = 0 ; $ctr < sizeof($recorddata[2][0]) ; $ctr++)
-
 
 						addrow();
 						document.getElementsByName('traintitle')[{!!$ctr!!}].value = "{{$recorddata[2][0][$ctr]->trainingname}}";
@@ -557,8 +529,6 @@
 							addarritem({{$ctr}}, "{{$recorddata[2][1][$ctr][$countlec]->lecturername}}");
 
 						@endfor
-
-						tablevalidate({!!$ctr!!});
 					@endfor
 
 
@@ -574,11 +544,9 @@
 			for(var find = 0 ; find < categsel.length ; find++) {
 				if(categsel[find].value == 7) {
 					document.getElementsByName('othercon')[find].style.display = "block";
-					document.getElementsByName('othercon')[find].setAttribute('required', 'required');
 
 				} else {
 					document.getElementsByName('othercon')[find].style.display = "none";
-					document.getElementsByName('othercon')[find].removeAttribute('required');
 
 				}//if
 
@@ -591,32 +559,21 @@
 			var pattern = new RegExp("^(?=.*(\d|\w))[A-Za-z0-9 .,'-]{3,}$");
 			var flag = 0;
 
-			if(text !== "") {
-				var items = text.split(",");
+			//if(pattern.test(text) == true) {
+				for (var count = 0 ; count < lecturers.length ; count++) {
+					if(text === lecturers[count][0] && index == lecturers[count][1]) {
+						flag = 1;
+						break;
+					}//if
+				};//for
 
-				for (var itemcount = 0 ; itemcount < items.length ; itemcount++) {
-					for (var count = 0 ; count < lecturers.length ; count++) {
-						if(items[itemcount].trim().toLowerCase() === lecturers[count][0].toLowerCase() && index == lecturers[count][1]) {
-							flag = 1;
-							break;
-						}//if
-					};//for
-
-					if(flag == 0) {
-						
-						additem(items[itemcount].trim(), index);
-						lecturers.push(new Array(items[itemcount].trim(), index));
-						
-						
+				if(flag == 0) {
+					additem(text, index);
+					lecturers.push(new Array(text, index));
 
 
-					}//if(flag == 0) {]
-
-				
-				};
-
-				setvalidity(index);
-			}//pattern
+				}//if(flag == 0) {]
+			//}//pattern
 
 			//console.log(lecturers);
 
@@ -636,9 +593,6 @@
 					
 			};//for
 
-			setvalidity(index);
-
-
 			//console.log(lecturers);
 
 
@@ -647,17 +601,14 @@
 
 		function controlaction() {
 			var slctdtype;
-			var durend = "";
 
 			@if($action == 0)
 				slctdtype = $("input[name='advcateg']:checked").val();
 
 			@else
 				slctdtype = {{$type}};
-				durend = document.getElementsByName('durationedate')[0].value;
 
 			@endif
-
 			var traintitle = new Array();
 			var traincateg = new Array();
 			var location = new Array();
@@ -693,28 +644,27 @@
 				if (slctdtype == 0) {
 					var data = {
 						'ID' : document.getElementsByName('advid')[0].value,
-						'lname' : document.getElementsByName('lname')[0].value.trim(),
-						'fname' : document.getElementsByName('fname')[0].value.trim(),
-						'mname' : document.getElementsByName('mname')[0].value.trim(),
-						'qname' : document.getElementsByName('qname')[0].value.trim(),
+						'lname' : document.getElementsByName('lname')[0].value,
+						'fname' : document.getElementsByName('fname')[0].value,
+						'mname' : document.getElementsByName('mname')[0].value,
+						'qname' : document.getElementsByName('qname')[0].value,
 						'bdate' : document.getElementsByName('bdate')[0].value,
-						'street' : document.getElementsByName('street')[0].value.trim(),
-						'barangay' : document.getElementsByName('barangay')[0].value.trim(),
-						'city' : document.getElementsByName('city')[0].value.trim(),
-						'province' : document.getElementsByName('province')[0].value.trim(),
+						'street' : document.getElementsByName('street')[0].value,
+						'barangay' : document.getElementsByName('barangay')[0].value,
+						'city' : document.getElementsByName('city')[0].value,
+						'province' : document.getElementsByName('province')[0].value,
 						'gender' : $("input[name='gender']:checked").val(),
-						'mobile' : document.getElementsByName('mobile')[0].value.trim(),
-						'landline' : document.getElementsByName('landline')[0].value.trim(),
-						'email' : document.getElementsByName('email')[0].value.trim(),
-						'facebook' : document.getElementsByName('facebook')[0].value.trim(),
-						'twitter' : document.getElementsByName('twitter')[0].value.trim(),
-						'instagram' : document.getElementsByName('instagram')[0].value.trim(),
+						'mobile' : document.getElementsByName('mobile')[0].value,
+						'landline' : document.getElementsByName('landline')[0].value,
+						'email' : document.getElementsByName('email')[0].value,
+						'facebook' : document.getElementsByName('facebook')[0].value,
+						'twitter' : document.getElementsByName('twitter')[0].value,
+						'instagram' : document.getElementsByName('instagram')[0].value,
 						'advcateg' : slctdtype,
 						'durstart' : document.getElementsByName('durationsdate')[0].value,
-						'durend' : durend,
 						'acposition' : document.getElementsByName('acposition')[0].value,
-						'officename' : document.getElementsByName('officename')[0].value.trim(),
-						'officeadd' : document.getElementsByName('officeadd')[0].value.trim(),
+						'officename' : document.getElementsByName('officename')[0].value,
+						'officeadd' : document.getElementsByName('officeadd')[0].value,
 						'secondary' : document.getElementsByName('secondary')[0].value,
 						'tertiary' : document.getElementsByName('tertiary')[0].value,
 						'quaternary' : document.getElementsByName('quaternary')[0].value,
@@ -730,17 +680,17 @@
 						var initspk = new Array();
 
 						if(document.getElementsByName('traintitle')[count].value !== "") {
-							traintitle.push(document.getElementsByName('traintitle')[count].value.trim());
+							traintitle.push(document.getElementsByName('traintitle')[count].value);
 
 							if(document.getElementsByName('traincateg')[count].value == 7) {
-								traincateg.push(document.getElementsByName('othercat')[count].value.trim());
+								traincateg.push(document.getElementsByName('othercat')[count].value);
 
 							} else {
 								traincateg.push(document.getElementsByName('traincateg')[count].value);
 
 							}//if
 
-							location.push(document.getElementsByName('location')[count].value.trim());
+							location.push(document.getElementsByName('location')[count].value);
 							sdate.push(document.getElementsByName('trainsdate')[count].value);
 							edate.push(document.getElementsByName('trainedate')[count].value);
 							stime.push(document.getElementsByName('trainstime')[count].value);
@@ -761,26 +711,25 @@
 					
 					var data = {
 						'ID' : document.getElementsByName('advid')[0].value,
-						'lname' : document.getElementsByName('lname')[0].value.trim(),
-						'fname' : document.getElementsByName('fname')[0].value.trim(),
-						'mname' : document.getElementsByName('mname')[0].value.trim(),
-						'qname' : document.getElementsByName('qname')[0].value.trim(),
+						'lname' : document.getElementsByName('lname')[0].value,
+						'fname' : document.getElementsByName('fname')[0].value,
+						'mname' : document.getElementsByName('mname')[0].value,
+						'qname' : document.getElementsByName('qname')[0].value,
 						'bdate' : document.getElementsByName('bdate')[0].value,
 						'gender' : $("input[name='gender']:checked").val(),
-						'street' : document.getElementsByName('street')[0].value.trim(),
-						'barangay' : document.getElementsByName('barangay')[0].value.trim(),
-						'city' : document.getElementsByName('city')[0].value.trim(),
-						'province' : document.getElementsByName('province')[0].value.trim(),
-						'mobile' : document.getElementsByName('mobile')[0].value.trim(),
-						'landline' : document.getElementsByName('landline')[0].value.trim(),
-						'email' : document.getElementsByName('email')[0].value.trim(),
-						'facebook' : document.getElementsByName('facebook')[0].value.trim(),
-						'twitter' : document.getElementsByName('twitter')[0].value.trim(),
-						'instagram' : document.getElementsByName('instagram')[0].value.trim(),
+						'street' : document.getElementsByName('street')[0].value,
+						'barangay' : document.getElementsByName('barangay')[0].value,
+						'city' : document.getElementsByName('city')[0].value,
+						'province' : document.getElementsByName('province')[0].value,
+						'mobile' : document.getElementsByName('mobile')[0].value,
+						'landline' : document.getElementsByName('landline')[0].value,
+						'email' : document.getElementsByName('email')[0].value,
+						'facebook' : document.getElementsByName('facebook')[0].value,
+						'twitter' : document.getElementsByName('twitter')[0].value,
+						'instagram' : document.getElementsByName('instagram')[0].value,
 						'advcateg' : slctdtype,
-						'durend' : durend,
 						'durstart' : document.getElementsByName('durationsdate')[0].value,
-						'authorder' : document.getElementsByName('authorder')[0].value.trim(),
+						'authorder' : document.getElementsByName('authorder')[0].value,
 						'pnppost' : document.getElementsByName('position')[0].value,
 						'rank' : document.getElementsByName('rank')[0].value,
 						'secondary' : document.getElementsByName('secondary')[0].value,
@@ -810,18 +759,13 @@
 				   	success : function() {
 
 				   		loadtoast("Saved");
-
-				   		setTimeout(function(){
-							window.location = "{{URL('directory')}}";
-						}, 2600);
 				   	
-				   	},
-					error:function() {
-						$('#errormodal').modal('show');
-					} 
+				   	}//success : function() {
 				});
 
-				
+				setTimeout(function(){
+					window.location = "{{URL('directory')}}";
+				}, 2600);
 
 					
        			
@@ -870,14 +814,11 @@
 			   			
 			   		};
 
-			   		$("select").not('#searchbox').dropdown('refresh');
+			   		$("select").dropdown('refresh');
 
 
 
-			   	},
-				error:function() {
-					$('#errormodal').modal('show');
-				} 
+			   	}//success : function() {
 			});
 		}//function getInitialACDropdown() {
 
@@ -906,10 +847,7 @@
 			   			populatedropdown(data[2][ctr]['id'], 'primary', data[2][ctr]['UnitOfficeName']);
 			   			
 			   		};
-			   	},
-				error:function() {
-					$('#errormodal').modal('show');
-				} 
+			   	}//success : function() {
 			});
 		}//function getInitialTPDropdown() {
 
@@ -939,10 +877,7 @@
 
 
 			   		
-			   	},
-				error:function() {
-					$('#errormodal').modal('show');
-				} 
+			   	}//success : function() {
 			});
 
 		}//function getsecoffice() {
@@ -969,10 +904,7 @@
 			   		};
 
 			   		
-			   	},
-				error:function() {
-					$('#errormodal').modal('show');
-				} 
+			   	}//success : function() {
 			});
 		}//function getteroffice() {
 
@@ -998,10 +930,7 @@
 			   		};
 
 			   		
-			   	},
-				error:function() {
-					$('#errormodal').modal('show');
-				} 
+			   	}//success : function() {
 			});
 		}//function getteroffice() {
 
@@ -1067,9 +996,11 @@
 
 		}//previewphoto
 
-
 	</script>
 
 
-@include('adviser.adviser_modal')
+
+
+@include('module.adviser_modal')
+
 @stop

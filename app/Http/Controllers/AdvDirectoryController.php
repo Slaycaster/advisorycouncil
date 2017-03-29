@@ -150,10 +150,16 @@ class AdvDirectoryController extends Controller {
 					->select('advisory_council.ID','lname', 'fname', 'mname', 'imagepath', 'email', 
 						     'contactno', 'landline','startdate', 'acpositionname', 'officename',
 						     'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
-						     'UnitOfficeQuaternaryName')
+						     'UnitOfficeQuaternaryName',DB::raw(' DATEDIFF(DATE_ADD(
+						        birthdate, 
+						        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+						            YEAR(CURDATE())-YEAR(birthdate),
+						            YEAR(CURDATE())-YEAR(birthdate)+1
+						        ) YEAR
+						    ),CURDATE()) as daysleft'))
 					->orderBy('advisory_council.'. $filter, $sorter)
-					->get();
-	
+					->paginate(12);
+
 			$police = DB::table('police_advisory')
 						->join('police_position', 'police_position.id', '=', 'police_advisory.police_position_id')
 						->join('unit_office_secondaries', 'unit_office_secondaries.id', '=', 'police_advisory.second_id')
@@ -161,17 +167,24 @@ class AdvDirectoryController extends Controller {
 						->leftJoin('unit_office_tertiaries', 'unit_office_tertiaries.id', '=', 'police_advisory.tertiary_id')
 						->leftJoin('unit_office_quaternaries', 'unit_office_quaternaries.id', '=', 'police_advisory.quaternary_id')
 						->select('police_advisory.ID', 'lname', 'fname', 'mname', 'imagepath', 'email', 
-							     'contactno', 'landline', 'startdate', 'policetype',
-							     'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
-							     'UnitOfficeQuaternaryName', 'PositionName')
+						     'contactno', 'landline', 'startdate', 'policetype',
+						     'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
+						     'UnitOfficeQuaternaryName', 'PositionName', DB::raw('DATEDIFF(DATE_ADD(
+					        birthdate, 
+					        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+					            YEAR(CURDATE())-YEAR(birthdate),
+					            YEAR(CURDATE())-YEAR(birthdate)+1
+					        ) YEAR
+					    ),CURDATE()) as daysleft'))
 						->orderBy('police_advisory.' . $filter, $sorter)
-						->get();
+						->paginate(12);
 
 			return array($civilian, $police);
            
         } catch(\Exception $e) {
             return view('errors.errorpage')->with('pass', 'true');
         }//
+		
 	}
 
 	public function getList(Request $req) {
@@ -327,16 +340,16 @@ class AdvDirectoryController extends Controller {
 	 		$advisory->startdate = $data['durstart'];
 
 	 	}//if
+		if($data['bdate'] != "") {
+	 		$advisory->birthdate = $data['bdate'];
 
+	 	}//if
 
 	 	$advisory->fbuser = $data['facebook'];
 	 	$advisory->twitteruser = $data['twitter'];
 	 	$advisory->iguser = $data['instagram'];
 
-	 	if($data['bdate'] != "") {
-	 		$advisory->birthdate = $data['bdate'];
-
-	 	}//if
+	 	
 
 	 	$advisory->street = $data['street'];
 	 	$advisory->city = $data['city'];
@@ -378,11 +391,36 @@ class AdvDirectoryController extends Controller {
 	 	$advisory->officename = $data['officename'];
         $advisory->officeaddress = $data['officeadd'];
 	 	$advisory->email = $data['email'];
-	 	$advisory->startdate = $data['durstart'];
+	 	
+	 	if($data['durstart'] != "") {
+	 		$advisory->startdate = $data['durstart'];
+
+	 	} else {
+	 		$advisory->startdate = NULL;
+
+	 	}//if
+
+	 	if($data['durend'] != "") {
+	 		$advisory->enddate = $data['durend'];
+
+	 	} else {
+	 		$advisory->enddate = NULL;
+
+	 	}//if
+
+
+		if($data['bdate'] != "") {
+	 		$advisory->birthdate = $data['bdate'];
+
+	 	} else {
+	 		$advisory->birthdate = NULL;
+
+	 	}//if
+
 	 	$advisory->fbuser = $data['facebook'];
 	 	$advisory->twitteruser = $data['twitter'];
 	 	$advisory->iguser = $data['instagram'];
-	 	$advisory->birthdate = $data['bdate'];
+	 	
 	 	$advisory->street = $data['street'];
 	 	$advisory->city = $data['city'];
 	 	$advisory->province = $data['province'];
@@ -484,16 +522,39 @@ class AdvDirectoryController extends Controller {
 	 	$advisory->contactno = $data['mobile'];
 	 	$advisory->landline = $data['landline'];
 	 	$advisory->email = $data['email'];
-	 	$advisory->startdate = $data['durstart'];
 	 	$advisory->fbuser = $data['facebook'];
 	 	$advisory->twitteruser = $data['twitter'];
 	 	$advisory->iguser = $data['instagram'];
-	 	$advisory->birthdate = $data['bdate'];
 	 	$advisory->street = $data['street'];
 	 	$advisory->city = $data['city'];
 	 	$advisory->province = $data['province'];
 	 	$advisory->barangay = $data['barangay'];
 	 	$advisory->policetype = $data['advcateg'];
+
+	 	if($data['durstart'] != "") {
+	 		$advisory->startdate = $data['durstart'];
+
+	 	} else {
+	 		$advisory->startdate = NULL;
+
+	 	}//if
+
+	 	if($data['durend'] != "") {
+	 		$advisory->enddate = $data['durend'];
+
+	 	} else {
+	 		$advisory->enddate = NULL;
+
+	 	}//if
+
+
+		if($data['bdate'] != "") {
+	 		$advisory->birthdate = $data['bdate'];
+
+	 	} else {
+	 		$advisory->birthdate = NULL;
+
+	 	}//if
 
 	 	if($data['upphoto'] != "") {
 	 		$advisory->imagepath = $this->loadphoto($data['upphoto']);
@@ -610,6 +671,7 @@ class AdvDirectoryController extends Controller {
 		$id = $req->id;
 
 		return $this->getData($id, $type);
+
 
 	}//readyModal
 

@@ -71,40 +71,65 @@ class SearchController extends Controller
 	}
 
 	public function AdvancedSearch(Request $req){
-		try {
-          	$query = $req->sq;
-			$ac = DB::table('advisory_council')
-						->join('advisory_position', 'advisory_position.ID', '=', 'advisory_council.advisory_position_id')
-						->join('unit_office_secondaries', 'unit_office_secondaries.id', '=', 'advisory_council.second_id')
-						->join('unit_offices', 'unit_offices.id', '=', 'unit_office_secondaries.UnitOfficeID')
-						->leftJoin('unit_office_tertiaries', 'unit_office_tertiaries.id', '=', 'advisory_council.tertiary_id')
-						->leftJoin('unit_office_quaternaries', 'unit_office_quaternaries.id', '=', 'advisory_council.quaternary_id')
-						->select('advisory_council.ID','lname', 'fname', 'mname', 'imagepath', 'email', 
-							     'contactno', 'landline','startdate', 'acpositionname', 'officename',
-							     'UnitOfficeName', 'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
-							     'UnitOfficeQuaternaryName')
-						->where('fname','like','%'.$query.'%')
-						->orWhere('lname','like','%'.$query.'%')
-						->orWhere('mname','like','%'.$query.'%')
-						->orderBy('advisory_council.lname', 'desc')
-						->get();
-		
-			$pa = DB::table('police_advisory')
-						->join('police_position', 'police_position.id', '=', 'police_advisory.police_position_id')
-						->join('unit_office_secondaries', 'unit_office_secondaries.id', '=', 'police_advisory.second_id')
-						->join('unit_offices', 'unit_offices.id', '=', 'unit_office_secondaries.UnitOfficeID')
-						->leftJoin('unit_office_tertiaries', 'unit_office_tertiaries.id', '=', 'police_advisory.tertiary_id')
-						->leftJoin('unit_office_quaternaries', 'unit_office_quaternaries.id', '=', 'police_advisory.quaternary_id')
-						->where('fname','like','%'.$query.'%')
-						->orWhere('lname','like','%'.$query.'%')
-						->orWhere('mname','like','%'.$query.'%')
-						->select('police_advisory.ID', 'lname', 'fname', 'mname', 'imagepath', 'email', 
-							     'contactno', 'landline', 'startdate', 'policetype',
-							     'UnitOfficeName', 'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
-							     'UnitOfficeQuaternaryName', 'PositionName')
-						->orderBy('police_advisory.lname', 'desc')
-						->get();
-						/*
+		$query = $req->sq;
+		$ac = DB::table('advisory_council')
+					->join('advisory_position', 'advisory_position.ID', '=', 'advisory_council.advisory_position_id')
+					->join('ac_sector', 'advisory_council.ac_sector_id', '=', 'ac_sector.ID')
+					->join('unit_office_secondaries', 'unit_office_secondaries.id', '=', 'advisory_council.second_id')
+					->join('unit_offices', 'unit_offices.id', '=', 'unit_office_secondaries.UnitOfficeID')
+					->leftJoin('unit_office_tertiaries', 'unit_office_tertiaries.id', '=', 'advisory_council.tertiary_id')
+					->leftJoin('unit_office_quaternaries', 'unit_office_quaternaries.id', '=', 'advisory_council.quaternary_id')
+					->select('advisory_council.ID','lname', 'fname', 'mname', 'imagepath', 'email', 
+						     'contactno', 'landline','startdate', 'acpositionname', 'officename',
+						     'UnitOfficeName', 'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
+						     'UnitOfficeQuaternaryName','sectorname',DB::raw(' DATEDIFF(DATE_ADD(
+						        birthdate, 
+						        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+						            YEAR(CURDATE())-YEAR(birthdate),
+						            YEAR(CURDATE())-YEAR(birthdate)+1
+						        ) YEAR
+						    ),CURDATE()) as daysleft'))
+					->where('fname','like','%'.$query.'%')
+					->orWhere('lname','like','%'.$query.'%')
+					->orWhere('mname','like','%'.$query.'%')
+					->orWhere('sectorname','like','%'.$query.'%')
+					->orWhere('UnitOfficeName','like','%'.$query.'%')
+					->orWhere('UnitOfficeSecondaryName','like','%'.$query.'%')
+					->orWhere('UnitOfficeTertiaryName','like','%'.$query.'%')
+					->orWhere('UnitOfficeQuaternaryName','like','%'.$query.'%')
+					->orderBy('advisory_council.lname', 'desc')
+					->paginate(12);
+	
+		$pa = DB::table('police_advisory')
+					->join('police_position', 'police_position.id', '=', 'police_advisory.police_position_id')
+					->join('unit_office_secondaries', 'unit_office_secondaries.id', '=', 'police_advisory.second_id')
+					->join('unit_offices', 'unit_offices.id', '=', 'unit_office_secondaries.UnitOfficeID')
+					->join('ranks', 'ranks.id', '=', 'police_advisory.rank_id')
+					->leftJoin('unit_office_tertiaries', 'unit_office_tertiaries.id', '=', 'police_advisory.tertiary_id')
+					->leftJoin('unit_office_quaternaries', 'unit_office_quaternaries.id', '=', 'police_advisory.quaternary_id')
+					->where('fname','like','%'.$query.'%')
+					->orWhere('lname','like','%'.$query.'%')
+					->orWhere('mname','like','%'.$query.'%')
+					->orWhere('PositionName','like','%'.$query.'%')
+					->orWhere('UnitOfficeName','like','%'.$query.'%')
+					->orWhere('UnitOfficeSecondaryName','like','%'.$query.'%')
+					->orWhere('UnitOfficeTertiaryName','like','%'.$query.'%')
+					->orWhere('UnitOfficeQuaternaryName','like','%'.$query.'%')
+					->select('police_advisory.ID', 'lname', 'fname', 'mname', 'imagepath', 'email', 
+						     'contactno', 'landline', 'startdate', 'policetype',
+						     'UnitOfficeName', 'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
+						     'UnitOfficeQuaternaryName', 'PositionName',DB::raw(' DATEDIFF(DATE_ADD(
+						        birthdate, 
+						        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+						            YEAR(CURDATE())-YEAR(birthdate),
+						            YEAR(CURDATE())-YEAR(birthdate)+1
+						        ) YEAR
+						    ),CURDATE()) as daysleft'))
+					->orderBy('police_advisory.lname', 'desc')
+					->paginate(12);
+					/*
+					$ac = $ac->push($pa);
+					if (count($pa) != 0) {
 						$ac = $ac->push($pa);
 						if (count($pa) != 0) {
 							$ac = $ac->push($pa);
@@ -145,10 +170,16 @@ class SearchController extends Controller
 						->select('advisory_council.ID','lname', 'fname', 'mname', 'imagepath', 'email', 
 							     'contactno', 'landline','startdate', 'acpositionname', 'officename',
 							     'UnitOfficeName', 'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
-							     'UnitOfficeQuaternaryName')
+							     'UnitOfficeQuaternaryName',DB::raw(' DATEDIFF(DATE_ADD(
+							        birthdate, 
+							        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+							            YEAR(CURDATE())-YEAR(birthdate),
+							            YEAR(CURDATE())-YEAR(birthdate)+1
+							        ) YEAR
+							    ),CURDATE()) as daysleft'))
 						->where('advisory_council.ID','=',$query)
 						->orderBy('advisory_council.created_at', 'desc')
-						->get();
+						->paginate(12);
 
 			foreach ($ac as $key => $result) {
 				$name = $result->fname . " ";
@@ -175,8 +206,6 @@ class SearchController extends Controller
             //return $e->getMessage(); 	
         }//
 
-
-
 		
 
 	}
@@ -194,9 +223,15 @@ class SearchController extends Controller
 						->select('police_advisory.ID', 'lname', 'fname', 'mname', 'imagepath', 'email', 
 							     'contactno', 'landline', 'startdate', 'policetype',
 							     'UnitOfficeName', 'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
-							     'UnitOfficeQuaternaryName', 'PositionName')
+							     'UnitOfficeQuaternaryName', 'PositionName',DB::raw(' DATEDIFF(DATE_ADD(
+							        birthdate, 
+							        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+							            YEAR(CURDATE())-YEAR(birthdate),
+							            YEAR(CURDATE())-YEAR(birthdate)+1
+							        ) YEAR
+							    ),CURDATE()) as daysleft'))
 						->orderBy('police_advisory.created_at', 'desc')
-						->get();
+						->paginate(12);
 
 						foreach ($police as $key => $result) {
 							$name = $result->fname . " ";
@@ -216,9 +251,7 @@ class SearchController extends Controller
 					    	return view('search.psearch_result')->with('data2',$police)
 														   	   ->with('data',array())
 														   	   ->with('query', $name);
-						}
-
-					
+						}			
            
         } catch(\Exception $e) {
             return view('errors.errorpage')->with('pass', 'true');
@@ -744,6 +777,80 @@ class SearchController extends Controller
 	       	$chartoption['title'] = 'Percentage of Stakeholders per AC Sector';
 	       	$sectorChart = \Lava::AreaChart('Sector', $sectorTable, $chartoption);
 
+		    $acbday = Advisory_Council::where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+										            YEAR(CURDATE())-YEAR(birthdate),
+										            YEAR(CURDATE())-YEAR(birthdate)+1
+										        ) YEAR
+										    ),CURDATE())'),'<=', 14)
+		    								->where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+										            YEAR(CURDATE())-YEAR(birthdate),
+										            YEAR(CURDATE())-YEAR(birthdate)+1
+										        ) YEAR
+										    ),CURDATE())'),'>', 0)
+		    								->count();
+
+		    $pabday = Police_Advisory::where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+										            YEAR(CURDATE())-YEAR(birthdate),
+										            YEAR(CURDATE())-YEAR(birthdate)+1
+										        ) YEAR
+										    ),CURDATE())'),'<=', 14)
+		    								->where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+										            YEAR(CURDATE())-YEAR(birthdate),
+										            YEAR(CURDATE())-YEAR(birthdate)+1
+										        ) YEAR
+										    ),CURDATE())'),'>', 0)
+		    								->count();
+
+		    $fdayac = Advisory_Council::where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+										            YEAR(CURDATE())-YEAR(birthdate),
+										            YEAR(CURDATE())-YEAR(birthdate)+1
+										        ) YEAR
+										    ),CURDATE())'),'<=', 14)
+		    								->where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+										            YEAR(CURDATE())-YEAR(birthdate),
+										            YEAR(CURDATE())-YEAR(birthdate)+1
+										        ) YEAR
+										    ),CURDATE())'),'>', 0)->get();
+
+			$fdaypa = Police_Advisory::where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+										            YEAR(CURDATE())-YEAR(birthdate),
+										            YEAR(CURDATE())-YEAR(birthdate)+1
+										        ) YEAR
+										    ),CURDATE())'),'<=', 14)
+		    								->where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+										            YEAR(CURDATE())-YEAR(birthdate),
+										            YEAR(CURDATE())-YEAR(birthdate)+1
+										        ) YEAR
+										    ),CURDATE())'),'>', 0)->get();
+
+		     $tdaypa = Police_Advisory::where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+										            YEAR(CURDATE())-YEAR(birthdate),
+										            YEAR(CURDATE())-YEAR(birthdate)+1
+										        ) YEAR
+										    ),CURDATE())'),'=', 0)->get();
+
+		     $tdayac = Advisory_Council::where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+										            YEAR(CURDATE())-YEAR(birthdate),
+										            YEAR(CURDATE())-YEAR(birthdate)+1
+										        ) YEAR
+										    ),CURDATE())'),'=', 0)->get();
+
+		    								
+
+
+
+		    $totalbday = $acbday + $pabday;
+
 	      	$ac = Advisory_Council::count();
 		    $twg = Police_Advisory::where('policetype', '=', 1)->count();
 		    $psmu = Police_Advisory::where('policetype', '=', 2)->count();
@@ -765,7 +872,12 @@ class SearchController extends Controller
 										   ->with('psmu', $psmu)
 										   ->with('pac', $pac)
 										   ->with('ptwg', $ptwg)
-										   ->with('ppsmu', $ppsmu);
+										   ->with('ppsmu', $ppsmu)
+										   ->with('ubday', $totalbday)
+										   ->with('fdayac', $fdayac)
+										   ->with('fdaypa', $fdaypa)
+										   ->with('tdayac', $tdayac)
+										   ->with('tdaypa', $tdaypa);
 
 	           
         } catch(\Exception $e) {

@@ -12,6 +12,51 @@
 						</div>
 
 						<div class = "summcontent">
+
+							@if(count($tdayac) != 0)
+								<label class="formlabel">Today's Birthday (Advisory Council)
+								<br>
+									@foreach($tdayac as $data)
+										<div class ="twelve wide column  bspacing8">
+												<span class = "labeldesc">{{ $data->lname }}, {{ $data->fname }} {{ $data->mname }}</span>				
+										</div>
+									@endforeach
+								</label>	
+							@endif
+
+							@if(count($tdaypa) != 0)
+								<label class="formlabel">Today's Birthday (Police Advisory) 
+								<br>
+									@foreach($tdaypa as $data)
+										<div class ="twelve wide column  bspacing8">
+												<span class = "labeldesc">{{ $data->lname }}, {{ $data->fname }} {{ $data->mname }}</span>				
+										</div>
+									@endforeach
+								</label>	
+							@endif
+
+							@if(count($fdayac) != 0)
+								<label class="formlabel">Upcommung Birthdays of AC! 
+								<br>
+									@foreach($fdayac as $data)
+										<div class ="twelve wide column  bspacing8">
+												<span class = "labeldesc">{{ $data->lname }}, {{ $data->fname }} {{ $data->mname }}</span>				
+										</div>
+									@endforeach
+								</label>	
+							@endif
+
+							@if(count($fdaypa) != 0)
+								<label class="formlabel">Upcommung Birthdays of Police Advisory! 
+								<br>
+									@foreach($fdaypa as $data)
+										<div class ="twelve wide column  bspacing8">
+												<span class = "labeldesc">{{ $data->lname }}, {{ $data->fname }} {{ $data->mname }}</span>				
+										</div>
+									@endforeach
+								</label>	
+							@endif
+							<!--
 							<div class ="twelve wide column  bspacing8">
 								<label class="formlabel">% of AC: <span class = "labeldesc">{{ $pac }}%</span></label>
 										
@@ -42,12 +87,21 @@
 											
 							</div>
 
+							!-->
+							<div class ="twelve wide column  bspacing8">
+								<label class="formlabel">No. of upcoming birthdays 2 weeks from now <span class = "labeldesc">{{ $ubday }}</span></label>
+											
+							</div>
+
 							<br>
 
 							<div class ="twelve wide column bspacing8">
 								<label class="formlabel">Total No. of Adviser: <span class = "labeldesc">{{ $all }}</span></label>
 											
 							</div>
+
+							
+
 										
 						</div>
 											
@@ -69,9 +123,9 @@
 				<div class = "tablepane">
 					<div class = "mtitle">Dashboard</div>
 
-					<div class= "ui grid">
+					<div class= "ui grid"> 
 						
-						<div class = "one column row">
+						<div class = "one column row gridrowstyle">
 							
 							<div class = "six wide column">
 								<div class="row" id="unit-chart">

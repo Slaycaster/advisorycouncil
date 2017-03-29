@@ -676,9 +676,9 @@ form, .dcon {
 }
 
 .hr1 {
-	width: 90%;
+	width: 70%;
 	border-top: 1px solid #00253a;
-	margin-right: 10%;
+	
 }
 
 
@@ -896,7 +896,7 @@ legend {
 }
 
 .filselect {
-	width: 87%;
+	width: 100%;
 }
 
 .ui.segment.filcon {

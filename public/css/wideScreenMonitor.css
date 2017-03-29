@@ -1,0 +1,100 @@
+@media only screen and (max-width: 1920px) , only screen and (max-device-width: 1920px) 
+{
+
+	html{
+		width:1920px;
+		height:100%;
+		
+	}
+
+	.advphoto1 {
+	height: 300px;
+	width: 100%;
+ 	}
+
+ 	.cardstyleportrait {
+	border: 2px solid #ebebeb;
+	width: 100%;
+	min-height: 100px;
+	height: 100%;
+	max-height: 500px;
+	border-radius: 3%;
+	margin-left: 4%;
+	}
+
+	/*.colheight{
+	height: 500px;
+	}*/
+
+	.logfield {
+	width: 100%;	
+	}
+
+	.hr1 {
+	width: 100%;
+	}
+
+	.tablepane {
+	height: 100%;
+	width: 80%;
+	border-radius: 0.28571429rem;
+   }
+
+   .dcon {
+	width: 125%;
+}
+
+.rwddcon{
+	width: 100%;
+	height: 100%;
+}
+
+/*.ui.grid > .row {
+   padding-top: 5rem;
+
+}*/
+
+.ui.segment.filcon {
+	width: 95%;
+	height: 56em;
+}
+
+
+.ui.grid > .gridrowstyle{
+	 padding-top: 5rem;
+}
+
+.ui.container > .contstyle{
+	width:100%;
+}
+
+.ui.rail {
+	width:400px;
+}
+
+.ucon {
+	margin-top: 11%;
+	margin-left: 55%;
+
+
+}
+
+.rwdicon{
+	margin-left: -12%;
+}
+
+.rwdrightrow{
+	margin-top: 7.3%;
+}
+
+.ui.vertical.menu{
+	width:90%;
+}
+
+
+
+
+
+
+
+	}//end @widescreenMonitorBreakpoint : 1920px;
