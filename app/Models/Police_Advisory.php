@@ -40,9 +40,4 @@ class Police_Advisory extends Model
         return $this->belongsTo('App\Models\Police_Position', 'police_position_id', 'id');
     }
 
-    public  function rank()
-    {
-        return $this->belongsTo('App\Models\ranks', 'rank_id', 'id');
-    }
-
 }

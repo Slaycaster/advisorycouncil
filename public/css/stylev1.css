@@ -574,7 +574,7 @@ form, .dcon {
 	width: 95%;
 	min-height: 22em;
     height: auto;
-    max-height: 25em;
+    max-height: 1000em;
 	margin: 4% 0 0 5%;
 	background-color: #ede8e6;
 }
@@ -899,18 +899,20 @@ legend {
 }
 
 .filselect {
-	width: 87%;
+	width: 95%;
 }
 
 .ui.segment.filcon {
 	width: 95%;
-	height: 51em;
+	min-height: 51em;
+	height: auto;
+	max-height: 100em;
 	margin: 4% 0 0 5%;
 	background-color: #ede8e6;
 }
 
 .filtext {
-	width: 87%;
+	width: 95%;
 }
 
 .agelbl {

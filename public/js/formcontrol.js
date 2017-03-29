@@ -270,7 +270,7 @@ function addT2Elements() { //PSMU and TWG ELEMENTS
 
 	tempcon.lastChild.lastChild.appendChild(document.createElement('label'));
 
-	tempcon.lastChild.lastChild.lastChild.appendChild(document.createTextNode('PNP Position '));
+	tempcon.lastChild.lastChild.lastChild.appendChild(document.createTextNode('Rank '));
 
 	createspan(tempcon);
 
@@ -278,20 +278,6 @@ function addT2Elements() { //PSMU and TWG ELEMENTS
 	tempcon.lastChild.lastChild.appendChild(div6);
 
 	createdropdown("position", tempcon, 0, "");
-
-	var div7 = creatediv('field');
-	tempcon.lastChild.appendChild(div7);
-
-	tempcon.lastChild.lastChild.appendChild(document.createElement('label'));
-
-	tempcon.lastChild.lastChild.lastChild.appendChild(document.createTextNode('Rank '));
-
-	createspan(tempcon);
-
-	var div8 = creatediv('field');
-	tempcon.lastChild.lastChild.appendChild(div8);
-
-	createdropdown("rank", tempcon, 0, "");
 
 	var div9 = creatediv('five fields');
 	tempcon.appendChild(div9);
