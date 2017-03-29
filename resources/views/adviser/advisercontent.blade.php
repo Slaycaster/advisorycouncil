@@ -23,15 +23,17 @@
 										<div class = "advdata">
 											<h5 class = "name">{{$acrec->lname}}, {{$acrec->fname}} {{$acrec->mname}} (AC) &nbsp; 
 
-											@if($acrec->daysleft > 7 && $acrec->daysleft <= 14)
-										
-												<i class="ui green announcement icon" title = "Two (2) weeks before birthday"></i>
-												
-											@elseif($acrec->daysleft <= 7 && $acrec->daysleft > 0)
-												<i class="ui green announcement icon" title = "{{$acrec->daysleft}} days before birthday"></i>
-												
-											@elseif($acrec->daysleft == 0)
-												<i class="ui red birthday icon" title = "Happy Birthday!"></i>
+											@if($acrec->birthdate != "")
+												@if($acrec->daysleft > 7 && $acrec->daysleft <= 14)
+											
+													<i class="ui green announcement icon" title = "Two (2) weeks before birthday"></i>
+													
+												@elseif($acrec->daysleft <= 7 && $acrec->daysleft > 0)
+													<i class="ui green announcement icon" title = "{{$acrec->daysleft}} days before birthday"></i>
+													
+												@elseif($acrec->daysleft == 0)
+													<i class="ui red birthday icon" title = "Happy Birthday!"></i>
+												@endif
 											@endif
 
 											
@@ -116,6 +118,19 @@
 												@else
 													(PSMU)
 												@endif
+
+												@if($tprec->birthdate != "")
+													@if($tprec->daysleft > 7 && $tprec->daysleft <= 14)
+												
+														<i class="ui green announcement icon" title = "Two (2) weeks before birthday"></i>
+														
+													@elseif($tprec->daysleft <= 7 && $tprec->daysleft > 0)
+														<i class="ui green announcement icon" title = "{{$acrec->daysleft}} days before birthday"></i>
+														
+													@elseif($tprec->daysleft == 0)
+														<i class="ui red birthday icon" title = "Happy Birthday!"></i>
+													@endif
+												@endif
 											</h5>
 											<p class = "p1">
 												{{$tprec->PositionName}} <br>
@@ -159,17 +174,10 @@
 												
 											</p>
 
-											<p class = "p2"> Member since {{date('M Y',strtotime($tprec->startdate))}}</p>
-											@if($tprec->daysleft > 7 && $tprec->daysleft <= 14)
-										
-											<p valign="bottom" class = "p2" style="color:red;">2 Weeks before birthday</p>
-												
-											@elseif($tprec->daysleft <= 7 && $tprec->daysleft > 0)
-												
-											<p valign="bottom" class = "p2" style="color:red;">{{$acrec->daysleft}} days before birthday</p>
-												
-											@elseif($tprec->daysleft == 0)
-											<p valign="bottom" class = "p2" style="color:red;">Happy Birthday!</p>
+		
+											@if($tprec->startdate != "")
+												<p valign="bottom" class = "p2"> Member since {{date('d M Y',strtotime($tprec->startdate))}}</p>
+
 											@endif
 										</div>
 									</div>

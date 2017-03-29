@@ -231,6 +231,11 @@
 						$('#errormodal').modal('show');
 					} 
 				});
+	 		} else {
+	 			document.getElementById('oldpasscon').classList.remove('error');
+				document.getElementsByName('message')[1].innerHTML = "";
+	 			$("#passcon1").addClass('disabled');
+				$("#passcon2").addClass('disabled');
 	 		}//if
 		}//checkoldpass
 

@@ -145,7 +145,7 @@ class AdvDirectoryController extends Controller {
 					->join('unit_offices', 'unit_offices.id', '=', 'unit_office_secondaries.UnitOfficeID')
 					->leftJoin('unit_office_tertiaries', 'unit_office_tertiaries.id', '=', 'advisory_council.tertiary_id')
 					->leftJoin('unit_office_quaternaries', 'unit_office_quaternaries.id', '=', 'advisory_council.quaternary_id')
-					->select('advisory_council.ID','lname', 'fname', 'mname', 'imagepath', 'email', 
+					->select('advisory_council.ID','lname', 'fname', 'mname', 'imagepath', 'email', 'birthdate',
 						     'contactno', 'landline','startdate', 'acpositionname', 'officename',
 						     'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
 						     'UnitOfficeQuaternaryName',DB::raw(' DATEDIFF(DATE_ADD(
@@ -164,7 +164,7 @@ class AdvDirectoryController extends Controller {
 						->join('unit_offices', 'unit_offices.id', '=', 'unit_office_secondaries.UnitOfficeID')
 						->leftJoin('unit_office_tertiaries', 'unit_office_tertiaries.id', '=', 'police_advisory.tertiary_id')
 						->leftJoin('unit_office_quaternaries', 'unit_office_quaternaries.id', '=', 'police_advisory.quaternary_id')
-						->select('police_advisory.ID', 'lname', 'fname', 'mname', 'imagepath', 'email', 
+						->select('police_advisory.ID', 'lname', 'fname', 'mname', 'imagepath', 'email', 'birthdate',
 						     'contactno', 'landline', 'startdate', 'policetype',
 						     'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
 						     'UnitOfficeQuaternaryName', 'PositionName', DB::raw('DATEDIFF(DATE_ADD(

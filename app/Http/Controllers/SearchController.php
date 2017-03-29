@@ -81,7 +81,7 @@ class SearchController extends Controller
 					->join('unit_offices', 'unit_offices.id', '=', 'unit_office_secondaries.UnitOfficeID')
 					->leftJoin('unit_office_tertiaries', 'unit_office_tertiaries.id', '=', 'advisory_council.tertiary_id')
 					->leftJoin('unit_office_quaternaries', 'unit_office_quaternaries.id', '=', 'advisory_council.quaternary_id')
-					->select('advisory_council.ID','lname', 'fname', 'mname', 'imagepath', 'email', 
+					->select('advisory_council.ID','lname', 'fname', 'mname', 'imagepath', 'email', 'birthdate',
 						     'contactno', 'landline','startdate', 'acpositionname', 'officename',
 						     'UnitOfficeName', 'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
 						     'UnitOfficeQuaternaryName','sectorname',DB::raw(' DATEDIFF(DATE_ADD(
@@ -106,7 +106,6 @@ class SearchController extends Controller
 					->join('police_position', 'police_position.id', '=', 'police_advisory.police_position_id')
 					->join('unit_office_secondaries', 'unit_office_secondaries.id', '=', 'police_advisory.second_id')
 					->join('unit_offices', 'unit_offices.id', '=', 'unit_office_secondaries.UnitOfficeID')
-					->join('ranks', 'ranks.id', '=', 'police_advisory.rank_id')
 					->leftJoin('unit_office_tertiaries', 'unit_office_tertiaries.id', '=', 'police_advisory.tertiary_id')
 					->leftJoin('unit_office_quaternaries', 'unit_office_quaternaries.id', '=', 'police_advisory.quaternary_id')
 					->where('fname','like','%'.$query.'%')
@@ -169,7 +168,7 @@ class SearchController extends Controller
 						->join('unit_offices', 'unit_offices.id', '=', 'unit_office_secondaries.UnitOfficeID')
 						->leftJoin('unit_office_tertiaries', 'unit_office_tertiaries.id', '=', 'advisory_council.tertiary_id')
 						->leftJoin('unit_office_quaternaries', 'unit_office_quaternaries.id', '=', 'advisory_council.quaternary_id')
-						->select('advisory_council.ID','lname', 'fname', 'mname', 'imagepath', 'email', 
+						->select('advisory_council.ID','lname', 'fname', 'mname', 'imagepath', 'email', 'birthdate',
 							     'contactno', 'landline','startdate', 'acpositionname', 'officename',
 							     'UnitOfficeName', 'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
 							     'UnitOfficeQuaternaryName',DB::raw(' DATEDIFF(DATE_ADD(
@@ -222,7 +221,7 @@ class SearchController extends Controller
 						->leftJoin('unit_office_tertiaries', 'unit_office_tertiaries.id', '=', 'police_advisory.tertiary_id')
 						->leftJoin('unit_office_quaternaries', 'unit_office_quaternaries.id', '=', 'police_advisory.quaternary_id')
 						->where('police_advisory.ID','=',$query)
-						->select('police_advisory.ID', 'lname', 'fname', 'mname', 'imagepath', 'email', 
+						->select('police_advisory.ID', 'lname', 'fname', 'mname', 'imagepath', 'email', 'birthdate',
 							     'contactno', 'landline', 'startdate', 'policetype',
 							     'UnitOfficeName', 'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
 							     'UnitOfficeQuaternaryName', 'PositionName',DB::raw(' DATEDIFF(DATE_ADD(
