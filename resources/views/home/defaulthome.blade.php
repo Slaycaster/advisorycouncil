@@ -42,7 +42,12 @@
 								<br>
 									@foreach($fdayac as $data)
 										<div class ="twelve wide column  bspacing8">
-												<span class = "labeldesc">{{ $data->lname }}, {{ $data->fname }} {{ $data->mname }}</span>				
+												<span class = "labeldesc">{{ $data->lname }}, {{ $data->fname }} {{ $data->mname }} (@if($data->daysleft <= 7)
+																																		{{$data->daysleft}} day/s left
+																																	@elseif($data->daysleft > 7 && $data->daysleft <= 14)
+																																		2 weeks left
+																																	@endif
+																																	)</span>				
 										</div>
 									@endforeach
 								</label>	
@@ -53,7 +58,12 @@
 								<br>
 									@foreach($fdaypa as $data)
 										<div class ="twelve wide column  bspacing8">
-												<span class = "labeldesc">{{ $data->lname }}, {{ $data->fname }} {{ $data->mname }}</span>				
+												<span class = "labeldesc">{{ $data->lname }}, {{ $data->fname }} {{ $data->mname }} (@if($data->daysleft <= 7)
+																																		{{$data->daysleft}} day/s left
+																																	@elseif($data->daysleft > 7 && $data->daysleft <= 14)
+																																		2 weeks left
+																																	@endif
+																																	)</span>				
 										</div>
 									@endforeach
 								</label>	
