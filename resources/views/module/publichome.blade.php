@@ -1,7 +1,7 @@
 @extends('baseformv2')
 
 @section('publicpagesection')
-
+	
 	<div class = "ui grid">
 		<div class = "row">
 			<div class = "four wide column">
@@ -59,11 +59,8 @@
 			<div class = "twelve wide column">
 				<div class = "ui segment rightpane">
 					<div class = "row">
-<<<<<<< HEAD
 						<div class = "nine wide column">
-=======
-						<div class = "nine wide column ">
->>>>>>> 2960c59817609548b2a5a49938e522c32e28b21b
+
 							<!--
 							<div class="ui icon input big search2 search">
 								<i class="search icon"></i>

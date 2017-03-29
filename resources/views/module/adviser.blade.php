@@ -22,6 +22,7 @@
 										<div class = "one field">
 											<label class="formlabel">Stakeholder Category</label>
 											<div class="field">
+
 												<select onchange = "fieldcontrol(),loaddata()" class="ui selection dropdown filselect" name = "filadvcateg">
 
 													<option value="4" selected>All</option>

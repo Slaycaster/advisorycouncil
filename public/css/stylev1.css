@@ -228,7 +228,7 @@ hr {
 
 .p1 {
 	font-family: "Franklin Gothic Book";
-	font-size: 85%;
+	font-size: 12.5px;
 	width: 100%;
 	max-width: 100%;
 
@@ -236,7 +236,7 @@ hr {
 
 .p2 {
 	font-family: "Franklin Gothic Book";
-	font-size: 80%;
+	font-size: 11px;
 	width: 100%;
 	max-width: 100%;
 	font-style: italic;
@@ -572,7 +572,9 @@ form, .dcon {
 
 .ui.segment.summcon {
 	width: 95%;
-	height: 20em;
+	min-height: 22em;
+    height: auto;
+    max-height: 25em;
 	margin: 4% 0 0 5%;
 	background-color: #ede8e6;
 }
@@ -676,8 +678,9 @@ form, .dcon {
 }
 
 .hr1 {
-	width: 70%;
+	width: 90%;
 	border-top: 1px solid #00253a;
+	margin-left: -1%;
 	
 }
 
@@ -896,7 +899,7 @@ legend {
 }
 
 .filselect {
-	width: 100%;
+	width: 87%;
 }
 
 .ui.segment.filcon {
