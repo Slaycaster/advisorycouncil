@@ -570,7 +570,7 @@ h4 {
 }
 
 h5 {
-  font-size: 0.9rem;
+  font-size: 1.1rem;
 }
 
 
@@ -17267,7 +17267,7 @@ ol.ui.horizontal.list li:before,
 -----------------------*/
 
 .ui.grid {
-  margin-top: -2rem;
+  margin-top: -1rem;
   margin-bottom: -1rem;
   margin-left: -1rem;
   margin-right: -1rem;
@@ -21714,7 +21714,7 @@ Floated Menu / Item
 /* Medium */
 
 .ui.menu {
-  font-size: 1rem;
+  font-size: 1.13rem;
 }
 
 .ui.vertical.menu {

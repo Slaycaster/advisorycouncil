@@ -71,6 +71,8 @@ class SearchController extends Controller
 	}
 
 	public function AdvancedSearch(Request $req){
+
+		try {
 		$query = $req->sq;
 		$ac = DB::table('advisory_council')
 					->join('advisory_position', 'advisory_position.ID', '=', 'advisory_council.advisory_position_id')
@@ -142,14 +144,14 @@ class SearchController extends Controller
 						if (Auth::check()) {
 					    	return view('search.search_result')->with('data',$ac)
 														       ->with('data2',$pa)
-														       ->with('query', $query);;
+														       ->with('query', $query);
 						} else {
 					    	return view('search.psearch_result')->with('data',$ac)
 														       ->with('data2',$pa)
-														       ->with('query', $query);;	
+														       ->with('query', $query);	
 						}
 						
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return view('errors.errorpage')->with('pass', 'true');
         }//
 

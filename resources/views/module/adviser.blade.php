@@ -22,7 +22,7 @@
 										<div class = "one field">
 											<label class="formlabel">Stakeholder Category</label>
 											<div class="field">
-												<select onchange = "fieldcontrol();" class="ui fluid selection dropdown " name = "filadvcateg">
+												<select onchange = "fieldcontrol();" class="ui selection dropdown filselect" name = "filadvcateg">
 													<option value="4" selected>All</option>
 													<option value="1">Advisory Council (AC)</option>
 													<option value="2">Technical Working Group (TWG)</option>

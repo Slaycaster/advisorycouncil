@@ -56,7 +56,7 @@
 									@endforeach
 								</label>	
 							@endif
-							<!--
+							
 							<div class ="twelve wide column  bspacing8">
 								<label class="formlabel">% of AC: <span class = "labeldesc">{{ $pac }}%</span></label>
 										
@@ -87,7 +87,7 @@
 											
 							</div>
 
-							!-->
+							
 							<div class ="twelve wide column  bspacing8">
 								<label class="formlabel">No. of upcoming birthdays 2 weeks from now <span class = "labeldesc">{{ $ubday }}</span></label>
 											
