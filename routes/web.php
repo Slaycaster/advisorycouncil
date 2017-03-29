@@ -192,7 +192,7 @@ Route::get('Dashboard/Quarternary', 'SearchController@getQuarternaryOffice');
 
 //PDF LESTER hihi
 Route::get('/welcome', 'PDFController@index');
-Route::post('createPDF', 'PDFController@createPDF');
+Route::post('Advisory_Council', 'PDFController@Advisory_Council');
 Route::post('load-pdf-data', 'PDFController@loaddata');
 
 
