@@ -21,6 +21,7 @@
 		<link rel="stylesheet" type="text/css" media="only screen and (max-width: 1920px) , only screen and (max-device-width: 1920px)" href="{{ URL::asset('css/wideScreenMonitor.css')}}" />
 		<link rel="stylesheet" type="text/css" media="only screen and (min-width: 1200px) and (max-width: 1919px) , only screen and and (min-device-width: 1200px) and (max-device-width: 1919px)" href="{{ URL::asset('css/largeMonitor.css')}}" />
 
+
 		<!-- JS -->
 		<script type="text/javascript" src="{{ URL::asset('js/jquery-2.1.4.js') }}"></script>
 		<script type="text/javascript" src="{{ URL::asset('js/semantic.js') }}"></script>

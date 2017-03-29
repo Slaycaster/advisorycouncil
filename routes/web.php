@@ -202,3 +202,12 @@ Route::post('home/search2', 'SearchController@view');
 
 //dynamic graphs
 Route::get('Dashboard/Linegraph/ACPosition', 'SearchController@getLineChartACPosition');
+Route::get('user/edit', function() {
+	return view('home.edituserpage');
+});
+
+Route::post('checknewusername', 'RegistrationController@checknewusername');
+Route::post('checkoldpassword', 'RegistrationController@checkoldpassword');
+Route::post('edituser', 'RegistrationController@edituser');
+Route::post('adduser', 'RegistrationController@adduser');
+

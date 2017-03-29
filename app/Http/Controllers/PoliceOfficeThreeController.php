@@ -14,20 +14,27 @@ class PoliceOfficeThreeController extends Controller
 {
    
     public function index_PO3(Request $req){
-      $req->session()->put('tabtitle', '#tab2');
+        try {
+            $req->session()->put('tabtitle', '#tab2');
 
-        $poOne = unit_offices::where('UnitOfficeHasField', '=', 'True')->get();
-        $potwo = unit_office_secondaries::where('UnitOfficeHasTertiary', '=', 'True')->get(); 
-        $pothree = DB::table('unit_office_tertiaries')->select('unit_office_tertiaries.UnitOfficeHasQuaternary','unit_office_tertiaries.UnitOfficeSecondaryID',
-            'unit_office_tertiaries.UnitOfficeTertiaryName','unit_office_tertiaries.id','unit_office_secondaries.UnitOfficeSecondaryName','unit_offices.UnitOfficeName', 'unit_office_tertiaries.desc')
-                ->join('unit_office_secondaries','unit_office_tertiaries.UnitOfficeSecondaryID','=','unit_office_secondaries.id')
-                ->join('unit_offices','unit_office_secondaries.UnitOfficeID','=','unit_offices.id')
-                ->get();
+            $poOne = unit_offices::where('UnitOfficeHasField', '=', 'True')->get();
+            $potwo = unit_office_secondaries::where('UnitOfficeHasTertiary', '=', 'True')->get(); 
+            $pothree = DB::table('unit_office_tertiaries')->select('unit_office_tertiaries.UnitOfficeHasQuaternary','unit_office_tertiaries.UnitOfficeSecondaryID',
+                'unit_office_tertiaries.UnitOfficeTertiaryName','unit_office_tertiaries.id','unit_office_secondaries.UnitOfficeSecondaryName','unit_offices.UnitOfficeName', 'unit_office_tertiaries.desc')
+                    ->join('unit_office_secondaries','unit_office_tertiaries.UnitOfficeSecondaryID','=','unit_office_secondaries.id')
+                    ->join('unit_offices','unit_office_secondaries.UnitOfficeID','=','unit_offices.id')
+                    ->get();
 
-        return view('maintenancetable.policeoffice3_table')
-          ->with('pothree', $pothree)
-          ->with('potwo', $potwo)
-          ->with('poOne', $poOne);
+            return view('maintenancetable.policeoffice3_table')
+              ->with('pothree', $pothree)
+              ->with('potwo', $potwo)
+              ->with('poOne', $poOne);
+               
+        } catch(\Exception $e) {
+            return view('errors.errorpage')->with('pass', 'true');
+        }//
+
+       
       
     }
 

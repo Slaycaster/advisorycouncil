@@ -815,7 +815,10 @@
 							window.location = "{{URL('directory')}}";
 						}, 2600);
 				   	
-				   	}//success : function() {
+				   	},
+					error:function() {
+						$('#errormodal').modal('show');
+					} 
 				});
 
 				
@@ -871,7 +874,10 @@
 
 
 
-			   	}//success : function() {
+			   	},
+				error:function() {
+					$('#errormodal').modal('show');
+				} 
 			});
 		}//function getInitialACDropdown() {
 
@@ -900,7 +906,10 @@
 			   			populatedropdown(data[2][ctr]['id'], 'primary', data[2][ctr]['UnitOfficeName']);
 			   			
 			   		};
-			   	}//success : function() {
+			   	},
+				error:function() {
+					$('#errormodal').modal('show');
+				} 
 			});
 		}//function getInitialTPDropdown() {
 
@@ -930,7 +939,10 @@
 
 
 			   		
-			   	}//success : function() {
+			   	},
+				error:function() {
+					$('#errormodal').modal('show');
+				} 
 			});
 
 		}//function getsecoffice() {
@@ -957,7 +969,10 @@
 			   		};
 
 			   		
-			   	}//success : function() {
+			   	},
+				error:function() {
+					$('#errormodal').modal('show');
+				} 
 			});
 		}//function getteroffice() {
 
@@ -983,7 +998,10 @@
 			   		};
 
 			   		
-			   	}//success : function() {
+			   	},
+				error:function() {
+					$('#errormodal').modal('show');
+				} 
 			});
 		}//function getteroffice() {
 

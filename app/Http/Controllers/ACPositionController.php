@@ -18,8 +18,8 @@ class ACPositionController extends Controller
         
             $positions = DB::table('Advisory_Position')->get();
             return view('maintenancetable/advisoryposition_table', compact('positions'));
-        } catch(Exception $e) {
-            //return view('errors.errorpage');
+        } catch(\Exception $e) {
+            return view('errors.errorpage')->with('pass', 'true');
         }//
        
 	}

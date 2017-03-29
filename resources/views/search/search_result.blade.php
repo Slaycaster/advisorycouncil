@@ -97,10 +97,11 @@
 										
 											<p valign="bottom" class = "p2" style="color:red;">2 Weeks before birthday</p>
 											
-											@elseif($acrec->daysleft <= 7)
+											@elseif($acrec->daysleft <= 7 && $acrec->daysleft > 0)
 											
 											<p valign="bottom" class = "p2" style="color:red;">{{$acrec->daysleft}} days before birthday</p>
-											
+											@elseif($acrec->daysleft == 0)
+											<p valign="bottom" class = "p2" style="color:red;">Happy Birthday!</p>
 											@endif
 										</div>
 									</div>
@@ -185,9 +186,12 @@
 										
 											<p class = "p2" style="color:red;">2 Weeks before birthday</p>
 											
-											@elseif($tprec->daysleft <= 7)
+											@elseif($tprec->daysleft <= 7 && $tprec->daysleft > 0)
 											
 											<p class = "p2" style="color:red;">{{$tprec->daysleft}} days before birthday</p>
+											@elseif($tprec->daysleft == 0)
+											
+											<p class = "p2" style="color:red;">Happy Birthday!</p>
 											
 											@endif
 										</div>

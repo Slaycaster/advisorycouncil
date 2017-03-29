@@ -49,7 +49,7 @@
 							<div class = "formpane">
 								<div class = "mhead">
 									<div id="myToast" class="toast-popup"></div>
-									<i class="write square big icon"></i>
+									<i class="write square big icon rwdicon"></i>
 								</div>
 
 								@yield('mfillformsection')
@@ -106,8 +106,6 @@
 		    	</div>
 		  	</div>
 		</div>
-
-
 
 	</div>
 

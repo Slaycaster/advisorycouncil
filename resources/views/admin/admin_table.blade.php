@@ -194,7 +194,7 @@
 
 		function addUser() {
 			var data = {
-				'name' : document.getElementsByName('fullname')[0].value,
+				'fullname' : document.getElementsByName('fullname')[0].value,
 				'username' : document.getElementsByName('username')[0].value,
 				'status' : 1,
 				'admintype' : $("input[name='admintype']:checked").val(),
@@ -205,18 +205,21 @@
 
 			$.ajax({
 				type: "POST",
-				url: "{{url('register')}}",
+				url: "{{url('adduser')}}",
 				data: data,
 			   	success : function() {
 					loadtoast('Saved');
 					
+					setTimeout(function(){
+						location.reload();
+					}, 2600);
 			   		
-			   	}//success : function() {
+			   	},
+				error:function() {
+					$('#errormodal').modal('show');
+				} 
 			});
 
-			setTimeout(function(){
-				location.reload();
-			}, 2600);
 		}//function addUser() {\
 
 		function showpopup(slctrow) {
@@ -247,7 +250,10 @@
 	  		   		document.getElementsByName('namelabel')[0].innerHTML = userdata['name'] + " (" + userdata['email'] + ")";
 	  		   		document.getElementsByName('appid')[0].value = id;
 
-	  		   	}
+	  		   	},
+				error:function() {
+					$('#errormodal').modal('show');
+				} 
 	  		});
 		}//function populatepopup(id) {
 
@@ -284,14 +290,17 @@
 				data: data,
 			   	success : function() {
 					loadtoast(message);
-					
+					setTimeout(function(){
+						location.reload();
+					}, 2600);
 			   		
-			   	}//success : function() {
+			   	},
+				error:function() {
+					$('#errormodal').modal('show');
+				} 
 			});
 
-			setTimeout(function(){
-				location.reload();
-			}, 2600);
+			
 		}//function setstatus(stat) {
 
 	</script>

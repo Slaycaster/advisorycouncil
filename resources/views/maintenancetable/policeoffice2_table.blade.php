@@ -182,7 +182,10 @@
 			   			$("#has").prop('checked', false);
 			   		}
 
-			   	}//success : function() {
+			   	},
+			   	error:function() {
+					$('#errormodal').modal('show');
+				}
 			});
 
 
@@ -190,7 +193,6 @@
 
 		function addData() {
 
-			//if(document.getElementsByName("office")[0].value !== "disitem") {
 				$("#officecon").removeClass('active');
 
 				var data = {
@@ -208,17 +210,16 @@
 					data: data,
 				   	success : function() {
 				   		resetflag('Saved!');
-
-
-				   	}
+				   		setTimeout(function(){
+							location.reload();
+						}, 2600);
+				   	},
+				   	error:function() {
+						$('#errormodal').modal('show');
+					}
 				});
 
-				setTimeout(function(){
-					location.reload();
-				}, 2600);
-			/*} else {
-				$("#officecon").addClass('active');
-			}//if*/
+				
 			
 
 		}//function addData(){
@@ -240,15 +241,18 @@
 				data: data,
 			   	success : function() {
 			   		resetflag('Updated!');
+			   		setTimeout(function(){
+						location.reload();
+					}, 2600);
 
 
-			   	}//success : function() {
+			   	},
+				error:function() {
+					$('#errormodal').modal('show');
+				}
 			});
 
-			setTimeout(function(){
-				location.reload();
-			}, 2600);
-
+			
 
 		}//
 

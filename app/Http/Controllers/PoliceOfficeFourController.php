@@ -15,21 +15,28 @@ use App\Models\unit_office_secondaries;
 class PoliceOfficeFourController extends Controller
 {
     public function index(Request $req){
-      $req->session()->put('tabtitle', '#tab2');
+        try {
+             $req->session()->put('tabtitle', '#tab2');
 
-    	$office = DB::table('unit_offices')->where('UnitOfficeHasField','=','true')->get();
-    	$office4 = DB::table('unit_office_quaternaries')
-            ->select('unit_office_quaternaries.id','unit_office_quaternaries.UnitOfficeQuaternaryName',
-                    'unit_office_tertiaries.UnitOfficeTertiaryName',
-                    'unit_office_secondaries.UnitOfficeSecondaryName',
-                    'unit_offices.UnitOfficeName', 'unit_office_quaternaries.desc')
-    		->join('unit_office_tertiaries','unit_office_quaternaries.UnitOfficeTertiaryID','=','unit_office_tertiaries.id')
-    		->join('unit_office_secondaries','unit_office_tertiaries.UnitOfficeSecondaryID','=','unit_office_secondaries.id')
-    		->join('unit_offices','unit_office_secondaries.UnitOfficeID','=','unit_offices.id')
-    		->get();
-    	
-    	return view('maintenancetable.policeoffice4_table')->with('office', $office)
-    														->with('office4', $office4);
+            $office = DB::table('unit_offices')->where('UnitOfficeHasField','=','true')->get();
+            $office4 = DB::table('unit_office_quaternaries')
+                ->select('unit_office_quaternaries.id','unit_office_quaternaries.UnitOfficeQuaternaryName',
+                        'unit_office_tertiaries.UnitOfficeTertiaryName',
+                        'unit_office_secondaries.UnitOfficeSecondaryName',
+                        'unit_offices.UnitOfficeName', 'unit_office_quaternaries.desc')
+                ->join('unit_office_tertiaries','unit_office_quaternaries.UnitOfficeTertiaryID','=','unit_office_tertiaries.id')
+                ->join('unit_office_secondaries','unit_office_tertiaries.UnitOfficeSecondaryID','=','unit_office_secondaries.id')
+                ->join('unit_offices','unit_office_secondaries.UnitOfficeID','=','unit_offices.id')
+                ->get();
+            
+            return view('maintenancetable.policeoffice4_table')->with('office', $office)
+                                                                ->with('office4', $office4);
+           
+        } catch(\Exception $e) {
+            return view('errors.errorpage')->with('pass', 'true');
+        }//
+
+       
     }
 
     public function add(Request $request){

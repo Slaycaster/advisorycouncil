@@ -3,10 +3,84 @@
 {
 
 	html{
-		background-color: red;
-		width:1280px;
 		height:100%;
 		
 	}
+
+	.logfield {
+	width:100%;	
+	}
+
+	.hr1 {
+	width: 115%;
+	}
+
+	.loghead{
+		width:80%;
+	}
+
+	.advphoto1 {
+    height: 250px;
+    width: 100%;
+  }
+
+  .ui.segment.logcon {
+	width: 95%;
+	height: 16em;
+	margin: 5% 0 0 5%;
+	background-color: white;
+}
+
+.centerbtn{
+	margin-top: 2%;
+	margin-left: 23%;
+}
+
+.mcontent {
+	margin-top: 3.5%;
+	margin-left: 5%;
+	height: 100%;
+	width: 98%;
+}
+
+.ui.segment.filcon {
+	width: 95%;
+	height: 52em;
+}
+
+.ui.rail {
+width:235px;
+
+}
+
+.formattp {
+	width: 100%;
+
+}
+
+.mtitle {
+    
+    width: 100%;
+}
+
+.rwdrightrow{
+	margin-top: 7.3%;
+}
+
+.ui.vertical.menu{
+	width:110%;
+}
+
+.ui.segment.summcon {
+	width: 95%;
+	height:100em;
+	margin: 4% 0 0 5%;
+	background-color: #ede8e6;
+}
+
+
+
+
+
 
 	}//end @largeMonitorBreakpoint : 1280px;

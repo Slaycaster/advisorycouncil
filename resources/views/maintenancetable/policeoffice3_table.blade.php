@@ -256,7 +256,10 @@
 
 					document.getElementById('office2').value = data['UnitOfficeSecondaryID'];
 				}
-			} 
+			},
+			error:function() {
+				$('#errormodal').modal('show');
+			}
 
 		});
 	}//function exec() {
@@ -283,7 +286,10 @@
 					for(var i= 0 ; i < data.length; i++){
 						populatedropdown(data[i]['id'], 'select_office2', data[i]['UnitOfficeSecondaryName']);
 					}//for
-				} //success : function
+				},
+				error:function() {
+					$('#errormodal').modal('show');
+				}//success : function
 			});//ajax
 
 		}//end
@@ -332,7 +338,10 @@
 					},2000);
 
 			   		//console.log($( "#office2 option:selected" ).text());
-			   	}//success : function() {
+			   	},
+				error:function() {
+					$('#errormodal').modal('show');
+				}//success : function
 			});
 
 

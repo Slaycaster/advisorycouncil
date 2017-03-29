@@ -47,30 +47,43 @@ class AdvDirectoryController extends Controller {
 
 	public function readyadd(Request $req){
 
-		$req->session()->put('tabtitle', '#tab3');
- 		return view('adviser.adviser_form')->with('action', 0);
+ 		try {
+ 			$req->session()->put('tabtitle', '#tab3');
+ 			return view('adviser.adviser_form')->with('action', 0);
+           
+        } catch(\Exception $e) {
+            return view('errors.errorpage')->with('pass', 'true');
+        }//
+
 
  	}//select dropdowns
 
  	public function readyedit(Request $req) {
- 		$req->session()->put('tabtitle', '#tab3');
+ 		try {
+ 			$req->session()->put('tabtitle', '#tab3');
 
- 		if(!isset($req->c)) {
- 			return redirect("directory");
- 		}//if
+	 		if(!isset($req->c)) {
+	 			return redirect("directory");
+	 		}//if
 
-		$tid = $req->c;
+			$tid = $req->c;
 
-		$tidelements = explode("-", $tid);
+			$tidelements = explode("-", $tid);
 
-		$result = $this->getData((int) $tidelements[1], (int) $tidelements[0]);
+			$result = $this->getData((int) $tidelements[1], (int) $tidelements[0]);
 
-		//return $result[2][0];
+			//return $result[2][0];
 
-		return view('adviser.adviser_form')->with('action', 1)
-										 ->with('recorddata', $result)
-										 ->with('type', (int) $tidelements[0])
-										 ->with('id', (int) $tidelements[1]);
+			return view('adviser.adviser_form')->with('action', 1)
+											 ->with('recorddata', $result)
+											 ->with('type', (int) $tidelements[0])
+											 ->with('id', (int) $tidelements[1]);
+	           
+        } catch(\Exception $e) {
+            return view('errors.errorpage')->with('pass', 'true');
+        }//
+
+ 		
 
 		
 	}//readyedit
@@ -126,7 +139,8 @@ class AdvDirectoryController extends Controller {
 	}//edit - WHOLE
 
 	public function getAdv($filter, $sorter){
-		$civilian = DB::table('advisory_council')
+		try {
+			$civilian = DB::table('advisory_council')
 					->join('advisory_position', 'advisory_position.ID', '=', 'advisory_council.advisory_position_id')
 					->join("ac_sector", "ac_sector.ID", "=", "advisory_council.ac_sector_id")
 					->join('unit_office_secondaries', 'unit_office_secondaries.id', '=', 'advisory_council.second_id')
@@ -145,14 +159,14 @@ class AdvDirectoryController extends Controller {
 						    ),CURDATE()) as daysleft'))
 					->orderBy('advisory_council.'. $filter, $sorter)
 					->paginate(12);
-	
-		$police = DB::table('police_advisory')
-					->join('police_position', 'police_position.id', '=', 'police_advisory.police_position_id')
-					->join('unit_office_secondaries', 'unit_office_secondaries.id', '=', 'police_advisory.second_id')
-					->join('unit_offices', 'unit_offices.id', '=', 'unit_office_secondaries.UnitOfficeID')
-					->leftJoin('unit_office_tertiaries', 'unit_office_tertiaries.id', '=', 'police_advisory.tertiary_id')
-					->leftJoin('unit_office_quaternaries', 'unit_office_quaternaries.id', '=', 'police_advisory.quaternary_id')
-					->select('police_advisory.ID', 'lname', 'fname', 'mname', 'imagepath', 'email', 
+
+			$police = DB::table('police_advisory')
+						->join('police_position', 'police_position.id', '=', 'police_advisory.police_position_id')
+						->join('unit_office_secondaries', 'unit_office_secondaries.id', '=', 'police_advisory.second_id')
+						->join('unit_offices', 'unit_offices.id', '=', 'unit_office_secondaries.UnitOfficeID')
+						->leftJoin('unit_office_tertiaries', 'unit_office_tertiaries.id', '=', 'police_advisory.tertiary_id')
+						->leftJoin('unit_office_quaternaries', 'unit_office_quaternaries.id', '=', 'police_advisory.quaternary_id')
+						->select('police_advisory.ID', 'lname', 'fname', 'mname', 'imagepath', 'email', 
 						     'contactno', 'landline', 'startdate', 'policetype',
 						     'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
 						     'UnitOfficeQuaternaryName', 'PositionName', DB::raw('DATEDIFF(DATE_ADD(
@@ -162,50 +176,66 @@ class AdvDirectoryController extends Controller {
 					            YEAR(CURDATE())-YEAR(birthdate)+1
 					        ) YEAR
 					    ),CURDATE()) as daysleft'))
-					->orderBy('police_advisory.' . $filter, $sorter)
-					->paginate(12);
+						->orderBy('police_advisory.' . $filter, $sorter)
+						->paginate(12);
 
-		return array($civilian, $police);
+			return array($civilian, $police);
+           
+        } catch(\Exception $e) {
+            return view('errors.errorpage')->with('pass', 'true');
+        }//
+		
 	}
 
 	public function getList(Request $req) {
-		//UI
-		$req->session()->put('tabtitle', '#tab3');
+		try {
+			//UI
+			$req->session()->put('tabtitle', '#tab3');
 
-		$adv = $this->getAdv('created_at', 'desc');
-		$acposition = Advisory_Position::select('ID', 'acpositionname')->get();
-		$pnpposition = Police_Position::select('id', 'PositionName')->get();
-		$acsector = AC_Sector::select('ID', 'sectorname')->get();
-		$unitoffice = unit_offices::select('id', 'UnitOfficeName')->get();
+			$adv = $this->getAdv('created_at', 'desc');
+			$acposition = Advisory_Position::select('ID', 'acpositionname')->get();
+			$pnpposition = Police_Position::select('id', 'PositionName')->get();
+			$acsector = AC_Sector::select('ID', 'sectorname')->get();
+			$unitoffice = unit_offices::select('id', 'UnitOfficeName')->get();
 
-		/*INSERT CODE FOR DIRECTORY LIST VIEW*/
+			/*INSERT CODE FOR DIRECTORY LIST VIEW*/
 
-		//return $unitoffice;
-		return view('adviser.advisercontent')->with("directory", $adv)
-									 		 ->with("showcontrol", "true")
-									 		 ->with("acposition", $acposition)
-									 		 ->with("pnpposition",$pnpposition)
-									 		 ->with("acsector", $acsector)
-									 		 ->with("unitoffice", $unitoffice);
+			//return $unitoffice;
+			return view('adviser.advisercontent')->with("directory", $adv)
+										 		 ->with("showcontrol", "true")
+										 		 ->with("acposition", $acposition)
+										 		 ->with("pnpposition",$pnpposition)
+										 		 ->with("acsector", $acsector)
+										 		 ->with("unitoffice", $unitoffice);
+           
+        } catch(\Exception $e) {
+            return view('errors.errorpage')->with('pass', 'true');
+        }//
+
+		
 	}//public function getList() {
 
 	public function readyPHome() {
-		if (Auth::check()) {
-			
+		try {
+			if (Auth::check()) {
+	    		return redirect('home');
 
-	    	return redirect('home');
+			}//if (Auth::check()) {
 
-		}//if (Auth::check()) {
-
-		$adv = $this->getAdv('created_at', 'desc');
-
-		/*INSERT CODE FOR PUBLIC HOME LIST VIEW*/
+			$adv = $this->getAdv('created_at', 'desc');
 
 
-		return view('home.defaultphome')->with('directory', $adv);
+			return view('home.defaultphome')->with('directory', $adv);
+           
+        } catch(\Exception $e) {
+            return view('errors.errorpage')->with('pass', 'true');
+        }//
+
+		
 	}//public function getList() {
 
 	public function getACID() {
+		
 		$getid = Advisory_Council::orderBy('ID', 'desc')->take(1)->get();
 
 		foreach ($getid as $key => $id) {

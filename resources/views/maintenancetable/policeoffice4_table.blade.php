@@ -206,7 +206,10 @@
 						}//for
 						
 					}//populate tertiary
-				} //success : function
+				},
+				error:function() {
+					$('#errormodal').modal('show');
+				}//success : function
 			});//ajax
 
 		}//populatetertiary
@@ -264,7 +267,10 @@
 				   		changeValue('#select3',data[3]['id']);
 					},4000);
 			   		
-			   	}//success : function() {
+			   	},
+				error:function() {
+					$('#errormodal').modal('show');
+				}//success : function
 			});
 
 		}//function loaddata() {
@@ -288,13 +294,15 @@
 				data: data,
 			   	success : function() {
 			   		resetflag('Saved!');
+			   		setTimeout(function(){
+						location.reload();
+					}, 2600);
 
-			   	}
+			   	},
+				error:function() {
+					$('#errormodal').modal('show');
+				}//success : function
 			});
-
-			setTimeout(function(){
-				location.reload();
-			}, 2600);
 			
 
 		}//function addData(){
@@ -316,14 +324,17 @@
 			   	success : function() {
 			   		resetflag('Updated!');
 
-
-			   	}//success : function() {
+			   		setTimeout(function(){
+						location.reload();
+					}, 2600);
+			   	},
+				error:function() {
+					$('#errormodal').modal('show');
+				}
 			});
 
 
-			setTimeout(function(){
-				location.reload();
-			}, 2600);
+			
 
 
 		}// edit
