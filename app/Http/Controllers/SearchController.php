@@ -72,7 +72,6 @@ class SearchController extends Controller
 
 	public function AdvancedSearch(Request $req){
 
-		try {
 		$query = $req->sq;
 		$ac = DB::table('advisory_council')
 					->join('advisory_position', 'advisory_position.ID', '=', 'advisory_council.advisory_position_id')
@@ -150,17 +149,14 @@ class SearchController extends Controller
 														       ->with('query', $query);	
 						}
 						
-        } catch (\Exception $e) {
-            return view('errors.errorpage')->with('pass', 'true');
-        }//
+       
 
 		
 	}
 
 
 	public function findAC(Request $req){
-		try {
-           
+		
 			$query = $req->sq;
 			$ac = DB::table('advisory_council')
 						->join('advisory_position', 'advisory_position.ID', '=', 'advisory_council.advisory_position_id')
@@ -202,17 +198,13 @@ class SearchController extends Controller
 											   					->with('query', $name);
 			}
 
-        } catch(\Exception $e) {
-            return view('errors.errorpage')->with('pass', 'true');
-            //return $e->getMessage(); 	
-        }//
-
+       
 		
 
 	}
 
 	public function findPA(Request $req){
-		try {
+		
 			$query = $req->sq;
 			$police = DB::table('police_advisory')
 						->join('police_position', 'police_position.id', '=', 'police_advisory.police_position_id')
@@ -254,17 +246,14 @@ class SearchController extends Controller
 														   	   ->with('query', $name);
 						}			
            
-        } catch(\Exception $e) {
-            return view('errors.errorpage')->with('pass', 'true');
-        }//
+        
 
 			
 	}
 
 
 	public function getGender(){
-		try {
-           $pam = DB::table("police_advisory")
+		  $pam = DB::table("police_advisory")
 					->where('gender', '=', '0')
 					->count();
 			$paf = DB::table("police_advisory")
@@ -291,16 +280,13 @@ class SearchController extends Controller
 	        	$dt->addRow(["Female", $totalf]);
 	        
 			return $dt;
-        } catch(\Exception $e) {
-            return view('errors.errorpage')->with('pass', 'true');
-        }//
+      
 
 		
 	}
 
 	public function getSector(){
-		try {
-           $sector = DB::table('ac_sector')
+		   $sector = DB::table('ac_sector')
 					->select('sectorname', DB::raw('count(*) as total'))
 					->join('advisory_council', 'advisory_council.ac_sector_id', '=', 'ac_sector.ID')
 					->havingRaw('count(*) >= 0')
@@ -318,10 +304,7 @@ class SearchController extends Controller
 	       
 	       
 	       return $dt;
-        } catch(\Exception $e) {
-            return view('errors.errorpage')->with('pass', 'true');
-        }//
-
+       
 		
 
 
@@ -333,8 +316,7 @@ class SearchController extends Controller
 
 	public function getUnitOffice(){
 
-		try {
-           
+		 
 			$unitac = DB::table('unit_offices')
 						->join('unit_office_secondaries', 'unit_offices.id', '=', 'unit_office_secondaries.UnitOfficeID')
 						->select('UnitOfficeName', DB::raw('count(*) as total'))
@@ -383,15 +365,13 @@ class SearchController extends Controller
 	       
 	       
 	       return $dt;
-        } catch(\Exception $e) {
-            return view('errors.errorpage')->with('pass', 'true');
-        }//
+      
 
 	}
 
 
 	public function getSecondOffice(){
-		try {
+		
         	$secondac = DB::table('unit_office_secondaries')
 							->join('unit_offices', 'unit_offices.id', '=', 'unit_office_secondaries.UnitOfficeID')
 							->select('UnitOfficeSecondaryName', DB::raw('count(*) as total'))
@@ -448,9 +428,7 @@ class SearchController extends Controller
 			       return $dt;
 
 
-        } catch(\Exception $e) {
-            return view('errors.errorpage')->with('pass', 'true');
-        }//
+       
 
 		
 
@@ -459,7 +437,7 @@ class SearchController extends Controller
 
 
 	public function getTertiaryOffice(){
-		try {
+		
 			$tertiaryac = DB::table('unit_office_tertiaries')
 							->select('UnitOfficeTertiaryName', DB::raw('count(*) as total'))
 							->Join('advisory_council', 'advisory_council.tertiary_id', '=', 'unit_office_tertiaries.id')
@@ -510,16 +488,14 @@ class SearchController extends Controller
 
 
            
-        } catch(\Exception $e) {
-            return view('errors.errorpage')->with('pass', 'true');
-        }//
+        
 
 		
 	}
 
 
 	public function getQuarternaryOffice(){
-		try {
+		
            $quarternaryac = DB::table('unit_office_quaternaries')
 								->select('UnitOfficeQuaternaryName', DB::raw('count(*) as total'))
 								->Join('advisory_council', 'advisory_council.quaternary_id', '=', 'unit_office_quaternaries.id')
@@ -568,16 +544,14 @@ class SearchController extends Controller
 			       //return json_encode($dt);
 			       return $dt;
 
-        } catch(\Exception $e) {
-            return view('errors.errorpage')->with('pass', 'true');
-        }//
+      
 
 		
 
 	}
 
 	public function getACPosition(){
-		try {
+	
            $position = DB::table('advisory_position')
 						->select('acpositionname', DB::raw('count(*) as total'))
 						->join('advisory_council', 'advisory_council.advisory_position_id', '=', 'advisory_position.ID')
@@ -597,15 +571,12 @@ class SearchController extends Controller
 	       
 	       return $dt;
 
-        } catch(\Exception $e) {
-            return view('errors.errorpage')->with('pass', 'true');
-        }//
-
+       
 		
 	}
 
 	public function getPolicePosition(){
-		try {
+		
 			$position = DB::table('police_position')
 						->select('PositionName', DB::raw('count(*) as total'))
 						->join('police_advisory', 'police_advisory.police_position_id', '=', 'police_position.id')
@@ -625,10 +596,7 @@ class SearchController extends Controller
 	       
 	       return $dt;
            
-        } catch(\Exception $e) {
-            return view('errors.errorpage')->with('pass', 'true');
-        }//
-
+      
 		
 
 	}
@@ -636,7 +604,7 @@ class SearchController extends Controller
 
 
 	public function getAge(){
-		try {
+		
            $agepc = DB::table('police_advisory')
 						->select(DB::raw('TIMESTAMPDIFF(YEAR, birthdate, CURDATE()) AS age, count(*) as num'))
 						->havingRaw('count(*) >= 0')
@@ -710,9 +678,7 @@ class SearchController extends Controller
 			      
 
 			       return $dt;
-        } catch(\Exception $e) {
-            return view('errors.errorpage')->with('pass', 'true');
-        }//
+       
 	
 
 	}
@@ -806,7 +772,7 @@ class SearchController extends Controller
 
 	public function dashboard(Request $req){
 		//UI
-		try {
+	
 			$req->session()->put('tabtitle', '#tab1');
 
 			$chartoption = array(
@@ -930,9 +896,7 @@ class SearchController extends Controller
 										   ->with('tdaypa', $tdaypa);
 
 	           
-        } catch(\Exception $e) {
-            return view('errors.errorpage')->with('pass', 'true');
-        }//
+      
 
 		
 

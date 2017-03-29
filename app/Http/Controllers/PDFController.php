@@ -42,6 +42,14 @@ class PDFController extends Controller
 
 	}
 
+	public function getSecOffice($sooffice) {
+		$primary = $sooffice;
+
+		$secoffice = unit_office_secondaries::where('UnitOfficeID', $primary)->get();
+
+		return $secoffice;
+	}//public function getSecOffice(Request $req) {
+
 	public function loaddata(Request $req)
 	{
 		$callid = $req->callid;
@@ -76,10 +84,13 @@ class PDFController extends Controller
 				$query = $query->where('policetype', '=', $req->advisory);
 			}
 
-			// if($req->office!=0)
-			// {
-			// 	$query = $query->where('unit_id','=',$req->office);
-			// }
+			if($req->office!=0 && $req->office2==0)
+			{
+				$sec_id = $this->getSecOffice($req->office);
+				foreach ($sec_id as $key => $sec_id) 
+					{ $query = $query->where('second_id','=',$unit_id);	}
+					
+			}
 						   								
 			if($req->office2 != 0)
 				{ 
@@ -161,10 +172,13 @@ class PDFController extends Controller
 	{
 		$query = Advisory_Council::query();
 
-			// if($req->office!=0)
-			// {
-			// 	$query = $query->where('unit_id','=',$req->office);
-			// }
+			if($req->office!=0 && $req->office2==0)
+			{
+				$sec_id = $this->getSecOffice($req->office);
+				foreach ($sec_id as $key => $sec_id) 
+					{ $query = $query->where('second_id','=',$unit_id);	}
+					
+			}
 
 			if($req->office2 != 0)
 				{ $query = $query->where('second_id','=',$req->office2); }
