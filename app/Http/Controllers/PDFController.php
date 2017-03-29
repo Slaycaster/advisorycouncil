@@ -72,10 +72,17 @@ class PDFController extends Controller
 	public function PolAdInfo($req)
 	{
 		$query = Police_Advisory::query();
+
+
 			if($req->advisory!=0)
 			{
 				$query = $query->where('policetype', '=', $req->advisory);
 			}
+
+			// if($req->office!=0)
+			// {
+			// 	$query = $query->where('unit_id','=',$req->office);
+			// }
 						   								
 			if($req->office2 != 0)
 				{ 
@@ -91,7 +98,7 @@ class PDFController extends Controller
 		
 			if($req->city != null || $req->city != "")
 				{//array_add($whereclause, "city",$city);
-					$query = $query->where('city','like','%'.$city.'%');
+					$query = $query->where('city','like','%'.$req->city.'%');
 				}
 		
 			if($req->province != null || $req->province != "")
@@ -116,7 +123,7 @@ class PDFController extends Controller
 			if($req->ageFrom >0 && $req->ageFrom != '' && $req->ageTo > 0 && $req->ageTo != '') 
 				{
 
-					$query = $query->whereRaw("TIMESTAMPDIFF(YEAR, birthdate, CURDATE()) >=" . $ageFrom . " and TIMESTAMPDIFF(YEAR, birthdate, CURDATE()) <= " . $ageTo);
+					$query = $query->whereRaw("TIMESTAMPDIFF(YEAR, birthdate, CURDATE()) >=" . $req->ageFrom . " and TIMESTAMPDIFF(YEAR, birthdate, CURDATE()) <= " . $req->ageTo);
 				
 									
 				}
@@ -157,6 +164,11 @@ class PDFController extends Controller
 	{
 		$query = Advisory_Council::query();
 
+			// if($req->office!=0)
+			// {
+			// 	$query = $query->where('unit_id','=',$req->office);
+			// }
+
 			if($req->office2 != 0)
 				{ $query = $query->where('second_id','=',$req->office2); }
 				
@@ -179,7 +191,7 @@ class PDFController extends Controller
 			if($req->ageFrom >0 && $req->ageFrom != '' && $req->ageTo > 0 && $req->ageTo != '')
 				{
 
-					$query = $query->whereRaw("TIMESTAMPDIFF(YEAR, birthdate, CURDATE()) >=" . $ageFrom . " and TIMESTAMPDIFF(YEAR, birthdate, CURDATE()) <= " . $ageTo);
+					$query = $query->whereRaw("TIMESTAMPDIFF(YEAR, birthdate, CURDATE()) >=" . $req->ageFrom . " and TIMESTAMPDIFF(YEAR, birthdate, CURDATE()) <= " . $req->ageTo);
 									
 				}
 				
@@ -225,7 +237,7 @@ class PDFController extends Controller
 		else {return '';} 	
 	}
 
-    public function createPDF(Request $req)
+    public function Advisory_Council(Request $req)
     {
     	//var_dump($req->all());
     	$fpdf= new PDF;
@@ -290,7 +302,8 @@ class PDF extends FPDF
 	}
 
 	function body($req)
-	{
+	{	
+		
 		$fname = explode(",", $req->fname);
 		$mname = explode(",", $req->mname);
 		$lname = explode(",", $req->lname);
@@ -318,107 +331,108 @@ class PDF extends FPDF
     	$texty0=65;
 
 		$i=1;
-		
-    	while ($i <= count($position)) 
-    	{
-    		# code...\
-    		$this->Rect($col,$y0,85,45);
-			$this->SetFont('Arial','B',9);
-			$this->Text($textCol,$texty0,(strtoupper($fname[$i-1])." ".strtoupper($mname[$i-1])." ".strtoupper($lname[$i-1])));
-			$this->text($textCol-1,$texty0+3," (".$poltype[$i-1].")");
-			$this->SetFont('Arial','',8);
-			$this->Text($textCol,$texty0+8,$position[$i-1]);
-			if($office3[$i-1]!='')
-				{ $this->Text($textCol,$texty0+11,$office2[$i-1]." - ".$office3[$i-1]); }
-			else { $this->Text($textCol,$texty0+11,$office2[$i-1]); }
-			if($office4[$i-1]!="")
-			{
-				$this->text($textCol,$texty0+14,$office4[$i-1]);
-				$this->Text($textCol,$texty0+14,$contact[$i-1]);
-				$this->Text($textCol,$texty0+17,$email[$i-1]);
-			}
-			else 
-			{ 
-				$this->Text($textCol,$texty0+14,$contact[$i-1]);
-				$this->Text($textCol,$texty0+17,$email[$i-1]);
-			}
-			if($startdate!="")
-			{	
-				$this->Text($textCol+12,$texty0+32,"Member since ".date("M Y", strtotime($startdate[$i-1])));
-			}
-			// $trimfilestring = explode('/', $image[$i-1]);
-			// $ext = explode('.', $trimfilestring[2]);
-			// //var_dump($trimfilestring);
-			// $ext = substr($trimfilestring[0], strpos($trimfilestring[0], "/") + 1);
-			// $base64string = substr($trimfilestring[1], strpos($trimfilestring[1], ",") + 1);
+		if(count($position)!=0 && $position[0]!=""){
+	    	while ($i <= count($position)) 
+	    	{
+	    		# code...\
+	    		$this->Rect($col,$y0,85,45);
+				$this->SetFont('Arial','B',9);
+				$this->Text($textCol,$texty0,(strtoupper($fname[$i-1])." ".strtoupper($mname[$i-1])." ".strtoupper($lname[$i-1])));
+				$this->text($textCol-1,$texty0+3," (".$poltype[$i-1].")");
+				$this->SetFont('Arial','',8);
+				$this->Text($textCol,$texty0+8,$position[$i-1]);
+				if($office3[$i-1]!='')
+					{ $this->Text($textCol,$texty0+11,$office2[$i-1]." - ".$office3[$i-1]); }
+				else { $this->Text($textCol,$texty0+11,$office2[$i-1]); }
+				if($office4[$i-1]!="")
+				{
+					$this->text($textCol,$texty0+14,$office4[$i-1]);
+					$this->Text($textCol,$texty0+14,$contact[$i-1]);
+					$this->Text($textCol,$texty0+17,$email[$i-1]);
+				}
+				else 
+				{ 
+					$this->Text($textCol,$texty0+14,$contact[$i-1]);
+					$this->Text($textCol,$texty0+17,$email[$i-1]);
+				}
+				if($startdate!="")
+				{	
+					$this->Text($textCol+12,$texty0+32,"Member since ".date("M Y", strtotime($startdate[$i-1])));
+				}
+				// $trimfilestring = explode('/', $image[$i-1]);
+				// $ext = explode('.', $trimfilestring[2]);
+				// //var_dump($trimfilestring);
+				// $ext = substr($trimfilestring[0], strpos($trimfilestring[0], "/") + 1);
+				// $base64string = substr($trimfilestring[1], strpos($trimfilestring[1], ",") + 1);
 
-			// $decodephoto = base64_decode($base64string);
+				// $decodephoto = base64_decode($base64string);
 
-			// $filename =  "objects/displayphoto/" . str_random() . "." . $ext;
+				// $filename =  "objects/displayphoto/" . str_random() . "." . $ext;
 
-			// file_put_contents($filename, $decodephoto);
-		   //var_dump($image[27]);
-			// $filename = $image[0];
-			// print_r($filename);
-			// break;
-			// print_r($trimfilestring[2]);
-			// break;
-			// if(($i-1)==12) { $this->Image('objects/Logo/InitProfile.png',$imageCol,$imagey0,35); }
-    		
-			// else
-			// $filename = file_get_contents($image[$i-1]);
-			// var_dump($filename);
-			
-			// var_dump(getimagesize($image[$i-1]));
-			if($image[$i-1]!="")
-	    			{ 
-				    	
-						// $curlHandler = curl_init();
+				// file_put_contents($filename, $decodephoto);
+			   //var_dump($image[27]);
+				// $filename = $image[0];
+				// print_r($filename);
+				// break;
+				// print_r($trimfilestring[2]);
+				// break;
+				// if(($i-1)==12) { $this->Image('objects/Logo/InitProfile.png',$imageCol,$imagey0,35); }
+	    		
+				// else
+				// $filename = file_get_contents($image[$i-1]);
+				// var_dump($filename);
+				
+				// var_dump(getimagesize($image[$i-1]));
+				if($image[$i-1]!="")
+		    			{ 
+					    	
+							// $curlHandler = curl_init();
 
-						// curl_setopt($curlHandler, CURLOPT_URL, $image[$i-1]);
-						// curl_setopt($curlHandler, CURLOPT_HEADER, 0);
+							// curl_setopt($curlHandler, CURLOPT_URL, $image[$i-1]);
+							// curl_setopt($curlHandler, CURLOPT_HEADER, 0);
 
-						// $output = curl_exec($curlHandler);
+							// $output = curl_exec($curlHandler);
 
-						//$img = asset($image[$i-1]);
-	    				// $filename = $image[$i-1];
-	    				//$this->Image('objects/displayphoto/'.$trimfilestring[2].'',$imageCol,$imagey0,35,35,''.strtoupper($ext[1]).''); 
-	    				// $this->setXY($imageCol,$imagey0);
-	    				// $filename = file_get_contents($image[$i-1]);
-	    				$this->Image($image[$i-1],$imageCol,$imagey0,35,35);
-	    				// catch throw new Exception(); }
-	    				// finally { $this->Image('objects/Logo/InitProfile.png',$imageCol,$imagey0,35,35); }
-	    				// curl_close($curlHandler);
-	    			}
-	    		else 
-	    		 	{ $this->Image('objects/Logo/InitProfile.png',$imageCol,$imagey0,35,35); }
+							//$img = asset($image[$i-1]);
+		    				// $filename = $image[$i-1];
+		    				//$this->Image('objects/displayphoto/'.$trimfilestring[2].'',$imageCol,$imagey0,35,35,''.strtoupper($ext[1]).''); 
+		    				// $this->setXY($imageCol,$imagey0);
+		    				// $filename = file_get_contents($image[$i-1]);
+		    				$this->Image($image[$i-1],$imageCol,$imagey0,35,35);
+		    				// catch throw new Exception(); }
+		    				// finally { $this->Image('objects/Logo/InitProfile.png',$imageCol,$imagey0,35,35); }
+		    				// curl_close($curlHandler);
+		    			}
+		    		else 
+		    		 	{ $this->Image('objects/Logo/InitProfile.png',$imageCol,$imagey0,35,35); }
 
-    		 if((($i+2)%2)==0){
-				$col=20;
-				$imageCol=23;
-				$textCol=60;
-				$y0 += 52;
-				$imagey0+=52;
-				$texty0+=52;
-			}
-			else{
-				$col=($x);
-				$imageCol=($x)+3;
-				$textCol=(($x)+40);
-			}
+	    		 if((($i+2)%2)==0){
+					$col=20;
+					$imageCol=23;
+					$textCol=60;
+					$y0 += 52;
+					$imagey0+=52;
+					$texty0+=52;
+				}
+				else{
+					$col=($x);
+					$imageCol=($x)+3;
+					$textCol=(($x)+40);
+				}
 
-			if(($i%8)==0){
-				$this->AddPage();
-				$col=20;
-		    	$y0=55;
-		    	$imageCol=23;
-		    	$imagey0=60;
-		    	$textCol=60;
-		    	$texty0=65;
-			}
-			
-			$i++;
-    	}		
+				if(($i%8)==0){
+					$this->AddPage();
+					$col=20;
+			    	$y0=55;
+			    	$imageCol=23;
+			    	$imagey0=60;
+			    	$textCol=60;
+			    	$texty0=65;
+				}
+				
+				$i++;
+	    	}
+	    }		
 
 	}
 
