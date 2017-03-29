@@ -53,7 +53,7 @@
 
 											<div class = "twelve wide column bspacing9">
 												<p name="bdate"></p>
-														
+												<i name="bdayicon" class = "ui icon" title=""></i>
 											</div>
 
 											<div class = "twelve wide column bspacing9">
@@ -277,10 +277,6 @@
 													
 									</div>
 
-									<div class = "twelve wide column bspacing">
-										<label class = "formlabel">Rank</label>
-													
-									</div>
 
 									<div class = "twelve wide column bspacing">
 										<label class = "formlabel">Unit/Office</label>
@@ -311,10 +307,6 @@
 														
 									</div>
 
-									<div class = "twelve wide column bspacing11">
-										<p name="tprank"></p>
-														
-									</div>
 
 									<div class = "twelve wide column bspacing11">
 										<p name="tpoffice"></p>
@@ -388,10 +380,13 @@
 															recorddata[0][0]['qualifier'];
 			if(recorddata[0][0]["birthdate"] != null) {
 				document.getElementsByName('bdate')[0].innerHTML = recorddata[1][1];
+
+				
 			} else {
 				document.getElementsByName('bdate')[0].innerHTML = "N/A";
 
 			}//if
+
 
 			if(recorddata[0][0]["street"] !== "") {
 				document.getElementsByName('homeaddress')[0].innerHTML = recorddata[0][0]['street'] + " " +
@@ -523,8 +518,8 @@
 			document.getElementsByName('tpadvcateg')[0].innerHTML = type;*/
 
 		if(recorddata[0][0]['startdate'] != null) {
-				document.getElementsByName('tpduration')[0].innerHTML = recorddata[2][2] + " - " + recorddata[2][3];
-
+				document.getElementsByName('tpduration')[0].innerHTML = recorddata[1][2] + " - " + recorddata[1][3];
+				console.log(recorddata[2][2]);
 			} else {
 				document.getElementsByName('tpduration')[0].innerHTML = "N/A";
 
@@ -533,8 +528,6 @@
 			document.getElementsByName('tpauthorder')[0].innerHTML = recorddata[0][0]["authorityorder"];
 
 			document.getElementsByName('tpposition')[0].innerHTML = recorddata[0][0]["PositionName"];
-
-			document.getElementsByName('tprank')[0].innerHTML = recorddata[0][0]['RankName'];
 
 			var unitoffice = "";
 
