@@ -61,7 +61,7 @@
 							</div>
 						</div>
 							
-						<div class = "row rightrow">
+						<div class = "row rightrow rwdrightrow">
 							<div class="ui top attached tabular menu">
 								<div class="mlink item" id = "tab1" data-tab="home" onclick = "window.location='{{url('home')}}'">
 								    Home

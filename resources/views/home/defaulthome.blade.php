@@ -69,9 +69,9 @@
 				<div class = "tablepane">
 					<div class = "mtitle">Dashboard</div>
 
-					<div class= "ui grid">
+					<div class= "ui grid"> 
 						
-						<div class = "one column row">
+						<div class = "one column row gridrowstyle">
 							
 							<div class = "five wide column">
 								<div class="row" id="unit-chart">

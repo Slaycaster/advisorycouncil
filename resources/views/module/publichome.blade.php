@@ -21,7 +21,7 @@
 										
 									<div class = "logcontent">
 
-										<div class ="twelve wide column  bspacing8">
+										<div class ="twelve wide column bspacing8">
 											<div class="ui input logfield">
 												<input type="text" name = "username" placeholder="Username">
 											</div>
