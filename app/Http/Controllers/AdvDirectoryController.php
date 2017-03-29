@@ -120,10 +120,13 @@ class AdvDirectoryController extends Controller {
 
 				} else {
 					$this->editTP($data);
-					
-					$trainID = $this->getTrainIDList($data['ID']);
+					if(isset($data['traintitle'])) {
+						$trainID = $this->getTrainIDList($data['ID']);
 
-					$this->editLecturer($data, $trainID);
+						if(isset($data['speaker'])) {
+							$this->editLecturer($data, $trainID);
+						}//if
+					}//if
 
 
 				}//if($data->advcateg == 0) {
@@ -243,8 +246,9 @@ class AdvDirectoryController extends Controller {
 
 	}//public function getID() {
 
-	public function getTPID() {
-		$getid = Police_Advisory::orderBy('ID', 'desc')->take(1)->get();
+	public function getTPID($authorder) {
+		$getid = Police_Advisory::where('authorityorder', '=', $authorityorder)
+								->orderBy('ID', 'desc')->take(1)->get();
 
 		foreach ($getid as $key => $id) {
             return $id->ID;
@@ -496,15 +500,17 @@ class AdvDirectoryController extends Controller {
 	    	$advisory->quaternary_id = $data['quaternary'];
 	    }//if
 
-	    $advisory->authorityorder =$data['authorder'];
+	    $advisory->authorityorder = $data['authorder'];
 
     	$advisory->save();
 
-    	$id = $this->getTPID();
 
-    	$this->addTraining($data, $id);
+    	if(isset($data['traintitle'])) {
+	    	$id = $this->getTPID($data['authorder']);
 
-    	//return redirect('policeadvisory');
+	    	$this->addTraining($data, $id);
+	    }//if
+
 	    
 	}// add TP
 
@@ -591,9 +597,11 @@ class AdvDirectoryController extends Controller {
 		   	$training->police_id = $id;
 		   	$training->save();
 
-		   	$trainID = $this->getTrainID($id);
+		   	if(isset($data['speaker'])) {
+			   	$trainID = $this->getTrainID($id);
 
-		   	$this->addLecturer($data['speaker'][$i], $trainID);
+			   	$this->addLecturer($data['speaker'][$i], $trainID);
+		   	 }//if
 
 	    }//for
 

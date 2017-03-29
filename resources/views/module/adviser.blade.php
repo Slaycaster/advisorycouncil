@@ -290,12 +290,6 @@
         var pdfimage = [];
         var pdfsdate = [];
 
-		//--- TEMPORARY
-		$("select[name='filacposition']").dropdown().addClass('disabled', 'disabled');
-		$("select[name='filacsector']").dropdown().addClass('disabled', 'disabled');
-		$("select[name='filpnpposition']").dropdown().addClass('disabled', 'disabled');
-		//-------
-
 		
 		function checkageinput() {
 			var age1 = document.getElementById('filage1').value;

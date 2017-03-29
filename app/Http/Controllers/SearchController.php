@@ -344,9 +344,12 @@ class SearchController extends Controller
 				  		
 				  		$ac_col = $unitac->where('UnitOfficeName',$name)->toArray();
 				  		$total_pa = $value->total;
-				  		$ac_col[0]->total = $ac_col[0]->total + $total_pa;
-				  		$unitac->merge($ac_col);
 
+				  		foreach ($ac_col as $key => $gettotal) {
+				  			$gettotal->total = $gettotal->total + $total_pa;
+				  		}//foreeach
+
+				  		$unitac->merge($ac_col);
 
 				  		
 				  	}
@@ -399,7 +402,10 @@ class SearchController extends Controller
 				  		
 				  		$ac_col = $secondac->where('UnitOfficeSecondaryName',$name)->toArray();
 				  		$total_pa = $value->total;
-				  		$ac_col[0]->total = $ac_col[0]->total + $total_pa;
+				  		foreach ($ac_col as $key => $gettotal) {
+				  			$gettotal->total = $gettotal->total + $total_pa;
+				  		}//foreeach
+				  		
 				  		$secondac->merge($ac_col);
 
 
@@ -463,7 +469,9 @@ class SearchController extends Controller
 				  		
 				  		$ac_col = $tertiaryac->where('UnitOfficeTertiaryName',$name)->toArray();
 				  		$total_pa = $value->total;
-				  		$ac_col[0]->total = $ac_col[0]->total + $total_pa;
+				  		foreach ($ac_col as $key => $gettotal) {
+				  			$gettotal->total = $gettotal->total + $total_pa;
+				  		}//foreeach
 				  		$tertiaryac->merge($ac_col);
 
 
@@ -521,7 +529,9 @@ class SearchController extends Controller
 				  		
 				  		$ac_col = $quarternaryac->where('UnitOfficeQuaternaryName',$name)->toArray();
 				  		$total_pa = $value->total;
-				  		$ac_col[0]->total = $ac_col[0]->total + $total_pa;
+				  		foreach ($ac_col as $key => $gettotal) {
+				  			$gettotal->total = $gettotal->total + $total_pa;
+				  		}//foreeach
 				  		$quarternaryac->merge($ac_col);
 
 
@@ -773,6 +783,7 @@ class SearchController extends Controller
 	public function dashboard(Request $req){
 		//UI
 	
+		try {
 			$req->session()->put('tabtitle', '#tab1');
 
 			$chartoption = array(
@@ -894,6 +905,10 @@ class SearchController extends Controller
 										   ->with('fdaypa', $fdaypa)
 										   ->with('tdayac', $tdayac)
 										   ->with('tdaypa', $tdaypa);
+
+		} catch(\Exception $e) {
+			return view('errors.errorpage');
+		}
 
 	           
       
