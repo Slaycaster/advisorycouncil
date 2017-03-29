@@ -24,8 +24,6 @@
 											<div class="field">
 												<select onchange = "fieldcontrol(),loaddata()" class="ui selection dropdown filselect" name = "filadvcateg">
 
-												<select onchange = "fieldcontrol();" class="ui fluid selection dropdown " name = "filadvcateg">
-
 													<option value="4" selected>All</option>
 													<option value="1">Advisory Council (AC)</option>
 													<option value="2">Technical Working Group (TWG)</option>
