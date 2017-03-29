@@ -706,16 +706,69 @@ class SearchController extends Controller
 									            YEAR(CURDATE())-YEAR(birthdate)+1
 									        ) YEAR
 									    ),CURDATE())'),'<=', 14)
+	    								->where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+									        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+									            YEAR(CURDATE())-YEAR(birthdate),
+									            YEAR(CURDATE())-YEAR(birthdate)+1
+									        ) YEAR
+									    ),CURDATE())'),'>', 0)
 	    								->count();
 
-	    $pabday = Police_Advisory::
-	    							where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+	    $pabday = Police_Advisory::where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
 									        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
 									            YEAR(CURDATE())-YEAR(birthdate),
 									            YEAR(CURDATE())-YEAR(birthdate)+1
 									        ) YEAR
 									    ),CURDATE())'),'<=', 14)
+	    								->where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+									        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+									            YEAR(CURDATE())-YEAR(birthdate),
+									            YEAR(CURDATE())-YEAR(birthdate)+1
+									        ) YEAR
+									    ),CURDATE())'),'>', 0)
 	    								->count();
+
+	    $fdayac = Advisory_Council::where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+									        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+									            YEAR(CURDATE())-YEAR(birthdate),
+									            YEAR(CURDATE())-YEAR(birthdate)+1
+									        ) YEAR
+									    ),CURDATE())'),'<=', 14)
+	    								->where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+									        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+									            YEAR(CURDATE())-YEAR(birthdate),
+									            YEAR(CURDATE())-YEAR(birthdate)+1
+									        ) YEAR
+									    ),CURDATE())'),'>', 0)->get();
+
+		$fdaypa = Police_Advisory::where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+									        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+									            YEAR(CURDATE())-YEAR(birthdate),
+									            YEAR(CURDATE())-YEAR(birthdate)+1
+									        ) YEAR
+									    ),CURDATE())'),'<=', 14)
+	    								->where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+									        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+									            YEAR(CURDATE())-YEAR(birthdate),
+									            YEAR(CURDATE())-YEAR(birthdate)+1
+									        ) YEAR
+									    ),CURDATE())'),'>', 0)->get();
+
+	     $tdaypa = Police_Advisory::where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+									        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+									            YEAR(CURDATE())-YEAR(birthdate),
+									            YEAR(CURDATE())-YEAR(birthdate)+1
+									        ) YEAR
+									    ),CURDATE())'),'=', 0)->get();
+
+	     $tdayac = Advisory_Council::where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+									        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+									            YEAR(CURDATE())-YEAR(birthdate),
+									            YEAR(CURDATE())-YEAR(birthdate)+1
+									        ) YEAR
+									    ),CURDATE())'),'=', 0)->get();
+
+	    								
 
 
 
@@ -741,7 +794,12 @@ class SearchController extends Controller
 									   ->with('pac', $pac)
 									   ->with('ptwg', $ptwg)
 									   ->with('ppsmu', $ppsmu)
-									   ->with('ubday', $totalbday);
+									   ->with('ubday', $totalbday)
+									   ->with('fdayac', $fdayac)
+									   ->with('fdaypa', $fdaypa)
+									   ->with('tdayac', $tdayac)
+									   ->with('tdaypa', $tdaypa);
+
 
 
 	}
