@@ -386,6 +386,8 @@ class PDF extends FPDF
 	    				// $this->setXY($imageCol,$imagey0);
 	    				// $filename = file_get_contents($image[$i-1]);
 	    				$this->Image($image[$i-1],$imageCol,$imagey0,35,35);
+	    				// catch throw new Exception(); }
+	    				// finally { $this->Image('objects/Logo/InitProfile.png',$imageCol,$imagey0,35,35); }
 	    				// curl_close($curlHandler);
 	    			}
 	    		else 
