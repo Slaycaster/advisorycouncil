@@ -3,7 +3,7 @@
 @section('homesection')
 	<div class = "four wide column">
 		<div class = "ui segment summcon" id="summary">
-			<div class = "ui rail">
+
 				<div class = "ui con">
 					<div class="ui container">
 						<div class = "summhead">
@@ -23,6 +23,8 @@
 									@endforeach
 								</label>	
 							@endif
+							
+							<br>
 
 							@if(count($tdaypa) != 0)
 								<label class="formlabel">Today's Birthday (Police Advisory) 
@@ -36,26 +38,43 @@
 							@endif
 
 							@if(count($fdayac) != 0)
-								<label class="formlabel">Upcommung Birthdays of AC! 
+								<label class="formlabel">Upcoming Birthdays of AC! 
 								<br>
 									@foreach($fdayac as $data)
 										<div class ="twelve wide column  bspacing8">
-												<span class = "labeldesc">{{ $data->lname }}, {{ $data->fname }} {{ $data->mname }}</span>				
+												<span class = "labeldesc">{{ $data->lname }}, {{ $data->fname }} {{ $data->mname }} (@if($data->daysleft <= 7)
+																																		{{$data->daysleft}} day/s left
+																																	@elseif($data->daysleft > 7 && $data->daysleft <= 14)
+																																		2 weeks left
+																																	@endif
+																																	)</span>				
 										</div>
 									@endforeach
 								</label>	
 							@endif
 
 							@if(count($fdaypa) != 0)
-								<label class="formlabel">Upcommung Birthdays of Police Advisory! 
+								<label class="formlabel">Upcoming Birthdays of Police Advisory! 
 								<br>
 									@foreach($fdaypa as $data)
 										<div class ="twelve wide column  bspacing8">
-												<span class = "labeldesc">{{ $data->lname }}, {{ $data->fname }} {{ $data->mname }}</span>				
+												<span class = "labeldesc">{{ $data->lname }}, {{ $data->fname }} {{ $data->mname }} (@if($data->daysleft <= 7)
+																																		{{$data->daysleft}} day/s left
+																																	@elseif($data->daysleft > 7 && $data->daysleft <= 14)
+																																		2 weeks left
+																																	@endif
+																																	)</span>				
 										</div>
 									@endforeach
 								</label>	
 							@endif
+
+							<div class ="twelve wide column  bspacing8">
+								<label class="formlabel">No. of upcoming birthdays 2 weeks from now: <span class = "labeldesc">{{ $ubday }}</span></label>
+											
+							</div>
+
+							<br>
 							
 							<div class ="twelve wide column  bspacing8">
 								<label class="formlabel">% of AC: <span class = "labeldesc">{{ $pac }}%</span></label>
@@ -88,10 +107,6 @@
 							</div>
 
 							
-							<div class ="twelve wide column  bspacing8">
-								<label class="formlabel">No. of upcoming birthdays 2 weeks from now <span class = "labeldesc">{{ $ubday }}</span></label>
-											
-							</div>
 
 							<br>
 
@@ -109,7 +124,7 @@
 								
 				</div>
 							
-			</div>
+
 								
 						
 		</div>
@@ -140,7 +155,7 @@
 									
 								</div>
 								
-								{!! Lava::render('AreaChart', 'UnitSecondOffices', 'second-chart'); !!}
+								{!! Lava::render('ColumnChart', 'UnitSecondOffices', 'second-chart'); !!}
 								
 							</div>
 						</div>
@@ -151,7 +166,7 @@
 								<div class="row" id="ter-chart">
 									
 								</div>
-								{!! Lava::render('AreaChart', 'UnitTerOffices', 'ter-chart'); !!}
+								{!! Lava::render('ColumnChart', 'UnitTerOffices', 'ter-chart'); !!}
 								
 							</div>
 
@@ -164,7 +179,7 @@
 									
 								</div>
 								
-								{!! Lava::render('AreaChart', 'UnitQuarOffices', 'quar-chart'); !!}
+								{!! Lava::render('ColumnChart', 'UnitQuarOffices', 'quar-chart'); !!}
 								
 							</div>
 						</div>
@@ -213,7 +228,7 @@
 								<div class="row" id="sector-chart">
 									
 								</div>
-								{!! Lava::render('AreaChart', 'Sector', 'sector-chart'); !!}
+								{!! Lava::render('ColumnChart', 'Sector', 'sector-chart'); !!}
 								
 							</div>
 

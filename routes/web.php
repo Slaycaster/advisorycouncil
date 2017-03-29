@@ -211,3 +211,10 @@ Route::post('checkoldpassword', 'RegistrationController@checkoldpassword');
 Route::post('edituser', 'RegistrationController@edituser');
 Route::post('adduser', 'RegistrationController@adduser');
 
+
+
+//birthdays[ren]
+Route::get('upcomings', 'SearchController@upcomings');
+Route::get('birthdays', 'SearchController@birthdays');
+
+

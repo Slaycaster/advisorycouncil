@@ -719,6 +719,90 @@ class SearchController extends Controller
 	}
 
 
+	public function futurebdaypa(){
+		$query =  Police_Advisory::select('fname','lname','mname', DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+										            YEAR(CURDATE())-YEAR(birthdate),
+										            YEAR(CURDATE())-YEAR(birthdate)+1
+										        ) YEAR
+										    ),CURDATE()) as daysleft'))
+										->where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+										            YEAR(CURDATE())-YEAR(birthdate),
+										            YEAR(CURDATE())-YEAR(birthdate)+1
+										        ) YEAR
+										    ),CURDATE())'),'<=', 14)
+		    								->where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+										            YEAR(CURDATE())-YEAR(birthdate),
+										            YEAR(CURDATE())-YEAR(birthdate)+1
+										        ) YEAR
+										    ),CURDATE())'),'>', 0)
+		    								->orderBy('daysleft')
+										    ->get();
+		return $query;
+	}
+
+	public function futurebdayac(){
+
+		$query = Advisory_Council::select('fname','lname','mname', DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+										            YEAR(CURDATE())-YEAR(birthdate),
+										            YEAR(CURDATE())-YEAR(birthdate)+1
+										        ) YEAR
+										    ),CURDATE()) as daysleft'))
+		    								->where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+										            YEAR(CURDATE())-YEAR(birthdate),
+										            YEAR(CURDATE())-YEAR(birthdate)+1
+										        ) YEAR
+										    ),CURDATE())'),'<=', 14)
+		    								->where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+										            YEAR(CURDATE())-YEAR(birthdate),
+										            YEAR(CURDATE())-YEAR(birthdate)+1
+										        ) YEAR
+										    ),CURDATE())'),'>', 0)
+		    								->orderBy('daysleft')
+										    ->get();
+
+		return $query;
+
+	}
+
+	public function birthdaypa(){
+		$query = Police_Advisory::where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+										            YEAR(CURDATE())-YEAR(birthdate),
+										            YEAR(CURDATE())-YEAR(birthdate)+1
+										        ) YEAR
+										    ),CURDATE())'),'=', 0)->get();
+
+		return $query;
+	}
+
+	public function birthdayac(){
+		$query = Advisory_Council::where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+										            YEAR(CURDATE())-YEAR(birthdate),
+										            YEAR(CURDATE())-YEAR(birthdate)+1
+										        ) YEAR
+										    ),CURDATE())'),'=', 0)->get();
+
+		return $query;
+	}
+
+	public function upcomings(){
+		$data = array($this->futurebdayac(),$this->futurebdaypa());
+		return $data;
+	}
+
+	public function birthdays(){
+		$data = array($this->birthdayac(),$this->birthdaypa());
+		return $data;
+	}
+
+
 
 
 	public function dashboard(Request $req){
@@ -735,7 +819,7 @@ class SearchController extends Controller
 							);
 
 			$unitTable = $this->getUnitOffice();
-	       	$chartoption['title'] = 'Percentage of Stakeholders per Primary Unit/Offices';
+	       	$chartoption['title'] = 'Overall Percentage of Stakeholders';
 	       	$unitChart = \Lava::PieChart('UnitOffices', $unitTable, $chartoption);
 
 
@@ -755,29 +839,26 @@ class SearchController extends Controller
 	       	$acpositionChart = \Lava::PieChart('ACPosition', $acpositionTable , $chartoption);
 	       
 	       	$policepositionTable = $this->getPolicePosition();
-	       	$chartoption['title'] = 'Percentage of Stakeholders per Police Position';
+	       	$chartoption['title'] = 'Percentage of Stakeholders per Rank';
 	       	$policepositionChart = \Lava::PieChart('PolicePosition', $policepositionTable , $chartoption);
 
 	       	$chartoption['width'] = 600;
 			$secondTable = $this->getSecondOffice();
-	       	$chartoption['title'] = 'Percentage of Stakeholders per Secondary Unit/Offices';
-	       	$secondChart = \Lava::AreaChart('UnitSecondOffices', $secondTable, $chartoption);
+	       	$chartoption['title'] = 'Percentage of Stakeholders per Unit/Offices';
+	       	$secondChart = \Lava::ColumnChart('UnitSecondOffices', $secondTable, $chartoption);
 
 	       	$chartoption['width'] = 930;
 	       	$terTable = $this->getTertiaryOffice();
-	       	$chartoption['title'] = 'Percentage of Stakeholders per Tertiary Unit/Offices';
-	       	$terChart = \Lava::AreaChart('UnitTerOffices', $terTable, $chartoption);
+	       	$chartoption['title'] = 'Percentage of Stakeholders per PPO/CPO';
+	       	$terChart = \Lava::ColumnChart('UnitTerOffices', $terTable, $chartoption);
 
 	       	$quarTable = $this->getQuarternaryOffice();
-	       	$chartoption['title'] = 'Percentage of Stakeholders per Quaternary Unit/Offices';
-	       	$quarChart = \Lava::AreaChart('UnitQuarOffices', $quarTable, $chartoption);
-
-	       	
-	       	
+	       	$chartoption['title'] = 'Percentage of Stakeholders per MPS';
+	       	$quarChart = \Lava::ColumnChart('UnitQuarOffices', $quarTable, $chartoption);
 	       	
 	       	$sectorTable = $this->getSector();
 	       	$chartoption['title'] = 'Percentage of Stakeholders per AC Sector';
-	       	$sectorChart = \Lava::AreaChart('Sector', $sectorTable, $chartoption);
+	       	$sectorChart = \Lava::ColumnChart('Sector', $sectorTable, $chartoption);
 
 		    $acbday = Advisory_Council::where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
 										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
@@ -807,61 +888,13 @@ class SearchController extends Controller
 										    ),CURDATE())'),'>', 0)
 		    								->count();
 
-		    $fdayac = Advisory_Council::select('fname','lname','mname', DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
-										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
-										            YEAR(CURDATE())-YEAR(birthdate),
-										            YEAR(CURDATE())-YEAR(birthdate)+1
-										        ) YEAR
-										    ),CURDATE()) as daysleft'))
-		    								->where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
-										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
-										            YEAR(CURDATE())-YEAR(birthdate),
-										            YEAR(CURDATE())-YEAR(birthdate)+1
-										        ) YEAR
-										    ),CURDATE())'),'<=', 14)
-		    								->where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
-										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
-										            YEAR(CURDATE())-YEAR(birthdate),
-										            YEAR(CURDATE())-YEAR(birthdate)+1
-										        ) YEAR
-										    ),CURDATE())'),'>', 0)
-		    								->orderBy('daysleft')
-										    ->get();
+		    $fdayac = $this->futurebdayac(); // get the list of upcoming bday in ac
 
-			$fdaypa = Police_Advisory::select('fname','lname','mname', DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
-										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
-										            YEAR(CURDATE())-YEAR(birthdate),
-										            YEAR(CURDATE())-YEAR(birthdate)+1
-										        ) YEAR
-										    ),CURDATE()) as daysleft'))
-										->where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
-										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
-										            YEAR(CURDATE())-YEAR(birthdate),
-										            YEAR(CURDATE())-YEAR(birthdate)+1
-										        ) YEAR
-										    ),CURDATE())'),'<=', 14)
-		    								->where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
-										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
-										            YEAR(CURDATE())-YEAR(birthdate),
-										            YEAR(CURDATE())-YEAR(birthdate)+1
-										        ) YEAR
-										    ),CURDATE())'),'>', 0)
-		    								->orderBy('daysleft')
-										    ->get();
+			$fdaypa = $this->futurebdaypa(); // get the list of upcoming bday in pa
 
-		     $tdaypa = Police_Advisory::where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
-										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
-										            YEAR(CURDATE())-YEAR(birthdate),
-										            YEAR(CURDATE())-YEAR(birthdate)+1
-										        ) YEAR
-										    ),CURDATE())'),'=', 0)->get();
+		     $tdaypa = $this->birthdaypa(); // get the list of todays birthday pa
 
-		     $tdayac = Advisory_Council::where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
-										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
-										            YEAR(CURDATE())-YEAR(birthdate),
-										            YEAR(CURDATE())-YEAR(birthdate)+1
-										        ) YEAR
-										    ),CURDATE())'),'=', 0)->get();
+		     $tdayac = $this->birthdayac(); // get the list of todays birthday ac
 
 		    								
 

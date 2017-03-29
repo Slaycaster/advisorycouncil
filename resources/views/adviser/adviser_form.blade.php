@@ -520,8 +520,6 @@
 				//fill dropdown
 				document.getElementsByName('authorder')[0].value = '{{$recorddata[0][0]->authorityorder}}';
 				$("select[name='position']").dropdown('set selected', "{{$recorddata[0][0]->police_position_id}}");
-				$("select[name='rank']").dropdown('set selected', "{{$recorddata[0][0]->rank_id}}");
-
 				
 			}//function fillTP() {
 
@@ -782,7 +780,6 @@
 						'durstart' : document.getElementsByName('durationsdate')[0].value,
 						'authorder' : document.getElementsByName('authorder')[0].value.trim(),
 						'pnppost' : document.getElementsByName('position')[0].value,
-						'rank' : document.getElementsByName('rank')[0].value,
 						'secondary' : document.getElementsByName('secondary')[0].value,
 						'tertiary' : document.getElementsByName('tertiary')[0].value,
 						'quaternary' : document.getElementsByName('quaternary')[0].value,
@@ -889,7 +886,6 @@
 			   	success : function(data) {
 
 			   		$("select[name='position'] option").not("[value='disitem']").remove();
-			   		$("select[name='rank'] option").not("[value='disitem']").remove();
 			   		$("select[name='primary'] option").not("[value='disitem']").remove();
 
 			   		for (var ctr = 0 ; ctr < data[0].length ; ctr++) {
@@ -897,13 +893,9 @@
 			   			
 			   		};
 
-			   		for (var ctr = 0 ; ctr < data[1].length ; ctr++) {
-			   			populatedropdown(data[1][ctr]['id'], 'rank', data[1][ctr]['RankName']);
-			   			
-			   		};
 
-			   		for (var ctr = 0 ; ctr < data[2].length ; ctr++) {
-			   			populatedropdown(data[2][ctr]['id'], 'primary', data[2][ctr]['UnitOfficeName']);
+			   		for (var ctr = 0 ; ctr < data[1].length ; ctr++) {
+			   			populatedropdown(data[1][ctr]['id'], 'primary', data[1][ctr]['UnitOfficeName']);
 			   			
 			   		};
 			   	},

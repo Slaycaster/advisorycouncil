@@ -4,7 +4,7 @@
 
 	<div class="maintecon">
 		<div class = "ui grid gridcellh">
-			<div class = "three wide column">
+			<div class = "three wide column rwdcolumn">
 				<div class="ui vertical menu">
 					<div class = "item grey">
 						<div class="header">Advisory Council (AC)</div>

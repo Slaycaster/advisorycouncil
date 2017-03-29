@@ -24,8 +24,6 @@ use App\Models\Advisory_Position;
 
 use App\Models\AC_Category;
 
-use App\Models\ranks;
-
 use App\Models\AC_Subcategory;
 
 use App\Models\Personnel_Sector;
@@ -274,10 +272,9 @@ class AdvDirectoryController extends Controller {
 
 	public function getInitTPD() {
 		$pnpposition = Police_Position::all();
-		$rank = ranks::all();
  		$primaryoffice = unit_offices::all();
 
- 		return array($pnpposition, $rank, $primaryoffice);
+ 		return array($pnpposition, $primaryoffice);
 
 	}//public function getInitTPD() {
 
@@ -489,7 +486,6 @@ class AdvDirectoryController extends Controller {
 
 	 	}//if
     	$advisory->police_position_id = $data['pnppost'];
-    	$advisory->rank_id = $data['rank'];
     	$advisory->second_id = $data['secondary'];
 
 	    if($data['tertiary'] != 'disitem') {
@@ -561,7 +557,6 @@ class AdvDirectoryController extends Controller {
 
 	 	}//if
     	$advisory->police_position_id = $data['pnppost'];
-    	$advisory->rank_id = $data['rank'];
     	$advisory->second_id = $data['secondary'];
 
 	    if($data['tertiary'] != 'disitem') {
@@ -692,8 +687,7 @@ class AdvDirectoryController extends Controller {
 
 		}else if($type == 1 || $type == 2) {
 
-			$pa = Police_Advisory::join("ranks", "ranks.id", "=", "police_advisory.rank_id")
-									->join("police_position", "police_position.ID", "=", "police_advisory.police_position_id")
+			$pa = Police_Advisory::join("police_position", "police_position.ID", "=", "police_advisory.police_position_id")
 									->join('unit_office_secondaries', 'unit_office_secondaries.id', '=', 'police_advisory.second_id')
 									->join("unit_offices", "unit_offices.id", "=", "unit_office_secondaries.UnitOfficeID")
 									->leftJoin("unit_office_tertiaries", "unit_office_tertiaries.id", "=", "police_advisory.tertiary_id")
