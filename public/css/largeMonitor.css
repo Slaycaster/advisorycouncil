@@ -3,7 +3,6 @@
 {
 
 	html{
-		width:1200px;
 		height:100%;
 		
 	}
@@ -61,7 +60,7 @@ width:235px;
 
 .mtitle {
     
-    width: 98%;
+    width: 100%;
 }
 
 .rwdrightrow{
@@ -71,6 +70,14 @@ width:235px;
 .ui.vertical.menu{
 	width:110%;
 }
+
+.ui.segment.summcon {
+	width: 95%;
+	height:100em;
+	margin: 4% 0 0 5%;
+	background-color: #ede8e6;
+}
+
 
 
 
