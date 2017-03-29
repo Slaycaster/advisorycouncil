@@ -83,7 +83,13 @@ class SearchController extends Controller
 					->select('advisory_council.ID','lname', 'fname', 'mname', 'imagepath', 'email', 
 						     'contactno', 'landline','startdate', 'acpositionname', 'officename',
 						     'UnitOfficeName', 'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
-						     'UnitOfficeQuaternaryName','sectorname')
+						     'UnitOfficeQuaternaryName','sectorname',DB::raw(' DATEDIFF(DATE_ADD(
+						        birthdate, 
+						        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+						            YEAR(CURDATE())-YEAR(birthdate),
+						            YEAR(CURDATE())-YEAR(birthdate)+1
+						        ) YEAR
+						    ),CURDATE()) as daysleft'))
 					->where('fname','like','%'.$query.'%')
 					->orWhere('lname','like','%'.$query.'%')
 					->orWhere('mname','like','%'.$query.'%')
@@ -113,7 +119,13 @@ class SearchController extends Controller
 					->select('police_advisory.ID', 'lname', 'fname', 'mname', 'imagepath', 'email', 
 						     'contactno', 'landline', 'startdate', 'policetype',
 						     'UnitOfficeName', 'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
-						     'UnitOfficeQuaternaryName', 'PositionName')
+						     'UnitOfficeQuaternaryName', 'PositionName',DB::raw(' DATEDIFF(DATE_ADD(
+						        birthdate, 
+						        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+						            YEAR(CURDATE())-YEAR(birthdate),
+						            YEAR(CURDATE())-YEAR(birthdate)+1
+						        ) YEAR
+						    ),CURDATE()) as daysleft'))
 					->orderBy('police_advisory.lname', 'desc')
 					->paginate(12);
 					/*
@@ -150,10 +162,16 @@ class SearchController extends Controller
 					->select('advisory_council.ID','lname', 'fname', 'mname', 'imagepath', 'email', 
 						     'contactno', 'landline','startdate', 'acpositionname', 'officename',
 						     'UnitOfficeName', 'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
-						     'UnitOfficeQuaternaryName')
+						     'UnitOfficeQuaternaryName',DB::raw(' DATEDIFF(DATE_ADD(
+						        birthdate, 
+						        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+						            YEAR(CURDATE())-YEAR(birthdate),
+						            YEAR(CURDATE())-YEAR(birthdate)+1
+						        ) YEAR
+						    ),CURDATE()) as daysleft'))
 					->where('advisory_council.ID','=',$query)
 					->orderBy('advisory_council.created_at', 'desc')
-					->get();
+					->paginate(12);
 
 
 		if (Auth::check()) {
@@ -181,9 +199,15 @@ class SearchController extends Controller
 					->select('police_advisory.ID', 'lname', 'fname', 'mname', 'imagepath', 'email', 
 						     'contactno', 'landline', 'startdate', 'policetype',
 						     'UnitOfficeName', 'UnitOfficeSecondaryName', 'UnitOfficeTertiaryName',
-						     'UnitOfficeQuaternaryName', 'PositionName')
+						     'UnitOfficeQuaternaryName', 'PositionName',DB::raw(' DATEDIFF(DATE_ADD(
+						        birthdate, 
+						        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+						            YEAR(CURDATE())-YEAR(birthdate),
+						            YEAR(CURDATE())-YEAR(birthdate)+1
+						        ) YEAR
+						    ),CURDATE()) as daysleft'))
 					->orderBy('police_advisory.created_at', 'desc')
-					->get();
+					->paginate(12);
 
 					if (Auth::check()) {
 				    	return view('search.search_result')->with('data2',$police)
@@ -676,6 +700,28 @@ class SearchController extends Controller
       	$ac = Advisory_Council::count();
 	    $twg = Police_Advisory::where('policetype', '=', 1)->count();
 	    $psmu = Police_Advisory::where('policetype', '=', 2)->count();
+	    $acbday = Advisory_Council::where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+									        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+									            YEAR(CURDATE())-YEAR(birthdate),
+									            YEAR(CURDATE())-YEAR(birthdate)+1
+									        ) YEAR
+									    ),CURDATE())'),'<=', 14)
+	    								->count();
+
+	    $pabday = Police_Advisory::
+	    							where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+									        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
+									            YEAR(CURDATE())-YEAR(birthdate),
+									            YEAR(CURDATE())-YEAR(birthdate)+1
+									        ) YEAR
+									    ),CURDATE())'),'<=', 14)
+	    								->count();
+
+
+
+	    $totalbday = $acbday + $pabday;
+
+
 	    $pac = 0;
 	    $ptwg = 0;
 	    $ppsmu = 0;
@@ -694,7 +740,8 @@ class SearchController extends Controller
 									   ->with('psmu', $psmu)
 									   ->with('pac', $pac)
 									   ->with('ptwg', $ptwg)
-									   ->with('ppsmu', $ppsmu);
+									   ->with('ppsmu', $ppsmu)
+									   ->with('ubday', $totalbday);
 
 
 	}

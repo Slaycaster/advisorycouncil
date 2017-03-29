@@ -75,7 +75,15 @@
 										</p>
 
 										<p class = "p3"> Member since {{date('M Y',strtotime($acrec->startdate))}} &nbsp;&nbsp;</p>
+										@if($acrec->daysleft > 7 && $acrec->daysleft <= 14)
 										
+										<p class = "p3" style="color:red;">2 Weeks before birthday</p>
+										
+										@elseif($acrec->daysleft <= 7)
+										
+										<p class = "p3" style="color:red;">{{$acrec->daysleft}} days before birthday</p>
+										
+										@endif
 									</div>
 								</div>
 
@@ -140,7 +148,15 @@
 										</p>
 
 										<p class = "p3"> Member since {{date('M Y',strtotime($tprec->startdate))}} &nbsp;&nbsp;</p>
+										@if($acrec->daysleft > 7 && $acrec->daysleft <= 14)
 										
+										<p class = "p3" style="color:red;">2 Weeks before birthday</p>
+										
+										@elseif($acrec->daysleft <= 7)
+										
+										<p class = "p3" style="color:red;">{{$acrec->daysleft}} days before birthday</p>
+										
+										@endif
 									</div>
 								</div>
 
