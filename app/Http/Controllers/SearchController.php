@@ -735,7 +735,7 @@ class SearchController extends Controller
 							);
 
 			$unitTable = $this->getUnitOffice();
-	       	$chartoption['title'] = 'Percentage of Stakeholders per Primary Unit/Offices';
+	       	$chartoption['title'] = 'Overall Percentage of Stakeholders';
 	       	$unitChart = \Lava::PieChart('UnitOffices', $unitTable, $chartoption);
 
 
@@ -755,25 +755,22 @@ class SearchController extends Controller
 	       	$acpositionChart = \Lava::PieChart('ACPosition', $acpositionTable , $chartoption);
 	       
 	       	$policepositionTable = $this->getPolicePosition();
-	       	$chartoption['title'] = 'Percentage of Stakeholders per Police Position';
+	       	$chartoption['title'] = 'Percentage of Stakeholders per Rank';
 	       	$policepositionChart = \Lava::PieChart('PolicePosition', $policepositionTable , $chartoption);
 
 	       	$chartoption['width'] = 600;
 			$secondTable = $this->getSecondOffice();
-	       	$chartoption['title'] = 'Percentage of Stakeholders per Secondary Unit/Offices';
+	       	$chartoption['title'] = 'Percentage of Stakeholders per Unit/Offices';
 	       	$secondChart = \Lava::AreaChart('UnitSecondOffices', $secondTable, $chartoption);
 
 	       	$chartoption['width'] = 930;
 	       	$terTable = $this->getTertiaryOffice();
-	       	$chartoption['title'] = 'Percentage of Stakeholders per Tertiary Unit/Offices';
+	       	$chartoption['title'] = 'Percentage of Stakeholders per PPO/CPO';
 	       	$terChart = \Lava::AreaChart('UnitTerOffices', $terTable, $chartoption);
 
 	       	$quarTable = $this->getQuarternaryOffice();
-	       	$chartoption['title'] = 'Percentage of Stakeholders per Quaternary Unit/Offices';
+	       	$chartoption['title'] = 'Percentage of Stakeholders per MPS';
 	       	$quarChart = \Lava::AreaChart('UnitQuarOffices', $quarTable, $chartoption);
-
-	       	
-	       	
 	       	
 	       	$sectorTable = $this->getSector();
 	       	$chartoption['title'] = 'Percentage of Stakeholders per AC Sector';

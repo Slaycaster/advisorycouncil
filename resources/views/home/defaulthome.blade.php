@@ -3,7 +3,7 @@
 @section('homesection')
 	<div class = "four wide column">
 		<div class = "ui segment summcon" id="summary">
-			<div class = "ui rail">
+
 				<div class = "ui con">
 					<div class="ui container">
 						<div class = "summhead">
@@ -23,6 +23,8 @@
 									@endforeach
 								</label>	
 							@endif
+							
+							<br>
 
 							@if(count($tdaypa) != 0)
 								<label class="formlabel">Today's Birthday (Police Advisory) 
@@ -36,7 +38,7 @@
 							@endif
 
 							@if(count($fdayac) != 0)
-								<label class="formlabel">Upcommung Birthdays of AC! 
+								<label class="formlabel">Upcoming Birthdays of AC! 
 								<br>
 									@foreach($fdayac as $data)
 										<div class ="twelve wide column  bspacing8">
@@ -47,7 +49,7 @@
 							@endif
 
 							@if(count($fdaypa) != 0)
-								<label class="formlabel">Upcommung Birthdays of Police Advisory! 
+								<label class="formlabel">Upcoming Birthdays of Police Advisory! 
 								<br>
 									@foreach($fdaypa as $data)
 										<div class ="twelve wide column  bspacing8">
@@ -56,6 +58,13 @@
 									@endforeach
 								</label>	
 							@endif
+
+							<div class ="twelve wide column  bspacing8">
+								<label class="formlabel">No. of upcoming birthdays 2 weeks from now: <span class = "labeldesc">{{ $ubday }}</span></label>
+											
+							</div>
+
+							<br>
 							
 							<div class ="twelve wide column  bspacing8">
 								<label class="formlabel">% of AC: <span class = "labeldesc">{{ $pac }}%</span></label>
@@ -88,10 +97,6 @@
 							</div>
 
 							
-							<div class ="twelve wide column  bspacing8">
-								<label class="formlabel">No. of upcoming birthdays 2 weeks from now <span class = "labeldesc">{{ $ubday }}</span></label>
-											
-							</div>
 
 							<br>
 
@@ -109,7 +114,7 @@
 								
 				</div>
 							
-			</div>
+
 								
 						
 		</div>

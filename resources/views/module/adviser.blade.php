@@ -7,7 +7,7 @@
 			<div class = "row">
 				<div class = "four wide column">
 					<div class = "ui segment filcon" id="summary">
-						<div class = "ui rail">
+						
 							<div class = "ui con">
 								<div class="ui container ">
 									<div class = "summhead">
@@ -15,8 +15,6 @@
 											Filter
 									</div>
 
-										
-											<label class="formlabel">Stakeholder Category</label>
 											
 								<div class = "twelve wide column bspacing2">
 										<div class = "one field">
@@ -58,7 +56,7 @@
 
 									<div class = "twelve wide column bspacing2">
 										<div class = "one field">
-											<label class="formlabel">PNP Position</label>
+											<label class="formlabel">Rank</label>
 											<div class="field">
 												<select onchange = "loaddata()" class="ui selection dropdown filselect" name = "filpnpposition">
 													<option value="disitem" selected>Select One</option>
@@ -203,7 +201,7 @@
 											
 							</div>
 										
-						</div>
+					
 											
 									
 					</div>
