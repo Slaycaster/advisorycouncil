@@ -49,7 +49,7 @@
 						<div class = "row rightrow">
 							<div class = "ucon">
 								<img class="ui avatar image profile" src="{{URL::asset('objects/Logo/InitProfile.png')}}">
-									<span>{{ Auth::user()->email }} &nbsp</span><a class = "outlink" href="{{url('logout')}}">(LOG OUT)</a>
+									<a class="utitle" href="{{url('user/edit')}}" title="Edit Account">{{ Auth::user()->email }}</a>&nbsp;<a class = "outlink" href="{{url('logout')}}">(LOG OUT)</a>
 							</div>
 						</div>
 							
@@ -101,21 +101,15 @@
 		<div class = "mainbody">
 
 			<div class = "content1">
+
 				<div class = "ui grid">
 					<div class = "row">
-						<div class = "nine wide column colheight">
+						<div class = "nine wide column">
 							<select id="searchbox" name="q" placeholder="Search Stakeholder(s)" ></select>
 
 							@if(isset($showcontrol))
-								<!--<div class = "ui icon addbtn button medium" 
-									onclick = "window.location='{{url('directory/add')}}'" 
-									title = "Add AC Member">
-									<i class="plus icon topmargin"></i>
-									
-								</div>-->
-
 								<button type="button" class="ui right labeled icon button"
-									onclick = "window.open('{{url('directory/add')}}')" 
+									onclick = "window.location = '{{url('directory/add')}}'" 
 									title = "Add AC Member">
 									<i class="plus icon"></i>
 									ADD
@@ -141,8 +135,25 @@
 			
 		</div>
 
+		<div class = "modalcontainer">
+			<div class="ui basic modal" id = "errormodal">
+				<div class="ui icon header">
+					<i class="help circle icon"></i>
+			    		<div name = "modalmessage">Sorry! Something went wrong. <br>
+			    		Please try again later.</div>
+				</div>
+				
+				<div class="actions">
+			    	<div onclick = "location.reload();" class="ui basic ok inverted button">
+			      		OK
+			    	</div>
+			  	</div>
+			</div>
+			
+		</div>
+		
 		<footer class = "footer">
-			<center>Advisory Council | 2016</center>
+			<center>Stakeholder Information System  | 2016</center>
 		</footer>
 		
 	</body>

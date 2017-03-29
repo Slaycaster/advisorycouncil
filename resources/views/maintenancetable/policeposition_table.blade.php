@@ -188,7 +188,10 @@
 							console.log(data);
 						}
 
-					}
+					},
+					error:function() {
+						$('#errormodal').modal('show');
+					} 
 
 				});
 		}//

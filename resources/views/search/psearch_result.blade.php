@@ -9,7 +9,14 @@
 					<div class = "hcontent1">
 						<div class="dcon">
 							<div class = "tablepane">
-								<div class = "mtitle">Results for "{{Request::get('sq')}}"</div>
+								<div class = "mtitle">Results for "
+
+									@if(isset($query))
+										{{$query}}
+									@endif
+
+
+								"</div>
 							</div>
 						</div>
 					</div>

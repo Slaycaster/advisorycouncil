@@ -23,7 +23,7 @@
 						        if (item.imagepath == null) {
 				                    return '<div><div class="imgcon"><img class="dropphoto" src="{{URL::asset('objects/Logo/InitProfile.png')}}"></div>&nbsp;<label class="dropname">' +escape(item.fname) + " " + escape(item.mname)+ " " + escape(item.lname)+'</label></div>';    
 				                }else{
-				                   return '<div><div class="imgcon"><img class="dropphoto" src="'+escape(item.imagepath)+'"></div>&nbsp;<label class="dropname">' +escape(item.fname) + " " + escape(item.mname)+ " " + escape(item.lname)+'</label></div>';    
+				                   return '<div><div class="imgcon"><img class="dropphoto" src="{!!URL::asset("' + item.imagepath + '")!!}"></div>&nbsp;<label class="dropname">' +escape(item.fname) + " " + escape(item.mname)+ " " + escape(item.lname)+'</label></div>';    
 				                };
 
 						                

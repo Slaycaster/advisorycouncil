@@ -73,7 +73,7 @@
 						
 						<div class = "one column row">
 							
-							<div class = "five wide column">
+							<div class = "six wide column">
 								<div class="row" id="unit-chart">
 									
 								</div>
@@ -81,7 +81,7 @@
 								
 							</div>
 
-							<div class = "ten wide column">
+							<div class = "nine wide column">
 								<div class="row" id="second-chart">
 									
 								</div>
@@ -181,45 +181,5 @@
 		</div>
 					
 	</div>
-
-	<!--<script type="text/javascript">
-
-		$(function() {
-		    $('#select').on('change', function() {
-								         
-			var choice = this.value;
-			if (choice == 1) {
-					$.getJSON('Dashboard/primary', function (dataTableJson) {
-			  			lava.loadData('UnitOffices', dataTableJson, function (chart) {
-						
-						  });
-					});
-			}else if (choice == 2) {
-				$.getJSON('Dashboard/secondary', function (dataTableJson) {
-					lava.loadData('UnitOffices', dataTableJson, function (chart) {
-															    
-					});
-				});
-			}else if (choice == 3) {
-				$.getJSON('Dashboard/tertiary', function (dataTableJson) {
-					lava.loadData('UnitOffices', dataTableJson, function (chart) {
-						
-					 });
-				});
-			}else if (choice == 4) {
-				$.getJSON('Dashboard/Quarternary', function (dataTableJson) {
-					lava.loadData('UnitOffices', dataTableJson, function (chart) {
-						
-					});
-				});
-
-			}//if
-								           
-
-			});
-		});
-
-	</script>-->
-
 
 @stop

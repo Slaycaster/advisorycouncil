@@ -233,12 +233,6 @@
 	<script type="text/javascript">
 		$('#tab3').attr('class', 'mlink item active');
 
-		//--- TEMPORARY
-		$("select[name='filacposition']").dropdown().addClass('disabled', 'disabled');
-		$("select[name='filacsector']").dropdown().addClass('disabled', 'disabled');
-		$("select[name='filpnpposition']").dropdown().addClass('disabled', 'disabled');
-		//-------
-
 		
 		function checkageinput() {
 			var age1 = document.getElementsByName('filage1')[0].value;
@@ -266,20 +260,14 @@
 
 
 			} else if(advcateg == 2 || advcateg == 3) {
-				$("select[name='filacposition']").dropdown().addClass('disabled', 'disabled');
-				$("select[name='filacsector']").dropdown().addClass('disabled', 'disabled');
+				$("select[name='filacposition']").dropdown().addClass('disabled');
+				$("select[name='filacsector']").dropdown().addClass('disabled');
 				$("select[name='filpnpposition']").dropdown().removeClass('disabled');
 
 			} else if(advcateg == 4) {
-				/*$("select[name='filacposition']").dropdown().removeClass('disabled');
+				$("select[name='filacposition']").dropdown().removeClass('disabled');
 				$("select[name='filacsector']").dropdown().removeClass('disabled');
-				$("select[name='filpnpposition']").dropdown().removeClass('disabled');*/
-
-				$("select[name='filacposition']").dropdown().addClass('disabled', 'disabled');
-				$("select[name='filacsector']").dropdown().addClass('disabled', 'disabled');
-				$("select[name='filpnpposition']").dropdown().addClass('disabled', 'disabled');
-
-
+				$("select[name='filpnpposition']").dropdown().removeClass('disabled');
 			}
 
 		}//changefieldstate
@@ -302,7 +290,7 @@
 				dataType: 'json',
 			   	success : function(secoffice) {
 
-			   		$("select[name='secondary'] option").not("[value='disitem']").remove();
+			   		$("select[name='filsecondary'] option").not("[value='disitem']").remove();
 
 			   		for (var ctr = 0 ; ctr < secoffice.length ; ctr++) {
 			   			populatedropdown(secoffice[ctr]['id'], 'filsecondary', secoffice[ctr]['UnitOfficeSecondaryName']);
@@ -311,7 +299,10 @@
 
 
 			   		
-			   	}//success : function() {
+			   	},
+				error:function() {
+					$('#errormodal').modal('show');
+				} 
 			});
 
 		}//function getsecoffice() {
@@ -330,7 +321,7 @@
 				dataType: 'json',
 			   	success : function(teroffice) {
 
-			   		$("select[name='tertiary'] option").not("[value='disitem']").remove();
+			   		$("select[name='filtertiary'] option").not("[value='disitem']").remove();
 
 			   		for (var ctr = 0 ; ctr < teroffice.length ; ctr++) {
 			   			populatedropdown(teroffice[ctr]['id'], 'filtertiary', teroffice[ctr]['UnitOfficeTertiaryName']);
@@ -338,7 +329,10 @@
 			   		};
 
 			   		
-			   	}//success : function() {
+			   	},
+				error:function() {
+					$('#errormodal').modal('show');
+				} 
 			});
 		}//function getteroffice() {
 
@@ -356,7 +350,7 @@
 				dataType: 'json',
 			   	success : function(quaroffice) {
 
-			   		$("select[name='quaternary'] option").not("[value='disitem']").remove();
+			   		$("select[name='filquaternary'] option").not("[value='disitem']").remove();
 
 			   		for (var ctr = 0 ; ctr < quaroffice.length ; ctr++) {
 			   			populatedropdown(quaroffice[ctr]['id'], 'filquaternary', quaroffice[ctr]['UnitOfficeQuaternaryName']);
@@ -364,7 +358,10 @@
 			   		};
 
 			   		
-			   	}//success : function() {
+			   	},
+				error:function() {
+					$('#errormodal').modal('show');
+				} 
 			});
 		}//function getteroffice() {
 

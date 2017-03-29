@@ -108,9 +108,23 @@
 		    	</div>
 		  	</div>
 		</div>
-	</div>
 
-	<script type="text/javascript" src = "{{ URL::asset('js/formvalidation.js') }}"></script>
+		<div class="ui basic modal" id = "errormodal">
+			<div class="ui icon header">
+				<i class="help circle icon"></i>
+			   		<div name = "modalmessage">Sorry! Something went wrong. <br>
+			   		Please try again later.</div>
+			</div>
+				
+			<div class="actions">
+			   	<div onclick = "location.reload();" class="ui basic ok inverted button">
+			   		OK
+			   	</div>
+		 	</div>
+		</div>
+
+
+	</div>
 
 	<script type="text/javascript">
 		function loadCModal() {
@@ -126,7 +140,9 @@
 				    $('#ExampleCaptcha_CaptchaDiv').html(json);
 				  },
 				  error: function(data) {
-				    document.getElementsByName('message')[0].innerHTML = document.getElementsByName('message')[0].innerHTML + "<br>Try Manual Reloading";
+				    //document.getElementsByName('message')[0].innerHTML = document.getElementsByName('message')[0].innerHTML + "<br>Try Manual Reloading";
+					$('#errormodal').modal('show');
+				  	
 				  }
 				});
 		}	
@@ -148,7 +164,10 @@
 					}
 					
 			   		
-			   	}//success : function() {
+			   	},
+				error:function() {
+					$('#errormodal').modal('show');
+				} 
 			});
 
 
