@@ -155,7 +155,10 @@
 			   			$( "#hasfield").prop('checked', false);
 			   		}
 
-			   	}//success : function() {
+			   	},
+				error:function() {
+					$('#errormodal').modal('show');
+				} 
 			});
 
 
@@ -177,12 +180,16 @@
 			   	success : function() {
 
 			   		resetflag('Saved!');
-			   	}
+
+					setTimeout(function(){
+						location.reload();
+					}, 2600);
+			   	},
+				error:function() {
+					$('#errormodal').modal('show');
+				} 
 			});
 
-			setTimeout(function(){
-				location.reload();
-			}, 2600);
 
 		}//function addData(){
 
@@ -202,13 +209,17 @@
 				data: data,
 			   	success : function() {
 			   		resetflag('Updated!');
+			   		setTimeout(function(){
+						location.reload();
+					}, 2600);
 
-			   	}//success : function() {
+			   	},
+				error:function() {
+					$('#errormodal').modal('show');
+				} 
 			});
 
-			setTimeout(function(){
-				location.reload();
-			}, 2600);
+			
 
 
 		}//

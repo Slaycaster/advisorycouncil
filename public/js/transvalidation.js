@@ -121,14 +121,7 @@ function tablevalidate(id) {
 					type : "regExp",
 					value : /^(?=.*(\d|\w))[A-Za-z0-9 ]{2,35}$/
 				}]
-			},
-
-			mname: {
-				rules: [{
-					type : "regExp",
-					value : /^(?=.*(\d|\w))[A-Za-z0-9 ]{2,35}$/
-				}]
-			},
+			}
 
 			primary: {
 				rules: [{

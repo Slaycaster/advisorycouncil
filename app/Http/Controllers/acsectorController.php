@@ -12,13 +12,21 @@ class acsectorController extends Controller
 {
    
     public function index_acsectors(Request $req){
-      $req->session()->put('tabtitle', '#tab2');
+      try {
+         $req->session()->put('tabtitle', '#tab2');
       
-      $sector = DB::table('AC_Sector')
-      ->orderBy('AC_Sector.ID','DESC')
-      ->get();
-      return view('maintenancetable.acsector_table')
-      ->with('sector', $sector);
+          $sector = DB::table('AC_Sector')
+          ->orderBy('AC_Sector.ID','DESC')
+          ->get();
+
+
+          return view('maintenancetable.acsector_table')
+          ->with('sector', $sector);
+           
+      } catch(\Exception $e) {
+            return view('errors.errorpage')->with('pass', 'true');
+       }//
+     
       
     }
 

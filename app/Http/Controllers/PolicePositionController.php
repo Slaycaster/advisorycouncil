@@ -12,10 +12,16 @@ use App\Models\Police_Position;
 class PolicePositionController extends Controller
 {
     public function index_policeposition(Request $req){
-        $req->session()->put('tabtitle', '#tab2');
-        $positions = DB::table('Police_Position')->get();
-		return view('maintenancetable/policeposition_table', compact('positions'));
-        //->with('sql', $sql);
+       
+        try {
+            $req->session()->put('tabtitle', '#tab2');
+            $positions = DB::table('Police_Position')->get();
+            return view('maintenancetable/policeposition_table', compact('positions'));
+               
+        } catch(\Exception $e) {
+            return view('errors.errorpage')->with('pass', 'true');
+        }//
+
 	}
 	
     public function policepositioncrud(Request $request)

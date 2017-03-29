@@ -32,8 +32,6 @@ class PoliceAdvisory extends Migration
             $table->string('twitteruser', 20)->nullable();
             $table->string('iguser', 20)->nullable();
             $table->date('birthdate')->nullable();
-            $table->integer('rank_id')->unsigned();
-            $table->foreign('rank_id')->references('id')->on('ranks');
             $table->integer('police_position_id')->unsigned();
             $table->integer('second_id')->unsigned();
             $table->integer('tertiary_id')->unsigned()->nullable();

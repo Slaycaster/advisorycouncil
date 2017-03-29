@@ -10,12 +10,18 @@ use App\Models;
 class PoliceOfficeTwoController extends Controller
 {
     public function index(Request $req){
-      $req->session()->put('tabtitle', '#tab2');
+        try {
+            $req->session()->put('tabtitle', '#tab2');
         
-    	$suboffice = App\Models\unit_office_secondaries::with('unitoffice')->get();
-    	$office = App\Models\unit_offices::where('UnitOfficeHasField', '=', 'True')->get();
+            $suboffice = App\Models\unit_office_secondaries::with('unitoffice')->get();
+            $office = App\Models\unit_offices::where('UnitOfficeHasField', '=', 'True')->get();
 
-    	return view('maintenancetable.policeoffice2_table')->with('offices', $office)->with('suboffices', $suboffice);
+            return view('maintenancetable.policeoffice2_table')->with('offices', $office)->with('suboffices', $suboffice);
+        } catch(\Exception $e) {
+            return view('errors.errorpage')->with('pass', 'true');
+        }//
+
+       
     }
 
     public function add(Request $request){

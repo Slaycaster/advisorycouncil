@@ -185,6 +185,9 @@
 					document.getElementsByName('acsectorName')[0].value = data['sectorname'];
 					document.getElementsByName('Desc')[0].value = data['desc'];
 				}
+			},
+			error:function() {
+				$('#errormodal').modal('show');
 			} 
 
 		});

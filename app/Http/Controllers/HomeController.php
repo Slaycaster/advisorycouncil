@@ -25,40 +25,51 @@ class HomeController extends Controller
     // for future use use Auth::check in if statement 
     //if you need to check if the session for your login is already started and middleware('auth') for administrative access. =) [ren]
     public function login(Request $req){
-
-        $protocol = array(
+        try {
+             $protocol = array(
                 'username' => 'required',
                 'password' => 'required|alphaNum|min:3'
             );
         
-        $validate = Validator::make($req->all(), $protocol);
-        if ($validate->fails()) {
-            return Redirect::to('login')->withErrors($validate)
-                                      ->withInput($req->except('password'));
+            $validate = Validator::make($req->all(), $protocol);
+            if ($validate->fails()) {
+                return Redirect::to('login')->withErrors($validate)
+                                          ->withInput($req->except('password'));
 
-        }else{
-            
-            if (Auth::attempt(['email' => $req->username, 'password' => $req->password, 'status' => 1])) {
-                
-                //Start session
-                //save username to session
-                return Redirect::to('home');
-                
-                
             }else{
-                $message = "Incorrect username or password";
                 
-                return Redirect::to('/login')->with('message',$message);
+                if (Auth::attempt(['email' => $req->username, 'password' => $req->password, 'status' => 1])) {
+                    
+                    //Start session
+                    //save username to session
+                    return Redirect::to('home');
+                    
+                    
+                }else{
+                    $message = "Incorrect username or password";
+                    
+                    return Redirect::to('/login')->with('message',$message);
 
+                }
             }
-        }
+
+           
+        } catch(\Exception $e) {
+            return view('errors.errorpage')->with('pass', 'true');
+        }//
 
     }
 
     public function logout(){
-        Auth::logout();
+        try {
+            Auth::logout();
 
-        return Redirect::to('/')->with('message','');
+            return Redirect::to('/')->with('message','');
+           
+        } catch(\Exception $e) {
+            return view('errors.errorpage')->with('pass', 'true');
+        }//
+
     }
 
 

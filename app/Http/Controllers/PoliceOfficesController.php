@@ -10,13 +10,17 @@ use App\Models;
 class PoliceOfficesController extends Controller
 {
     public function index(Request $req){
-      $req->session()->put('tabtitle', '#tab2');
+        try {
+            $req->session()->put('tabtitle', '#tab2');
         
-    	$office = App\Models\unit_offices::all();
+            $office = App\Models\unit_offices::all();
 
-		return view('maintenancetable/policeoffice_table')->with('offices', $office);
+            return view('maintenancetable/policeoffice_table')->with('offices', $office);
 
-        //return $staffdesc;
+        } catch(\Exception $e) {
+            return view('errors.errorpage')->with('pass', 'true');
+        }//
+
 	}
     
     public function confirmOffice(Request $request){

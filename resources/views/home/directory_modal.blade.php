@@ -601,7 +601,11 @@
 				   		$("#viewadv").modal("show");
 
 				   		
-				   	}//success : function() {
+				   	},
+					error:function() {
+						$('#errormodal').modal('show');
+					} 
+
 				});
 
 				

@@ -25,7 +25,7 @@
 		    	<div class="ui basic cancel inverted button">
 		      			No
 		   		</div>
-		    	<div onclick = "document.getElementById('form').reset(); loadtoast('Cancelled!');" class="ui basic ok inverted button">
+		    	<div onclick = "loadtoast('Cancelled!'); window.location='{{url('directory')}}'" class="ui basic ok inverted button">
 		      		Yes
 		    	</div>
 		  	</div>

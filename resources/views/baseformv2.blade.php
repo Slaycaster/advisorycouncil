@@ -15,8 +15,6 @@
 		<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/icon.css')}}">
 		<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/res.css')}}">
 
-	
-
 
 		<!-- JS -->
 		<script type="text/javascript" src="{{ URL::asset('js/jquery-2.1.4.js') }}"></script>

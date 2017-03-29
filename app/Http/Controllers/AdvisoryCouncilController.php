@@ -20,16 +20,23 @@ use DB;
 class AdvisoryCouncilController extends Controller
 {
     public function index(){
-        $advisory = Advisory_Council::with('advisoryposition')->with('acsubcategory')->get();
-        $subcat = AC_Subcategory::all();
-        $category = AC_Category::orderBy('categoryname')->get();
-        $position = Advisory_Position::all();
-        $personnel = Personnel_Sector::all();
-        $acsector = AC_Sector::all();    
-      
-    	return view('transaction.Advisorycouncil')->with('council', $advisory)->with('subcat', $subcat)
-                    ->with('cat', $category)->with('positions', $position)->with('sector', $personnel)
-                    ->with('ac', $acsector);
+        try {
+             $advisory = Advisory_Council::with('advisoryposition')->with('acsubcategory')->get();
+            $subcat = AC_Subcategory::all();
+            $category = AC_Category::orderBy('categoryname')->get();
+            $position = Advisory_Position::all();
+            $personnel = Personnel_Sector::all();
+            $acsector = AC_Sector::all();    
+          
+            return view('transaction.Advisorycouncil')->with('council', $advisory)->with('subcat', $subcat)
+                        ->with('cat', $category)->with('positions', $position)->with('sector', $personnel)
+                        ->with('ac', $acsector);
+           
+        } catch(\Exception $e) {
+            return view('errors.errorpage')->with('pass', 'true');
+        }//
+
+       
 
     }
 

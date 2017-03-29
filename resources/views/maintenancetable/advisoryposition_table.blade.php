@@ -185,7 +185,10 @@ function exec(data, func) {
 					document.getElementsByName('acpositionname')[0].value = data['acpositionname'];
 					document.getElementsByName('description')[0].value = data['desc'];
 				}
-			} 
+			},
+			error:function() {
+				$('#errormodal').modal('show');
+			}
 
 		});
 }//

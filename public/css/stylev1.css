@@ -55,9 +55,19 @@
 
 }
 
-span {
+span, .utitle {
 	font-family: "Franklin Gothic Book";
 	font-weight: bold;
+}
+
+.utitle {
+	color: #565656;
+}
+
+.utitle:hover {
+	color: #565656;
+	text-decoration: underline;
+	cursor: pointer;
 }
 
 .rightrow {
@@ -218,7 +228,7 @@ hr {
 
 .p1 {
 	font-family: "Franklin Gothic Book";
-	font-size: 85%;
+	font-size: 12.5px;
 	width: 100%;
 	max-width: 100%;
 
@@ -226,7 +236,7 @@ hr {
 
 .p2 {
 	font-family: "Franklin Gothic Book";
-	font-size: 80%;
+	font-size: 11px;
 	width: 100%;
 	max-width: 100%;
 	font-style: italic;
@@ -560,15 +570,11 @@ form, .dcon {
 	height: 100%;
 }
 
-.search {
-	width: 20em;
-	height: 2em;
-	margin: 5% 0 0 3%;
-}
-
 .ui.segment.summcon {
 	width: 95%;
-	height: 20em;
+	min-height: 22em;
+    height: auto;
+    max-height: 1000em;
 	margin: 4% 0 0 5%;
 	background-color: #ede8e6;
 }
@@ -637,7 +643,8 @@ form, .dcon {
 .ui.segment.rightpane {
 	width: 98%;
 	min-height: 100%;
-	margin-top:1.3%;
+	margin-top: 1.3%;
+	padding-top: 0;
 	height: auto;
 	background-color: white;
 
@@ -671,8 +678,9 @@ form, .dcon {
 }
 
 .hr1 {
-	width: 70%;
+	width: 90%;
 	border-top: 1px solid #00253a;
+	margin-left: -1%;
 	
 }
 
@@ -755,11 +763,6 @@ form, .dcon {
 	font-family: "Franklin Gothic Book";
 }
 
-.search2 {
-	margin-left: 0.5%;
-	margin-top: 1%;
-	margin-bottom: 1%;
-}
 
 #viewadv {
 	background-color:  #ede8e6;
@@ -896,18 +899,20 @@ legend {
 }
 
 .filselect {
-	width: 100%;
+	width: 95%;
 }
 
 .ui.segment.filcon {
 	width: 95%;
-	height: 51em;
+	min-height: 51em;
+	height: auto;
+	max-height: 100em;
 	margin: 4% 0 0 5%;
 	background-color: #ede8e6;
 }
 
 .filtext {
-	width: 87%;
+	width: 95%;
 }
 
 .agelbl {
@@ -952,4 +957,45 @@ legend {
   margin-top: -2% !important;
   margin-left: -1% !important;
   width: 90% !important;
+}
+
+.errorcon {
+	width: 98%;
+	height: auto;
+	margin-left: 4%;
+	margin-top: -20%;
+}
+
+.errfoot {
+	margin-top: -2%;
+}
+
+.foottext {
+	margin-left: 45%;
+	margin-top: -6%;
+	color:  #00253a;
+}
+
+.ui.floating.dropdown.labeled.search.icon.button {
+	border-color: #ede8e6 !important;
+	background-color: white !important;
+	color: black !important;
+	font-weight: normal;
+	padding-top: 2.3%;
+	padding-bottom: 2%;
+	padding-left: 5% !important;
+
+}
+
+#text {
+	color: #a7a7a7;
+	font-weight: normal;
+
+}
+
+.search {
+	font-family: "Franklin Gothic Book";
+	color:black;
+	margin: 1.5% 0 0 15%;
+
 }

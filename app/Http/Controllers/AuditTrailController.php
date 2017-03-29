@@ -10,11 +10,17 @@ use Response;
 class AuditTrailController extends Controller
 {
     public function index(){
-    	$auditTrail = DB::table('audit_trail')
-    					 ->join('users','audit_trail.user_id', '=', 'users.id')
-    					 ->orderBy('date_time','asc')
-    					 ->get(array('audit_trail.id','date_time','description','name','admintype'));
-    	return View ('transaction.auditTrail')->with('audit',$auditTrail);
+        try {
+            $auditTrail = DB::table('audit_trail')
+                         ->join('users','audit_trail.user_id', '=', 'users.id')
+                         ->orderBy('date_time','asc')
+                         ->get(array('audit_trail.id','date_time','description','name','admintype'));
+            return View ('transaction.auditTrail')->with('audit',$auditTrail);
+           
+        } catch(\Exception $e) {
+            return view('errors.errorpage')->with('pass', 'true');
+        }//
+
     }
 
     public function appendValue($data, $type, $element)

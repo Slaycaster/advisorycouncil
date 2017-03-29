@@ -4,6 +4,7 @@
 	var checkfullname = 1;
 
 	function checkinput() {
+		console.log(checkuname + " " + checkpass + " " + checkfullname);
 		if(checkuname == 0  && checkpass == 0 && checkfullname == 0) {
 
 			//submit form
@@ -14,7 +15,7 @@
 
 	function validatefullname() {
 		var regex = new RegExp("^(?=.*(\\d|\\w))[A-Za-z0-9 -'.,]{3,50}$");
-		var fullname = document.getElementsByName('fullname')[0].value;
+		var fullname = document.getElementsByName('fullname')[0].value.trim();
 		console.log(regex.test(fullname));
 
 		if(fullname !== "" && regex.test(fullname)) {
@@ -71,7 +72,7 @@
 		if(username !== "" && regex.test(username)) {
 
 			var data = { 
-					'username' : username,
+					'username' : username.trim(),
 					'_token' : '{{ Session::token() }}'
 				};
 	 		$.ajax({
@@ -95,7 +96,10 @@
 			   		}//if
 
 			   		//console.log(result);
-			   	}//success : function() {
+			   	},
+				error:function() {
+					$('#errormodal').modal('show');
+				} 
 			});
  		} else {
  			document.getElementById('ucon').classList.add('error');
@@ -103,4 +107,5 @@
  		}//if
 
 	}//function checkusername() {
+
 </script>

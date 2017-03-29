@@ -13,21 +13,26 @@ use Response;
 class RegistrationController extends Controller
 {
     public function index(Request $req){
-        $req->session()->put('tabtitle', '#tab4');
+        try {
+           $req->session()->put('tabtitle', '#tab4');
 
-        if(Auth::user()->admintype == 1) {
-            return redirect('home');
-        }//if
+            if(Auth::user()->admintype == 1) {
+                return redirect('home');
+            }//if
 
 
-        $reqlist = users::where('status', '<>', '0')
-                            ->where('email', '!=', 'superadmin')
-                            ->orderBy('created_at','desc')
-                            ->union(users::where('status', '=', '0'))
-                            ->orderBy('created_at','desc')
-                            ->get();
+            $reqlist = users::where('status', '<>', '0')
+                                ->orderBy('created_at','desc')
+                                ->union(users::where('status', '=', '0'))
+                                ->orderBy('created_at','desc')
+                                ->get();
 
-        return View('admin.admin_table')->with('users',$reqlist);
+            return View('admin.admin_table')->with('users',$reqlist);
+        } catch(\Exception $e) {
+            return view('errors.errorpage')->with('pass', 'true');
+        }//
+
+        
     }
 
     public function reloadCaptcha(){
@@ -43,7 +48,7 @@ class RegistrationController extends Controller
         
         if ($isHuman == null) {
 
-            $message = "Registration Failed! Verification Code do not match!";
+            $message = "Registration Failed! Verification code does not match!";
             return json_encode(0);
 
         }else{
@@ -67,24 +72,61 @@ class RegistrationController extends Controller
         }
         
         
-       // $reqlist = users::where('status', '<>', '0')
-       //                     ->orderBy('created_at','desc')
-       //                     ->union(users::where('status', '=', '0')
-       //                     ->orderBy('created_at','desc')
-       //                     ->get();
-       //return View('admin.admin_table')->with('users',$reqlist);
-       
-        
-    
-        
 
         //return $reqlist;
     }//index
+
+     public function adduser(Request $req){
+
+        $user = new users;
+        $user->name = $req->fullname;
+        $user->email = $req->username;
+        $user->status = 1;
+        $user->created_at = date('Y-m-d H:i:s');
+        $user->password = bcrypt($req->password);
+        $user->save();
+
+    }//index
+
+    public function edituser(Request $req) {
+        $id = $req->id;
+
+        $user = users::find($id);
+        $user->name = $req->fullname;
+        $user->email = $req->username;
+        $user->password = bcrypt($req->password);
+        $user->save();
+
+    }//changepass
+
+    public function checkoldpassword(Request $req) {
+
+        if (Auth::attempt(['id' => $req->id, 'password' => $req->password, 'status' => 1])) {
+            return 1;
+        } else {
+            return 0;
+
+        }//if
+
+        
+    }//checkoldpass
 
     
 
     public function checkusername(Request $req) {
         $validate = users::where('email', '=', $req->username)->first();
+        
+        return Response::json(sizeof($validate));
+        
+
+    }//checkusername
+
+    public function checknewusername(Request $req) {
+        $id = $req->id;
+
+        $validate = users::where('email', '=', $req->username)
+                            ->where('id', '<>', $id)
+                            ->first();
         
         return Response::json(sizeof($validate));
         
