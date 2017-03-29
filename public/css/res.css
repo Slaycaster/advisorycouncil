@@ -41,8 +41,12 @@ html, body{
 		width:58px;
 	}
 
+	.ui.grid > .gridrowstyle{
+	 padding-top: 15rem;
+}
+
 	.ui.segment.filcon {
-	width: 70%;
+	width: 50%;
 	height: 50em;
 	margin: 4% 0 0 5%;
 	background-color: #ede8e6;
@@ -52,7 +56,51 @@ html, body{
 	width: 40%;
 }	
 
+.rwdrightrow{
+	margin-top: 7%;
+}
 
+.ucon {
+	margin-top: 11%;
+	margin-left: 55%;
+
+
+}
+
+.rwdicon{
+	margin-left: -12%;
+}
+
+.rwdrightrow{
+	margin-top: 7.3%;
+}
+
+.ui.vertical.menu{
+	width:90%;
+}
+
+.advphoto1 {
+	height: 300px;
+	width: 100%;
+ 	}
+
+ 	.ui.rail {
+	width:270px;
+}
+
+.ui.segment.filcon {
+	width: 95%;
+	height: 56em;
+}
+
+
+.ui.grid > .gridrowstyle{
+	 padding-top: 5rem;
+}
+
+.ui.container > .contstyle{
+	width:100%;
+}
 	
 }/*end of @media*/
 
