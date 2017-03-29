@@ -140,7 +140,7 @@
 									
 								</div>
 								
-								{!! Lava::render('AreaChart', 'UnitSecondOffices', 'second-chart'); !!}
+								{!! Lava::render('ColumnChart', 'UnitSecondOffices', 'second-chart'); !!}
 								
 							</div>
 						</div>
@@ -151,7 +151,7 @@
 								<div class="row" id="ter-chart">
 									
 								</div>
-								{!! Lava::render('AreaChart', 'UnitTerOffices', 'ter-chart'); !!}
+								{!! Lava::render('ColumnChart', 'UnitTerOffices', 'ter-chart'); !!}
 								
 							</div>
 
@@ -164,7 +164,7 @@
 									
 								</div>
 								
-								{!! Lava::render('AreaChart', 'UnitQuarOffices', 'quar-chart'); !!}
+								{!! Lava::render('ColumnChart', 'UnitQuarOffices', 'quar-chart'); !!}
 								
 							</div>
 						</div>
@@ -213,7 +213,7 @@
 								<div class="row" id="sector-chart">
 									
 								</div>
-								{!! Lava::render('AreaChart', 'Sector', 'sector-chart'); !!}
+								{!! Lava::render('ColumnChart', 'Sector', 'sector-chart'); !!}
 								
 							</div>
 

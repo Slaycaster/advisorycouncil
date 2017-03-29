@@ -824,9 +824,7 @@ class SearchController extends Controller
 										            YEAR(CURDATE())-YEAR(birthdate),
 										            YEAR(CURDATE())-YEAR(birthdate)+1
 										        ) YEAR
-										    ),CURDATE())'),'>', 0)
-		    								->orderBy('daysleft')
-										    ->get();
+										    ),CURDATE())'),'>', 0)->get();
 
 			$fdaypa = Police_Advisory::select('fname','lname','mname', DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
 										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
@@ -845,9 +843,7 @@ class SearchController extends Controller
 										            YEAR(CURDATE())-YEAR(birthdate),
 										            YEAR(CURDATE())-YEAR(birthdate)+1
 										        ) YEAR
-										    ),CURDATE())'),'>', 0)
-		    								->orderBy('daysleft')
-										    ->get();
+										    ),CURDATE())'),'>', 0)->get();
 
 		     $tdaypa = Police_Advisory::where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
 										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
