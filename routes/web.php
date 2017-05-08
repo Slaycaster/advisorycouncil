@@ -32,7 +32,7 @@ Route::get('login', function () {
 });
 
 //REGISTRATION @author: Shie Eugenio
-Route::get('registration', function () {
+/*Route::get('registration', function () {
 
 	if (Auth::check()) {
     	return redirect('home');
@@ -42,7 +42,7 @@ Route::get('registration', function () {
 
 	}//if (Auth::check()) {
 
-});
+});*/
 
 //--------------------------------------------------------------------------------------------
 
@@ -214,7 +214,7 @@ Route::post('adduser', 'RegistrationController@adduser');
 
 
 //birthdays[ren]
-Route::get('upcomings', 'SearchController@upcomings');
-Route::get('birthdays', 'SearchController@birthdays');
+Route::post('upcomings', 'SearchController@upcomings');
+Route::post('birthdays', 'SearchController@birthdays');
 
 
