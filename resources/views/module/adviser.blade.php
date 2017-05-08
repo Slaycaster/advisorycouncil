@@ -241,7 +241,11 @@
 								<div class = "mtitle">Stakeholder(s)</div>
 								<div class= "ui grid">
 									<div class = "column">
-										@yield('advisercontent')
+										<div class = "advcardcon">
+											<div id= "itemlists" class = "itemlist">
+											
+											</div>
+										</div>	
 									</div>
 								</div>
 							</div>
@@ -259,7 +263,7 @@
 		
 	</div>
 	
-
+	<script type="text/javascript" src='{{ URL::asset("jscroll/jquery.jscroll.min.js") }}'></script>	
 	<script type="text/javascript">
 
 		$(document).ready(function() {
@@ -267,6 +271,7 @@
             //     responsive: true
             loaddata();
          });
+
 
             
 		$('#tab3').attr('class', 'mlink item active');
@@ -526,15 +531,18 @@
                     //document.getElementById('clearRow').click();
 
                     //console.log(data);
-          
+                    document.getElementById("itemlists").innerHTML = "";
+          			//$('itemlists').empty();
+
+
                     if(advisory==1)
                     {
-                        loadAC(data);      
+                        addnamecard(0,'accardlist',data);      
                     }
 
                     if(advisory==2 || advisory==3)
                     {
-                        loadPolAd(data);
+                        addnamecard(1,'tpcardlist',data);
                     }
 
                     if(advisory==4)
@@ -542,12 +550,12 @@
 
                         if(data[0]!='' && data[0]!=null && data[0]!=0)
                         {
-                            loadAC(data[0]);
+                            addnamecard(0,'accardlist',data[0]);
                         }
 
                         if(data[1]!='' && data[1]!=null && data[1]!=0)
                         {
-                            loadPolAd(data[1]);
+                            addnamecard(1,'tpcardlist',data[1]);
                         }
 
                      }   
@@ -753,6 +761,8 @@
 
 		
 	</script>
+
+
 	
 @include('home.directory_modal')
 

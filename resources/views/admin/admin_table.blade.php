@@ -74,6 +74,15 @@
 						</div>
 						
 					</div>
+
+					<div class = "field">
+						<div class = "ui radio checkbox">
+							<input type="radio" value = '3' name = "admintype"/>
+							<label>User</label>
+							
+						</div>
+						
+					</div>
 				</div>
 			</div>
 

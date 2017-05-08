@@ -648,52 +648,191 @@ function setvalidity(id) {
 
 //NAME CARD
 
-function addnamecard(cardlistid, data, type) {
-	var cardlistel = document.getElementsById(cardlistid);
+function addnamecard(ACtype,cardlistid, data) {
 
-	$(cardlistid).empty();
+	var ilist = document.getElementById("itemlists");
 
-	var div1 = creatediv('five1 wide column colheight');
-	cardlistel.appendChild(div1);
+	if(ACtype == 0)
+	{
 
-	var div2 = creatediv('cardstyle');
-	div2.setAttribute('onclick', 'loadModal('+ type + "-" + data[0]["ID"]+')'); //type-id
-	cardlistel.lastChild.appendChild(div2);
+	var h6 = document.createElement('h6');
+	h6.setAttribute('class','ui horizontal divider divtitle');
 
-	var img = document.createElement('img');
-	img.setAttribute('class', 'advphoto');
+	ilist.appendChild(h6);
+	ilist.lastChild.appendChild(document.createTextNode('Advisory Council'));
 
-	if(data["imagepath"] == null) {
-		img.setAttribute('src', "{{URL::asset('objects/Logo/InitProfile.png')}}");
+	var divscroll = document.createElement('div');
+	divscroll.setAttribute('class','infinite-scroll');
 
-	} else {
-		img.setAttribute('src', data[1][0]);
+	ilist.appendChild(divscroll);
 
-	}//if
+	var cardlistel = document.createElement('div');
+	cardlistel.setAttribute('id', cardlistid);
+	cardlistel.setAttribute('class', "ui doubling grid cardlist2");
 
-	cardlistel.lastChild.lastChild.appendChild(img);
+	ilist.lastChild.appendChild(cardlistel);
 
-	var div3 = creatediv('advdata');
-	cardlistel.lastChild.lastChild.appendChild(div3);
+	responseArray = data.split("|");
+                        numOfRow = responseArray[0];
+                        num = 1;
 
-	var h5 = document.createElement('h5');
-	h5.setAttribute('class', 'name');
-	cardlistel.lastChild.lastChild.lastChild.appendChild(h5);
+                        for(i=0; i < numOfRow; i++)
+                        {
+                  
+                            var div1 = creatediv('five1 wide column colheight');
+							ilist.lastChild.lastChild.appendChild(div1);
 
-	cardlistel.lastChild.lastChild.lastChild.lastChild
-			  .appendChild(document.createTextNode(data[0]['lname'] + ", " + 
-			  										data[0]['fname'] + " " + 
-			  										data[0]["mname"]));
+							var div2 = creatediv('cardstyle');
+							//div2.setAttribute('onclick', 'alert('+ '0-' + ID +')');
+							div2.setAttribute('onclick', "loadModal('0-" + responseArray[num] +"')"); //type-id
+							ilist.lastChild.lastChild.lastChild.appendChild(div2);
 
-	var p1 = document.createElement('p');
-	p1.setAttribute('class', 'p1');
-	cardlistel.lastChild.lastChild.lastChild.appendChild(p1);
+							var img = document.createElement('img');
+							img.setAttribute('class', 'advphoto');
+							pdfid.push(responseArray[num]);num++;
 
-	cardlistel.lastChild.lastChild.lastChild.lastChild
-			  .appendChild(document.createTextNode(data[0]['acpositionname']));
+							if(responseArray[num+10] == null && responseArray[num+10] == "") {
+								img.setAttribute('src', "{{URL::asset('objects/Logo/InitProfile.png')}}");
 
-	cardlistel.lastChild.lastChild.lastChild.lastChild
-			  .appendChild(document.createElement("br"));
+							} else {
+								img.setAttribute('src', responseArray[num+10]);
+
+							}//if
+
+                            pdfimage.push(responseArray[num+10]);
+
+							ilist.lastChild.lastChild.lastChild.lastChild.appendChild(img);
+
+							var div3 = creatediv('advdata');
+							ilist.lastChild.lastChild.lastChild.lastChild.appendChild(div3);
+
+							var h5 = document.createElement('h5');
+							h5.setAttribute('class', 'name');
+							ilist.lastChild.lastChild.lastChild.lastChild.lastChild.appendChild(h5);
+
+							ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
+									  .appendChild(document.createTextNode(responseArray[num] + ", " +
+									  									   responseArray[num+1] +" "+
+									  									   responseArray[num+2] + "(AC)"));
+
+                            pdffname.push(responseArray[num+1]);
+                            pdfmname.push(responseArray[num+2]);
+                            pdflname.push(responseArray[num]);
+
+                            num+=3;
+							
+                            var p1 = document.createElement('p');
+							p1.setAttribute('class', 'p1');
+							ilist.lastChild.lastChild.lastChild.lastChild.lastChild.appendChild(p1);
+
+							ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
+									  .appendChild(document.createTextNode(responseArray[num+4]));
+
+							pdfposition.push(responseArray[num+4]);
+
+							ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
+									  .appendChild(document.createElement("br"));
+
+
+
+                            if(responseArray[num+2]!='')
+                            {
+                                //$office = $office4name." - ".$office3name." - ".$office2name;
+                                //cell3 = responseArray[num+2] +' - ' + responseArray[num+1] +' - '+ responseArray[num];
+                                ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
+								.appendChild(document.createTextNode(responseArray[num+2]+','));
+
+                                //pdftertiaryoff.push(responseArray[num+1]);
+
+                                // pdfquaternaryoff.push(responseArray[num+2]);
+                            }
+
+                            if(responseArray[num+1]!='')
+                            {
+                                //$office = $office3name." - ".$office2name;
+                                //cell3 = responseArray[num];num+=3;
+                                //cell3 = responseArray[num+1] +' - '+ responseArray[num];
+                                ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
+								.appendChild(document.createTextNode(responseArray[num+1]));
+
+								ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
+		   					    .appendChild(document.createElement("br"));
+
+                                // pdftertiaryoff.push(responseArray[num+1]);
+                                
+                            }
+
+							ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
+							.appendChild(document.createTextNode(responseArray[num]));
+
+							ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
+			   			    .appendChild(document.createElement("br"));
+                            
+                            pdfsecondoff.push(responseArray[num]);
+                            pdftertiaryoff.push(responseArray[num+1]);
+                            pdfquaternaryoff.push(responseArray[num+2]);
+                			num+=8;
+
+                			if(responseArray[num+2] != null) {
+								ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
+									  .appendChild(document.createTextNode(responseArray[num+2]));
+
+								ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
+									  .appendChild(document.createElement("br"));
+							}//if
+
+
+                            pdfemail.push(responseArray[num+2]);
+
+							if(responseArray[num] != null && responseArray[num+1] != null && 
+								responseArray[num] != "" && responseArray[num+1] != "") {
+								ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
+									  .appendChild(document.createTextNode(responseArray[num] + "/ " + responseArray[num+1]));
+
+								ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
+									  .appendChild(document.createElement("br"));
+
+							} else {
+								if(responseArray[num] != null && responseArray[num] != '') {
+									ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
+									  .appendChild(document.createTextNode(responseArray[num]));
+
+									ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
+									  .appendChild(document.createElement("br"));
+
+								} else if(responseArray[num+1] != null && responseArray[num+1] != '') {
+									ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
+									  .appendChild(document.createTextNode(responseArray[num+1]));
+
+									ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
+									  .appendChild(document.createElement("br"));
+
+								}//if
+							}//if
+
+
+                            pdfcontact.push(responseArray[num]);
+                            pdflandline.push(responseArray[num+1]);
+							num+=3;
+
+							var p3 = document.createElement('p');
+							p3.setAttribute('class', 'p3');
+							p3.setAttribute('align', 'bottom');
+							ilist.lastChild.lastChild.lastChild.lastChild.lastChild.appendChild(p3);
+
+							ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
+									  .appendChild(document.createTextNode("Member since " + responseArray[num]));
+
+                            pdfsdate.push(responseArray[num]);num++;
+                           
+                            pdfsector.push(""); 
+                            pdfpoltype.push("AC");
+                            pdfgender.push("");
+                            pdfaddress.push("");
+                            // document.getElementById('addRow').value = val;
+                            // document.getElementById('addRow').click();
+                            
+                        }
 
 	/*if(data[0]['UnitOfficeQuaternaryName'] != null) {
 		cardlistel.lastChild.lastChild.lastChild.lastChild
@@ -717,51 +856,199 @@ function addnamecard(cardlistid, data, type) {
 	cardlistel.lastChild.lastChild.lastChild.lastChild
 			  .appendChild(document.createTextNode(data[0]['UnitOfficeSecondaryName']));*/
 
-	cardlistel.lastChild.lastChild.lastChild.lastChild
-			.appendChild(document.createTextNode(data[0]['UnitOfficeSecondaryName']));
-
-	cardlistel.lastChild.lastChild.lastChild.lastChild
-			  .appendChild(document.createElement("br"));
-
-	if(data[0]['email'] != null) {
-		cardlistel.lastChild.lastChild.lastChild.lastChild
-			  .appendChild(document.createTextNode(data[0]['email']));
-
-		cardlistel.lastChild.lastChild.lastChild.lastChild
-			  .appendChild(document.createElement("br"));
-	}//if
-
-	if(data[0]['contactno'] != null && data[0]['landline'] != null) {
-		cardlistel.lastChild.lastChild.lastChild.lastChild
-			  .appendChild(document.createTextNode(data['contactno'] + "/ " + data['landline']));
-
-		cardlistel.lastChild.lastChild.lastChild.lastChild
-			  .appendChild(document.createElement("br"));
-
-	} else {
-		if(data[0]['contactno'] != null) {
-			cardlistel.lastChild.lastChild.lastChild.lastChild
-			  .appendChild(document.createTextNode(data[0]['contactno']));
-
-			cardlistel.lastChild.lastChild.lastChild.lastChild
-			  .appendChild(document.createElement("br"));
-
-		} else if(data[0]['landline'] != null) {
-			cardlistel.lastChild.lastChild.lastChild.lastChild
-			  .appendChild(document.createTextNode(data[0]['landline']));
-
-			cardlistel.lastChild.lastChild.lastChild.lastChild
-			  .appendChild(document.createElement("br"));
-
-		}//if
-	}//if
-
-	var p3 = document.createElement('p');
-	p3.setAttribute('class', 'p3');
-	cardlistel.lastChild.lastChild.lastChild.appendChild(p3);
-
-	cardlistel.lastChild.lastChild.lastChild.lastChild
-			  .appendChild(document.createTextNode("Member since " + data[1][1] + "&nbsp;&nbsp;"));
-
 	
+	}
+
+	if(ACtype == 1)
+	{
+
+	var h6 = document.createElement('h6');
+	h6.setAttribute('class','ui horizontal divider divtitle');
+
+	ilist.appendChild(h6);
+	ilist.lastChild.appendChild(document.createTextNode('TWG & PSMU'));
+
+	var divscroll = document.createElement('div');
+	divscroll.setAttribute('class','infinite-scroll');
+
+	ilist.appendChild(divscroll);
+
+	var cardlistel = document.createElement('div');
+	cardlistel.setAttribute('id', cardlistid);
+	cardlistel.setAttribute('class', "ui doubling grid cardlist2");
+
+	ilist.lastChild.appendChild(cardlistel);
+
+	responseArray = data.split("|");
+                        numOfRow = responseArray[0];
+                        num = 1;
+
+                        for(i=0; i < numOfRow; i++)
+                        {
+                            ID = responseArray[num];num++;
+                            var div1 = creatediv('five1 wide column colheight');
+							ilist.lastChild.lastChild.appendChild(div1);
+
+							var div2 = creatediv('cardstyle');
+							div2.setAttribute('onclick', "loadModal('" +responseArray[num+7] + '-' + ID +"')"); //type-id
+							ilist.lastChild.lastChild.lastChild.appendChild(div2);
+
+							var img = document.createElement('img');
+							img.setAttribute('class', 'advphoto');
+
+							if(responseArray[num+10] == null && responseArray[num+10] == "") {
+								img.setAttribute('src', "{{URL::asset('objects/Logo/InitProfile.png')}}");
+
+							} else {
+								img.setAttribute('src', responseArray[num+10]);
+
+							}//if
+
+                            pdfimage.push(responseArray[num+10]);
+
+							ilist.lastChild.lastChild.lastChild.lastChild.appendChild(img);
+
+							var div3 = creatediv('advdata');
+							ilist.lastChild.lastChild.lastChild.lastChild.appendChild(div3);
+
+							var h5 = document.createElement('h5');
+							h5.setAttribute('class', 'name');
+							ilist.lastChild.lastChild.lastChild.lastChild.lastChild.appendChild(h5);
+
+							ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
+									  .appendChild(document.createTextNode(responseArray[num] + ", " +
+									  									   responseArray[num+1] +" "+
+									  									   responseArray[num+2] + "(AC)"));
+
+                            pdffname.push(responseArray[num+1]);
+                            pdfmname.push(responseArray[num+2]);
+                            pdflname.push(responseArray[num]);
+
+                            num+=3;
+							
+                            var p1 = document.createElement('p');
+							p1.setAttribute('class', 'p1');
+							ilist.lastChild.lastChild.lastChild.lastChild.lastChild.appendChild(p1);
+
+							ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
+									  .appendChild(document.createTextNode(responseArray[num+3]));
+
+							pdfposition.push(responseArray[num+3]);
+
+							ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
+									  .appendChild(document.createElement("br"));
+
+
+
+                            if(responseArray[num+2]!='')
+                            {
+                                //$office = $office4name." - ".$office3name." - ".$office2name;
+                                //cell3 = responseArray[num+2] +' - ' + responseArray[num+1] +' - '+ responseArray[num];
+                                ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
+								.appendChild(document.createTextNode(responseArray[num+2]+','));
+
+                                //pdftertiaryoff.push(responseArray[num+1]);
+
+                                // pdfquaternaryoff.push(responseArray[num+2]);
+                            }
+
+                            if(responseArray[num+1]!='')
+                            {
+                                //$office = $office3name." - ".$office2name;
+                                //cell3 = responseArray[num];num+=3;
+                                //cell3 = responseArray[num+1] +' - '+ responseArray[num];
+                                ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
+								.appendChild(document.createTextNode(responseArray[num+1]));
+
+								ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
+		   					    .appendChild(document.createElement("br"));
+
+                                // pdftertiaryoff.push(responseArray[num+1]);
+                                
+                            }
+
+							ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
+							.appendChild(document.createTextNode(responseArray[num]));
+
+							ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
+			   			    .appendChild(document.createElement("br"));
+                            
+                            pdfsecondoff.push(responseArray[num]);
+                            pdftertiaryoff.push(responseArray[num+1]);
+                            pdfquaternaryoff.push(responseArray[num+2]);
+                			num+=8;
+
+                			if(responseArray[num+2] != null) {
+								ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
+									  .appendChild(document.createTextNode(responseArray[num+2]));
+
+								ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
+									  .appendChild(document.createElement("br"));
+							}//if
+
+
+                            pdfemail.push(responseArray[num+2]);
+
+							if(responseArray[num] != null && responseArray[num+1] != null && 
+								responseArray[num] != "" && responseArray[num+1] != "") {
+								ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
+									  .appendChild(document.createTextNode(responseArray[num] + "/ " + responseArray[num+1]));
+
+								ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
+									  .appendChild(document.createElement("br"));
+
+							} else {
+								if(responseArray[num] != null && responseArray[num] != '') {
+									ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
+									  .appendChild(document.createTextNode(responseArray[num]));
+
+									ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
+									  .appendChild(document.createElement("br"));
+
+								} else if(responseArray[num+1] != null && responseArray[num+1] != '') {
+									ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
+									  .appendChild(document.createTextNode(responseArray[num+1]));
+
+									ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
+									  .appendChild(document.createElement("br"));
+
+								}//if
+							}//if
+
+
+                            pdfcontact.push(responseArray[num]);
+                            pdflandline.push(responseArray[num+1]);
+							num+=3;
+
+							var p3 = document.createElement('p');
+							p3.setAttribute('class', 'p3');
+							p3.setAttribute('align', 'bottom');
+							ilist.lastChild.lastChild.lastChild.lastChild.lastChild.appendChild(p3);
+
+							ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
+									  .appendChild(document.createTextNode("Member since " + responseArray[num]));
+
+                            pdfsdate.push(responseArray[num]);num++;
+                           
+                            pdfid.push(ID);
+                            pdfsector.push(""); 
+                            pdfgender.push("");
+                            pdfaddress.push("");
+	}
+
 }//addnamecard
+
+$('viewadv').modal('hide');
+$('ul.pagination').hide();
+$(function() {
+    $('.infinite-scroll').jscroll({
+		                autoTrigger: true,
+		                loadingHtml: '<img class="center-block" src="/images/loading.gif" alt="Loading..." />', // MAKE SURE THAT YOU PUT THE CORRECT IMG PATH
+		                padding: 0,
+		                nextSelector: '.pagination li.active + li a',
+		                contentSelector: 'div.infinite-scroll',
+		                callback: function() {
+		                    $('ul.pagination').remove();
+		                }
+		            });
+		        });}

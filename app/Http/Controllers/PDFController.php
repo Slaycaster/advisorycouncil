@@ -158,10 +158,11 @@ class PDFController extends Controller
 				else if($res->city=='' && $res->province!='')
 				    { $location = $res->province; }
 				else { $location = "";}
+				$start = date("M Y", strtotime($res->startdate));
 
 				$positionname = $this->getName('Police_Position','PositionName',$res->police_position_id); 
 			
-				$result = $result."|".$res->ID."|".$res->lname."|".$res->fname."|".$mname."|".$office2name."|".$office3name."|".$office4name."|".$positionname."|".$res->policetype."|".$res->gender."|".$location."|".$res->imagepath."|".$res->contactno."|".$res->landline."|".$res->email."|".$res->startdate;
+				$result = $result."|".$res->ID."|".$res->lname."|".$res->fname."|".$mname."|".$office2name."|".$office3name."|".$office4name."|".$positionname."|".$res->policetype."|".$res->gender."|".$location."|".$res->imagepath."|".$res->contactno."|".$res->landline."|".$res->email."|".$start;
 
 			}
 
@@ -228,10 +229,12 @@ class PDFController extends Controller
 				    { $location = $res->province; }
 				else { $location = "";}
 
+				$start = date("M Y", strtotime($res->startdate));
+
 				$positionname = $this->getName('Advisory_Position','acpositionname',$res->advisory_position_id); 
 				$sector = $this->getName('AC_Sector','sectorname',$res->ac_sector_id);
 			
-				$result = $result."|".$res->ID."|".$res->lname."|".$res->fname."|".$mname."|".$office2name."|".$office3name."|".$office4name."|".$sector."|".$positionname."|".$res->gender."|".$location."|".$res->imagepath."|".$res->contactno."|".$res->landline."|".$res->email."|".$res->startdate;
+				$result = $result."|".$res->ID."|".$res->lname."|".$res->fname."|".$mname."|".$office2name."|".$office3name."|".$office4name."|".$sector."|".$positionname."|".$res->gender."|".$location."|".$res->imagepath."|".$res->contactno."|".$res->landline."|".$res->email."|".$start;
 
 			}
 
@@ -269,13 +272,13 @@ class PDF extends FPDF
 	// Page header
 	function Header()
 	{
-	    $x = $this->GetPageWidth();
+		$x = $this->GetPageWidth();
 	    $this->Image('images/Philippine-National-Police.png',20,15,20);
 	    $this->Image('images/pp_logoforae.png',($x)-45,15,25);
 	    $this->SetFont('times','b',12);
 	    $this->text(($x/2)-25,25,'Republic of the Philippines');
 	    $this->text(($x/2)-37,29,'Center for Police Strategy Management');
-	    $this->text(($x/2)-17,33,'C.Y. 2017-2018');
+	    $this->text(($x/2)-17,33,"C.Y. ".date('Y')."-".date('Y', strtotime('+1 years'))."");
 	    $this->Ln(10);
 	}
 
@@ -310,6 +313,10 @@ class PDF extends FPDF
     	$contact = explode(",", $req->contact);
     	$email = explode(",", $req->email);
     	$startdate = explode(",", $req->startdate);
+
+
+
+
     	$trimfilestring;
 
     	$x = ($this->GetPageWidth())/2;
@@ -331,8 +338,8 @@ class PDF extends FPDF
 				$this->text($textCol-1,$texty0+3," (".$poltype[$i-1].")");
 				$this->SetFont('Arial','',8);
 				$this->Text($textCol,$texty0+8,$position[$i-1]);
-				if($office3[$i-1]!='')
-					{ $this->Text($textCol,$texty0+11,$office2[$i-1]." - ".$office3[$i-1]); }
+				if($office3[$i-1]!='' && $office4[$i-1]=='')
+					{ $this->Text($textCol,$texty0+11,$office3[$i-1]." - ".$office2[$i-1]); }
 				else { $this->Text($textCol,$texty0+11,$office2[$i-1]); }
 				if($office4[$i-1]!="")
 				{
@@ -352,7 +359,7 @@ class PDF extends FPDF
 				
 				if($image[$i-1]!="")
 		    	{ 
-					    	
+					    
 							$this->Image($image[$i-1],$imageCol,$imagey0,35,35);
 		    	}
 		    	else { $this->Image('objects/Logo/InitProfile.png',$imageCol,$imagey0,35,35); }
