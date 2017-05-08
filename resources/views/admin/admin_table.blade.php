@@ -26,6 +26,11 @@
 				<label class = "formlabel">Type</label>
 				<span class = "asterisk">*</span>				
 			</div>
+
+			<div>
+				
+			</div>
+
 		</div>
 									
 		<input type="hidden" value="" name="categid"/>
@@ -59,7 +64,7 @@
 				<div class="inline fields">
 					<div class = "field">
 						<div class = "ui radio checkbox">
-							<input type="radio" value = '0' name = "admintype" checked/>
+							<input type="radio" value = '0' onchange="changeinput(this.value)" name = "admintype" checked/>
 							<label>Superadmin</label>
 							
 						</div>
@@ -68,21 +73,21 @@
 
 					<div class = "field">
 						<div class = "ui radio checkbox">
-							<input type="radio" value = '1' name = "admintype"/>
+							<input type="radio" value = '1' onchange="changeinput(this.value)" name = "admintype"/>
 							<label>Admin</label>
 							
 						</div>
-						
 					</div>
 
 					<div class = "field">
 						<div class = "ui radio checkbox">
-							<input type="radio" value = '3' name = "admintype"/>
+							<input type="radio" value = '2' onchange="changeinput(this.value)" name = "admintype"/>
 							<label>User</label>
 							
 						</div>
-						
 					</div>
+					
+
 				</div>
 			</div>
 
