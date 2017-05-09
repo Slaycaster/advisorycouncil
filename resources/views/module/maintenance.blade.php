@@ -58,7 +58,7 @@
 						</div>
 
 						<div class = "ten wide column">
-							<div class = "tablepane">
+							<div class = "tablepane rwdmainte">
 								@yield('mtablesection')
 								
 							</div>

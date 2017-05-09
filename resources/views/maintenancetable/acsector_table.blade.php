@@ -59,7 +59,7 @@
 @endsection
 
 @section('mtablesection')
-	<div class = "mtitle">Advisory Council Sector</div>
+	<div class = "mtitle rwdmainteTitle">Advisory Council Sector</div>
 
 	<div class = "tablecon">
 		<table id="datatable" class="ui celled table" cellspacing="0" width="100%">

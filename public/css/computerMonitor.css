@@ -1,4 +1,4 @@
-@media only screen and (min-width: 1200px) and (max-width: 1349px) 
+@media only screen and (min-width: 992px) and (max-width: 1199px) 
 and (orientation: landscape) {
 
 html{
@@ -8,11 +8,11 @@ html{
  	}
 
 .logfield {
-	width: 82%;
+	width: 66%;
 } 	
 
 .hr1 {
-	width: 82%;
+	width: 66%;
 	border-top: 1px solid #00253a;
 	margin-left: -1%;
 	
@@ -23,8 +23,13 @@ html{
 }
 
 .centerbtn {
-	margin-left: 27%;
+	margin-left: 15%;
 	margin-top: 4%;
+}
+
+.cardstyleportrait {
+	border: 2px solid #ebebeb;
+	width: 110%;
 }
 
 .ui.grid > .row {
@@ -33,13 +38,20 @@ html{
 }
 
 .ui.vertical.menu {
-    width: 15rem;
+    width: 12rem;
 }
 
 .cardstyle {
 	
-	height: 157px;
+	height: 200px;
+	width:108%;
 	border-radius: 3%;
+}
+
+.acname {
+	width: auto;
+	height: 58%;
+
 }
 
 

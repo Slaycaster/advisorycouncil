@@ -108,7 +108,7 @@
 @section('mtablesection')
 	<div class = "mtitle">Registration Request(s)</div>
 
-	<div class = "tablecon">
+	<div class = "tablecon rwdAdminTable">
 		<table id="datatable" class="ui celled table" cellspacing="0" width="100%">
 		    <thead>
 		    	<tr>

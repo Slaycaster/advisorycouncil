@@ -60,7 +60,7 @@
 @endsection
 
 @section('mtablesection')
-	<div class = "mtitle">Primary Unit/Office</div>
+	<div class = "mtitle rwdmainteTitle">Primary Unit/Office</div>
 
 	<div class = "tablecon">
 		<table id="datatable" class="ui celled table" cellspacing="0" width="100%">

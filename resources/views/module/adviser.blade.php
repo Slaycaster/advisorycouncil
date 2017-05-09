@@ -5,8 +5,8 @@
 	<div class = "advcon">
 		<div class = "ui grid">
 			<div class = "row">
-				<div class = "four wide column">
-					<div class = "ui segment filcon" id="summary">
+				<div class = "four wide column ">
+					<div class = "ui segment filcon " id="summary">
 						
 							<div class = "ui con">
 								<div class="ui container ">
@@ -209,7 +209,7 @@
 							                <input type="hidden" name="imageurl" value="">
 							                <input type="hidden" name="startdate" value="">
 
-											<button type="submit" name="submit" id="pdf-loader" class="ui medium button">
+											<button type="submit" name="submit" id="pdf-loader" class="rwdbutton ui medium button ">
 												Generate PDF
 											</button>
 										</form>
@@ -235,10 +235,10 @@
 	            </div>
 
 				<div class = "twelve wide column">
-					<div class = "hcontent">
+					<div class = "hcontent rwdDhcontent">
 						<div class="dcon">
 							<div class = "tablepane">
-								<div class = "mtitle">Stakeholder(s)</div>
+								<div class = "mtitle rwdFmtitle">Stakeholder(s)</div>
 								<div class= "ui grid">
 									<div class = "column">
 										@yield('advisercontent')

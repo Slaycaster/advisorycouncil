@@ -1,0 +1,299 @@
+@media only screen and (min-width: 550px) and (max-width: 649px) 
+and (orientation: landscape) {
+
+html{
+		height:auto;
+ 		width:100%;
+ 		background-color:#ebebeb; 
+ 	}
+
+.logfield {
+	width: 170%;	
+	margin-left: -2%;
+	height:3rem;
+} 	
+
+.hr1 {
+	width: 140%;
+	border-top: 1px solid #00253a;
+	margin-left: 0;
+	
+}
+
+.p2 {
+	text-align: left;	
+}
+
+.centerbtn {
+	margin-left: 48%;
+	margin-top: 4%;
+}
+
+
+
+/* .rwdDcardlist2{
+ 	width: 110%;
+	padding-top: 2%;
+	margin-left: -6%;
+ }*/
+
+
+.cardstyleportrait {
+	border: 2px solid #ebebeb;
+	width: 110%;
+	min-height: 100px;
+	height: 350px;
+	max-height: 350px;
+	border-radius: 3%;
+	margin-left: 4%;
+}
+
+
+.ui.grid > .row {
+   padding-top: 2.6em;
+  padding-bottom: 1rem;
+}
+
+.ui.vertical.menu {
+    width: 18rem;
+}
+
+.cardstyle {
+	
+	height: 200px;
+	width:130%;
+	border-radius: 3%;
+}
+
+.acname {
+	width: auto;
+	height: 56%;
+
+}
+
+.ui.grid > .row > [class*="five1 wide"].column,
+.ui.grid > .column.row > [class*="five1 wide"].column,
+.ui.grid > [class*="five1 wide"].column,
+.ui.column.grid > [class*="five1 wide"].column {
+  width: 38% !important;
+  margin-left: 8%;
+}
+
+.ui.grid.cardlist2 {
+	width: 110%;
+}
+
+.ui.grid.cardlist2.rwdDcardlist2 {
+	margin-left: -12%;
+}
+
+.ui.grid.cardlist2.rwdLcardlist2 {
+	margin-left: -6%;
+	width:150%;
+}
+
+ 
+
+.ui.grid > .row > [class*="four wide"].column,
+.ui.grid > .column.row > [class*="four wide"].column,
+.ui.grid > [class*="four wide"].column,
+.ui.column.grid > [class*="four wide"].column {
+  width: 33% !important;
+  margin-left: 1%;
+}
+
+
+
+.ui.segment.rightpane {
+	width: 129.5%;
+	margin-left: 3%;
+
+}
+
+.hcontent {
+	width: 100%;
+}
+
+.loghead {
+	color: #00253a;
+	width: 119%;
+	height: 90%;
+	font-family: "Franklin Gothic Book";
+	font-weight: bold;
+	font-size: 1.8em;
+	margin-top: 3%;
+	margin-left: 8%;
+}
+
+.ui.segment.logcon {
+	width: 318%;
+	height: 18em;
+}
+
+.loghead {
+	font-size: 1.2em;
+	margin-top: 8%;
+	margin-left: 1%;
+}
+
+
+
+.acname1 {
+	width: auto;
+	height: 40%;
+	margin-top: 35.5%;
+	margin-left: 3.5%;
+	cursor: pointer;
+
+}
+
+.ui.segment.summcon {
+	width: 320%;
+	min-height: 22em;
+    height: auto;
+    max-height: 1000em;
+}
+
+i.circular.inverted.icon {
+	margin-left: 8%;
+
+}
+
+.rwdpane{
+	margin-left: 2rem;
+}
+
+.rwdmtitle {
+     font-size: 1em;
+    font-weight: bold;
+    color: #00253a;
+    width: 130%;
+    background-color: #ede8e6;
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+}
+
+.rwdHhcontent {
+   margin-left: -2%; 
+}
+
+/**DIRECTORY**/
+ 	
+.rwdDhcontent {
+	width: 125%;
+	margin-top: 4%;
+	min-height: 90%;
+	height: auto;
+	margin-left: 5%;
+} 	
+
+.ui.segment.filcon {
+	width: 320%;
+	min-height: 51em;
+	height: auto;
+	max-height: 100em;
+	margin: 4% 0 0 5%;
+	background-color: #ede8e6;
+}
+
+.rwdmainte{
+	margin-top: 160%;
+	margin-left: -105%;
+}
+
+.tablecon {
+	height: 150%;
+	width: 180%;
+	margin: 2% 0 0 -1%;
+}
+
+
+
+.ui.button{
+	margin-left: 24%;
+}
+
+
+.rwddcon{
+	width:100%;
+}
+
+.formpane {
+	width: 150%;
+	margin-left: 125%;
+	min-height: 25%;
+}
+
+ .rwdmainteTitle{
+ 	width: 180%;
+ }
+
+ .ui.attached.tabular.menu {
+  margin-left: -57%;
+  margin-right: 0;
+  width: 100%;
+}
+
+.ui.vertical.menu {
+	margin: 10% 0 0 25%;
+
+}
+
+.rwdDirectoryAdd{
+	width:100%;
+	margin-left: 1%;
+}
+
+.rwdCenterButton{
+	margin-left: -32%;
+}
+
+ .ui.attached.tabular.menu.rightrow {
+	height: 48px;
+	margin-left: 2%;
+}
+
+.rwdAtablepane{
+	margin-top: 110%;
+	margin-left: -40%;
+	width:70%;
+}
+
+.rwdAformpane{
+	margin-left: 25%;
+	width:250%;
+
+}
+
+.ucon {
+	margin-top: 26%;
+	margin-left: 48%;
+
+}
+
+.mcontent {
+	margin-top: 2%;
+	margin-left: 1%;
+	height: 100%;
+	width: 98%;
+}
+
+.selectize-input {
+  width: 65%;
+}
+
+.ui.form .field > .selection.dropdown {
+  width:98%;
+}
+
+.ui.input input {
+  margin: 0em;
+  max-width: 98%;
+}
+
+
+
+
+
+
+}//endofwideScreenMonitor	

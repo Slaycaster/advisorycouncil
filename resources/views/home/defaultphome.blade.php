@@ -13,7 +13,7 @@
 			</h6>
 
 			<div class="infinite-scroll">
-			<div id = "accardlist" class = "ui doubling grid cardlist2">
+			<div id = "accardlist" class = "ui doubling grid cardlist2 rwdLcardlist2">
 
 						@foreach($directory[0] as $acrec)
 
@@ -85,7 +85,7 @@
 				TWG & PSMU
 			</h6>
 			<div class="infinite-scroll">
-			<div id = "tpcardlist" class = "ui doubling grid cardlist2">
+			<div id = "tpcardlist" class = "ui doubling grid cardlist2 rwdDcardlist2">
 
 						@foreach($directory[1] as $tprec)
 							<div class = "four wide column colheight1">
