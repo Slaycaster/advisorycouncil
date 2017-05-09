@@ -21653,7 +21653,7 @@ Floated Menu / Item
 }
 
 .ui.menu[class*="top attached"]:first-child {
-  margin-top: 0em;
+  margin-top: -0.1em;
 }
 
 /* Bottom */

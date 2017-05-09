@@ -76,10 +76,10 @@
 
 									<div class = "twelve wide column bspacing2">
 										<div class = "one field">
-											<label class="formlabel">Unit/Offices</label>
+											<label class="formlabel">Designation</label>
 											<div class="field">
 												<select class="ui selection dropdown filselect" onchange="getsecoffice(this.value),loaddata()" name = "filprimary">
-													<option value="disitem" selected>Primary Unit/Office</option>
+													<option value="disitem" selected>Category</option>
 													@foreach ($unitoffice as $puo)
 								                        <option value="{{$puo->id}}">{{$puo->UnitOfficeName}}</option>
 								                    @endforeach
@@ -89,7 +89,7 @@
 
 											<div class="field bspacing1">
 												<select onchange = "getteroffice(this.value), loaddata()" class="ui selection dropdown filselect" name = "filsecondary">
-													<option value="disitem" selected>Secondary Unit/Office</option>
+													<option value="disitem" selected>Unit/Office</option>
 													
 
 												</select>
@@ -97,7 +97,7 @@
 
 											<div class="field bspacing1">
 												<select onchange = "getquaroffice(this.value), loaddata()" class="ui selection dropdown filselect" name = "filtertiary">
-													<option value="disitem" selected>Tertiary Unit/Office</option>
+													<option value="disitem" selected>PPO/CPO</option>
 													
 
 												</select>
@@ -105,7 +105,7 @@
 
 											<div class="field bspacing1">
 												<select onchange = "loaddata()" class="ui selection dropdown filselect" name = "filquaternary">
-													<option value="disitem" selected>Quaternary Unit/Office</option>
+													<option value="disitem" selected>Municipal Police Station</option>
 													
 
 												</select>

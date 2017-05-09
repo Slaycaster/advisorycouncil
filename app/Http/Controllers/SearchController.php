@@ -695,7 +695,7 @@ class SearchController extends Controller
 
 
 	public function futurebdaypa(){
-		$query =  Police_Advisory::select('fname','lname','mname', DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+		$query =  Police_Advisory::select('fname','lname','mname', DB::raw("DATE_FORMAT(birthdate, '%c %b') as fbd"), DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
 										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
 										            YEAR(CURDATE())-YEAR(birthdate),
 										            YEAR(CURDATE())-YEAR(birthdate)+1
@@ -720,7 +720,7 @@ class SearchController extends Controller
 
 	public function futurebdayac(){
 
-		$query = Advisory_Council::select('fname','lname','mname', DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+		$query = Advisory_Council::select('fname','lname','mname', DB::raw("DATE_FORMAT(birthdate, '%c %b') as fbd"), DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
 										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
 										            YEAR(CURDATE())-YEAR(birthdate),
 										            YEAR(CURDATE())-YEAR(birthdate)+1
@@ -746,7 +746,8 @@ class SearchController extends Controller
 	}
 
 	public function birthdaypa(){
-		$query = Police_Advisory::where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+		$query = Police_Advisory::select('fname', 'lname','mname', 'policetype')
+								->where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
 										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
 										            YEAR(CURDATE())-YEAR(birthdate),
 										            YEAR(CURDATE())-YEAR(birthdate)+1
@@ -757,7 +758,8 @@ class SearchController extends Controller
 	}
 
 	public function birthdayac(){
-		$query = Advisory_Council::where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
+		$query = Advisory_Council::select('fname', 'lname','mname')
+								->where(DB::raw(' DATEDIFF(DATE_ADD(birthdate, 
 										        INTERVAL IF(DAYOFYEAR(birthdate) >= DAYOFYEAR(CURDATE()),
 										            YEAR(CURDATE())-YEAR(birthdate),
 										            YEAR(CURDATE())-YEAR(birthdate)+1
@@ -901,10 +903,9 @@ class SearchController extends Controller
 										   ->with('ptwg', $ptwg)
 										   ->with('ppsmu', $ppsmu)
 										   ->with('ubday', $totalbday)
-										   ->with('fdayac', $fdayac)
-										   ->with('fdaypa', $fdaypa)
-										   ->with('tdayac', $tdayac)
-										   ->with('tdaypa', $tdaypa);
+										   //->with('fdayac', $fdayac)
+										   //->with('fdaypa', $fdaypa)
+										   ->with('tdaycount', sizeof($tdayac) + sizeof($tdaypa));
 
 		} catch(\Exception $e) {
 			return view('errors.errorpage');

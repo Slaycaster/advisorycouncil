@@ -52,17 +52,17 @@
 										<div class ="eleven wide column fieldpane">
 
 											<div class = "twelve wide column bspacing9">
-												<p name="bdate"></p>
-												<i name="bdayicon" class = "ui icon" title=""></i>
+												<p name="bdatemod"><i name="bdayicon" class = "ui icon" title=""></i></p>
+												
 											</div>
 
 											<div class = "twelve wide column bspacing9">
-												<p name ="gender"></p>
+												<p name ="gendermod"></p>
 														
 											</div>
 
 											<div class = "twelve wide column bspacing9">
-												<p name = "homeaddress"></p>
+												<p name = "homeaddressmod"></p>
 														
 											</div>
 															
@@ -116,32 +116,32 @@
 										<div class ="eleven wide column fieldpane">
 
 											<div class = "twelve wide column bspacing9">
-												<p name="contactno"></p>
+												<p name="contactnomod"></p>
 														
 											</div>
 
 											<div class = "twelve wide column bspacing9">
-												<p name="landline"></p>
+												<p name="landlinemod"></p>
 														
 											</div>
 
 											<div class = "twelve wide column bspacing9">
-												<p name="email"></p>
+												<p name="emailmod"></p>
 														
 											</div>
 
 											<div class = "twelve wide column bspacing9">
-												<p name="fb"></p>
+												<p name="fbmod"></p>
 														
 											</div>
 
 											<div class = "twelve wide column bspacing9">
-												<p name="twitter"></p>
+												<p name="twittermod"></p>
 														
 											</div>
 
 											<div class = "twelve wide column bspacing9">
-												<p name = "ig"></p>
+												<p name = "igmod"></p>
 														
 											</div>
 															
@@ -195,7 +195,7 @@
 									</div>
 
 									<div class = "twelve wide column bspacing">
-										<label class = "formlabel">Unit/Office</label>
+										<label class = "formlabel">Designation</label>
 															
 									</div>
 
@@ -279,7 +279,7 @@
 
 
 									<div class = "twelve wide column bspacing">
-										<label class = "formlabel">Unit/Office</label>
+										<label class = "formlabel">Designation</label>
 													
 									</div>
 																
@@ -379,22 +379,45 @@
 															recorddata[0][0]['lname'] + " " +
 															recorddata[0][0]['qualifier'];
 			if(recorddata[0][0]["birthdate"] != null) {
-				document.getElementsByName('bdate')[0].innerHTML = recorddata[1][1];
+				document.getElementsByName('bdatemod')[0].innerHTML = recorddata[1][1];
+
+				if(recorddata[0][0]["daysleft"] > 7 && recorddata[0][0]["daysleft"] <= 14) {
+					document.getElementsByName('bdayicon')[0].addClass('green');
+					document.getElementsByName('bdayicon')[0].removeClass('red');
+					document.getElementsByName('bdayicon')[0].addClass('announcement');
+					document.getElementsByName('bdayicon')[0].removeClass('birthday');
+					document.getElementsByName('bdayicon')[0].setAttribute('title', 'Two (2) weeks before birthday');
+
+
+				} else if(recorddata[0][0]["daysleft"] <= 7 && recorddata[0][0]["daysleft"] > 0) {
+					document.getElementsByName('bdayicon')[0].addClass('green');
+					document.getElementsByName('bdayicon')[0].removeClass('red');
+					document.getElementsByName('bdayicon')[0].addClass('announcement');
+					document.getElementsByName('bdayicon')[0].removeClass('birthday');
+					document.getElementsByName('bdayicon')[0].setAttribute('title', recorddata[0][0]["daysleft"] + ' day(s) before birthday');
+
+				} else if(recorddata[0][0]["daysleft"] == 0) {
+					document.getElementsByName('bdayicon')[0].addClass('red');
+					document.getElementsByName('bdayicon')[0].removeClass('green');
+					document.getElementsByName('bdayicon')[0].addClass('birthday');
+					document.getElementsByName('bdayicon')[0].removeClass('announcement');
+					document.getElementsByName('bdayicon')[0].setAttribute('title', 'Happy Birthday');
+
+				}//if
 
 				
 			} else {
-				document.getElementsByName('bdate')[0].innerHTML = "N/A";
+				document.getElementsByName('bdatemod')[0].innerHTML = "N/A";
 
 			}//if
 
-
 			if(recorddata[0][0]["street"] !== "") {
-				document.getElementsByName('homeaddress')[0].innerHTML = recorddata[0][0]['street'] + " " +
+				document.getElementsByName('homeaddressmod')[0].innerHTML = recorddata[0][0]['street'] + " " +
 																	  recorddata[0][0]['barangay'] + " " +
 																	  recorddata[0][0]['city'] + " " +
 																	  recorddata[0][0]['province'];
 			} else {
-				document.getElementsByName('homeaddress')[0].innerHTML = "N/A";
+				document.getElementsByName('homeaddressmod')[0].innerHTML = "N/A";
 			
 			}//if
 
@@ -408,53 +431,53 @@
 
 		   	}//if
 
-		   	document.getElementsByName('gender')[0].innerHTML = gender;
+		   	document.getElementsByName('gendermod')[0].innerHTML = gender;
 		
 		   	if(recorddata[0][0]['contactno'] !== "") {
-		   		document.getElementsByName('contactno')[0].innerHTML = recorddata[0][0]['contactno'];
+		   		document.getElementsByName('contactnomod')[0].innerHTML = recorddata[0][0]['contactno'];
 
 		   	} else {
-		   		document.getElementsByName('contactno')[0].innerHTML = "N/A";	
+		   		document.getElementsByName('contactnomod')[0].innerHTML = "N/A";	
 
 		   	}//if
 
 		   	if(recorddata[0][0]['landline'] !== "") {
-		   		document.getElementsByName('landline')[0].innerHTML = recorddata[0][0]['landline'];
+		   		document.getElementsByName('landlinemod')[0].innerHTML = recorddata[0][0]['landline'];
 
 		   	} else {
-		   		document.getElementsByName('landline')[0].innerHTML = "N/A";	
+		   		document.getElementsByName('landlinemod')[0].innerHTML = "N/A";	
 
 		   	}//if
 
 		   	if(recorddata[0][0]['email'] !== "") {
-		   		document.getElementsByName('email')[0].innerHTML = recorddata[0][0]['email'];
+		   		document.getElementsByName('emailmod')[0].innerHTML = recorddata[0][0]['email'];
 
 		   	} else {
-		   		document.getElementsByName('email')[0].innerHTML = "N/A";	
+		   		document.getElementsByName('emailmod')[0].innerHTML = "N/A";	
 
 		   	}//if
 
 		   	if(recorddata[0][0]['fbuser'] !== "") {
-		   		document.getElementsByName('fb')[0].innerHTML = recorddata[0][0]['fbuser'];
+		   		document.getElementsByName('fbmod')[0].innerHTML = recorddata[0][0]['fbuser'];
 
 		   	} else {
-		   		document.getElementsByName('fb')[0].innerHTML = "N/A";	
+		   		document.getElementsByName('fbmod')[0].innerHTML = "N/A";	
 
 		   	}//if
 
 		   	if(recorddata[0][0]['twitteruser'] !== "") {
-		   		document.getElementsByName('twitter')[0].innerHTML = recorddata[0][0]['twitteruser'];
+		   		document.getElementsByName('twittermod')[0].innerHTML = recorddata[0][0]['twitteruser'];
 
 		   	} else {
-		   		document.getElementsByName('twitter')[0].innerHTML = "N/A";	
+		   		document.getElementsByName('twittermod')[0].innerHTML = "N/A";	
 
 		   	}//if
 
 		   	if(recorddata[0][0]['iguser'] !== "") {
-		   		document.getElementsByName('ig')[0].innerHTML = recorddata[0][0]['iguser'];
+		   		document.getElementsByName('igmod')[0].innerHTML = recorddata[0][0]['iguser'];
 
 		   	} else {
-		   		document.getElementsByName('ig')[0].innerHTML = "N/A";	
+		   		document.getElementsByName('igmod')[0].innerHTML = "N/A";	
 
 		   	}//if
 		}//fillprofile

@@ -29,7 +29,7 @@
 													<i class="ui green announcement icon" title = "Two (2) weeks before birthday"></i>
 													
 												@elseif($acrec->daysleft <= 7 && $acrec->daysleft > 0)
-													<i class="ui green announcement icon" title = "{{$acrec->daysleft}} days before birthday"></i>
+													<i class="ui green announcement icon" title = "{{$acrec->daysleft}} day(s) before birthday"></i>
 													
 												@elseif($acrec->daysleft == 0)
 													<i class="ui red birthday icon" title = "Happy Birthday!"></i>
@@ -125,7 +125,7 @@
 														<i class="ui green announcement icon" title = "Two (2) weeks before birthday"></i>
 														
 													@elseif($tprec->daysleft <= 7 && $tprec->daysleft > 0)
-														<i class="ui green announcement icon" title = "{{$acrec->daysleft}} days before birthday"></i>
+														<i class="ui green announcement icon" title = "{{$acrec->daysleft}} day(s) before birthday"></i>
 														
 													@elseif($tprec->daysleft == 0)
 														<i class="ui red birthday icon" title = "Happy Birthday!"></i>
@@ -206,7 +206,7 @@
 		        $(function() {
 		            $('.infinite-scroll').jscroll({
 		                autoTrigger: true,
-		                loadingHtml: '<img class="center-block" src="/images/loading.gif" alt="Loading..." />', // MAKE SURE THAT YOU PUT THE CORRECT IMG PATH
+		                loadingHtml: '<img class="loadicon" src="{{URL::asset('objects/Logo/loading.gif')}}" alt="Loading..." />', // MAKE SURE THAT YOU PUT THE CORRECT IMG PATH
 		                padding: 0,
 		                nextSelector: '.pagination li.active + li a',
 		                contentSelector: 'div.infinite-scroll',
