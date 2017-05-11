@@ -3,10 +3,11 @@
 	        <div class = "header mtitle">
 
 	        	<h3 class = "h3name" name = "name"></h3>
-	            <button class = "ui icon editbtn button tiny" name="editbtn" title = "Edit AC Member Record">
+	        	<button class = "ui icon editbtn button tiny" name="editbtn" title = "Edit AC Member Record">
 					<i class="edit icon topmargin"></i>
 							
 				</button>
+				
 	        </div>
 
 	        <div class = "modalcontent">
@@ -600,6 +601,7 @@
 
 				   		fillprofile(recorddata);
 
+
 				   		if(parseInt(tiditems[0]) == 0) {
 				   			showacview();
 				   			fillacdata(recorddata);
@@ -610,6 +612,11 @@
 
 				   		}//if
 
+				   		var type = "{{Auth::user()->admintype}}";
+
+				   		if(type == 2){
+				   			$("button[name=editbtn]").attr("disabled", true);
+				   		}
 				   		$('.modalcontent .item').removeClass('active');
 				   		$('.modalcontent .tab').removeClass('active');
 				   		$('.modalcontent #tab1').addClass('active');

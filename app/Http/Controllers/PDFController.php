@@ -92,7 +92,7 @@ class PDFController extends Controller
 					
 			}
 						   								
-			if($req->office2 != "disitem")
+			if($req->office2 != 0)
 				{ 
 					//array_add($whereclause, "second_id",$req->office2);
 					$query = $query->where('second_id','=',$req->office2);
@@ -114,12 +114,12 @@ class PDFController extends Controller
 					$query = $query->where('province','like','%'.$req->province.'%');
 				}
 		
-			if($req->office3 != "disitem")
+			if($req->office3 != 0)
 				{//array_add($whereclause, "tertiary_id",$req->office3);
 					$query = $query->where('tertiary_id','=',$req->office3);
 				}
 		
-			if($req->office4 != "disitem")
+			if($req->office4 != 0)
 				{//array_add($whereclause, "quaternary_id",$req->office4); 
 					$query = $query->where('quaternary_id','=',$req->office4);
 				}
@@ -173,7 +173,7 @@ class PDFController extends Controller
 	{
 		$query = Advisory_Council::query();
 
-			if($req->office!="disitem" && $req->office2=="disitem")
+			if($req->office!=0 && $req->office2==0)
 			{
 				$sec_id = $this->getSecOffice($req->office);
 				foreach ($sec_id as $key => $sec_id) 
@@ -181,7 +181,7 @@ class PDFController extends Controller
 					
 			}
 
-			if($req->office2 != "disitem")
+			if($req->office2 != 0)
 				{ $query = $query->where('second_id','=',$req->office2); }
 				
 			if($req->gender != 0)

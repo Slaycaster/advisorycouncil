@@ -164,7 +164,7 @@ Route::post('approval', 'RegistrationController@setstatus');
 Route::get('reloadImageCaptcha', 'RegistrationController@reloadCaptcha');
 
 //RETRIEVE DATA
-Route::post('getdata', 'AdvDirectoryController@readyModal');
+Route::post('getdata', 'AdvDirectoryController@readyModal')->middleware('auth');
 
 //SEARCH
 Route::get('home/search', function() {

@@ -148,13 +148,13 @@
 		    <tbody>
 		    	@foreach($users as $result)
 
-		    		@if($result->status == 0)
+		    		<!-- @if($result->status == 1) -->
 		    			<tr class = "trow" onmouseover = "showpopup(this.rowIndex)" onclick = "activaterow(this.rowIndex, {{$result->id}})">
 					    
-			    	@else
+			    	<!-- @else
 			    		<tr>
 
-			    	@endif
+			    	 -->@endif
 
 			    		<td><center>{{$result->name}}</center></td>
 			    		<td><center>{{$result->email}}</center></td>
