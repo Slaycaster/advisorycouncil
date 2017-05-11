@@ -13,11 +13,20 @@
 		<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/stylev1.css')}}">
 		<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/icon.css')}}">
 		<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/toast.css')}}">
-		<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/multipletextinput.css')}}">
-		<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/res.css')}}">
-
-
-		
+		<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/multipletextinput.css')}}">		
+		<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/wideScreenMonitor.css')}}">	
+		<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/largeMonitor2.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/largeMonitor1.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/largeMonitor.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/computerMonitor.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/tabletMonitor.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/tabletMonitor1.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/mobileMonitor3.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/mobileMonitor2.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/mobileMonitor2.1.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/mobileMonitor1.1s.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/mobileMonitor1.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/mobileMonitor.css')}}">
 
 
 		<!-- JS -->

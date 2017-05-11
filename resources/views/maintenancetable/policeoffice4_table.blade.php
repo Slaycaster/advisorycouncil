@@ -112,7 +112,7 @@
 
 @section('mtablesection')
 
-	<div class = "mtitle">Quaternary Unit/Office
+	<div class = "mtitle rwdmainteTitle">Quaternary Unit/Office
 						
 	</div>
 

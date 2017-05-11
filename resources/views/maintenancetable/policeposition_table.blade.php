@@ -55,7 +55,7 @@
 @endsection
 
 @section('mtablesection')
-	<div class = "mtitle">PNP Position</div>
+	<div class = "mtitle rwdmainteTitle">PNP Position</div>
 
 	<div class = "tablecon">
 		<table id="datatable" class="ui celled table" cellspacing="0" width="100%">

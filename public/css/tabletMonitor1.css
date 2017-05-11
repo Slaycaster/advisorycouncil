@@ -1,0 +1,81 @@
+@media only screen and (min-width: 880px) and (max-width: 991px) 
+and (orientation: landscape) {
+
+html{
+		height:auto;
+ 		width:100%;
+ 		background-color:#ebebeb; 
+ 	}
+
+.logfield {
+	width: 57%;	
+	margin-left: -5%;
+} 	
+
+.hr1 {
+	width: 57%;
+	border-top: 1px solid #00253a;
+	margin-left: -1%;
+	
+}
+
+.p2 {
+	text-align: left;	
+}
+
+.centerbtn {
+	margin-left: 10%;
+	margin-top: 4%;
+}
+
+.cardstyleportrait {
+	border: 2px solid #ebebeb;
+	width: 110%;
+}
+
+.ui.grid > .row {
+   padding-top: 2.6em;
+  padding-bottom: 1rem;
+}
+
+.ui.vertical.menu {
+    width: 10rem;
+}
+
+.cardstyle {
+	
+	height: 200px;
+	width:130%;
+	border-radius: 3%;
+}
+
+.acname {
+	width: auto;
+	height: 47%;
+
+}
+
+.ui.grid > .row > [class*="five1 wide"].column,
+.ui.grid > .column.row > [class*="five1 wide"].column,
+.ui.grid > [class*="five1 wide"].column,
+.ui.column.grid > [class*="five1 wide"].column {
+  width: 38% !important;
+  margin-left: 8%;
+}
+
+.ui.grid.cardlist2 {
+	width: 100%;
+	padding-top: 2%;
+	padding-left: 2%;
+}
+
+
+
+
+ 	
+
+
+
+
+}//endofwideScreenMonitor
+

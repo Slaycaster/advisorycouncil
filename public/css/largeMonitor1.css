@@ -1,4 +1,4 @@
-@media only screen and (min-width: 1200px) and (max-width: 1349px) 
+@media only screen and (min-width: 1350px) and (max-width: 1499px) 
 and (orientation: landscape) {
 
 html{
@@ -8,11 +8,11 @@ html{
  	}
 
 .logfield {
-	width: 82%;
+	width: 92%;
 } 	
 
 .hr1 {
-	width: 82%;
+	width: 92%;
 	border-top: 1px solid #00253a;
 	margin-left: -1%;
 	
@@ -22,24 +22,19 @@ html{
 	text-align: left;	
 }
 
+
 .centerbtn {
 	margin-left: 27%;
 	margin-top: 4%;
 }
 
 .ui.grid > .row {
-   padding-top: 2.6em;
+   padding-top: 2.8em;
   padding-bottom: 1rem;
 }
 
 .ui.vertical.menu {
-    width: 15rem;
-}
-
-.cardstyle {
-	
-	height: 157px;
-	border-radius: 3%;
+    width: 16rem;
 }
 
 

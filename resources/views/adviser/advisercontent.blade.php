@@ -10,7 +10,7 @@
 							Advisory Council
 						</h6>
 						<div class="infinite-scroll">
-						<div id = "accardlist" class = "ui doubling grid cardlist2">
+						<div id = "accardlist" class = "ui doubling grid rwdDcardlist2 cardlist2">
 
 							@foreach($directory[0] as $acrec)
 								<div class = "five1 wide column colheight">
@@ -100,7 +100,7 @@
 							TWG & PSMU
 						</h6>
 						<div class="infinite-scroll">
-						<div id = "tpcardlist" class = "ui doubling grid cardlist2">
+						<div id = "tpcardlist" class = "ui doubling grid rwdDcardlist2 cardlist2 ">
 
 							@foreach($directory[1] as $tprec)
 								<div class = "five1 wide column colheight">

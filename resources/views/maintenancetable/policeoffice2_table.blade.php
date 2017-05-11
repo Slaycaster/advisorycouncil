@@ -82,7 +82,7 @@
 @endsection
 
 @section('mtablesection')
-	<div class = "mtitle">Secondary Unit/Office</div>
+	<div class = "mtitle rwdmainteTitle">Secondary Unit/Office</div>
 
 	<div class = "tablecon">
 		<table id="datatable" class="ui celled table" cellspacing="0" width="100%">

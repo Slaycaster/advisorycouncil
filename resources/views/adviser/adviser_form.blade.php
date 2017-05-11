@@ -8,7 +8,7 @@
 				<div id="myToast" class="toast-popup"></div>			
 			</div>
 
-			<div class = "tablecon">
+			<div class = "rwdDirectoryAdd tablecon">
 				<form action ="javascript:loadCModal()"  class = "ui form" id = "form">
 					<div class="fborder">
 						<input type="hidden" value="" name="advid"/>
@@ -17,7 +17,7 @@
 							Profile			
 						</div>
 
-						<div class = "tablecon">
+						<div class = "rwdDirectoryAdd tablecon">
 
 							<div class = "ui grid">
 								<div class = "thirteen wide column">
@@ -203,7 +203,7 @@
 							Stakeholder Information <!-- SUBJECT FOR CHANGE-->	
 						</div>
 
-						<div class = "tablecon">
+						<div class = "rwdDirectoryAdd tablecon">
 							<div class = "field">
 								<div class = "field">
 									<label>Stakeholder Category 
@@ -298,7 +298,7 @@
 							</div>
 
 
-							<div class = "tablecon">
+							<div class = "rwdDirectoryAdd tablecon">
 								<table class = "ui celled padding table" id = "traintable">
 									<thead>
 										<tr>
@@ -332,7 +332,7 @@
 							
 					</div>
 					<br>
-					<center>
+					<center class="rwdCenterButton">
 
 						<button type = "submit" name="submit" 
 								class="ui large button submit savebtnstyle">

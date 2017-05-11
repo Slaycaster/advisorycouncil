@@ -87,11 +87,11 @@
 	</div>
 						
 
-	<div class = "twelve wide column">
-		<div class = "hcontent">
+	<div class = "twelve wide column rwdpane">
+		<div class = "hcontent rwdHhcontent">
 			<div class="dcon">
 				<div class = "tablepane">
-					<div class = "mtitle">Dashboard</div>
+					<div class = "mtitle rwdmtitle">Dashboard</div>
 
 					<div class= "ui grid"> 
 						

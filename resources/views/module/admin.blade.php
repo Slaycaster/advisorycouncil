@@ -8,7 +8,7 @@
 			<div class = "ui grid">
 
 				<div class = "five wide column">
-					<div class = "formpane">
+					<div class = "formpane rwdAformpane">
 						<div class = "mhead2">
 							<span class = "headertext">Add Admin</span>
 							<div id="myToast" class="toast-popup"></div>
@@ -21,7 +21,7 @@
 				</div>
 
 				<div class = "eleven wide column">
-					<div class = "tablepane">
+					<div class = "tablepane rwdAtablepane">
 						@yield('mtablesection')
 					
 					</div>
