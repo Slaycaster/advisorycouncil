@@ -34,6 +34,8 @@ use App\Models\Training;
 
 use App\Models\Lecturer;
 
+use App\Models\users;
+
 use DB;
 
 use Auth;
@@ -290,6 +292,12 @@ class AdvDirectoryController extends Controller {
 		return $subcategory;
 
 	}//public function getSubCateg() {
+
+	public function getPriOffice() {
+		$prioffice = unit_offices::all();
+
+		return $prioffice;
+	}//public function getPriOffice() {
 
 	public function getSecOffice(Request $req) {
 		$primary = $req->poID;
@@ -755,8 +763,6 @@ class AdvDirectoryController extends Controller {
 		}//foreach
 
 	 }//format output
-
-	
 
 }//class
 

@@ -13,6 +13,17 @@
 									<div class = "summhead">
 										<i class = "filter icon"></i>
 											Filter
+										@if(Auth::user()->admintype == 0)
+											
+										@elseif(Auth::user()->admintype == 1)
+											<input type="button" onclick="" value="All Unit">
+											<input type="button" onclick="manageunit(1)" name="manageunit" value="Manage Unit">
+										
+										@elseif(Auth::user()->admintype == 2)
+											<input type="button" onclick="" value="All Unit">
+											<input type="button" onclick="manageunit(2)" name="manageunit" value="My Unit">
+										
+										@endif
 									</div>
 
 											
@@ -208,10 +219,17 @@
 							                <input type="hidden" name="sector" value="">
 							                <input type="hidden" name="imageurl" value="">
 							                <input type="hidden" name="startdate" value="">
-
-											<button type="submit" name="submit" id="pdf-loader" class="ui medium button">
-												Generate PDF
-											</button>
+							                
+							                @if(Auth::user()->admintype == 0)
+												<button type="submit" name="submit" id="pdf-loader" class="ui medium button">
+													Generate PDF
+												</button>
+											
+											@else 
+												<button type="submit" style="visibility:hidden;" name="submit" id="pdf-loader" class="ui medium button">
+													Generate PDF
+												</button>
+											@endif
 										</form>
 									</div>
 
@@ -272,6 +290,21 @@
             loaddata();
          });
 
+		
+		$('viewadv').modal('hide');
+		$('ul.pagination').hide();
+		$(function() {
+	    $('.infinite-scroll').jscroll({
+		                autoTrigger: true,
+		                loadingHtml: '<img class="center-block" src="/images/loading.gif" alt="Loading..." />', // MAKE SURE THAT YOU PUT THE CORRECT IMG PATH
+		                padding: 0,
+		                nextSelector: '.pagination li.active + li a',
+		                contentSelector: 'div.infinite-scroll',
+		                callback: function() {
+		                    $('ul.pagination').remove();
+		                }
+		            });
+		        });
 
             
 		$('#tab3').attr('class', 'mlink item active');
@@ -353,11 +386,12 @@
 			   	success : function(secoffice) {
 
 			   		$("select[name='filsecondary'] option").not("[value='disitem']").remove();
-
+			   		$("select[name='filsecondary']").dropdown("restore defaults");
 			   		for (var ctr = 0 ; ctr < secoffice.length ; ctr++) {
 			   			populatedropdown(secoffice[ctr]['id'], 'filsecondary', secoffice[ctr]['UnitOfficeSecondaryName']);
 			   			
 			   		};
+
 
 
 			   		
@@ -384,7 +418,7 @@
 			   	success : function(teroffice) {
 
 			   		$("select[name='filtertiary'] option").not("[value='disitem']").remove();
-
+			   		$("select[name='filtertiary']").dropdown("restore defaults");
 			   		for (var ctr = 0 ; ctr < teroffice.length ; ctr++) {
 			   			populatedropdown(teroffice[ctr]['id'], 'filtertiary', teroffice[ctr]['UnitOfficeTertiaryName']);
 			   			
@@ -413,7 +447,7 @@
 			   	success : function(quaroffice) {
 
 			   		$("select[name='filquaternary'] option").not("[value='disitem']").remove();
-
+			   		$("select[name='filquaternary']").dropdown("restore defaults");
 			   		for (var ctr = 0 ; ctr < quaroffice.length ; ctr++) {
 			   			populatedropdown(quaroffice[ctr]['id'], 'filquaternary', quaroffice[ctr]['UnitOfficeQuaternaryName']);
 			   			
@@ -581,184 +615,63 @@
             });//AJAX
         }// LOAD DATA
 
-        function loadAC(data)
+        function manageunit(type)
         {
-            responseArray = data.split("|");
-                        numOfRow = responseArray[0];
-                        num = 1;
+        	if(type == 1){
+        		document.getElementById('pdf-loader').visibility = "show";
+        	}
 
-                        for(i=0; i < numOfRow; i++)
-                        {
-                            cell1 = responseArray[num];num++;
-                            
-                            if(responseArray[num+2]!="" && responseArray[num+2]!=null)
-                                { cell2 = responseArray[num] + ", " + responseArray[num+1] +" "+responseArray[num+2] ; }
-                            else { cell2 = responseArray[num] + ", " + responseArray[num+1]; }
+        	var data = {
 
-                            pdffname.push(responseArray[num+1]);
-                            pdfmname.push(responseArray[num+2]);
-                            pdflname.push(responseArray[num]);
+        		'id' : "{{Auth::user()->id}}",
+        		'_token' : '{{ Session::token() }}'
+        	};
 
-                            num+=3;
-                            
-                            if(responseArray[num+1]!='' && responseArray[num+2]!='')
-                            {
-                                //$office = $office4name." - ".$office3name." - ".$office2name;
-                                cell3 = responseArray[num+2] +' - ' + responseArray[num+1] +' - '+ responseArray[num];
-                                pdftertiaryoff.push(responseArray[num+1]);
-                                pdfquaternaryoff.push(responseArray[num+2]);
-                            }
+        	$.ajax({
+        		type: "post",
+        		data: data,
+        		url: "{{url('getuser')}}",
+        		success: function(data){
 
-                            if(responseArray[num+1]!='' && responseArray[num+2]=='')
-                            {
-                                //$office = $office3name." - ".$office2name;
-                                //cell3 = responseArray[num];num+=3;
-                                cell3 = responseArray[num+1] +' - '+ responseArray[num];
-                                pdftertiaryoff.push(responseArray[num+1]);
-                                pdfquaternaryoff.push("");
-                            }
+        			$("select[name='filprimary']").dropdown("set selected", data['unit_id']);
 
-                            if(responseArray[num+1]=='' && responseArray[num+2]=='')
-                            {
-                              //  $office = $office2name;
-                                cell3 = responseArray[num];
-                                pdftertiaryoff.push("");
-                                pdfquaternaryoff.push("");
-                            
-                            }
+        			setTimeout(function(){
+					    changeValue("select[name='filsecondary']",data['second_id']);
+					},2000);
+					
+					setTimeout(function(){
+				   		changeValue("select[name='filtertiary']",data['tertiary_id']);
+					},4000);
 
-                            pdfsecondoff.push(responseArray[num]);
+					setTimeout(function(){
+				   		changeValue("select[name='filquaternary']",data['quaternary_id']);
+					},6000);
 
-                            num+=3;
+					$("select[name='filprimary']").attr("disabled", "disabled");
+        			
+        			if(data['second_id'] == null){
+        				document.getElementsByName('filsecondary').disabled = "disabled";
+        			}
 
-                            //cell3 = responseArray[num];num+=3;
-                            
-                            cell4 = responseArray[num];num++;
-                            cell5 = responseArray[num];num++;
-                            cell6 = "AC";
-                            cell7 = responseArray[num];num++;
-                            cell8 = responseArray[num];num++;
-                            cell9 = responseArray[num];num++;
-                            cell10 = responseArray[num];num++;
-                            cell11 = responseArray[num];num++;
-                            cell12 = responseArray[num];num++;
-                            cell13 = responseArray[num];num++;
+        			if(data['tertiary_id'] == null){
+        				document.getElementsByName('filtertiary').disabled = "disabled";
+        			}
 
-                            val = cell1 + "|" + cell2 + "|" + cell3 + "|" + cell4 + "|" +
-                                  cell5 + "|" + cell6 + "|" + cell7 + "|" + cell8 + "|" +
-                                  cell9 + "|" + cell10 + "|" + cell11 + "|" + cell12 + "|" + cell13;
+        			if(data['quaternary_id'] == null){
+        				document.getElementsByName('filquaternary').disabled = "disabled";
+        			}
+			   		
+			   	},
+				error:function() {
+					$('#errormodal').modal('show');
+				}//success : function
+			});
 
-                            pdfid.push(cell1);
-                            pdfsector.push(cell4); 
-                            pdfposition.push(cell5);
-                            pdfpoltype.push(cell6);
-                            pdfgender.push(cell7);
-                            pdfaddress.push(cell8);
-                            pdfimage.push(cell9);
-                            pdfcontact.push(cell10);
-                            pdflandline.push(cell11);
-                            pdfemail.push(cell12);
-                            pdfsdate.push(cell13);
-                            // document.getElementById('addRow').value = val;
-                            // document.getElementById('addRow').click();
-                            
-                        }
-        }
+		}//function manageunit() {
 
-        function loadPolAd(data)
-        {
-            responseArray = data.split("|");
-                        numOfRow = responseArray[0];
-                        num = 1;
-
-                        for(i=0; i < numOfRow; i++)
-                        {
-                            cell1 = responseArray[num];num++;
-                            
-                            if(responseArray[num+2]!="" && responseArray[num+2]!=null)
-                                { 
-                                    cell2 = responseArray[num] + ", " + responseArray[num+1] +" "+responseArray[num+2] ; 
-                                }
-                            else { cell2 = responseArray[num] + ", " + responseArray[num+1]; }
-                                
-                                pdffname.push(responseArray[num+1]);
-                                pdfmname.push(responseArray[num+2]);
-                                pdflname.push(responseArray[num]);
-
-                            num+=3;
-
-                            if(responseArray[num+1]!='' && responseArray[num+2]!='')
-                            {
-                                //$office = $office4name." - ".$office3name." - ".$office2name;
-                                cell3 = responseArray[num+2] +' - ' + responseArray[num+1] +' - '+ responseArray[num];
-                                pdftertiaryoff.push(responseArray[num+1]);
-                                pdfquaternaryoff.push(responseArray[num+2]);
-                            
-                            }
-
-                            if(responseArray[num+1]!='' && responseArray[num+2]=='')
-                            {
-                                //$office = $office3name." - ".$office2name;
-                                //cell3 = responseArray[num];num+=3;
-                                cell3 = responseArray[num+1] +' - '+ responseArray[num];
-                                pdftertiaryoff.push(responseArray[num+1]);
-                                pdfquaternaryoff.push("");
-                            }
-
-                            if(responseArray[num+1]=='' && responseArray[num+2]=='')
-                            {
-                              //  $office = $office2name;
-                              cell3 = responseArray[num];
-                              pdftertiaryoff.push("");
-                              pdfquaternaryoff.push("");
-                            
-                            }
-
-                            pdfsecondoff.push(responseArray[num]);
-                            pdftertiaryoff.push(responseArray[num+1]);
-                            pdfquaternaryoff.push(responseArray[num+2]);
-
-                            num+=3;
-
-                            //cell3 = responseArray[num];num+=3;
-                            cell4 = "PNP";
-                            cell5 = responseArray[num];num++;
-                            cell6 = responseArray[num];num++;
-                            cell7 = responseArray[num];num++;
-                            cell8 = responseArray[num];num++;
-                            cell9 = responseArray[num];num++;
-                            cell10 = responseArray[num];num++;
-                            cell11 = responseArray[num];num++;
-                            cell12 = responseArray[num];num++;
-                            cell13 = responseArray[num];num++;
-
-
-                            val = cell1 + "|" + cell2 + "|" + cell3 + "|" + cell4 + "|" +
-                                  cell5 + "|" + cell6 + "|" + cell7 + "|" + cell8 + "|" +
-                                  cell9 + "|" + cell10 + "|" + cell11 + "|" + cell12 + "|" + cell13;
-
-                            pdfid.push(cell1);
-                            pdfsector.push(""); 
-                            pdfposition.push(cell5);
-                            if(cell6==1)
-                                { pdfpoltype.push("TWG"); }
-                            else { pdfpoltype.push("PSMU"); }
-                            pdfgender.push(cell7);
-                            pdfaddress.push(cell8);
-                            pdfimage.push(cell9);
-                            pdfcontact.push(cell10);
-                            pdflandline.push(cell11);
-                            pdfemail.push(cell12);
-                            pdfsdate.push(cell13);
-
-                            // document.getElementById('addRow').value = val;
-                            // document.getElementById('addRow').click();
-
-                            
-                        }
-        }
-
-
+		function changeValue(dropdownID,value){
+ 			$('.ui.dropdown').has(dropdownID).dropdown('set selected',value);
+		}
 		
 	</script>
 

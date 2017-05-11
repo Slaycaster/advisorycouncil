@@ -101,6 +101,28 @@ function createdropdown(oid, tempcon, dtype, offunc, textnode) {
 
 }//createdropdown
 
+function createdropdown2(oid, tempcon, dtype, offunc, textnode) {
+	var select = document.createElement('select');
+	select.setAttribute('class','modified ui selection dropdown selectstyle2');
+	select.setAttribute('name', oid);
+	select.setAttribute('id', oid);
+
+	if(dtype == 1) {
+		select.setAttribute('onchange', offunc)
+	}//if
+
+	tempcon.lastChild.lastChild.appendChild(select);
+
+	var opt = document.createElement('option');
+	opt.setAttribute('selected', 'selected');
+	opt.setAttribute('value', 'disitem');
+
+	tempcon.lastChild.lastChild.lastChild.appendChild(opt);
+
+	tempcon.lastChild.lastChild.lastChild.lastChild.appendChild(document.createTextNode(textnode));
+
+}//createdropdown2
+
 function createinput(intype, oid, placeholder) {
 	var input = document.createElement('input');
 	input.setAttribute('type', intype);
@@ -300,6 +322,90 @@ function addT2Elements() { //PSMU and TWG ELEMENTS
 	$("select").not('#searchbox').dropdown('refresh');
 	//$("select").dropdown('refresh'); //refresh dropdown
 }//function addT2Elements() {
+
+
+function adddropdown(){
+
+	var labelpane = document.getElementById('templpane');
+	var ddpane = document.getElementById('tempddfield');
+
+	//label
+	var ldiv1 = creatediv("twelve wide column bspacing");
+	labelpane.appendChild(ldiv1);
+
+
+	var span = document.createElement('span');
+	span.setAttribute('class', 'asterisk');
+	labelpane.lastChild.appendChild(span);
+
+	labelpane.lastChild.lastChild.appendChild(document.createTextNode('Unit to Manage*'));
+
+
+	var ldiv2 = creatediv("field");
+	labelpane.lastChild.appendChild(ldiv2);
+	labelpane.lastChild.lastChild.appendChild(document.createElement('label'));
+	labelpane.lastChild.lastChild.lastChild.appendChild(document.createTextNode('Primary Office'));
+
+	var ldiv3 = creatediv("twelve wide column bspacing");
+	labelpane.appendChild(ldiv3);
+
+	var ldiv4 = creatediv("field");
+	labelpane.lastChild.appendChild(ldiv4);
+	labelpane.lastChild.lastChild.appendChild(document.createElement('label'));
+	labelpane.lastChild.lastChild.lastChild.appendChild(document.createTextNode('Secondary Office'));
+
+
+	var ldiv5 = creatediv("twelve wide column bspacing");
+	labelpane.appendChild(ldiv5);
+
+	var ldiv6 = creatediv("field");
+	labelpane.lastChild.appendChild(ldiv6);
+	labelpane.lastChild.lastChild.appendChild(document.createElement('label'));
+	labelpane.lastChild.lastChild.lastChild.appendChild(document.createTextNode('Tertiary Office'));
+
+
+	var ldiv7 = creatediv("twelve wide column bspacing");
+	labelpane.appendChild(ldiv7);
+
+	var ldiv8 = creatediv("field");
+	labelpane.lastChild.appendChild(ldiv8);
+	labelpane.lastChild.lastChild.appendChild(document.createElement('label'));
+	labelpane.lastChild.lastChild.lastChild.appendChild(document.createTextNode('Quaternary Office'));
+
+	//Dropdown
+	var ddiv1 = creatediv("twelve wide column bspacing2");
+	ddpane.appendChild(ddiv1);
+
+	var ddiv2 = creatediv('field');
+	ddpane.lastChild.appendChild(ddiv2);
+
+	createdropdown2("primary", ddpane, 1, "getsecoffice(this.value)", 'Category');
+
+	var ddiv3 = creatediv("twelve wide column bspacing2");
+	ddpane.appendChild(ddiv3);
+
+	var ddiv4 = creatediv('field');
+	ddpane.lastChild.appendChild(ddiv4);
+
+	createdropdown2("secondary", ddpane, 1, "getteroffice(this.value)", 'Unit/Office');
+
+	var ddiv5 = creatediv("twelve wide column bspacing2");
+	ddpane.appendChild(ddiv5);
+
+	var ddiv6 = creatediv('field');
+	ddpane.lastChild.appendChild(ddiv6);
+
+	createdropdown2("tertiary", ddpane, 1, "getquaroffice(this.value)", 'PPO/CPO');
+
+	var ddiv7 = creatediv("twelve wide column bspacing2");
+	ddpane.appendChild(ddiv7);
+
+	var ddiv8 = creatediv('field');
+	ddpane.lastChild.appendChild(ddiv8);
+
+	createdropdown2("quaternary", ddpane, 0, "",'Municipal Police Station');
+
+}
 
 
 //Multiple Text Input
@@ -622,7 +728,14 @@ function addnamecard(ACtype,cardlistid, data) {
 	h6.setAttribute('class','ui horizontal divider divtitle');
 
 	ilist.appendChild(h6);
-	ilist.lastChild.appendChild(document.createTextNode('Advisory Council'));
+	if(data == null && data=="")
+	{
+		ilist.lastChild.appendChild(document.createTextNode('No Results'));	
+	}
+	else 
+	{
+		ilist.lastChild.appendChild(document.createTextNode('Advisory Council'));
+	}
 
 	var divscroll = document.createElement('div');
 	divscroll.setAttribute('class','infinite-scroll');
@@ -829,7 +942,14 @@ function addnamecard(ACtype,cardlistid, data) {
 	h6.setAttribute('class','ui horizontal divider divtitle');
 
 	ilist.appendChild(h6);
-	ilist.lastChild.appendChild(document.createTextNode('TWG & PSMU'));
+	if(data == null && data=="")
+	{
+		ilist.lastChild.appendChild(document.createTextNode('No Results'));	
+	}
+	else 
+	{
+		ilist.lastChild.appendChild(document.createTextNode('TWG & PSMU'));
+	}
 
 	var divscroll = document.createElement('div');
 	divscroll.setAttribute('class','infinite-scroll');
@@ -1001,23 +1121,8 @@ function addnamecard(ACtype,cardlistid, data) {
 
 }//addnamecard
 
-$('viewadv').modal('hide');
-$('ul.pagination').hide();
-$(function() {
-    $('.infinite-scroll').jscroll({
-		                autoTrigger: true,
-		                loadingHtml: '<img class="center-block" src="/images/loading.gif" alt="Loading..." />', // MAKE SURE THAT YOU PUT THE CORRECT IMG PATH
-		                padding: 0,
-		                nextSelector: '.pagination li.active + li a',
-		                contentSelector: 'div.infinite-scroll',
-		                callback: function() {
-		                    $('ul.pagination').remove();
-		                }
-		            });
-		        });}
+}
 
-	
-}//addnamecard
 
 //SHOW LIST
 

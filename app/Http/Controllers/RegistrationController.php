@@ -78,13 +78,41 @@ class RegistrationController extends Controller
 
      public function adduser(Request $req){
 
-        $user = new users;
-        $user->name = $req->fullname;
-        $user->email = $req->username;
-        $user->status = 1;
-        $user->created_at = date('Y-m-d H:i:s');
-        $user->password = bcrypt($req->password);
-        $user->save();
+        $admintype = $req->admintype;
+
+        if($admintype == 0){
+            $user = new users;
+            $user->name = $req->fullname;
+            $user->status = 1;
+            $user->admintype = $admintype;
+            $user->email = $req->username;
+            $user->password = bcrypt($req->password);
+            $user->created_at = date('Y-m-d H:i:s');
+            $user->save();
+        }
+        else if($admintype == 1 || $admintype == 2){
+            $sec = $req->secondary;
+            $ter = $req->tertiary;
+            $quat = $req->quaternary;
+
+            if($sec == 'disitem'){ $sec = null;}
+            if($ter == 'disitem'){ $ter = null;}
+            if($quat == 'disitem'){ $quat = null;}
+
+            $user = new users;
+            $user->name = $req->fullname;
+            $user->status = 1;
+            $user->admintype = $admintype;
+            $user->email = $req->username;
+            $user->password = bcrypt($req->password);
+            $user->unit_id = $req->primary;
+            $user->second_id = $sec;
+            $user->tertiary_id = $ter;
+            $user->quaternary_id = $quat;
+            $user->created_at = date('Y-m-d H:i:s');
+            $user->save();
+
+        }
 
     }//index
 
