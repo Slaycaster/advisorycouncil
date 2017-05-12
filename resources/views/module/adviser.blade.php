@@ -89,7 +89,7 @@
 										<div class = "one field">
 											<label class="formlabel">Unit/Offices</label>
 											<div class="field">
-												<select class="ui selection dropdown filselect" onchange="getsecoffice(this.value),loaddata()" name = "filprimary">
+												<select class="ui selection dropdown filselect" onchange="getsecoffice(this.value), loaddata()" name = "filprimary">
 													<option value = "disitem" selected>Primary Unit/Office</option>
 													@foreach ($unitoffice as $puo)
 								                        <option value="{{$puo->id}}">{{$puo->UnitOfficeName}}</option>
@@ -560,7 +560,7 @@
                 success: function(data){
                     
                     //document.getElementById('clearRow').click();
-
+                    //console.log(data);
                     document.getElementById("itemlists").innerHTML = "";
           			//$('itemlists').empty();
 
