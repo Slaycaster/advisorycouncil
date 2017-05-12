@@ -86,7 +86,7 @@ class PDFController extends Controller
 
 			if($req->office!=0 && $req->office2==0)
 			{
-				$sec_id = $this->getSecOffice($req->office);
+				$unit_id = $this->getSecOffice($req->office);
 				foreach ($sec_id as $key => $sec_id) 
 					{ $query = $query->where('second_id','=',$unit_id);	}
 					
@@ -175,7 +175,7 @@ class PDFController extends Controller
 
 			if($req->office!=0 && $req->office2==0)
 			{
-				$sec_id = $this->getSecOffice($req->office);
+				$unit_id = $this->getSecOffice($req->office);
 				foreach ($sec_id as $key => $sec_id) 
 					{ $query = $query->where('second_id','=',$unit_id);	}
 					

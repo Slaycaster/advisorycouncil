@@ -230,9 +230,6 @@
 													Generate PDF
 												</button>
 											@endif
-											<button type="submit" name="submit" id="pdf-loader" class="rwdbutton ui medium button ">
-												Generate PDF
-											</button>
 
 										</form>
 									</div>
