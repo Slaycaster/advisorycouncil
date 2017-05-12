@@ -85,6 +85,7 @@ Route::post('dropdown/getteroffice', 'AdvDirectoryController@getTerOffice');
 Route::post('dropdown/getquaroffice', 'AdvDirectoryController@getQuarOffice');
 Route::get('dropdown/getinitacd', 'AdvDirectoryController@getInitACD');
 Route::get('dropdown/getinittpd', 'AdvDirectoryController@getInitTPD');
+Route::get('dropdown/getprioffice', 'AdvDirectoryController@getPriOffice');
 
 
 
@@ -163,7 +164,7 @@ Route::post('approval', 'RegistrationController@setstatus');
 Route::get('reloadImageCaptcha', 'RegistrationController@reloadCaptcha');
 
 //RETRIEVE DATA
-Route::post('getdata', 'AdvDirectoryController@readyModal');
+Route::post('getdata', 'AdvDirectoryController@readyModal')->middleware('auth');
 
 //SEARCH
 Route::get('home/search', function() {

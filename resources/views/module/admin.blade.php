@@ -37,7 +37,12 @@
 		<div class="ui basic modal" id = "confirmmodal">
 			<div class="ui icon header">
 				<i class="help circle icon"></i>
-		    		<div name = "modalmessage">Add Admin?</div>
+					@if(Auth::user()->admintype == 0)
+		    		<div name = "modalmessage">Add Admin</div>
+		    		@else if(Auth::user()->admintype == 1)
+		    		<div name = "modalmessage">Add Account</div>
+		    		@endif
+		    		
 			</div>
 			
 			<div class="actions">
@@ -88,6 +93,15 @@
 						<div class = "ui radio checkbox">
 							<input type="radio" value = '1' name = "appadmintype"/>
 							<label>Admin</label>
+							
+						</div>
+						
+					</div>
+
+					<div class = "field">
+						<div class = "ui radio checkbox">
+							<input type="radio" value = '2' name = "appadmintype"/>
+							<label>Viewer</label>
 							
 						</div>
 						

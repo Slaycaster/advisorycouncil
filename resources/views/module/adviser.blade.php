@@ -13,6 +13,17 @@
 									<div class = "summhead">
 										<i class = "filter icon"></i>
 											Filter
+										@if(Auth::user()->admintype == 0)
+											
+										@elseif(Auth::user()->admintype == 1)
+											<input type="button" onclick="window.ocation.reload()" value="All Unit">
+											<input type="button" onclick="manageunit(1)" name="manageunit" value="Manage Unit">
+										
+										@elseif(Auth::user()->admintype == 2)
+											<input type="button" onclick="window.location.reload()" value="All Unit">
+											<input type="button" onclick="manageunit(2)" name="manageunit" value="My Unit">
+										
+										@endif
 									</div>
 
 											
@@ -76,10 +87,10 @@
 
 									<div class = "twelve wide column bspacing2">
 										<div class = "one field">
-											<label class="formlabel">Designation</label>
+											<label class="formlabel">Unit/Offices</label>
 											<div class="field">
 												<select class="ui selection dropdown filselect" onchange="getsecoffice(this.value),loaddata()" name = "filprimary">
-													<option value="disitem" selected>Category</option>
+													<option value = "disitem" selected>Primary Unit/Office</option>
 													@foreach ($unitoffice as $puo)
 								                        <option value="{{$puo->id}}">{{$puo->UnitOfficeName}}</option>
 								                    @endforeach
@@ -89,7 +100,7 @@
 
 											<div class="field bspacing1">
 												<select onchange = "getteroffice(this.value), loaddata()" class="ui selection dropdown filselect" name = "filsecondary">
-													<option value="disitem" selected>Unit/Office</option>
+													<option value="disitem" selected>Secondary Unit/Office</option>
 													
 
 												</select>
@@ -97,7 +108,7 @@
 
 											<div class="field bspacing1">
 												<select onchange = "getquaroffice(this.value), loaddata()" class="ui selection dropdown filselect" name = "filtertiary">
-													<option value="disitem" selected>PPO/CPO</option>
+													<option value="disitem" selected>Tertiary Unit/Office</option>
 													
 
 												</select>
@@ -105,7 +116,7 @@
 
 											<div class="field bspacing1">
 												<select onchange = "loaddata()" class="ui selection dropdown filselect" name = "filquaternary">
-													<option value="disitem" selected>Municipal Police Station</option>
+													<option value="disitem" selected>Quaternary Unit/Office</option>
 													
 
 												</select>
@@ -208,10 +219,21 @@
 							                <input type="hidden" name="sector" value="">
 							                <input type="hidden" name="imageurl" value="">
 							                <input type="hidden" name="startdate" value="">
-
+							                
+							                @if(Auth::user()->admintype == 0)
+												<button type="submit" name="submit" id="pdf-loader" class="ui medium button">
+													Generate PDF
+												</button>
+											
+											@else 
+												<button type="submit" style="visibility:hidden;" name="submit" id="pdf-loader" class="ui medium button">
+													Generate PDF
+												</button>
+											@endif
 											<button type="submit" name="submit" id="pdf-loader" class="rwdbutton ui medium button ">
 												Generate PDF
 											</button>
+
 										</form>
 									</div>
 
@@ -241,7 +263,11 @@
 								<div class = "mtitle rwdFmtitle">Stakeholder(s)</div>
 								<div class= "ui grid">
 									<div class = "column">
-										@yield('advisercontent')
+										<div class = "advcardcon">
+											<div id= "itemlists" class = "itemlist">
+											
+											</div>
+										</div>	
 									</div>
 								</div>
 							</div>
@@ -259,7 +285,7 @@
 		
 	</div>
 	
-
+	<script type="text/javascript" src='{{ URL::asset("jscroll/jquery.jscroll.min.js") }}'></script>	
 	<script type="text/javascript">
 
 		$(document).ready(function() {
@@ -267,6 +293,22 @@
             //     responsive: true
             loaddata();
          });
+
+		
+		$('viewadv').modal('hide');
+		$('ul.pagination').hide();
+		$(function() {
+	    $('.infinite-scroll').jscroll({
+		                autoTrigger: true,
+		                loadingHtml: '<img class="center-block" src="/images/loading.gif" alt="Loading..." />', // MAKE SURE THAT YOU PUT THE CORRECT IMG PATH
+		                padding: 0,
+		                nextSelector: '.pagination li.active + li a',
+		                contentSelector: 'div.infinite-scroll',
+		                callback: function() {
+		                    $('ul.pagination').remove();
+		                }
+		            });
+		        });
 
             
 		$('#tab3').attr('class', 'mlink item active');
@@ -348,11 +390,11 @@
 			   	success : function(secoffice) {
 
 			   		$("select[name='filsecondary'] option").not("[value='disitem']").remove();
-
 			   		for (var ctr = 0 ; ctr < secoffice.length ; ctr++) {
 			   			populatedropdown(secoffice[ctr]['id'], 'filsecondary', secoffice[ctr]['UnitOfficeSecondaryName']);
 			   			
 			   		};
+
 
 
 			   		
@@ -379,7 +421,6 @@
 			   	success : function(teroffice) {
 
 			   		$("select[name='filtertiary'] option").not("[value='disitem']").remove();
-
 			   		for (var ctr = 0 ; ctr < teroffice.length ; ctr++) {
 			   			populatedropdown(teroffice[ctr]['id'], 'filtertiary', teroffice[ctr]['UnitOfficeTertiaryName']);
 			   			
@@ -408,7 +449,6 @@
 			   	success : function(quaroffice) {
 
 			   		$("select[name='filquaternary'] option").not("[value='disitem']").remove();
-
 			   		for (var ctr = 0 ; ctr < quaroffice.length ; ctr++) {
 			   			populatedropdown(quaroffice[ctr]['id'], 'filquaternary', quaroffice[ctr]['UnitOfficeQuaternaryName']);
 			   			
@@ -526,15 +566,18 @@
                     //document.getElementById('clearRow').click();
 
                     //console.log(data);
-          
+                    document.getElementById("itemlists").innerHTML = "";
+          			//$('itemlists').empty();
+
+
                     if(advisory==1)
                     {
-                        loadAC(data);      
+                        addnamecard(0,'accardlist',data);      
                     }
 
                     if(advisory==2 || advisory==3)
                     {
-                        loadPolAd(data);
+                        addnamecard(1,'tpcardlist',data);
                     }
 
                     if(advisory==4)
@@ -542,12 +585,12 @@
 
                         if(data[0]!='' && data[0]!=null && data[0]!=0)
                         {
-                            loadAC(data[0]);
+                            addnamecard(0,'accardlist',data[0]);
                         }
 
                         if(data[1]!='' && data[1]!=null && data[1]!=0)
                         {
-                            loadPolAd(data[1]);
+                            addnamecard(1,'tpcardlist',data[1]);
                         }
 
                      }   
@@ -750,9 +793,67 @@
                         }
         }
 
+        function manageunit(type)
+        {
+        	if(type == 1){
+        		document.getElementById('pdf-loader').visibility = "show";
+        	}
 
+        	var data = {
+
+        		'id' : "{{Auth::user()->id}}",
+        		'_token' : '{{ Session::token() }}'
+        	};
+
+        	$.ajax({
+        		type: "post",
+        		data: data,
+        		url: "{{url('getuser')}}",
+        		success: function(data){
+
+        			$("select[name='filprimary']").dropdown("set selected", data['unit_id']);
+
+        			setTimeout(function(){
+					    changeValue("select[name='filsecondary']",data['second_id']);
+					},2000);
+					
+					setTimeout(function(){
+				   		changeValue("select[name='filtertiary']",data['tertiary_id']);
+					},4000);
+
+					setTimeout(function(){
+				   		changeValue("select[name='filquaternary']",data['quaternary_id']);
+					},6000);
+
+					$("select[name='filprimary']").dropdown().addClass('disabled');
+        			
+        			if(data['second_id'] == null){
+        				$("select[name='filsecondary']").dropdown().addClass('disabled');	
+        			}
+
+        			if(data['tertiary_id'] == null){
+        				$("select[name='filtertiary']").dropdown().addClass('disabled');	
+        			}
+
+        			if(data['quaternary_id'] == null){
+        				$("select[name='filquaternary']").dropdown().addClass('disabled');
+        			}
+			   		
+			   	},
+				error:function() {
+					$('#errormodal').modal('show');
+				}//success : function
+			});
+
+		}//function manageunit() {
+
+		function changeValue(dropdownID,value){
+ 			$('.ui.dropdown').has(dropdownID).dropdown('set selected',value);
+		}
 		
 	</script>
+
+
 	
 @include('home.directory_modal')
 

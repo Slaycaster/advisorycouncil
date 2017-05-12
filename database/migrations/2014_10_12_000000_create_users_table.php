@@ -17,6 +17,12 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('admintype')->nullable();
             $table->string('email')->unique();
             $table->string('password', 60);
+
+            $table->integer('unit_id')->unsigned()->nullable()->references('id')->on('unit_offices');
+            $table->integer('second_id')->unsigned()->nullable()->references('id')->on('unit_office_secondaries');
+            $table->integer('tertiary_id')->unsigned()->nullable()->references('id')->on('unit_office_tertiaries');
+            $table->integer('quaternary_id')->unsigned()->nullable()->references('id')->on('unit_office_quaternaries');
+
             $table->rememberToken();
             $table->timestamps();
         });
