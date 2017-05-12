@@ -20214,7 +20214,7 @@ Floated Menu / Item
   border-right: 1px solid transparent;
   border-top: 2px solid transparent;*/
   padding: 0.92857143em 1.42857143em;
-  color: #565656;
+  color: white;
   font-weight: bold;
 }
 
@@ -20225,8 +20225,8 @@ Floated Menu / Item
 /* Hover */
 
 .ui.tabular.menu .item:hover {
-  background-color: transparent;
-  color: #00253a;
+  background-color: white;
+  color: black;
   text-decoration: underline;
 }
 

@@ -12,7 +12,7 @@
 }
 
 .banner {
-	background-color: #ede8e6;
+	background-color: #00253a;
 	width: 100%;
 	height: 18%;
 }
@@ -61,7 +61,7 @@ span, .utitle {
 }
 
 .utitle {
-	color: #565656;
+	color: white;
 }
 
 .utitle:hover {
@@ -83,6 +83,8 @@ span, .utitle {
 	color: #565656;
 	font-weight: bold;
 }
+
+
 
 .ui.tabular.menu > .disabled.item {
  opacity: 0.45 !important;  
@@ -613,7 +615,7 @@ form, .dcon {
 }
 
 .banner1 {
-	background-color:#00253a;
+	background-color:#ede8e6;
 	width: 100%;
 	height: 18%;
 }
@@ -822,7 +824,7 @@ legend {
 }
 
 .outlink {
-	color: #565656;
+	color: white;
 	font-family: "Franklin Gothic Book";
 	font-size: 0.7em;
 

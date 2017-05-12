@@ -2,6 +2,8 @@
 		    
 		var root = '{{url("/")}}';
 		$(document).ready(function(){
+
+			
 				   
 			$('#searchbox').selectize({
 		        valueField: 'url',
