@@ -42,9 +42,7 @@ class PDFController extends Controller
 
 	}
 
-	public function getSecOffice($sooffice) {
-		$primary = $sooffice;
-
+	public function getSecOffice($primary) {
 		$secoffice = unit_office_secondaries::where('UnitOfficeID', $primary)->get();
 
 		return $secoffice;
@@ -86,9 +84,9 @@ class PDFController extends Controller
 
 			if($req->office!=0 && $req->office2==0)
 			{
-				$unit_id = $this->getSecOffice($req->office);
-				foreach ($sec_id as $key => $sec_id) 
-					{ $query = $query->where('second_id','=',$unit_id);	}
+				$sec_id = $this->getSecOffice($req->office);
+				foreach ($sec_id as $key => $second) 
+					{ $query = $query->where('second_id','=',$second);	}
 					
 			}
 						   								
@@ -175,9 +173,9 @@ class PDFController extends Controller
 
 			if($req->office!=0 && $req->office2==0)
 			{
-				$unit_id = $this->getSecOffice($req->office);
-				foreach ($sec_id as $key => $sec_id) 
-					{ $query = $query->where('second_id','=',$unit_id);	}
+				$sec_id = $this->getSecOffice($req->office);
+				foreach ($sec_id as $second) 
+					{ $query = $query->where('second_id','=',$second);	}
 					
 			}
 

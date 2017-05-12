@@ -46,13 +46,13 @@
 
 			<div class = "twelve wide column bspacing2">
 				<div class="inline fields">
+					@if(Auth::user()->admintype == 0)
 					<div class = "field">
 						<div class = "ui radio checkbox">
 							<input type="radio" value = '0' onchange="changeinput(this.value)" name = "admintype" checked/>
 							<label>Superadmin</label>
 							
 						</div>
-						
 					</div>
 
 					<div class = "field">
@@ -70,7 +70,17 @@
 							
 						</div>
 					</div>
-					
+					@endif
+
+					@if(Auth::user()->admintype == 1)
+					<div class = "field">
+						<div class = "ui radio checkbox">
+							<input type="radio" value = '2' onchange="changeinput(this.value)" name = "admintype"/>
+							<label>User</label>
+							
+						</div>
+					</div>
+					@endif
 
 				</div>
 			</div>
@@ -148,34 +158,36 @@
 		    <tbody>
 		    	@foreach($users as $result)
 
-		    		<!-- @if($result->status == 1) -->
+		    		@if($result->status == 2)
 		    			<tr class = "trow" onmouseover = "showpopup(this.rowIndex)" onclick = "activaterow(this.rowIndex, {{$result->id}})">
 					    
-			    	<!-- @else
+			    	 @else
 			    		<tr>
 
-			    	@endif-->
+			    	@endif
 
 			    		<td><center>{{$result->name}}</center></td>
 			    		<td><center>{{$result->email}}</center></td>
 			    		<td><center>
-			    			@if($result->status == 0 || $result->status == 2)
-					    		N/A
+			    			@if(Auth::user()->admintype == 0)
+				    			@if($result->status == 0 || $result->status == 2)
+						    		N/A
 
 
-			    			@elseif($result->status == 1)
-					    		
+				    			@elseif($result->status == 1)
+						    		
 
-			    				@if($result->admintype == 0)
+				    				@if($result->admintype == 0)
 
-			    					Superadmin
-			    				@elseif($result->admintype == 1)
-			    					Admin
-			    				@else
-			    					Viewer
+				    					Superadmin
+				    				@elseif($result->admintype == 1)
+				    					Admin
+				    				@else
+				    					Viewer
+				    				@endif
 			    				@endif
-
-
+			    			@else
+			    				N/A
 			    			@endif
 			    		</center></td>
 			    		<td><center>

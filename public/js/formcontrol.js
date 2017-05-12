@@ -715,6 +715,27 @@ function setvalidity(id) {
 
 }//validatefield
 
+// function addfield(){
+// 	var sfield = document.getElementById('tempsadmin');
+
+// 	var sdiv = creatediv('field');
+// 	sfield.appendChild(sdiv);
+
+// 	var sdiv1 = creatediv('ui radio checkbox');
+// 	sfield.lastChild.appendChild(sdiv1);
+
+// 	var sinput = document.createElement('input');
+// 	sinput.setAttribute('value', '0');
+// 	sinput.setAttribute('onchange', 'changeinput(this.value)');
+// 	sinput.setAttribute('name', 'admintype');
+// 	sinput.setAttribute('checked', 'checked');
+
+// 	sfield.lastChild.lastChild.appendChild(sinput);
+// 	sfield.lastChild.lastChild.appendChild(document.createElement('label');
+// 	sfield.lastChild.lastChild.lastChild.appendChild(document.createTextNode('Superadmin'));
+
+// }//super admin field
+
 //NAME CARD
 
 function addnamecard(ACtype,cardlistid, data) {
