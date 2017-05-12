@@ -66,7 +66,7 @@
 					<div class = "field">
 						<div class = "ui radio checkbox">
 							<input type="radio" value = '2' onchange="changeinput(this.value)" name = "admintype"/>
-							<label>Viewer</label>
+							<label>User</label>
 							
 						</div>
 					</div>
@@ -154,7 +154,7 @@
 			    	<!-- @else
 			    		<tr>
 
-			    	 -->@endif
+			    	@endif-->
 
 			    		<td><center>{{$result->name}}</center></td>
 			    		<td><center>{{$result->email}}</center></td>
@@ -182,7 +182,7 @@
 			    			@if($result->status == 0)
 					    		<i class="ui yellow large wait icon"></i>
 
-u
+
 			    			@elseif($result->status == 1)
 					    		<i class="ui green large checkmark icon"></i>
 

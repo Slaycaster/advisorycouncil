@@ -101,7 +101,7 @@
 					<div class = "field">
 						<div class = "ui radio checkbox">
 							<input type="radio" value = '2' name = "appadmintype"/>
-							<label>Viewer</label>
+							<label>User</label>
 							
 						</div>
 						
