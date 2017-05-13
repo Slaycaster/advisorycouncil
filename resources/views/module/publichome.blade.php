@@ -36,7 +36,7 @@
 										</div>
 
 										<div class ="ten wide column  bspacing8 centerbtn">
-											<button type="submit" name="submit" class="ui medium button">
+											<button type="submit" name="submit" class="ui medium button" onclick="init();">
 												Sign in
 											</button>
 										</div>

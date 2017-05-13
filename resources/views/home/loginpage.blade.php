@@ -1,7 +1,8 @@
 @extends('baseformv2')
 
 @section('publicpagesection')
-	
+
+
 	<br>
 	<br>
 	<br>
@@ -38,7 +39,7 @@
 						<br>
 						<br>
 						<div class ="ten wide column  bspacing8">
-							<center><button type="submit" name="submit" class="ui big button">
+							<center><button type="submit" name="submit" onclick='myfunc()' class="ui big button">
 								Sign in
 							</button></center>
 						</div>

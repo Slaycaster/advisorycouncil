@@ -1,5 +1,6 @@
 
-function init() {
+function init(type) {
+	//alert(type);
 	$('.tabular.menu .item').tab();
 
 	$('.ui.dropdown').dropdown();
@@ -21,6 +22,20 @@ function init() {
 
 	$('.ui.modal')
 	  .modal();
+
+	var bannervar = document.getElementById('banner')
+	bannervar.style.backgroundcolor='GREEN';
+	
+	alert(type);
+		if(type == 0){
+			bannervar.style.backgroundColor='black';
+		}
+		else if (type == 1){
+			bannervar.style.backgroundColor='red';
+		}
+		else if(type == 2){
+			bannervar.style.backgroundColor='#00253a';
+		}
 
 	
 }//function init() {

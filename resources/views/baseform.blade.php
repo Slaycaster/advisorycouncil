@@ -49,9 +49,9 @@
 		<script type="text/javascript" src='{{ URL::asset("selectize/js/standalone/selectize.min.js") }}'></script>
 
 	</head>
-	<body onload = "init()">
+	<body onload = "init({{ Auth::user()->admintype }})">
 	
-		<header class = "banner">
+		<header id='banner' class = "banner">
 			<div class = "ui grid">
 				<div class = "six wide column">
 					<image class = "acname" src="{{URL::asset('objects/Logo/ACName.png')}}"/>
@@ -180,6 +180,8 @@
 		    }
 		};*/
 	</script>-->
+
+
 
 </html>
 
