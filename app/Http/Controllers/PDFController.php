@@ -85,8 +85,8 @@ class PDFController extends Controller
 			if($req->office!=0 && $req->office2==0)
 			{
 				$sec_id = $this->getSecOffice($req->office);
-				foreach ($sec_id as $key => $second) 
-					{ $query = $query->where('second_id','=',$second);	}
+				foreach ($sec_id as $key => $sec_id) 
+					{ $query = $query->where('second_id','=',$sec_id);	}
 					
 			}
 						   								
@@ -171,11 +171,11 @@ class PDFController extends Controller
 	{
 		$query = Advisory_Council::query();
 
-			if($req->office!="disitem" && $req->office2=="disitem")
+			if($req->office!= "disitem" && $req->office2== "disitem")
 			{
 				$sec_id = $this->getSecOffice($req->office);
-				foreach ($sec_id as $second) 
-					{ $query = $query->where('second_id','=',$second);	}
+				foreach ($sec_id as $sec_id) 
+					{ $query = $query->where('second_id','=',$sec_id);	}
 					
 			}
 

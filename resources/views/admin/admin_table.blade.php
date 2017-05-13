@@ -91,19 +91,19 @@
 
 			<div class = "twelve wide column bspacing2">
 				<div  id = "fncon" class="ui input field formfield">
-					<input type="text" onchange = "validatefullname()" name = "fullname" placeholder="e.g. Shiela Mae F. Eugenio">
+					<input type="text" onchange = "validatefullname()" name = "fullname" placeholder="e.g. Juan Dela Cruz">
 				</div>
 			</div>
 
 			<div class = "twelve wide column bspacing2">
 				<div id = "ucon" class="ui input field formfield">
-					<input type="text" onchange = "checkusername()" name = "username" placeholder="e.g. bluishlemon (6-20 characters)">
+					<input type="text" onchange = "checkusername()" name = "username" placeholder="e.g. username (6-20 characters)">
 				</div>
 			</div>
 
 			<div class = "twelve wide column bspacing2">
 				<div id = "passcon1" class="ui input field formfield">
-					<input id = "pass1" onchange = "validatepass()" type="password" name = "password" placeholder="e.g. bluishlemon (6-20 characters)">
+					<input id = "pass1" onchange = "validatepass()" type="password" name = "password" placeholder="e.g. password (6-20 characters)">
 				</div>
 			</div>
 

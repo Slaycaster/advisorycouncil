@@ -913,8 +913,8 @@ function addnamecard(ACtype,cardlistid, data) {
 							num+=3;
 
 							var p3 = document.createElement('p');
-							p3.setAttribute('class', 'p3');
-							p3.setAttribute('align', 'bottom');
+							p3.setAttribute('class', 'p2');
+							p3.setAttribute('valign', 'bottom');
 							ilist.lastChild.lastChild.lastChild.lastChild.lastChild.appendChild(p3);
 
 							ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
