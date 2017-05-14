@@ -10,9 +10,15 @@
 				<div class = "five wide column">
 					<div class = "formpane rwdAformpane">
 						<div class = "mhead2">
-							<span class = "headertext">Add Admin</span>
-							<div id="myToast" class="toast-popup"></div>
-							<i class="write square big icon"></i>
+							@if(Auth::user()->admintype == 0)
+								<span class = "headertext">Add Admin</span>
+								<div id="myToast" class="toast-popup"></div>
+								<i class="write square big icon"></i>
+							@else
+								<span class = "headertext">Add User</span>
+								<div id="myToast" class="toast-popup"></div>
+								<i class="write square big icon"></i>
+							@endif
 						</div>
 
 						@yield('mfillformsection')

@@ -81,8 +81,8 @@ class PDFController extends Controller
 			{
 				$query = $query->where('policetype', '=', $req->advisory);
 			}
-
-			if($req->office!=0 && $req->office2==0)
+			//var_dump($req->all());
+			if(($req->office!="disitem" || $req->office!=0) && ($req->office2=="disitem" || $req->office2!=0))
 			{
 				$sec_id = $this->getSecOffice($req->office);
 				foreach ($sec_id as $key => $sec_id) 
@@ -171,21 +171,20 @@ class PDFController extends Controller
 	{
 		$query = Advisory_Council::query();
 
-			if($req->office!= "disitem" && $req->office2== "disitem")
+			if(($req->office!="disitem" || $req->office!=0) && ($req->office2=="disitem" || $req->office2!=0))
 			{
 				$sec_id = $this->getSecOffice($req->office);
 				foreach ($sec_id as $sec_id) 
 					{ $query = $query->where('second_id','=',$sec_id);	}
-					
 			}
 
-			if($req->office2 != "disitem")
+			if($req->office2 != "disitem" || $req->office2!=0)
 				{ $query = $query->where('second_id','=',$req->office2); }
 			
-			if($req->office3 != "disitem")
+			if($req->office3 != "disitem" || $req->office3!=0)
 				{ $query = $query->where('tertiary_id','=',$req->office3); }
 			
-			if($req->office4 != "disitem")
+			if($req->office4 != "disitem" || $req->office4!=0)
 				{ $query = $query->where('quaternary_id','=',$req->office4); }
 
 			if($req->gender != 0)
@@ -248,7 +247,7 @@ class PDFController extends Controller
 
 	public function getName($tbl,$field,$office)
 	{
-		if($office != '' && $office!=null){
+		if($office != '' || $office!=null){
 			$officename = DB::table($tbl)->select($field)->where('id','=', $office)->first();
 			$name = $officename->$field;
 			return $name;
