@@ -379,6 +379,9 @@ function adddropdown(){
 	var ddiv2 = creatediv('field');
 	ddpane.lastChild.appendChild(ddiv2);
 
+	// ddpane.lastChild.lastChild.appendChild(document.createElement('br'));
+	// ddpane.lastChild.lastChild.appendChild(document.createElement('br'));
+	
 	createdropdown2("primary", ddpane, 1, "getsecoffice(this.value)", 'Category');
 
 	var ddiv3 = creatediv("twelve wide column bspacing2");
