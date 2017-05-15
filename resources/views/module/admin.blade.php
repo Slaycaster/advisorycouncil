@@ -44,7 +44,7 @@
 			<div class="ui icon header">
 				<i class="help circle icon"></i>
 					@if(Auth::user()->admintype == 0)
-		    		<div name = "modalmessage">Add Admin</div>
+		    		<div name = "modalmessage">Add User</div>
 		    		@else if(Auth::user()->admintype == 1)
 		    		<div name = "modalmessage">Add Account</div>
 		    		@endif
