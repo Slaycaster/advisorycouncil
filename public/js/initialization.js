@@ -29,7 +29,7 @@ function init(type) {
 			bannervar.style.backgroundColor='black';
 		}
 		else if (type == 1){
-			bannervar.style.backgroundColor='#9d1104';
+			bannervar.style.backgroundColor='#ba0e0a';
 		}
 		else if(type == 2){
 			bannervar.style.backgroundColor='#00253a';
