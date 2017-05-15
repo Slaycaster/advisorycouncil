@@ -744,7 +744,7 @@ function addnamecard(ACtype,cardlistid, data) {
 
 	if(ACtype == 0)
 	{
-
+	var ctr=0
 	var h6 = document.createElement('h6');
 	h6.setAttribute('class','ui horizontal divider divtitle');
 
@@ -928,32 +928,24 @@ function addnamecard(ACtype,cardlistid, data) {
                             pdfaddress.push("");
                             // document.getElementById('addRow').value = val;
                             // document.getElementById('addRow').click();
-                            
-                        }
+                          	ctr++;
 
-	/*if(data[0]['UnitOfficeQuaternaryName'] != null) {
-		cardlistel.lastChild.lastChild.lastChild.lastChild
-			  .appendChild(document.createTextNode(data[0]['UnitOfficeQuaternaryName'] + ",&nbsp;"));
+         //                  	if(ctr%6==0)
+         //                  	{
+         //                  		while(ctr==6)
+							  //   {
+							  //   	document.addEventListener('scroll', function (event) {
+									//     if (document.body.scrollHeight == 
+									//         document.body.scrollTop +        
+									//         window.innerHeight) {
+									//         ctr=0;
+									//     }
+									// });
+							  //   }
+         //                  	}  
 
-	}//if
-
-	if(data[0]['UnitOfficeTertiaryName'] != null) {
-		cardlistel.lastChild.lastChild.lastChild.lastChild
-			  .appendChild(document.createTextNode(data[0]['UnitOfficeTertiaryName'] + ",&nbsp;"));
-
-		if(data[0]['UnitOfficeQuaternaryName'] != null) {
-
-			cardlistel.lastChild.lastChild.lastChild.lastChild
-			  .appendChild(document.createElement("br"));
-
-		}//if
-
-	}//if
-
-	cardlistel.lastChild.lastChild.lastChild.lastChild
-			  .appendChild(document.createTextNode(data[0]['UnitOfficeSecondaryName']));*/
-
-	
+                        } 
+        //ilist.lastChild.lastChild.appendChild("{{responseArray[0]->links()}}");
 	}
 
 	if(ACtype == 1)
@@ -1144,7 +1136,7 @@ function addnamecard(ACtype,cardlistid, data) {
                             pdfgender.push("");
                             pdfaddress.push("");
 	}
-
+	//ilist.lastChild.lastChild.appendChild(responseArray[0]);
 }//addnamecard
 
 }

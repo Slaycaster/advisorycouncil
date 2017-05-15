@@ -171,20 +171,20 @@ class PDFController extends Controller
 	{
 		$query = Advisory_Council::query();
 
-			if(($req->office!="disitem" || $req->office!=0) && ($req->office2=="disitem" || $req->office2!=0))
+			if($req->office!="disitem" && $req->office!=0 && $req->office2=="disitem" && $req->office2!=0)
 			{
 				$sec_id = $this->getSecOffice($req->office);
 				foreach ($sec_id as $sec_id) 
 					{ $query = $query->where('second_id','=',$sec_id);	}
 			}
 
-			if($req->office2 != "disitem" || $req->office2!=0)
+			if($req->office2 != "disitem")
 				{ $query = $query->where('second_id','=',$req->office2); }
 			
-			if($req->office3 != "disitem" || $req->office3!=0)
+			if($req->office3 != "disitem")
 				{ $query = $query->where('tertiary_id','=',$req->office3); }
 			
-			if($req->office4 != "disitem" || $req->office4!=0)
+			if($req->office4 != "disitem")
 				{ $query = $query->where('quaternary_id','=',$req->office4); }
 
 			if($req->gender != 0)

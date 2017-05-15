@@ -281,7 +281,9 @@
 		
 		
 	</div>
-		
+
+	
+	<script type="text/javascript" src='{{ URL::asset("jscroll/jquery.jscroll.min.js") }}'></script>	
 	<script type="text/javascript">
 
 		$(document).ready(function() {
@@ -292,6 +294,19 @@
 
 		
 		$('viewadv').modal('hide');
+		$('ul.pagination').hide();
+		        $(function() {
+		            $('.infinite-scroll').jscroll({
+		                autoTrigger: true,
+		                loadingHtml: '<img class="center-block" src="/objects/Logo/loading.gif" alt="Loading..." />', // MAKE SURE THAT YOU PUT THE CORRECT IMG PATH
+		                padding: 0,
+		                nextSelector: '.pagination li.active + li a',
+		                contentSelector: 'div.infinite-scroll',
+		                callback: function() {
+		                    $('ul.pagination').remove();
+		                }
+		            });
+		        });
             
 		$('#tab3').attr('class', 'mlink item active');
 
@@ -776,7 +791,7 @@
 
         function manageunit(type)
         {
-        	document.getElementById('pdf-loader').visibility = "show";
+        	document.getElementById('pdf-loader').style.visibility = "visible";
       
         	var data = {
 
@@ -832,23 +847,7 @@
 		
 	</script>
 	
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src='{{ URL::asset("jscroll/jquery.jscroll.min.js") }}'></script>
-		<script type="text/javascript">
-		        $('ul.pagination').hide();
-		        $(function() {
-		            $('.infinite-scroll').jscroll({
-		                autoTrigger: true,
-		                loadingHtml: '<img class="center-block" src="/images/loading.gif" alt="Loading..." />', // MAKE SURE THAT YOU PUT THE CORRECT IMG PATH
-		                padding: 0,
-		                nextSelector: '.pagination li.active + li a',
-		                contentSelector: 'div.infinite-scroll',
-		                callback: function() {
-		                    $('ul.pagination').remove();
-		                }
-		            });
-		        });
-		</script>
+		
 
 
 	
