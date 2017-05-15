@@ -45,31 +45,25 @@
 		<div class = "fieldpane">
 
 			<div class = "twelve wide column bspacing2">
-				<div class="inline fields">
+				<div class=" fields">
 					@if(Auth::user()->admintype == 0)
-					<div class = "field">
-						<div class = "ui radio checkbox">
+						<div class = "">
 							<input type="radio" value = '0' onchange="changeinput(this.value)" name = "admintype" checked/>
 							<label>Superadmin</label>
 							
-						</div>
-					</div>
+						</div><br>
 
-					<div class = "field">
-						<div class = "ui radio checkbox">
+						<div class = "">
 							<input type="radio" value = '1' onchange="changeinput(this.value)" name = "admintype"/>
-							<label>Admin</label>
+							<label>Admin</label><br>
 							
 						</div>
-					</div>
 
-					<div class = "field">
-						<div class = "ui radio checkbox">
+						<div class = "">
 							<input type="radio" value = '2' onchange="changeinput(this.value)" name = "admintype"/>
 							<label>User</label>
 							
 						</div>
-					</div>
 					@endif
 
 					@if(Auth::user()->admintype == 1)

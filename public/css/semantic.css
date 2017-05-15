@@ -20225,16 +20225,17 @@ Floated Menu / Item
 /* Hover */
 
 .ui.tabular.menu .item:hover {
-  background-color: white;
-  color: black;
+  /*background-color: white;*/
+  color: white;
   text-decoration: underline;
+
 }
 
 /* Active */
 
 .ui.tabular.menu .active.item {
   background: none #FFFFFF;
-  color: #00253a;
+  color: black;
   text-decoration: underline;
   /*border-top-width: 1px;
   border-color: #D4D4D5;*/
