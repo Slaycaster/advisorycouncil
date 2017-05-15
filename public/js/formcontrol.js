@@ -1019,11 +1019,16 @@ function addnamecard(ACtype,cardlistid, data) {
 							h5.setAttribute('class', 'name');
 							ilist.lastChild.lastChild.lastChild.lastChild.lastChild.appendChild(h5);
 
+							var poltype;
+							if(responseArray[num+7]==1){poltype = "TWG";}
+							else {poltype="PSMU";}
 							ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
 									  .appendChild(document.createTextNode(responseArray[num] + ", " +
 									  									   responseArray[num+1] +" "+
-									  									   responseArray[num+2] + "(AC)"));
+									  									   responseArray[num+2] + "(" + 
+									  									   poltype + ")"));
 
+							pdfpoltype.push(responseArray[num+7]);
                             pdffname.push(responseArray[num+1]);
                             pdfmname.push(responseArray[num+2]);
                             pdflname.push(responseArray[num]);
@@ -1125,8 +1130,8 @@ function addnamecard(ACtype,cardlistid, data) {
 							num+=3;
 
 							var p3 = document.createElement('p');
-							p3.setAttribute('class', 'p3');
-							p3.setAttribute('align', 'bottom');
+							p3.setAttribute('class', 'p2');
+							p3.setAttribute('valign', 'bottom');
 							ilist.lastChild.lastChild.lastChild.lastChild.lastChild.appendChild(p3);
 
 							ilist.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild
