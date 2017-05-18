@@ -14,12 +14,14 @@
 										<i class = "filter icon"></i>
 											Filter
 										@if(Auth::user()->admintype == 0)
-											
+											<input type="hidden" id="adtype" value="false">
 										@elseif(Auth::user()->admintype == 1)
+											<input type="hidden" id="adtype" value="true">
 											<input type="button" onclick="window.location.reload()" value="All Unit">
 											<input type="button" onclick="manageunit(1)" name="manageunit" value="Manage Unit">
 										
 										@elseif(Auth::user()->admintype == 2)
+											<input type="hidden" id="adtype" value="true">
 											<input type="button" onclick="window.location.reload()" value="All Unit">
 											<input type="button" onclick="manageunit(2)" name="manageunit" value="My Unit">
 										
@@ -200,6 +202,7 @@
 										
 									</div>
 									
+									
 									<div class ="twelve wide column  bspacing8 centerbtn2">
 										<form method="post" action="Advisory_Council" target="_blank"> 
 											<input type="hidden" name="_token" value="{{csrf_token()}}">
@@ -328,8 +331,7 @@
         var pdfcontact = [];
         var pdfimage = [];
         var pdfsdate = [];
-
-		
+	    
 		function checkageinput() {
 			var age1 = document.getElementById('filage1').value;
 			var age2 = document.getElementById('filage2').value;
@@ -483,6 +485,7 @@
             var advisory = document.getElementsByName('filadvcateg')[0].value;
             var data;
             var gender;
+            var choice = document.getElementById('adtype').value;
             ageFrom = document.getElementById('filage1').value;
             ageTo = document.getElementById('filage2').value;
             city = document.getElementById('filcityloc').value;
@@ -558,7 +561,7 @@
                 url: "{{url('load-pdf-data')}}",
                 datatype: "JSON",
                 success: function(data){
-                    
+                    //console.log(choice);
                     //document.getElementById('clearRow').click();
                     //console.log(data);
                     document.getElementById("itemlists").innerHTML = "";
@@ -567,12 +570,12 @@
 
                     if(advisory==1)
                     {
-                        addnamecard(0,'accardlist',data);      
+                        addnamecard(0,'accardlist',data,choice);      
                     }
 
                     if(advisory==2 || advisory==3)
                     {
-                        addnamecard(1,'tpcardlist',data);
+                        addnamecard(1,'tpcardlist',data,choice);
                     }
 
                     if(advisory==4)
@@ -580,12 +583,12 @@
 
                         if(data[0]!='' && data[0]!=null && data[0]!=0)
                         {
-                            addnamecard(0,'accardlist',data[0]);
+                            addnamecard(0,'accardlist',data[0],choice);
                         }
 
                         if(data[1]!='' && data[1]!=null && data[1]!=0)
                         {
-                            addnamecard(1,'tpcardlist',data[1]);
+                            addnamecard(1,'tpcardlist',data[1],choice);
                         }
 
                      }   
@@ -611,187 +614,13 @@
             });//AJAX
         }// LOAD DATA
 
-         function loadAC(data)
-        {
-            responseArray = data.split("|");
-                        numOfRow = responseArray[0];
-                        num = 1;
-
-                        for(i=0; i < numOfRow; i++)
-                        {
-                            cell1 = responseArray[num];num++;
-                            
-                            if(responseArray[num+2]!="" && responseArray[num+2]!=null)
-                                { cell2 = responseArray[num] + ", " + responseArray[num+1] +" "+responseArray[num+2] ; }
-                            else { cell2 = responseArray[num] + ", " + responseArray[num+1]; }
-
-                            pdffname.push(responseArray[num+1]);
-                            pdfmname.push(responseArray[num+2]);
-                            pdflname.push(responseArray[num]);
-
-                            num+=3;
-                            
-                            if(responseArray[num+1]!='' && responseArray[num+2]!='')
-                            {
-                                //$office = $office4name." - ".$office3name." - ".$office2name;
-                                cell3 = responseArray[num+2] +' - ' + responseArray[num+1] +' - '+ responseArray[num];
-                                pdftertiaryoff.push(responseArray[num+1]);
-                                pdfquaternaryoff.push(responseArray[num+2]);
-                            }
-
-                            if(responseArray[num+1]!='' && responseArray[num+2]=='')
-                            {
-                                //$office = $office3name." - ".$office2name;
-                                //cell3 = responseArray[num];num+=3;
-                                cell3 = responseArray[num+1] +' - '+ responseArray[num];
-                                pdftertiaryoff.push(responseArray[num+1]);
-                                pdfquaternaryoff.push("");
-                            }
-
-                            if(responseArray[num+1]=='' && responseArray[num+2]=='')
-                            {
-                              //  $office = $office2name;
-                                cell3 = responseArray[num];
-                                pdftertiaryoff.push("");
-                                pdfquaternaryoff.push("");
-                            
-                            }
-
-                            pdfsecondoff.push(responseArray[num]);
-
-                            num+=3;
-
-                            //cell3 = responseArray[num];num+=3;
-                            
-                            cell4 = responseArray[num];num++;
-                            cell5 = responseArray[num];num++;
-                            cell6 = "AC";
-                            cell7 = responseArray[num];num++;
-                            cell8 = responseArray[num];num++;
-                            cell9 = responseArray[num];num++;
-                            cell10 = responseArray[num];num++;
-                            cell11 = responseArray[num];num++;
-                            cell12 = responseArray[num];num++;
-                            cell13 = responseArray[num];num++;
-
-                            val = cell1 + "|" + cell2 + "|" + cell3 + "|" + cell4 + "|" +
-                                  cell5 + "|" + cell6 + "|" + cell7 + "|" + cell8 + "|" +
-                                  cell9 + "|" + cell10 + "|" + cell11 + "|" + cell12 + "|" + cell13;
-
-                            pdfid.push(cell1);
-                            pdfsector.push(cell4); 
-                            pdfposition.push(cell5);
-                            pdfpoltype.push(cell6);
-                            pdfgender.push(cell7);
-                            pdfaddress.push(cell8);
-                            pdfimage.push(cell9);
-                            pdfcontact.push(cell10);
-                            pdflandline.push(cell11);
-                            pdfemail.push(cell12);
-                            pdfsdate.push(cell13);
-                            // document.getElementById('addRow').value = val;
-                            // document.getElementById('addRow').click();
-                            
-                        }
-        }
-
-        function loadPolAd(data)
-        {
-            responseArray = data.split("|");
-                        numOfRow = responseArray[0];
-                        num = 1;
-
-                        for(i=0; i < numOfRow; i++)
-                        {
-                            cell1 = responseArray[num];num++;
-                            
-                            if(responseArray[num+2]!="" && responseArray[num+2]!=null)
-                                { 
-                                    cell2 = responseArray[num] + ", " + responseArray[num+1] +" "+responseArray[num+2] ; 
-                                }
-                            else { cell2 = responseArray[num] + ", " + responseArray[num+1]; }
-                                
-                                pdffname.push(responseArray[num+1]);
-                                pdfmname.push(responseArray[num+2]);
-                                pdflname.push(responseArray[num]);
-
-                            num+=3;
-
-                            if(responseArray[num+1]!='' && responseArray[num+2]!='')
-                            {
-                                //$office = $office4name." - ".$office3name." - ".$office2name;
-                                cell3 = responseArray[num+2] +' - ' + responseArray[num+1] +' - '+ responseArray[num];
-                                pdftertiaryoff.push(responseArray[num+1]);
-                                pdfquaternaryoff.push(responseArray[num+2]);
-                            
-                            }
-
-                            if(responseArray[num+1]!='' && responseArray[num+2]=='')
-                            {
-                                //$office = $office3name." - ".$office2name;
-                                //cell3 = responseArray[num];num+=3;
-                                cell3 = responseArray[num+1] +' - '+ responseArray[num];
-                                pdftertiaryoff.push(responseArray[num+1]);
-                                pdfquaternaryoff.push("");
-                            }
-
-                            if(responseArray[num+1]=='' && responseArray[num+2]=='')
-                            {
-                              //  $office = $office2name;
-                              cell3 = responseArray[num];
-                              pdftertiaryoff.push("");
-                              pdfquaternaryoff.push("");
-                            
-                            }
-
-                            pdfsecondoff.push(responseArray[num]);
-                            pdftertiaryoff.push(responseArray[num+1]);
-                            pdfquaternaryoff.push(responseArray[num+2]);
-
-                            num+=3;
-
-                            //cell3 = responseArray[num];num+=3;
-                            cell4 = "PNP";
-                            cell5 = responseArray[num];num++;
-                            cell6 = responseArray[num];num++;
-                            cell7 = responseArray[num];num++;
-                            cell8 = responseArray[num];num++;
-                            cell9 = responseArray[num];num++;
-                            cell10 = responseArray[num];num++;
-                            cell11 = responseArray[num];num++;
-                            cell12 = responseArray[num];num++;
-                            cell13 = responseArray[num];num++;
-
-
-                            val = cell1 + "|" + cell2 + "|" + cell3 + "|" + cell4 + "|" +
-                                  cell5 + "|" + cell6 + "|" + cell7 + "|" + cell8 + "|" +
-                                  cell9 + "|" + cell10 + "|" + cell11 + "|" + cell12 + "|" + cell13;
-
-                            pdfid.push(cell1);
-                            pdfsector.push(""); 
-                            pdfposition.push(cell5);
-                            if(cell6==1)
-                                { pdfpoltype.push("TWG"); }
-                            else { pdfpoltype.push("PSMU"); }
-                            pdfgender.push(cell7);
-                            pdfaddress.push(cell8);
-                            pdfimage.push(cell9);
-                            pdfcontact.push(cell10);
-                            pdflandline.push(cell11);
-                            pdfemail.push(cell12);
-                            pdfsdate.push(cell13);
-
-                            // document.getElementById('addRow').value = val;
-                            // document.getElementById('addRow').click();
-
-                            
-                        }
-        }
-       
-
+        
         function manageunit(type)
         {
         	document.getElementById('pdf-loader').style.visibility = "visible";
+        	if(type == 1){
+        		document.getElementById('adtype').value = "false";
+        	}
       
         	var data = {
 
@@ -804,6 +633,8 @@
         		data: data,
         		url: "{{url('getuser')}}",
         		success: function(data){
+
+        			$("button[name=editbtn]").attr("disabled", false);
 
         			//$("select[name='filprimary']").dropdown("set selected", data['unit_id']);
         			$('.ui.dropdown').has("select[name='filprimary']").dropdown('set selected',data['unit_id']);

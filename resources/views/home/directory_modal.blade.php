@@ -579,7 +579,12 @@
 			};
 		}//filltpdata
 
-		function loadModal(tid) {
+		function loadModal(tid,choice) {
+
+			if(choice==true){
+				alert("123");
+				$("button[name=editbtn]").attr("disabled", true);
+			}
 
 			var tiditems = tid.split("-");
 
@@ -611,12 +616,7 @@
 				   			filltpdata(recorddata);
 
 				   		}//if
-
-				   		var type = "{{Auth::user()->admintype}}";
-
-				   		if(type == 2){
-				   			$("button[name=editbtn]").attr("disabled", true);
-				   		}
+			
 				   		$('.modalcontent .item').removeClass('active');
 				   		$('.modalcontent .tab').removeClass('active');
 				   		$('.modalcontent #tab1').addClass('active');

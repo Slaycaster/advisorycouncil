@@ -741,7 +741,7 @@ function setvalidity(id) {
 
 //NAME CARD
 
-function addnamecard(ACtype,cardlistid, data) {
+function addnamecard(ACtype,cardlistid, data, choice) {
 
 	var ilist = document.getElementById("itemlists");
 
@@ -784,7 +784,7 @@ function addnamecard(ACtype,cardlistid, data) {
 
 							var div2 = creatediv('cardstyle');
 							//div2.setAttribute('onclick', 'alert('+ '0-' + ID +')');
-							div2.setAttribute('onclick', "loadModal('0-" + responseArray[num] +"')"); //type-id
+							div2.setAttribute('onclick', "loadModal('0-" + responseArray[num] +"',"+ choice +")"); //type-id
 							ilist.lastChild.lastChild.lastChild.appendChild(div2);
 
 							var img = document.createElement('img');
@@ -989,7 +989,7 @@ function addnamecard(ACtype,cardlistid, data) {
 							ilist.lastChild.lastChild.appendChild(div1);
 
 							var div2 = creatediv('cardstyle');
-							div2.setAttribute('onclick', "loadModal('" +responseArray[num+7] + '-' + ID +"')"); //type-id
+							div2.setAttribute('onclick', "loadModal('" +responseArray[num+7] + '-' + ID  +"',"+ choice +")"); //type-id
 							ilist.lastChild.lastChild.lastChild.appendChild(div2);
 
 							var img = document.createElement('img');
