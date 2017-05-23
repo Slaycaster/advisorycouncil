@@ -168,13 +168,7 @@
 								
 							</div>
 
-							<div class = "neight wide column">
-								<div class="row" id="policeposition-chart">
-									
-								</div>
-								{!! Lava::render('PieChart', 'PolicePosition', 'policeposition-chart'); !!}
-								
-							</div>
+							
 
 						</div>
 
